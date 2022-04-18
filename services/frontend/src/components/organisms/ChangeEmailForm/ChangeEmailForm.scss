@@ -1,0 +1,26 @@
+@import "styles/_shared.scss";
+
+.ChangeEmailForm {
+    display: grid;
+    gap: $size-500;
+    width: 100%;
+
+    .ChangeEmailForm-header {
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    .ChangeEmailForm-LabelledInput {
+        @include media-query-small {
+            max-width: 400px;
+        }
+    }
+
+    .ChangeEmailForm-SubmitButton {
+        @include media-query-small {
+            // Increase the width so that the 'Network error - try again later' message
+            // can display on one line.
+            max-width: 250px;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@import "styles/_shared.scss";
+
+.LinkButton {
+    // Need transform because the underlying Button has the micro bounce.
+    // Its transition would be overriden if we only specified color.
+    @include micro-transition(color, transform);
+
+    height: auto;
+    padding: 0;
+    width: auto;
+
+    @include non-sticky-interactions {
+        %base {
+            // Need to remove the background from the underlying Button.
+            background-color: transparent;
+
+            // Need a slightly darker variation than $color-primary for sufficient color contrast.
+            color: $color-primary-600;
+        }
+
+        %hover {
+            background-color: transparent;
+            color: $color-primary-hover;
+        }
+
+        %disabled {
+            background-color: transparent;
+            color: $color-primary-disabled;
+        }
+    }
+}

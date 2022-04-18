@@ -1,0 +1,32 @@
+@import "styles/_shared.scss";
+
+.SubscriptionPlanForm {
+    display: grid;
+    gap: $size-500;
+    max-width: 600px;
+    padding: $size-400 $size-300;
+    width: 100%;
+
+    @include media-query-small {
+        padding: $size-500;
+    }
+
+    @include media-query-medium {
+        padding: $size-600;
+    }
+
+    .SubscriptionPlanForm-plans {
+        display: grid;
+        gap: $size-400;
+    }
+
+    .SubscriptionPlanForm-actions {
+        display: flex;
+        justify-content: flex-end;
+
+        .SubscriptionPlanForm-SubmitButton-container {
+            margin-left: $size-600;
+            max-width: 150px;
+        }
+    }
+}

@@ -1,0 +1,3 @@
+// Because this one part of feathers-sequelize isn't in TypeScript...
+declare module "feathers-sequelize/hooks/dehydrate";
+declare module "feathers-sequelize/hooks/hydrate";

@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    helm.sh/chart: ingress-nginx-3.27.0
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/version: 0.45.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: controller
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+spec:
+  loadBalancerIP: 35.231.161.51
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  - name: https
+    port: 443
+    targetPort: https
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/component: controller
+  type: LoadBalancer
+
+  # By using Local instead of Cluster here, we are able to get access to the real client IPs
+  # (in the 'X-Forwarded-For' and 'X-Real-Ip' headers). This is important for the Backend service, 
+  # since the real IPs are needed for rate limiting.
+  #
+  # However, a major downside to using Local is that we _need_ to run a replica of the nginx
+  # ingress controller on every node (hence the DaemonSet used for it now), otherwise
+  # there is the possibility that traffic could be dropped.
+  #
+  # This is because, once traffic is routed to a node from the load balancer, the traffic
+  # must be routed to a (ingress-nginx) pod on that node. If there is no pod, then the traffic
+  # is just dropped.
+  #
+  # However, this does _not_ mean that we need to run a replica of every other (app-level) service
+  # on every node, since once the traffic hits the nginx ingress controller, it can then be routed
+  # to whatever node the pods are on.
+  #
+  # For more details on the pros/cons of Local vs Cluster, I found the following articles helpful:
+  # - https://www.asykim.com/blog/deep-dive-into-kubernetes-external-traffic-policies
+  # - https://blog.getambassador.io/externaltrafficpolicy-local-on-kubernetes-e66e498212f9
+  externalTrafficPolicy: Local

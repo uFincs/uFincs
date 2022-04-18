@@ -1,0 +1,12 @@
+@import "styles/_shared.scss";
+
+.ChartContainer {
+    @include card-shadow();
+
+    align-items: flex-start;
+    background-color: $color-light;
+    border-radius: $border-radius-large;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

@@ -1,0 +1,9 @@
+@import "styles/_shared.scss";
+
+.TransactionTypePicker {
+    display: grid;
+    gap: $size-200;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    width: 100%;
+}

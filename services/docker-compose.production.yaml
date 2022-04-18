@@ -1,0 +1,49 @@
+services:
+    backend:
+        depends_on:
+        - backend-database-migrate
+        - backend-database
+        image: backend
+        links:
+        - backend-database
+        ports:
+        - 5000:5000
+    backend-database:
+        build:
+            context: ./backend-database
+        environment:
+            POSTGRES_DB: app-database
+            POSTGRES_PASSWORD: app-database-password
+            POSTGRES_USER: app-database-user
+        image: database
+        volumes:
+        - backend-database-data:/var/lib/postgresql/data
+    backend-database-migrate:
+        build:
+            context: ./backend
+        command: scripts/db-migrate.js
+        depends_on:
+        - backend-database
+        image: backend
+        links:
+        - backend-database
+    frontend:
+        build:
+            args:
+                app_env: production
+            context: ./frontend
+        image: frontend
+        ports:
+        - 3000:3000
+    marketing:
+        build:
+            args:
+                app_env: production
+            context: ./marketing
+        image: marketing
+        ports:
+        - 3002:3000
+version: '2'
+volumes:
+    backend-database-data:
+        driver: local

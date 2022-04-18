@@ -1,0 +1,43 @@
+@import "styles/_shared.scss";
+
+.TransactionsImport {
+    padding-bottom: 60vh;
+    position: relative;
+    width: 100%;
+
+    .TransactionsImport-header {
+        align-items: center;
+        display: flex;
+
+        // Need to use margins for spacing between elements instead of grid gap because
+        // the grid gap somehow prevents the ProgressStepper from shrinking below 100%
+        // width (it can't shrink). I don't know why... deal with it.
+        margin-bottom: $size-500;
+
+        .OverlineHeading {
+            margin-left: $size-400;
+        }
+    }
+
+    .ProgressStepper {
+        // Using margins instead of grid gap. See above.
+        margin-bottom: $size-600;
+
+        margin-left: -$size-app-padding-horizontal-small;
+        width: calc(100% + (2 * #{$size-app-padding-horizontal-small}));
+
+        @include media-query-medium {
+            margin-left: -$size-app-padding-horizontal-medium;
+            width: calc(100% + (2 * #{$size-app-padding-horizontal-medium}));
+        }
+
+        @include media-query-navigation-change {
+            margin-left: -$size-app-padding-horizontal-large;
+            width: calc(100% + (2 * #{$size-app-padding-horizontal-large}));
+        }
+    }
+
+    .TransactionsImport-step-container {
+        will-change: opacity, transform;
+    }
+}

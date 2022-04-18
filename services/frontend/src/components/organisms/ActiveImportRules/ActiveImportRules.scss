@@ -1,0 +1,22 @@
+@import "styles/_shared.scss";
+
+.ActiveImportRules {
+    width: 100%;
+
+    .ActiveImportRules-content {
+        display: grid;
+        gap: $size-400;
+        width: 100%;
+
+        .ActiveImportRules-header {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .Button {
+                width: auto;
+            }
+        }
+    }
+}

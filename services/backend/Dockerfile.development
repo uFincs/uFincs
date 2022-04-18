@@ -1,0 +1,15 @@
+FROM node:15
+
+RUN mkdir -p /backend && chown node /backend
+USER node
+WORKDIR /backend
+
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm install
+
+COPY --chown=node:node . .
+RUN npm run compile
+
+EXPOSE 5000
+
+CMD ["npm", "run", "start"]

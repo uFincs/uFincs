@@ -1,0 +1,161 @@
+@import "styles/_shared.scss";
+
+@mixin auth-form-box-shadow($transparency: 0.5) {
+    box-shadow: 0 6px 24px transparentize($color: $color-neutral-900, $amount: $transparency);
+}
+
+// The AuthForm needs to switch positions with the AlternativeAuthForm.
+// As such, it's final X transform is the width of the AlternativeAuthForm.
+$auth-form-translation: $size-alt-auth-form-square;
+
+$auth-form-first-bounce-offset: 40px;
+$auth-form-second-bounce-offset: 20px;
+
+@include generate-bounce-animation(
+    $name: "auth-form-bounce",
+    $final-translation: $auth-form-translation,
+    $first-bounce-offset: $auth-form-first-bounce-offset,
+    $second-bounce-offset: $auth-form-second-bounce-offset
+);
+
+@include generate-bounce-animation(
+    $name: "auth-form-bounce-reverse",
+    $final-translation: $auth-form-translation,
+    $first-bounce-offset: $auth-form-first-bounce-offset,
+    $second-bounce-offset: $auth-form-second-bounce-offset,
+    $reverse: true
+);
+
+.CompleteAuthForm {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    // Because Safari sucks...
+    flex-shrink: 0;
+
+    justify-content: center;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Transform the layout so that the forms are side-by-side, instead stacked on top.
+        flex-direction: row;
+
+        .CompleteAuthForm-AuthForm {
+            // Setup the translation animation.
+            animation-duration: 0.7s;
+            animation-timing-function: $transition-custom-ease-out-curve;
+        }
+
+        // This is concerned with what happens once the AlternativeAuthForm's button
+        // has been clicked at least once.
+        &.CompleteAuthForm--alt-clicked {
+            // Need to wait until the AlternativeAuthForm's button has been
+            // clicked before registering the animation on the AuthForm,
+            // otherwise it will be fire the animation on page load.
+
+            &.CompleteAuthForm--login {
+                .CompleteAuthForm-AuthForm {
+                    animation-name: auth-form-bounce-reverse;
+                }
+            }
+
+            &.CompleteAuthForm--signup {
+                .CompleteAuthForm-AuthForm {
+                    animation-name: auth-form-bounce;
+                }
+            }
+        }
+
+        // This is concerned with positioning the AuthForm and AlternativeAuthForm
+        // when showing Sign Up.
+        &.CompleteAuthForm--signup {
+            .CompleteAuthForm-AuthForm {
+                // Set the form's final resting location.
+                // Since the AuthForm and AlternativeAuthForm are switching
+                // places, it moves the width of the AlternativeAuthForm.
+                // Otherwise, the whole layout wouldn't be centered.
+                transform: translateX($size-alt-auth-form-square);
+            }
+
+            .CompleteAuthForm-AlternativeAuthForm {
+                // Set the form's final resting location.
+                // Since the AuthForm and AlternativeAuthForm are switching
+                // places, it moves the width of the AuthForm.
+                // Otherwise, the whole layout wouldn't be centered.
+                transform: translateX(-($size-auth-form-max-width));
+            }
+        }
+    }
+
+    &.CompleteAuthForm--small-login-animation {
+        // Fire the small wrapping animation.
+        animation: $complete-auth-form-small-animation-time ease-in-out wrap-around;
+    }
+
+    &.CompleteAuthForm--small-signup-animation {
+        // Fire the small reverse wrapping animation.
+        animation: $complete-auth-form-small-animation-time ease-in-out wrap-around-reverse;
+    }
+
+    &.CompleteAuthForm--only-login {
+        .CompleteAuthForm-AuthForm {
+            // When we're only showing the one login form, force the border radius to always be
+            // rounded, cause obviously.
+            border-radius: $border-radius-normal !important;
+        }
+    }
+
+    .CompleteAuthForm-AuthForm {
+        // Applying the drop shadows like this (with on the AuthForm and one on
+        // the AlternativeAuthForm) gives a subtle layering effect, with the
+        // alt auth form slightly lifted off the dark background, while
+        // main auth form is slightly lifted above the alt auth form.
+        // Basically, a subdued version of the large screen layout.
+        @include auth-form-box-shadow($transparency: 0.9);
+
+        // Make the border flush with the AlternativeAuthForm.
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        // Need the AuthForm above the AlternativeAuthForm so that it
+        // can cast its shadow onto the AlternativeAuthForm.
+        z-index: 1;
+
+        @include media-query-navigation-change {
+            @include auth-form-box-shadow();
+
+            // Now that the AuthForm is detached from the alt form, round all its corners.
+            border-radius: $border-radius-normal;
+        }
+    }
+
+    .CompleteAuthForm-AlternativeAuthForm {
+        @include auth-form-box-shadow($transparency: 0.9);
+
+        // Square the top edges to make the border flush with the AuthForm,
+        // since the alt form is below it.
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+
+        // Since the AlternativeAuthForm isn't animated, just use a simple
+        // transition to move it.
+        transition: transform 0.3s ease-in-out;
+
+        @include media-query-navigation-change {
+            &.CompleteAuthForm-AlternativeAuthForm--login {
+                // Since the alt form is on the right of the auth form, we make
+                // the right corners rounded while the left corners (next to the auth form)
+                // are square.
+                border-radius: 0 $border-radius-normal $border-radius-normal 0;
+            }
+
+            &.CompleteAuthForm-AlternativeAuthForm--signup {
+                // Since the alt form is on the left of the auth form, we make
+                // the left corners rounded while the right corners (next to the auth form)
+                // are square.
+                border-radius: $border-radius-normal 0 0 $border-radius-normal;
+            }
+        }
+    }
+}

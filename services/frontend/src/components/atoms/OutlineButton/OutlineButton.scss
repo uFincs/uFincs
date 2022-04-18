@@ -1,0 +1,88 @@
+@import "styles/_shared.scss";
+
+@mixin active-outline-button(
+    $function: active,
+    $inverse-color: $color-light,
+    $hover-color: $color-primary-hover
+) {
+    &:#{$function} {
+        @include svg-icon-color($inverse-color);
+
+        background-color: $hover-color;
+        color: $inverse-color;
+    }
+}
+
+@mixin outline-button-color-theme(
+    $color-theme: primary,
+    $base-color: $color-primary,
+    $hover-color: $color-primary-hover,
+    $inverse-color: $color-light,
+    $disabled-color: $color-primary-200
+) {
+    .OutlineButton.OutlineButton--#{$color-theme} {
+        @include svg-icon-color($base-color);
+
+        border: $border-width-thick solid $base-color;
+        color: $base-color;
+
+        @include keyboard-navigation {
+            @include active-outline-button(focus, $inverse-color, $hover-color);
+        }
+
+        @include touch-support {
+            @include active-outline-button(hover, $base-color, transparent);
+            @include active-outline-button(active, $inverse-color, $hover-color);
+        }
+
+        &:focus {
+            background-color: transparent;
+        }
+
+        // Need the active/hover state to have precedence over the focus state (so that the
+        // background is colored in when clicking on the button), so these rules must
+        // be below.
+        /* stylelint-disable */
+        @include active-outline-button(hover, $inverse-color, $hover-color);
+        @include active-outline-button(active, $inverse-color, $hover-color);
+        /* stylelint-enable */
+
+        &:disabled {
+            background-color: transparent;
+            // Need an even lighter disabled color here (as opposed to $color-primary-disabled)
+            // because we need even less contrast against a white background to make it look disabled.
+            border-color: $disabled-color;
+            color: $disabled-color;
+        }
+    }
+}
+
+.OutlineButton {
+    @include micro-transition(background-color, color, transform);
+
+    background-color: transparent;
+}
+
+@include outline-button-color-theme(
+    $color-theme: primary,
+    $base-color: $color-primary,
+    $hover-color: $color-primary,
+    $inverse-color: $color-light,
+    $disabled-color: $color-primary-200
+);
+
+@include outline-button-color-theme(
+    $color-theme: light,
+    $base-color: $color-light,
+    $hover-color: $color-light,
+    $inverse-color: $color-primary-dark,
+    $disabled-color: $color-neutral-500
+);
+
+@include outline-button-color-theme(
+    $color-theme: warning,
+    $base-color: $color-warning-600,
+    $hover-color: $color-warning-600,
+    $inverse-color: $color-light,
+    $disabled-color: $color-warning-200
+);

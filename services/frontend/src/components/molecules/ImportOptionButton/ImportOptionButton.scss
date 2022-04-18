@@ -1,0 +1,10 @@
+@import "styles/_shared.scss";
+
+.ImportOptionButton {
+    height: 120px;
+    width: 180px;
+
+    .ImportOptionButton-icon {
+        margin-bottom: $size-200;
+    }
+}

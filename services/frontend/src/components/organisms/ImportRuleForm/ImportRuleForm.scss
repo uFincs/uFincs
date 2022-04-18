@@ -1,0 +1,20 @@
+@import "styles/_shared.scss";
+
+.ImportRuleForm {
+    .ImportRuleForm-subheading {
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    .ImportRuleForm-conditions-container,
+    .ImportRuleForm-actions-container {
+        display: grid;
+        gap: $size-500;
+
+        .ImportRuleForm-conditions,
+        .ImportRuleForm-actions {
+            display: grid;
+            gap: $size-400;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+@import "styles/_shared.scss";
+
+// Yes, this width is arbitrary. It should probably be adjusted responsively, but
+// we can only really figure those values out once we have the Account Details view.
+$accounts-desktop-list-max-width: 450px;
+
+@mixin double-column-layout {
+    @media (min-width: #{$breakpoint-account-details-double-column}) {
+        @content;
+    }
+}
+
+.Accounts {
+    width: 100%;
+
+    .Accounts-header {
+        margin-bottom: $size-300;
+
+        @include media-query-navigation-change {
+            margin-bottom: $size-600;
+        }
+    }
+
+    .Accounts-body {
+        align-items: flex-start;
+        display: grid;
+
+        @include double-column-layout {
+            gap: $size-700;
+            grid-template-columns: auto 1fr;
+        }
+
+        .Accounts-EmptyAccountsList {
+            // Put this into the second column so that it takes advantage of the full width for centering.
+            grid-column: 2;
+
+            // Push it down from the top since it's too close without the type filters.
+            margin-top: $size-600;
+
+            // Make sure it takes the whole width to center horizontally.
+            width: 100%;
+        }
+
+        .Accounts-list-container-desktop {
+            .Accounts-desktop-list {
+                max-width: $accounts-desktop-list-max-width;
+            }
+        }
+
+        .Accounts-AccountTypeFilters {
+            margin-bottom: $size-500;
+
+            @include media-query-navigation-change {
+                // Restrict the filters to the same width as the list on desktop, so that it
+                // doesn't interfere with Account Details.
+                max-width: $accounts-desktop-list-max-width;
+            }
+        }
+    }
+}

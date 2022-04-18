@@ -1,0 +1,60 @@
+@import "styles/_shared.scss";
+
+.ProgressStep {
+    @include keyboard-navigation-outline();
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    // So that the keyboard nav outline shows up.
+    z-index: 1;
+
+    &.ProgressStep--current-step {
+        .ProgressStep-circle {
+            border-color: $color-primary-600;
+            color: $color-primary-600;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    &.ProgressStep--completed {
+        cursor: pointer;
+
+        .ProgressStep-circle {
+            @include svg-icon-color($color-light);
+
+            background-color: $color-primary-600;
+            border-color: $color-primary-600;
+            box-shadow: 0 2px 3px transparentize($color: $color-neutral-700, $amount: 0.6);
+        }
+    }
+
+    &.ProgressStep--current-step,
+    &.ProgressStep--completed {
+        .ProgressStep-label {
+            color: $color-primary-700;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .ProgressStep-circle {
+        align-items: center;
+        border: 3px solid $color-neutral-400;
+        border-radius: 100%;
+        color: $color-text-tertiary;
+        display: flex;
+        font-size: $font-size-400;
+        font-weight: $font-weight-semibold;
+        height: 40px;
+        justify-content: center;
+        width: 40px;
+    }
+
+    .ProgressStep-label {
+        color: $color-text-tertiary;
+        font-weight: $font-weight-semibold;
+        margin-top: $size-100;
+        text-align: center;
+    }
+}

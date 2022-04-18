@@ -1,0 +1,271 @@
+@import "styles/_shared.scss";
+
+@mixin media-query-bulk-actions() {
+    @media (min-width: 1250px) {
+        @content;
+    }
+}
+
+@mixin sticky-actions() {
+    @at-root .BulkTransactionActions--sticky & {
+        @content;
+    }
+}
+
+@mixin sticky-container() {
+    background-color: $color-background-dark;
+    box-shadow: 0 4px 6px transparentize($color: $color-primary-700, $amount: 0.5);
+    left: 0;
+    padding: $size-400 $size-app-padding-horizontal-small;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    @include media-query-medium {
+        padding: $size-400 $size-app-padding-horizontal-medium;
+    }
+
+    @include media-query-navigation-change {
+        padding: $size-400
+            calc(
+                #{$size-transactions-import-full-width-padding} + #{$size-app-padding-horizontal-large}
+            );
+    }
+}
+
+.BulkTransactionActions {
+    width: 100%;
+
+    &.BulkTransactionActions--sticky {
+        // This is so the actions are above everything else when they're sticky to the top
+        // of the viewport.
+        z-index: $z-index-bulk-transaction-actions;
+    }
+
+    .DesktopBulkTransactionActions {
+        display: none;
+
+        @include media-query-navigation-change {
+            display: grid;
+        }
+    }
+
+    .MobileBulkTransactionActions {
+        @include media-query-navigation-change {
+            display: none;
+        }
+    }
+}
+
+.BulkTransactionActions-title {
+    font-weight: $font-weight-bold;
+    margin-bottom: $size-400;
+
+    @include sticky-actions {
+        color: $color-light;
+    }
+}
+
+.DesktopBulkTransactionActions {
+    // Want flex-start so that the actions (buttons) don't take up the full width;
+    // they should only take up as much space as they need.
+    display: flex;
+    justify-content: flex-start;
+
+    @include sticky-actions {
+        @include sticky-container();
+    }
+
+    .DesktopBulkTransactionActions-select-all {
+        margin-bottom: $size-400;
+
+        @include sticky-actions {
+            color: $color-white;
+        }
+    }
+
+    .DesktopBulkTransactionActions-actions {
+        display: grid;
+
+        gap: $size-200;
+
+        // At smaller (desktop) screen sizes, we don't have room to fit all of the buttons.
+        // So we move the Include/Exclude buttons to a separate row (along with the divider).
+        grid-template-columns: repeat(5, auto);
+        grid-template-rows: auto 1px auto;
+
+        // Below 900px, we need to squeeze things down to fit just enough until we hit the
+        // navigation change breakpoint. So, the column gap is less.
+        @media (min-width: 900px) {
+            gap: $size-200 $size-400;
+        }
+
+        @include media-query-bulk-actions {
+            // We now have enough room to fit all of the buttons on one row.
+            grid-template-columns: repeat(5, auto) 1px repeat(2, auto);
+            grid-template-rows: auto;
+        }
+
+        .ActionButton {
+            // Want slightly smaller font and slightly smaller height to de-emphasize them.
+            font-size: $font-size-200;
+            height: $size-input-height-small;
+            padding: 0 $size-200;
+
+            // Same as above, below 900px the padding is decreased to squeeze in more.
+            @media (min-width: 900px) {
+                padding: 0 $size-400;
+            }
+
+            @include sticky-actions {
+                background-color: $color-background-light;
+            }
+        }
+
+        .Divider {
+            // Span two columns worth so that the divider covers the width of the Include/Exclude
+            // buttons.
+            grid-column: 1 / 3;
+
+            // Place the divider on its own row.
+            grid-row: 2;
+
+            // Orient the divider horizontally.
+            height: 1px;
+            width: 100%;
+
+            @include media-query-bulk-actions {
+                // Move the divider back to its initial placement.
+                grid-column: auto;
+                grid-row: auto;
+
+                // Orient the divider vertically.
+                height: 100%;
+                width: 1px;
+            }
+        }
+
+        .DesktopBulkTransactionActions-exclude-from-import,
+        .DesktopBulkTransactionActions-include-in-import {
+            grid-row: 3;
+
+            @include media-query-bulk-actions {
+                // Move the buttons back to the initial row.
+                grid-row: auto;
+            }
+        }
+    }
+}
+
+.ActionWithDialog {
+    position: relative;
+
+    &.align-left .BulkActionDialog {
+        left: 0;
+    }
+
+    &.align-right .BulkActionDialog {
+        right: 0;
+    }
+
+    .BulkActionDialog {
+        position: absolute;
+        top: $size-input-height-small + $size-200;
+        width: 350px;
+    }
+}
+
+.MobileBulkTransactionActions {
+    position: relative;
+    width: 100%;
+
+    @include sticky-actions {
+        @include sticky-container();
+    }
+
+    .MobileBulkTransactionActions-body {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .MobileBulkTransactionActions-select-all {
+        @include sticky-actions {
+            color: $color-light;
+        }
+    }
+
+    .Dropdown {
+        // Increase the width of the Dropdown to fit all of the action labels on one line.
+        width: 200px;
+    }
+
+    .DropdownItem {
+        // Decrease the font size of the dropdown items since this is on mobile.
+        font-size: $font-size-200;
+    }
+
+    .BulkActionDialog {
+        position: absolute;
+        right: 0;
+        top: $size-input-height-small + $size-200;
+
+        // Note: It might seem like using 4 times works, but that's only because you're looking at
+        // it on desktop with a resized viewport; that is, the scrollbar adds extra width.
+        // Once you ignore the scrollbar, 2 times the padding works (and makes sense).
+        // Just know that it _will_ look wrong when viewed on a small desktop viewport.
+        width: calc(100vw - #{$size-app-padding-horizontal-small * 2});
+    }
+}
+
+.MobileBulkTransactionActionsButton {
+    @include svg-icon-color($color-text-tertiary);
+
+    // This border sets the button up to look like an Input.
+    border: $border-width-normal solid $color-neutral-400;
+    border-radius: $border-radius-normal;
+
+    // Decrease the padding since this is used on mobile.
+    padding: 0 $size-200;
+
+    @include non-sticky-interactions($key: "-default") {
+        %base-default {
+            background-color: $color-light;
+            color: $color-text-primary;
+            font-size: $font-size-200;
+            font-weight: $font-weight-normal;
+            letter-spacing: 0;
+        }
+
+        %hover-default {
+            background-color: $color-neutral-100;
+        }
+
+        %disabled-default {
+            background-color: $color-neutral-300;
+            color: $color-text-disabled;
+            cursor: default;
+        }
+    }
+
+    @include sticky-actions {
+        @include non-sticky-interactions($key: "-sticky") {
+            %disabled-sticky {
+                // Since the button is on a dark background when using the sticky header,
+                // it looks better if the button background is white (even while disabled).
+                // This matches the buttons used for the desktop actions.
+                background-color: $color-background-light;
+            }
+        }
+    }
+
+    svg {
+        margin-left: $size-100;
+    }
+}
+
+.BulkTransactionActions--story-Small {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

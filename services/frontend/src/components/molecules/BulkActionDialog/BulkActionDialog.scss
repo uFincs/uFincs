@@ -1,0 +1,66 @@
+@import "styles/_shared.scss";
+
+.BulkActionDialog {
+    @include dropdown-shadow();
+
+    background-color: $color-background-light;
+    border-radius: $border-radius-normal;
+    display: grid;
+    gap: $size-400;
+    padding: $size-400;
+    width: 100%;
+
+    // Need the z-index higher, both so that the dialog is over other elements,
+    // and so the custom outline on the TransactionTypePicker actually shows up
+    // (it isn't visible without a higher z-index, because of the background-color of the dialog).
+    z-index: $z-index-dropdown;
+
+    @include media-query-medium {
+        // Once the screen's big enough, limit the width of the dialog.
+        max-width: 350px;
+    }
+
+    .BulkActionDialog-input-date {
+        // TECH DEBT: Yeah, we should really just make DateInput (and MoneyInput, and ...)
+        // so that we don't have to manually specify this hack everywhere, but eh.
+        @include open-date-calendar-hack();
+    }
+
+    .TransactionTypePicker {
+        .TransactionTypeOption {
+            // Because we're using the Type picker on a white background (instead of the usual
+            // grey background), the options need a border to distinguish themselves from the
+            // the background (since the options have a white background).
+            //
+            // TECH DEBT: I'm too lazy to modify the option cards themselves to support this
+            // option, so we'll just do it here till we need it elsewhere.
+            border: 1px solid $color-neutral-400;
+
+            &.OptionCard--active {
+                // We don't want the border on the active option.
+                border: unset;
+            }
+        }
+    }
+
+    .BulkActionDialog-actions {
+        display: grid;
+        gap: $size-400;
+        grid-auto-flow: column;
+        margin-left: auto;
+
+        .BulkActionDialog-action-cancel {
+            color: $color-text-secondary;
+            font-size: $font-size-200;
+        }
+
+        .BulkActionDialog-action-change {
+            font-size: $font-size-200;
+            height: $size-input-height-small;
+
+            // Want the button smaller than the defaults.
+            max-width: unset;
+            width: auto;
+        }
+    }
+}

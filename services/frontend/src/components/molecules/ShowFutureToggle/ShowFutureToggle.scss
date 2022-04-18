@@ -1,0 +1,36 @@
+@import "styles/_shared.scss";
+
+.ShowFutureToggle {
+    @include input-height();
+    @include keyboard-navigation-outline();
+
+    color: $color-text-primary;
+    font-size: $font-size-200;
+    line-height: $font-line-height-200;
+    text-align: center;
+    transition: none;
+    width: 110px;
+
+    &.ShowFutureToggle--active {
+        @include double-shadow($color-future-700);
+        @include micro-interactive-bounce($disable-immobile-focus: true);
+
+        @include non-sticky-interactions() {
+            %base {
+                background-color: $color-future-500;
+                color: $color-light;
+                font-weight: $font-weight-bold;
+            }
+
+            %hover {
+                background-color: $color-future-600;
+            }
+        }
+    }
+
+    &.ShowFutureToggle--transitions-enabled {
+        // Keep the background-color transition separate so that we can toggle it on a delay,
+        // so that there isn't any background transition going from inactive -> active.
+        @include micro-transition(background-color, transform);
+    }
+}

@@ -1,0 +1,172 @@
+@import "styles/_shared.scss";
+
+.TransactionTypeOption {
+    // Hide any overflow in case something like the current amount is too large to display.
+    overflow: hidden;
+
+    &.TransactionTypeOption--picker {
+        display: flex;
+        flex-direction: column;
+        min-width: 64px;
+
+        .TransactionTypeOption-icon {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    &.TransactionTypeOption--filtering {
+        align-items: flex-start;
+        display: grid;
+
+        // We need the font size _really_ small at the smallest screen sizes to fit everything in.
+        font-size: $font-size-100;
+
+        // Ditto on a small gap size.
+        gap: $size-100;
+
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+
+        // Undo the default OptionCard height.
+        height: auto;
+
+        // Need less top padding because the icon pushes the Type text down enough that it
+        // looks like it has the same amount of padding as the amount.
+        padding: $size-50 $size-100 $size-100;
+
+        @include media-query-extra-small {
+            // Can increase the grid gap now that we have a _bit_ of breathing room.
+            gap: $size-200;
+        }
+
+        @media (min-width: 450px) {
+            // OK, we've got room for a bigger font size now.
+            font-size: $font-size-200;
+
+            // With the change in text size, and additional width, we can now increase the padding.
+            // Notably, the top still needs less padding than the bottom to like aligned with
+            // the padding of the amount.
+            padding: $size-100 $size-200 ($size-100 + $size-50);
+        }
+
+        @include media-query-medium {
+            // Finally, we can get back to the normal font size.
+            font-size: $font-size-300;
+
+            // With this final increase in font size, we can finally match the bottom's padding
+            // to keep them looking aligned.
+            padding-top: $size-100 + $size-50;
+        }
+
+        &.OptionCard--active {
+            // We manually specify the font weight for each element; we don't want everything
+            // to be bold like this class normally does.
+            font-weight: $font-weight-normal;
+        }
+
+        .FiltersLayout-header {
+            width: 100%;
+
+            .FiltersLayout-header-title {
+                // Make sure the Type text is aligned (more or less) with the bottom of the icon.
+                // This looks better than center aligned.
+                align-items: flex-end;
+
+                display: flex;
+
+                // Push the Type icon to the end of the card.
+                justify-content: space-between;
+
+                width: 100%;
+
+                .TransactionTypeOption-icon {
+                    // We need to squish the icon just _ever_ so slightly to fit at the smallest
+                    // screen sizes.
+                    height: 14px;
+                    width: 14px;
+
+                    @include media-query-extra-small {
+                        // But now the regular 'small' version is fine.
+                        height: 16px;
+                        width: 16px;
+                    }
+                }
+            }
+
+            .FiltersLayout-percent {
+                // We don't got no room for the percent on mobile.
+                display: none;
+            }
+        }
+
+        .FiltersLayout-from-amount {
+            // We don't got no room for the From amount on mobile.
+            display: none;
+        }
+
+        // Need the media query to come afterwards so that its rules have a higher priority
+        // and take precedence over the mobile rules.
+        /* stylelint-disable */
+        @include media-query-navigation-change {
+            /* stylelint-enable */
+            align-items: center;
+            gap: $size-200;
+
+            // This is the combination of templates that looks the best, with the From amount
+            // just barely squishing in there underneath the Current amount.
+            grid-template-rows: 1fr 1fr auto;
+
+            justify-content: flex-start;
+            padding: $size-200 $size-300;
+
+            .FiltersLayout-header {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                .FiltersLayout-header-title {
+                    align-items: flex-end;
+                    display: grid;
+                    gap: $size-100;
+                    grid-auto-flow: column;
+                    justify-content: flex-start;
+
+                    .FiltersLayout-type--active {
+                        color: $color-primary-100;
+                    }
+
+                    .TransactionTypeOption-icon {
+                        // Can up the icon back to 'normal' size.
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+
+                .FiltersLayout-percent {
+                    // Can show the percent now.
+                    display: block;
+
+                    font-size: $font-size-200;
+                }
+            }
+
+            .FiltersLayout-current-amount {
+                // Up the Current amount's font size to make it stand out the most.
+                font-size: $font-size-600;
+            }
+
+            .FiltersLayout-from-amount {
+                // Can show the From amount now.
+                display: block;
+
+                font-size: $font-size-200;
+            }
+        }
+    }
+}
+
+.TransactionTypeOption--story-filtering {
+    min-width: 210px;
+}

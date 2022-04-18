@@ -1,0 +1,28 @@
+@import "styles/_shared.scss";
+
+.RadioGroup-container {
+    width: 100%;
+
+    .RadioGroup-label {
+        // Needs display: block, otherwise the margin doesn't apply (because it's an inline element).
+        display: block;
+        margin-bottom: $size-300;
+    }
+
+    .RadioGroup {
+        .RadioGroup-option-button {
+            @include custom-navigation-outline();
+
+            // Disable the navigation outline transition, because I feel that form inputs
+            // feel snappier when they don't have transitions.
+            @include disable-custom-outline-transitions();
+
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+
+            &.RadioGroup-option-button--disabled {
+                pointer-events: none;
+            }
+        }
+    }
+}

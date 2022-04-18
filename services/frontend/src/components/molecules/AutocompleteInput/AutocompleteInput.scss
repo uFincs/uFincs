@@ -1,0 +1,65 @@
+@import "styles/_shared.scss";
+
+$option-height-small: $size-touch-target;
+$option-height-large: 40px;
+
+.AutocompleteInput-container {
+    position: relative;
+    width: 100%;
+}
+
+.AutocompleteInput-suggestions {
+    border-radius: $border-radius-normal;
+    box-shadow: 0 6px 16px transparentize($color: $color-primary-700, $amount: 0.4);
+
+    // Need an extra 2px for further separation because the custom outline is thicc.
+    margin-top: $size-100 + 2px;
+
+    // Show at most 5 options at a time.
+    max-height: $option-height-small * 5;
+
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    z-index: $z-index-autocomplete-suggestions;
+
+    @include media-query-navigation-change {
+        // Show at most 5 options at a time.
+        max-height: $option-height-large * 5;
+    }
+
+    .AutocompleteInput-suggestion {
+        align-items: center;
+        background-color: $color-background-light;
+        color: $color-text-primary;
+        cursor: pointer;
+        display: flex;
+        height: $option-height-small;
+        padding: 0 $size-400;
+
+        @include media-query-navigation-change {
+            height: $option-height-large;
+        }
+
+        // Need the active/hover/focus states so that highlighting works on mobile.
+        &:active,
+        &:hover,
+        &:focus,
+        &.AutocompleteInput-suggestion--highlighted {
+            background-color: $color-neutral-300;
+        }
+
+        &.AutocompleteInput-suggestion--active {
+            font-weight: bold;
+        }
+
+        .AutocompleteInput-suggestion-text {
+            @include clamp-lines(1);
+        }
+    }
+}
+
+.AutocompleteInput-story {
+    // This is roughly the width the input would have when placed in the Sidebar.
+    max-width: 350px;
+}

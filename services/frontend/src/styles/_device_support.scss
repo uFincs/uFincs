@@ -1,0 +1,11 @@
+@mixin keyboard-navigation() {
+    @at-root .keyboard-navigation & {
+        @content;
+    }
+}
+
+@mixin touch-support() {
+    @at-root .touch-support & {
+        @content;
+    }
+}

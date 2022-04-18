@@ -1,0 +1,27 @@
+{
+    "extends": "stylelint-config-sass-guidelines",
+    "ignoreFiles": ["**/*.ts*"],
+    "plugins": [
+        "stylelint-order"
+    ],
+    "rules": {
+        "color-named": null,
+        "function-parentheses-space-inside": null,
+        "indentation": null,
+        "max-nesting-depth": null,
+        "property-no-vendor-prefix": null,
+        "selector-class-pattern": [
+            "^[a-zA-Z0-9\\-]+$",
+            {
+                "message": "Selector should be written with hyphens (selector-class-pattern)"
+            }
+        ],
+        "selector-max-id": null,
+        "selector-max-compound-selectors": 10,
+        "string-quotes": "double",
+        "value-no-vendor-prefix": null,
+        "scss/at-import-no-partial-leading-underscore": null,
+        "scss/at-import-partial-extension-blacklist": null,
+        "order/properties-alphabetical-order": true
+    }
+}

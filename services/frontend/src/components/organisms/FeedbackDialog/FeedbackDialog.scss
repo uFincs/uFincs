@@ -1,0 +1,71 @@
+@import "styles/_shared.scss";
+
+$feedback-dialog-max-width: 350px;
+$feedback-dialog-unhandled-error-max-width: $feedback-dialog-max-width * 1.5;
+
+.FeedbackDialog {
+    max-width: $feedback-dialog-max-width;
+
+    // Need more room on extra small (320px) devices.
+    padding: $size-400;
+
+    @include media-query-extra-small {
+        padding: $size-500;
+    }
+
+    // Need to copy these styles over from DialogContainer because we changed the max-width.
+    // Otherwise, the FeedbackDialog won't be centered on screens between $feedback-dialog-max-width
+    // and $size-dialog-max-width.
+    @media (min-width: #{$feedback-dialog-max-width}) {
+        left: 50%;
+        max-width: $feedback-dialog-max-width;
+        right: unset;
+        transform: translateX(-50%) translateY(-50%);
+        width: 100%;
+    }
+
+    &.FeedbackDialog--unhandled-error {
+        max-width: $feedback-dialog-unhandled-error-max-width;
+
+        // Because of the extra height that the stack trace can tack on, the dialog looks better perfectly
+        // centered rather than off-center like the normal dialogs are. So override the value set by
+        // DialogContainer.
+        top: 50%;
+
+        // Need to copy these styles over from DialogContainer because we changed the max-width.
+        // Otherwise, the FeedbackDialog won't be centered on screens between $feedback-dialog-max-width
+        // and $size-dialog-max-width.
+        @media (min-width: #{$feedback-dialog-unhandled-error-max-width}) {
+            left: 50%;
+            max-width: $feedback-dialog-unhandled-error-max-width;
+            right: unset;
+            transform: translateX(-50%) translateY(-50%);
+            width: 100%;
+        }
+    }
+
+    .FeedbackDialog-body {
+        padding: 0 $size-50;
+    }
+}
+
+.FeedbackDialog-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $size-400;
+
+    .FeedbackDialog-header-left-section {
+        align-items: center;
+        display: flex;
+
+        .BackButton {
+            margin-right: $size-200;
+        }
+
+        h2 {
+            font-size: $font-size-500;
+            font-weight: $font-weight-bold;
+        }
+    }
+}

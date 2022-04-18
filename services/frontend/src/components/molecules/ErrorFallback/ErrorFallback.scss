@@ -1,0 +1,28 @@
+@import "styles/_shared.scss";
+
+.ErrorFallback {
+    @include media-query-navigation-change {
+        // Need some margin to handle rendering at the root level (where it would otherwise be the only
+        // thing on the page).
+        margin-top: 100px;
+    }
+
+    .EmptyArea-message {
+        max-width: 350px;
+    }
+
+    .EmptyArea-sub-message {
+        max-width: 350px;
+    }
+}
+
+.SendFeedbackAction {
+    // This matches the width of the main button in `EmptyArea`.
+    max-width: 200px;
+    width: 100%;
+
+    .SendFeedbackAction-or {
+        margin-bottom: $size-400;
+        text-align: center;
+    }
+}

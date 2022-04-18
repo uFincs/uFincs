@@ -1,0 +1,81 @@
+import classNames from "classnames";
+import React from "react";
+import {Card, TextField} from "components/atoms";
+import {TransactionTypeSummary} from "components/molecules";
+import {useCurrencySymbol} from "hooks/";
+import {AccountData, Transaction} from "models/";
+import {ValueFormatting} from "services/";
+import {Cents} from "utils/types";
+import {useTransactionsSummary} from "./hooks";
+import "./TransactionsSummary.scss";
+
+interface TransactionsSummaryProps {
+    /** Custom class name. */
+    className?: string;
+
+    /** The total cash flow for the period (i.e. income - expenses). */
+    cashFlow: Cents;
+
+    /** The expense accounts. */
+    expenseAccounts: Array<AccountData>;
+
+    /** The income accounts. */
+    incomeAccounts: Array<AccountData>;
+}
+
+/** A summary view for a list of transactions that breaks down the amounts by each income/expense
+ *  account, as well as showing the overall cash flow. */
+const TransactionsSummary = React.memo(
+    ({className, expenseAccounts, incomeAccounts, cashFlow}: TransactionsSummaryProps) => (
+        <div
+            className={classNames("TransactionsSummary", className)}
+            data-testid="transactions-summary"
+        >
+            <TransactionTypeSummary accounts={incomeAccounts} type={Transaction.INCOME} />
+
+            <TransactionTypeSummary accounts={expenseAccounts} type={Transaction.EXPENSE} />
+
+            <CashFlow cashFlow={cashFlow} />
+        </div>
+    )
+);
+
+const WrappedTransactionsSummary = () => {
+    const {cashFlow, expenseAccounts, incomeAccounts} = useTransactionsSummary();
+
+    return (
+        <TransactionsSummary
+            cashFlow={cashFlow}
+            expenseAccounts={expenseAccounts}
+            incomeAccounts={incomeAccounts}
+        />
+    );
+};
+
+export const PureComponent = TransactionsSummary;
+export default WrappedTransactionsSummary;
+
+/* Other Components */
+
+interface CashFlowProps {
+    cashFlow: Cents;
+}
+
+const CashFlow = ({cashFlow}: CashFlowProps) => {
+    const currencySymbol = useCurrencySymbol();
+
+    return (
+        <Card className="CashFlow">
+            <h2 className="CashFlow-header">Cash Flow</h2>
+
+            <TextField
+                className={classNames("CashFlow-amount", {
+                    "CashFlow-amount--positive": cashFlow >= 0,
+                    "CashFlow-amount--negative": cashFlow < 0
+                })}
+            >
+                {ValueFormatting.formatMoney(cashFlow, {currencySymbol})}
+            </TextField>
+        </Card>
+    );
+};

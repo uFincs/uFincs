@@ -1,0 +1,9 @@
+@import "styles/_shared.scss";
+
+.FormattedRuleAction {
+    color: $color-text-secondary;
+
+    strong {
+        color: $color-text-primary;
+    }
+}

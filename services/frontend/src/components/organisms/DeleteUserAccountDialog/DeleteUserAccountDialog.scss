@@ -1,0 +1,18 @@
+@import "styles/_shared.scss";
+
+.DeleteUserAccountDialog {
+    .ConfirmationDialog-content {
+        // Remove the 'auto' overflow so that the horizontal scrollbar isn't shown because of the input
+        // and the outline of the input isn't hidden.
+        overflow: unset !important;
+    }
+
+    .DeleteUserAccountDialog-list {
+        margin: $size-400 0;
+    }
+
+    .DeleteUserAccountDialog-input {
+        // Push the input down away from the message above it.
+        margin-top: $size-200;
+    }
+}

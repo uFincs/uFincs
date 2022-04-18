@@ -1,0 +1,56 @@
+@import "styles/_shared.scss";
+
+.AccountTypeOption {
+    &.AccountTypeOption--with-balance {
+        align-items: flex-start;
+        display: grid;
+
+        // We need the font size _really_ small at the smallest screen sizes to fit everything in.
+        font-size: $font-size-100;
+
+        // Ditto on a small gap size.
+        gap: $size-100;
+
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+
+        // Undo the default OptionCard height.
+        height: auto;
+
+        padding: $size-100;
+
+        @include media-query-extra-small {
+            // Can increase the grid gap now that we have a _bit_ of breathing room.
+            gap: $size-200;
+        }
+
+        @media (min-width: 450px) {
+            // OK, we've got room for a bigger font size now.
+            font-size: $font-size-200;
+
+            // With the change in text size, and additional width, we can now increase the padding.
+            // Notably, the top still needs less padding than the bottom to like aligned with
+            // the padding of the amount.
+            padding: $size-100 $size-200 $size-100;
+        }
+
+        @include media-query-medium {
+            // Finally, we can get back to the normal font size.
+            font-size: $font-size-300;
+
+            // With this final increase in font size, we can finally match the bottom's padding
+            // to keep them looking aligned.
+            padding-top: $size-100 + $size-50;
+        }
+
+        &.OptionCard--active {
+            // We manually specify the font weight for each element; we don't want everything
+            // to be bold like this class normally does.
+            font-weight: $font-weight-normal;
+        }
+    }
+}
+
+.AccountTypeOption--story-sample {
+    min-width: 64px;
+}

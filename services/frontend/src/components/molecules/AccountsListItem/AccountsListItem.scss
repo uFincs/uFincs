@@ -1,0 +1,36 @@
+@import "styles/_shared.scss";
+
+.AccountsListItem {
+    &.AccountsListItem-single-layer {
+        .AccountsListItem-content {
+            .AccountsListItem-name {
+                // Only clamp to 1 line with single layer, because there isn't enough
+                // height for 2 lines.
+                @include clamp-lines(1);
+            }
+        }
+    }
+
+    .AccountsListItem-content {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        .AccountsListItem-name {
+            @include clamp-lines(2);
+
+            // Decrease the default TextField line height a bit so that the wrapped
+            // text doesn't take up so much vertical space.
+            line-height: $font-line-height-200;
+        }
+
+        .AccountsListItem-balance {
+            flex-shrink: 0;
+            font-weight: $font-weight-semibold;
+
+            // Need some left margin to space the name and balance in case one of the two
+            // is exceptionally long.
+            margin-left: $size-200;
+        }
+    }
+}

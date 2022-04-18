@@ -1,0 +1,24 @@
+@import "styles/_shared.scss";
+
+.Logo {
+    display: flex;
+
+    // .logo-text comes from the SVG itself.
+    &.Logo--dark .logo-text {
+        fill: $color-text-primary;
+    }
+
+    &.Logo--light .logo-text {
+        fill: $color-light;
+    }
+
+    &.Logo--full.Logo--small {
+        height: 18px;
+        width: 70px;
+    }
+
+    &.Logo--standalone.Logo--small {
+        height: 20px;
+        width: 14px;
+    }
+}

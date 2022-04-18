@@ -1,0 +1,134 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ingress-cert-reflector
+  namespace: "cert-manager"
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ingress-cert-reflector
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["create", "watch"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  resourceNames: ["ufincs-tls"]
+  verbs: ["get", "patch"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["list", "watch"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ingress-cert-reflector
+subjects:
+- kind: ServiceAccount
+  name: ingress-cert-reflector
+  namespace: "cert-manager"
+roleRef:
+  kind: ClusterRole
+  name: ingress-cert-reflector
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-cert-reflector
+  namespace: "cert-manager"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingress-cert-reflector
+  template:
+    metadata:
+      labels:
+        app: ingress-cert-reflector
+    spec:
+      serviceAccountName: ingress-cert-reflector
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                      - ingress-cert-reflector
+                topologyKey: "kubernetes.io/hostname"   
+      containers:
+      - name: ns-watch
+        image: boxboat/kubectl:1.15.4
+        command:
+        - sh
+        - -c
+        - |
+          set -e
+          while true; do
+            echo "$(date '+%Y-%m-%d %H:%M:%S') Starting watch loop for namespaces"
+
+            kubectl get ns --watch --field-selector="status.phase==Active" --no-headers -o "custom-columns=:metadata.name" | \
+            while read ns; do
+              if [ "$ns" != "cert-manager" ]; then
+                echo "$(date '+%Y-%m-%d %H:%M:%S') Copying to namespace $ns"
+
+                export=$( \
+                    # Get the yaml for the TLS secret
+                    kubectl -n "cert-manager" get secret "ufincs-tls" -o yaml | \
+                    # Update the namespace directive to the target namespace
+                    sed -e "s/namespace: cert-manager/namespace: $ns/g" | \
+                    # Remove any unique identifiers so that kubectl can properly apply the change as an update
+                    # Otherwise, kubectl will complain that the operation cannot be fulfilled. For reference:
+                    # https://stackoverflow.com/questions/51297136/kubectl-error-the-object-has-been-modified-please-apply-your-changes-to-the-la
+                    sed -e "s/creationTimestamp:.*//g" | sed -e "s/resourceVersion:.*//g" | sed -e "s/uid:.*//g" \
+                )
+
+                echo "$export" | kubectl -n "$ns" apply -f -
+
+                echo "$(date '+%Y-%m-%d %H:%M:%S') Finished copying to namespace $ns!"
+              fi
+            done
+          done
+      - name: secret-watch
+        image: boxboat/kubectl:1.15.4
+        command:
+        - sh
+        - -c
+        - |
+          set -e
+          while true; do
+            echo "$(date '+%Y-%m-%d %H:%M:%S') Starting watch loop for secret"
+
+            kubectl -n "cert-manager" get secret "ufincs-tls" --watch --no-headers -o "custom-columns=:metadata.name" | \
+            while read secret; do
+              export=$(kubectl -n "cert-manager" get secret "$secret" -o yaml)
+
+              for ns in $(kubectl get ns --field-selector="status.phase==Active" --no-headers -o "custom-columns=:metadata.name"); do
+                if [ "$ns" != "cert-manager" ]; then
+                  echo "$(date '+%Y-%m-%d %H:%M:%S') Copying to namespace $ns..."
+
+                  export=$( \
+                      # Get the yaml for the TLS secret
+                      kubectl -n "cert-manager" get secret "$secret" -o yaml | \
+                      # Update the namespace directive to the target namespace
+                      sed -e "s/namespace: cert-manager/namespace: $ns/g" | \
+                      # Remove any unique identifiers so that kubectl can properly apply the change as an update
+                      # Otherwise, kubectl will complain that the operation cannot be fulfilled. For reference:
+                      # https://stackoverflow.com/questions/51297136/kubectl-error-the-object-has-been-modified-please-apply-your-changes-to-the-la
+                      sed -e "s/creationTimestamp:.*//g" | sed -e "s/resourceVersion:.*//g" | sed -e "s/uid:.*//g" \
+                  )
+
+                  echo "$(date '+%Y-%m-%d %H:%M:%S') Finished copying to namespace $ns!"
+                fi
+              done
+            done
+          done

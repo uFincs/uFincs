@@ -1,0 +1,35 @@
+@import "styles/_shared.scss";
+
+.TableRowContainer {
+    @include keyboard-navigation-outline($focus-within: false);
+    @include disable-custom-outline-transitions();
+    @include table-grid();
+
+    border-radius: $border-radius-normal;
+    cursor: pointer;
+    row-gap: 2px;
+
+    @include non-sticky-interactions() {
+        %base {
+            @include list-item-shadow();
+
+            background-color: $color-light;
+        }
+
+        %hover {
+            background-color: $color-neutral-300;
+
+            // Since we're using a row background color that is darker than the page's background
+            // color, we're going to end up with a 'sunk in' or 'deeper' effect on the row.
+            // As such, to emphasis this effect, we should remove the box-shadow since the row
+            // shouldn't look like it's 'above' the page.
+            box-shadow: none;
+
+            // Just assume that the consuming component is going to put the actions in the table row,
+            // since we need to show them when hovering over the row itself.
+            .TableRowActions {
+                opacity: 1;
+            }
+        }
+    }
+}

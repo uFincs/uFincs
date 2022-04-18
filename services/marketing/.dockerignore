@@ -1,0 +1,13 @@
+# Files we don't want in the container
+.dockerignore
+.eslintcache
+.gitignore
+.git
+.next
+Dockerfile
+Dockerfile.development
+README.md
+
+# Build artifacts we definitely don't want
+node_modules
+build

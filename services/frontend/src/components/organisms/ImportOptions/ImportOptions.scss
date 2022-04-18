@@ -1,0 +1,7 @@
+@import "styles/_shared.scss";
+
+.ImportOptions {
+    display: grid;
+    gap: $size-400;
+    grid-auto-flow: column;
+}

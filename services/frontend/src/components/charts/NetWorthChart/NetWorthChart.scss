@@ -1,0 +1,13 @@
+@import "styles/_shared.scss";
+
+.NetWorthStats {
+    padding: $size-400;
+    padding-bottom: 0;
+
+    @include media-query-navigation-change {
+        padding: $size-600;
+
+        // Because the chart has inherent padding, we don't need as much in the container.
+        padding-bottom: $size-300;
+    }
+}

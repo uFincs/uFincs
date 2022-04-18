@@ -1,0 +1,17 @@
+# Redux Store
+
+Oh boy. The Redux store. As much as other parts of the app have been described as the 'heart and soul' of a particular part of uFincs, the Redux store is _the_ heart and soul of uFincs itself. In fact, more so than anything else, uFincs can be most accurately described as a "Redux app" — if you tore away all of the design system and all of the components, then the Redux store would still work as a perfectly functioning personal finance core. Being able to just dispatch actions from anywhere to do anything means that this core is ludicrously powerful — and almost equally as complicaetd.
+
+Let's start with the **slices**. Redux Slices are a concept that are almost as old as Redux itself — basically, just organize core pieces of Redux (actions, reducers, and selectors) by feature rather than by type. This concept became a bit more solidifed with the release of [redux-toolkit](https://redux-toolkit.js.org/) and [createSlice](https://redux-toolkit.js.org/api/createslice). However, that didn't include selectors as part of the `slice` object, so that's what the `utils/createSliceWithSelectors.ts` utility is for — literally to just splice the selectors onto the final slice. This way, any interaction with a slice can be done through its exported slice object.
+
+However, I kind of break this "feature vs file type" abstraction with cross-slice selectors and sagas. This is mostly because these things (understandly) need to be able to work across slices and I've decided that — for uFincs — a single slice should be as self-contained as possible.
+
+**Cross-slice selectors** are exactly as what's on the tin: they are memoized selectors that select data from two or more slices to create some new result. Usually, the actual logic for these selectors will be tucked away into something like one of the models or services, but the selector handles feeding those functions with the right data. These cross-slice selectors can then be used across the app in components or even in sagas.
+
+**[Sagas](https://redux-saga.js.org/)** are uFincs' "asynchronous side-effect" handler of choice (as opposed to e.g. thunks or observables). These are the real workhorses of uFincs' Redux core. Ultimately, everything from request handling to service calls to toasts must pass through a saga.
+
+Of course, like any good Redux app, we have a couple **middlewares**. Not many though; it's really just the one small `disableRequestsWhenNoAccount.ts` middleware and the `redux-e2e-encryption` one. Much of what might normally be done using middlewares in other Redux apps is accomplished using sagas here.
+
+Finally, we have a handful of actually _critical_ **utilities**. The two most important ones are `createOfflineRequestSlices.ts` and `createOfflineRequestManager.ts` are the primary abstractions that enable our network requests to be offline-first. An "offline request slice" is basically a request slice (aka a slice with loading/error state) with the ability to register three different sagas: `commit`, `effect`, and `rollback`. Together with the "offline request manager", these sagas enable a network request to first _commit_ to local Redux state, then _effect_ (yes, 'affect') the Backend database if network connectivity is established, and finally _rollback_ in the event that any errors occur (shout-out to [redux-offline](https://github.com/redux-offline/redux-offline) for the inspiration!).
+
+Together, these pieces form the Redux store, which form the backbone of everything _is_ uFincs.

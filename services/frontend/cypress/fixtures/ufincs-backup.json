@@ -1,0 +1,479 @@
+{
+    "version": "1.3",
+    "encrypted": false,
+    "data": {
+        "accounts": {
+            "4842a8d8-e596-49ea-9265-a2050b1ff3f3": {
+                "id": "4842a8d8-e596-49ea-9265-a2050b1ff3f3",
+                "name": "Food",
+                "type": "expense",
+                "openingBalance": 0,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": [
+                    "7bacc3dd-a944-4327-8458-70c550018c7a",
+                    "6f554367-32b7-42b3-9f89-f78b34d8eae2"
+                ]
+            },
+            "3c9a72ad-13b4-49a4-9635-6b3f88776e59": {
+                "id": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "name": "Tech",
+                "type": "expense",
+                "openingBalance": 0,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": [
+                    "8d22157b-3d79-4773-af1a-0b0a768c3a38",
+                    "376212f2-6a41-40f3-ad0f-6283df42badc",
+                    "cae695b0-d257-42c8-abff-aa31790da311",
+                    "3e22c513-2c54-4273-a56f-f76d89521fa4",
+                    "d8194766-cb99-4488-b07a-9e08fbea2a5a"
+                ]
+            },
+            "1f1ae8f1-fde8-4679-ba0d-6192bc599f81": {
+                "id": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "name": "Chequing",
+                "type": "asset",
+                "openingBalance": 125000,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": [
+                    "6f554367-32b7-42b3-9f89-f78b34d8eae2",
+                    "cae695b0-d257-42c8-abff-aa31790da311",
+                    "3e22c513-2c54-4273-a56f-f76d89521fa4",
+                    "d8194766-cb99-4488-b07a-9e08fbea2a5a",
+                    "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07",
+                    "768988c6-119b-4251-9421-5bdd2be480cd",
+                    "99d9d685-1897-4862-aba8-c8d72cae4050",
+                    "79e5e6e5-a041-4186-a453-a84d84e38c46",
+                    "a2fa4501-158b-496b-b9b1-1c12f8a10e44",
+                    "1e395539-7516-46a5-a652-f6004f88167c",
+                    "73d90c25-3687-44a9-9a44-e85e9cd21f68"
+                ]
+            },
+            "cf1ca111-0591-43fd-891f-03242c21990b": {
+                "id": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "name": "Savings Account",
+                "type": "asset",
+                "openingBalance": 500000,
+                "interest": 2950,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": [
+                    "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07",
+                    "3f587951-8902-42db-826e-f76f922fb563"
+                ]
+            },
+            "15157a84-721e-4bb2-b138-80e47748d2a3": {
+                "id": "15157a84-721e-4bb2-b138-80e47748d2a3",
+                "name": "Interest",
+                "type": "income",
+                "openingBalance": 0,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": ["3f587951-8902-42db-826e-f76f922fb563"]
+            },
+            "176f8fa3-56b4-4ebd-839a-894b96e5cecf": {
+                "id": "176f8fa3-56b4-4ebd-839a-894b96e5cecf",
+                "name": "Cash",
+                "type": "asset",
+                "openingBalance": 15000,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": ["7bacc3dd-a944-4327-8458-70c550018c7a"]
+            },
+            "5426f299-6475-47e2-ac03-b760f0f46f11": {
+                "id": "5426f299-6475-47e2-ac03-b760f0f46f11",
+                "name": "Credit Card",
+                "type": "liability",
+                "openingBalance": 0,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": [
+                    "8d22157b-3d79-4773-af1a-0b0a768c3a38",
+                    "376212f2-6a41-40f3-ad0f-6283df42badc"
+                ]
+            },
+            "72447072-fa82-424b-b7e6-a8afe4e2e1a4": {
+                "id": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "name": "Salary",
+                "type": "income",
+                "openingBalance": 0,
+                "interest": 0,
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "transactions": [],
+                "transactionIds": [
+                    "768988c6-119b-4251-9421-5bdd2be480cd",
+                    "99d9d685-1897-4862-aba8-c8d72cae4050",
+                    "79e5e6e5-a041-4186-a453-a84d84e38c46",
+                    "a2fa4501-158b-496b-b9b1-1c12f8a10e44",
+                    "1e395539-7516-46a5-a652-f6004f88167c",
+                    "73d90c25-3687-44a9-9a44-e85e9cd21f68"
+                ]
+            }
+        },
+        "importProfiles": {
+            "34726730-3b63-4067-8a2d-a7ff557f53f2": {
+                "id": "34726730-3b63-4067-8a2d-a7ff557f53f2",
+                "name": "Scotiabank Chequing",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "importProfileMappings": [],
+                "importProfileMappingIds": []
+            }
+        },
+        "importProfileMappings": {},
+        "importRules": {
+            "8afbeb75-00cd-460e-a431-4f14db54c084": {
+                "id": "8afbeb75-00cd-460e-a431-4f14db54c084",
+                "createdAt": "2021-07-17T01:11:37.000Z",
+                "updatedAt": "2021-07-17T01:11:37.000Z",
+                "importRuleActions": [],
+                "importRuleConditions": [],
+                "importRuleActionIds": [
+                    "79bfd604-9cf8-447c-be5d-f345efb2d7cd",
+                    "996b313f-631e-45a2-8d23-639b45622c25",
+                    "860cdbd3-f8e2-4f08-8635-60342d01f6a8"
+                ],
+                "importRuleConditionIds": ["bc4a983c-2ecc-470d-a537-ce9508e24c03"]
+            },
+            "b032b17b-eb2b-4362-86d3-93bb556037f9": {
+                "id": "b032b17b-eb2b-4362-86d3-93bb556037f9",
+                "createdAt": "2021-07-17T01:11:56.000Z",
+                "updatedAt": "2021-07-17T01:11:56.000Z",
+                "importRuleActions": [],
+                "importRuleConditions": [],
+                "importRuleActionIds": [
+                    "4cbb4a18-702c-4a06-8841-a173c17ecf60",
+                    "da700417-9385-40a1-809d-95bfc9523cbd",
+                    "d8368d0b-b568-4f40-9e12-c43a0472b61e"
+                ],
+                "importRuleConditionIds": ["d7289775-e746-4aa2-b9c5-d68978c83b77"]
+            }
+        },
+        "importRuleActions": {
+            "79bfd604-9cf8-447c-be5d-f345efb2d7cd": {
+                "id": "79bfd604-9cf8-447c-be5d-f345efb2d7cd",
+                "property": "description",
+                "value": "Salary",
+                "createdAt": "2021-07-17T01:11:37.000Z",
+                "updatedAt": "2021-07-17T01:11:37.000Z",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "996b313f-631e-45a2-8d23-639b45622c25": {
+                "id": "996b313f-631e-45a2-8d23-639b45622c25",
+                "property": "account",
+                "value": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "createdAt": "2021-07-17T01:11:37.000Z",
+                "updatedAt": "2021-07-17T01:11:37.000Z",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "860cdbd3-f8e2-4f08-8635-60342d01f6a8": {
+                "id": "860cdbd3-f8e2-4f08-8635-60342d01f6a8",
+                "property": "type",
+                "value": "income",
+                "createdAt": "2021-07-17T01:11:37.000Z",
+                "updatedAt": "2021-07-17T01:11:37.000Z",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "4cbb4a18-702c-4a06-8841-a173c17ecf60": {
+                "id": "4cbb4a18-702c-4a06-8841-a173c17ecf60",
+                "property": "description",
+                "value": "Saving money",
+                "createdAt": "2021-07-17T01:11:56.000Z",
+                "updatedAt": "2021-07-17T01:11:56.000Z",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            },
+            "da700417-9385-40a1-809d-95bfc9523cbd": {
+                "id": "da700417-9385-40a1-809d-95bfc9523cbd",
+                "property": "account",
+                "value": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "createdAt": "2021-07-17T01:11:56.000Z",
+                "updatedAt": "2021-07-17T01:11:56.000Z",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            },
+            "d8368d0b-b568-4f40-9e12-c43a0472b61e": {
+                "id": "d8368d0b-b568-4f40-9e12-c43a0472b61e",
+                "property": "type",
+                "value": "transfer",
+                "createdAt": "2021-07-17T01:11:56.000Z",
+                "updatedAt": "2021-07-17T01:11:56.000Z",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            }
+        },
+        "importRuleConditions": {
+            "bc4a983c-2ecc-470d-a537-ce9508e24c03": {
+                "id": "bc4a983c-2ecc-470d-a537-ce9508e24c03",
+                "condition": "contains",
+                "property": "description",
+                "value": "Deposit",
+                "createdAt": "2021-07-17T01:11:37.000Z",
+                "updatedAt": "2021-07-17T01:11:37.000Z",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "d7289775-e746-4aa2-b9c5-d68978c83b77": {
+                "id": "d7289775-e746-4aa2-b9c5-d68978c83b77",
+                "condition": "contains",
+                "property": "description",
+                "value": "Transfer",
+                "createdAt": "2021-07-17T01:11:56.000Z",
+                "updatedAt": "2021-07-17T01:11:56.000Z",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            }
+        },
+        "preferences": {
+            "currency": "EUR"
+        },
+        "recurringTransactions": {
+            "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee": {
+                "id": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee",
+                "amount": 150000,
+                "description": "Salary",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2021-03-20T00:50:32.000Z",
+                "updatedAt": "2021-03-20T00:50:32.000Z",
+                "interval": 2,
+                "freq": "weekly",
+                "on": 0,
+                "startDate": "2021-02-01T00:00:00.000Z",
+                "endDate": null,
+                "count": null,
+                "neverEnds": true,
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d"
+            },
+            "5fdf6364-fafd-4f05-9795-0c16946aa96e": {
+                "id": "5fdf6364-fafd-4f05-9795-0c16946aa96e",
+                "amount": 5000,
+                "description": "Phone bill",
+                "notes": "",
+                "type": "expense",
+                "createdAt": "2021-03-20T00:50:53.000Z",
+                "updatedAt": "2021-03-20T00:50:53.000Z",
+                "interval": 1,
+                "freq": "monthly",
+                "on": 20,
+                "startDate": "2021-01-01T00:00:00.000Z",
+                "endDate": null,
+                "count": null,
+                "neverEnds": true,
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d"
+            }
+        },
+        "transactions": {
+            "7bacc3dd-a944-4327-8458-70c550018c7a": {
+                "id": "7bacc3dd-a944-4327-8458-70c550018c7a",
+                "amount": 1467,
+                "date": "2019-03-05T00:00:00.000Z",
+                "description": "Bought some dinner",
+                "notes": "",
+                "type": "expense",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "176f8fa3-56b4-4ebd-839a-894b96e5cecf",
+                "debitAccountId": "4842a8d8-e596-49ea-9265-a2050b1ff3f3",
+                "recurringTransactionId": null
+            },
+            "6f554367-32b7-42b3-9f89-f78b34d8eae2": {
+                "id": "6f554367-32b7-42b3-9f89-f78b34d8eae2",
+                "amount": 5500,
+                "date": "2019-03-03T00:00:00.000Z",
+                "description": "Went out to the pub with friends",
+                "notes": "",
+                "type": "expense",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "4842a8d8-e596-49ea-9265-a2050b1ff3f3",
+                "recurringTransactionId": null
+            },
+            "8d22157b-3d79-4773-af1a-0b0a768c3a38": {
+                "id": "8d22157b-3d79-4773-af1a-0b0a768c3a38",
+                "amount": 12999,
+                "date": "2019-03-02T00:00:00.000Z",
+                "description": "Bought a new SSD for my desktop",
+                "notes": "",
+                "type": "debt",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "5426f299-6475-47e2-ac03-b760f0f46f11",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": null
+            },
+            "376212f2-6a41-40f3-ad0f-6283df42badc": {
+                "id": "376212f2-6a41-40f3-ad0f-6283df42badc",
+                "amount": 32399,
+                "date": "2019-03-02T00:00:00.000Z",
+                "description": "Bought a Dell Ultrasharp monitor",
+                "notes": "",
+                "type": "debt",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "5426f299-6475-47e2-ac03-b760f0f46f11",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": null
+            },
+            "cae695b0-d257-42c8-abff-aa31790da311": {
+                "id": "cae695b0-d257-42c8-abff-aa31790da311",
+                "amount": 999,
+                "date": "2019-03-03T00:00:00.000Z",
+                "description": "Got an HDMI cable for the monitor",
+                "notes": "",
+                "type": "expense",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": null
+            },
+            "3e22c513-2c54-4273-a56f-f76d89521fa4": {
+                "id": "3e22c513-2c54-4273-a56f-f76d89521fa4",
+                "amount": 5000,
+                "date": "2021-01-20T00:00:00.000Z",
+                "description": "Phone bill",
+                "notes": "",
+                "type": "expense",
+                "createdAt": "2021-03-20T00:50:53.000Z",
+                "updatedAt": "2021-03-20T00:50:53.000Z",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": "5fdf6364-fafd-4f05-9795-0c16946aa96e"
+            },
+            "d8194766-cb99-4488-b07a-9e08fbea2a5a": {
+                "id": "d8194766-cb99-4488-b07a-9e08fbea2a5a",
+                "amount": 5000,
+                "date": "2021-02-20T00:00:00.000Z",
+                "description": "Phone bill",
+                "notes": "",
+                "type": "expense",
+                "createdAt": "2021-03-20T00:50:53.000Z",
+                "updatedAt": "2021-03-20T00:50:53.000Z",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": "5fdf6364-fafd-4f05-9795-0c16946aa96e"
+            },
+            "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07": {
+                "id": "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07",
+                "amount": 100000,
+                "date": "2019-02-20T00:00:00.000Z",
+                "description": "Threw some money in savings",
+                "notes": "",
+                "type": "transfer",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "recurringTransactionId": null
+            },
+            "768988c6-119b-4251-9421-5bdd2be480cd": {
+                "id": "768988c6-119b-4251-9421-5bdd2be480cd",
+                "amount": 185045,
+                "date": "2019-03-01T00:00:00.000Z",
+                "description": "Salary from company",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": null
+            },
+            "99d9d685-1897-4862-aba8-c8d72cae4050": {
+                "id": "99d9d685-1897-4862-aba8-c8d72cae4050",
+                "amount": 185045,
+                "date": "2019-02-15T00:00:00.000Z",
+                "description": "Salary from company",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": null
+            },
+            "79e5e6e5-a041-4186-a453-a84d84e38c46": {
+                "id": "79e5e6e5-a041-4186-a453-a84d84e38c46",
+                "amount": 150000,
+                "date": "2021-02-01T00:00:00.000Z",
+                "description": "Salary",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2021-03-20T00:50:32.000Z",
+                "updatedAt": "2021-03-20T00:50:32.000Z",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "a2fa4501-158b-496b-b9b1-1c12f8a10e44": {
+                "id": "a2fa4501-158b-496b-b9b1-1c12f8a10e44",
+                "amount": 150000,
+                "date": "2021-02-15T00:00:00.000Z",
+                "description": "Salary",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2021-03-20T00:50:32.000Z",
+                "updatedAt": "2021-03-20T00:50:32.000Z",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "1e395539-7516-46a5-a652-f6004f88167c": {
+                "id": "1e395539-7516-46a5-a652-f6004f88167c",
+                "amount": 150000,
+                "date": "2021-03-01T00:00:00.000Z",
+                "description": "Salary",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2021-03-20T00:50:32.000Z",
+                "updatedAt": "2021-03-20T00:50:32.000Z",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "73d90c25-3687-44a9-9a44-e85e9cd21f68": {
+                "id": "73d90c25-3687-44a9-9a44-e85e9cd21f68",
+                "amount": 150000,
+                "date": "2021-03-15T00:00:00.000Z",
+                "description": "Salary",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2021-03-20T00:50:32.000Z",
+                "updatedAt": "2021-03-20T00:50:32.000Z",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "3f587951-8902-42db-826e-f76f922fb563": {
+                "id": "3f587951-8902-42db-826e-f76f922fb563",
+                "amount": 1475,
+                "date": "2019-02-28T00:00:00.000Z",
+                "description": "Interest for February 2019",
+                "notes": "",
+                "type": "income",
+                "createdAt": "2020-12-26T02:42:57.932Z",
+                "updatedAt": "2020-12-26T02:42:57.932Z",
+                "creditAccountId": "15157a84-721e-4bb2-b138-80e47748d2a3",
+                "debitAccountId": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "recurringTransactionId": null
+            }
+        }
+    }
+}

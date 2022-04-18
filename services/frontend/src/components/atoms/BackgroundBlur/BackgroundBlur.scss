@@ -1,0 +1,16 @@
+@import "styles/_shared.scss";
+
+.BackgroundBlur {
+    @include react-transition-fade();
+
+    backdrop-filter: blur(2px);
+    background-color: transparentize($color: $color-neutral-800, $amount: 0.7);
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: $z-index-background-blur;
+}

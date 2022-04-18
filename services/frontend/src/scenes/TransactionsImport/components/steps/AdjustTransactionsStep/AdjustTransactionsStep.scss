@@ -1,0 +1,59 @@
+@import "styles/_shared.scss";
+
+.AdjustTransactionsStep {
+    .AdjustTransactionsStep-body-container {
+        display: flex;
+        justify-content: center;
+
+        .AdjustTransactionsStep-body {
+            display: flex;
+            flex-direction: column;
+            margin-top: $size-500;
+            width: 100%;
+
+            @include media-query-navigation-change {
+                padding: 0 $size-transactions-import-full-width-padding;
+            }
+
+            .AdjustTransactionsStep-no-transactions-message {
+                align-self: center;
+            }
+
+            .ActiveImportRules {
+                margin-bottom: $size-600;
+            }
+
+            .BulkTransactionActions {
+                margin-bottom: $size-600;
+            }
+
+            .AdjustTransactionsStep-target-account-disclaimer {
+                color: $color-warning-600;
+                margin-bottom: $size-500;
+            }
+
+            .AdjustTransactionsStep-PaginationFooter {
+                .Divider {
+                    // Because we have the Divider from the StepNavigationFooter,
+                    // we don't need the Divider provided by the PaginationFooter.
+                    display: none;
+                }
+            }
+
+            .AdjustTransactionsStep-DuplicateTransactionsMessage {
+                align-self: center;
+                margin: $size-500 0;
+            }
+
+            .AdjustTransactionsStep-BulkTransactionActions-duplicate {
+                &.BulkTransactionActions--sticky {
+                    // Need to one-up the z-index of the Duplicate Transactions version of the bulk actions,
+                    // so that it overlays the other bulk actions when both are sticky.
+                    // This way, we don't have to do any other trickery like hiding the first bulk actions
+                    // when the second one is present.
+                    z-index: $z-index-bulk-transaction-actions + 1;
+                }
+            }
+        }
+    }
+}

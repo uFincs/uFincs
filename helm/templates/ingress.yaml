@@ -1,0 +1,65 @@
+
+{{- if and .Values.__services .Values.serviceName}}
+{{- $serviceMap := index .Values.__services .Values.serviceName}}
+{{- $host := printf "%s%s" (.Values.subdomain | default "" | lower) (index $serviceMap "host")}}
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: {{.Values.serviceName}}-ingress
+    namespace: {{.Values.namespace | default "" | lower}}
+    annotations:
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        {{- if index $serviceMap "enable_nginx_caching"}}
+        # See manifests/static/nginx-ingress-controller/1-mandatory.yaml for more details on the cache setup.
+        nginx.ingress.kubernetes.io/proxy-buffering: "on"
+        nginx.ingress.kubernetes.io/server-snippet: |
+            # Use the cache called 'static_cache'.
+            proxy_cache static_cache;
+            # Everything in the cache is valid for 24 hours.
+            proxy_cache_valid any 24h;
+            # Enables bypassing the cache so that hard-reloads and 'Disable Cache' in dev tools work.
+            proxy_cache_bypass $http_x_purge $http_pragma;
+            # Adds a header to the response to indicate whether or not it was a cache hit or cache miss.
+            add_header X-Cache-Status $upstream_cache_status;
+        {{- end}}
+spec:
+    tls:
+    # Note: By not specifying 'secretName' here, the Ingress resource will fallback to using
+    # the `--default-ssl-certificate` defined by the Nginx Ingress controller.
+    # This is good! Means we no longer have to jankily copy the secret to every namespace.
+    - hosts:
+      - {{$host}}
+    rules:
+    - host: {{$host}}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: {{.Values.serviceName}}
+            servicePort: {{index $serviceMap "external_port"}}
+    # Only production gets a www alias
+    # (because we don't have wildcard certs to add www to every per-branch/per-commit aliases)
+    {{- if eq .Values.namespace .Values.__production_namespace}}
+    - host: {{printf "www.%s" $host}}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: {{.Values.serviceName}}
+            servicePort: {{index $serviceMap "external_port"}}
+    {{- end}}
+    # Per-commit urls
+    {{- if ne .Values.namespace .Values.__production_namespace}}
+    {{- $tagged_host := printf "%s-%s" (.Values.tag | default "" | lower) $host}}
+    - host: {{$tagged_host}}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: {{.Values.serviceName}}
+            servicePort: {{index $serviceMap "external_port"}}
+    {{- end}}
+{{- end}}
+

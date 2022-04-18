@@ -1,0 +1,144 @@
+steps:
+    - id: "Get project service account key to access Terraform state"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      args: ["kubails", "infra", "authenticate"]
+
+    # This is a hacky workaround. Because of the fact that `--only-changed-services` gets ignored on
+    # production (i.e. master), the calls to `has-changed` during the database deploy step will run
+    # after the new images have already been tagged/pushed. As a result, they'll find that the
+    # backend/database have _never_ changed (because they'll be comparing against the latest images).
+    #
+    # As such, we need to forcefully cache the set of changed services before we do anything else.
+    - id: "Cache changed services"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            # Note: There's no special reason for choosing the Backend service here. 
+            # It doesn't matter which, only that `has-changed` is called.
+            # Also, always return true so that this step doesn't fail.
+            kubails service has-changed --current-branch ${BRANCH_NAME} backend || true
+
+    - id: "Build images and Run CI"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails service images build --branch ${BRANCH_NAME} --commit ${SHORT_SHA}
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Push built images"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails service images push --branch ${BRANCH_NAME} --commit ${SHORT_SHA}
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Inject Stripe Webhook Secret"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            bash ./scripts/inject_stripe_webhook_secret.sh \
+                ${PROJECT_ID} ${_STRIPE_API_KEY_TEST} ${_STRIPE_API_KEY_PROD} ${BRANCH_NAME}
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Inject Database Password"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            bash ./scripts/inject_database_password.sh
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Generate Kubernetes service manifests"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails cluster manifests generate --tag ${SHORT_SHA} --namespace ${BRANCH_NAME}
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Deploy database and restore backup/migrate"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            bash ./scripts/database_deploy_build_step.sh ${BRANCH_NAME}
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Decrypt and deploy secrets files"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails cluster authenticate
+            kubails cluster secrets deploy --namespace ${BRANCH_NAME}
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Deploy generated Kubernetes manifests"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails cluster authenticate
+            kubails cluster manifests deploy --namespace ${BRANCH_NAME} backend backend-database-backup frontend marketing
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Clear Nginx caches"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails cluster authenticate
+            bash ./scripts/clear_nginx_cache.sh ${BRANCH_NAME}
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Cleanup unused Kubernetes namespaces"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      entrypoint: "bash"
+      args:
+          - -c
+          - |
+            kubails cluster authenticate
+            namespaces=$(kubails cluster cleanup-namespaces)
+
+            bash ./scripts/cleanup_stripe_webhooks.sh \
+                ${PROJECT_ID} ${_STRIPE_API_KEY_TEST} ${_STRIPE_API_KEY_PROD} ${BRANCH_NAME} ${namespaces}
+
+            bash ./scripts/cloudbuild_cleanup.sh $?
+
+    - id: "Cleanup service account key"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      args: ["kubails", "infra", "unauthenticate"]
+
+    - id: "Send slack success notification"
+      name: "gcr.io/$PROJECT_ID/kubails-builder"
+      args: ["kubails", "notify", "slack", "success", "${_SLACK_WEBHOOK}", "--namespace", "${BRANCH_NAME}", "--commit", "${SHORT_SHA}"]
+
+options:
+    machineType: "E2_HIGHCPU_8"
+
+substitutions:
+    _SLACK_WEBHOOK: ""
+    _STRIPE_API_KEY_TEST: ""
+    _STRIPE_API_KEY_PROD: ""
+
+timeout: 3600s

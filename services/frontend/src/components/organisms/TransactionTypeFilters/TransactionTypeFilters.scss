@@ -1,0 +1,27 @@
+@import "styles/_shared.scss";
+
+.TransactionTypeFilters {
+    display: grid;
+    gap: $size-100;
+
+    // Need to use auto columns (instead of fixed columns) since the number of types can
+    // change (when used in something like the Account Details scene).
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+
+    @include media-query-medium {
+        gap: $size-200;
+    }
+
+    @include media-query-navigation-change {
+        display: grid;
+        gap: $size-400;
+        grid-auto-columns: minmax(170px, 210px);
+        grid-auto-flow: column;
+    }
+
+    .TransactionTypeOption {
+        @include keyboard-navigation-outline();
+        @include micro-interactive-bounce($disable-immobile-focus: true);
+    }
+}

@@ -1,0 +1,359 @@
+@import "styles/_animations.module.scss";
+@import "styles/_borders.module.scss";
+@import "styles/_device_support.scss";
+
+// "Safe Area Insets" are a concept introduced by Apple so that web apps can properly adjust their
+// layout for their notched iPhones. This is done through the use of variables injected with
+// a special `env` function that is not necessarily supported by anything but Safari.
+//
+// As such, this mixin just gives us a quick way to check if the `env` function (and thus, the
+// inset vars) are supported and whether we need to account for them.
+//
+// Note: In order for these vars to actually work, `viewport-fit=cover` must be set on the `viewport`
+// meta tag in `index.html`.
+//
+// For reference: https://webkit.org/blog/7929/designing-websites-for-iphone-x/
+@mixin supports-safe-area-insets() {
+    @supports (padding: env(safe-area-inset-top)) {
+        @content;
+    }
+}
+
+@mixin svg-icon-color($color, $important: false) {
+    path {
+        @if $important {
+            stroke: $color !important;
+        } @else {
+            stroke: $color;
+        }
+    }
+}
+
+/** Creates an (initially hidden) custom outline to replace the default outline.
+ *
+ *  $inset can be used to specify an inset box-shadow, which is useful for elements that
+ *         have overflow: hidden specified (since the normal shadow goes outside the element).
+ */
+@mixin rounded-outline($color, $inset: false) {
+    @include micro-transition(opacity);
+
+    // This technique for using a box-shadow as a custom outline was inspired by
+    // https://stackoverflow.com/questions/5394116/outline-radius.
+    border-radius: $border-radius-normal;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    // Need the outline to be behind the element, otherwise it covers the element and absorbs
+    // any and all interactions.
+    z-index: -1;
+
+    @if $inset {
+        box-shadow: inset 0 0 0 2pt $color;
+    } @else {
+        box-shadow: 0 0 0 2pt $color;
+    }
+}
+
+@mixin custom-navigation-outline($focus-within: true, $inset: false) {
+    // Remove the default browser outline.
+    outline: none;
+
+    position: relative;
+
+    // Remove Firefox's default outline.
+    &::-moz-focus-inner {
+        border: 0;
+    }
+
+    &::after {
+        @include rounded-outline($color-primary-outline, $inset);
+    }
+
+    &:focus::after,
+    &:focus-within::after {
+        opacity: 1;
+    }
+
+    @if $focus-within {
+        &:focus-within::after {
+            opacity: 1;
+        }
+    }
+}
+
+@mixin keyboard-navigation-outline($focus-within: true, $inset: false) {
+    // Remove the default browser outline.
+    outline: none;
+
+    position: relative;
+
+    @include keyboard-navigation {
+        &:focus::after {
+            opacity: 1;
+        }
+
+        @if $focus-within {
+            // Need focus-within for when the outline goes on something like the div
+            // container surrounding an input, but it's really the input that receives focus.
+            //
+            // _Don't_ need focus-within when the container can be focusable but also individual
+            // items inside the container (e.g. a list item with multiple action buttons).
+            &:focus-within::after {
+                opacity: 1;
+            }
+        }
+    }
+
+    // Remove Firefox's default outline.
+    &::-moz-focus-inner {
+        border: 0;
+    }
+
+    &::after {
+        @include rounded-outline($color-primary-outline, $inset);
+    }
+}
+
+@mixin disable-custom-outline-transitions() {
+    &::after {
+        transition: none;
+    }
+}
+
+/** Makes the custom outline circular. For use with circular elements. */
+@mixin circular-custom-outline() {
+    &::after {
+        border-radius: 50%;
+    }
+}
+
+// This fakes a bold font by using text-shadow instead of font-weight.
+// This is used in cases where the extra width added by font-weight is undesirable.
+// (e.g. elements where they are toggled bold/not bold and would shift around if using font-weight)
+@mixin fake-bold($color: $color-primary) {
+    text-shadow: 0.5px 0 0 $color;
+}
+
+// Use a pseudo element to pre-render a shadow, to improve performance.
+// See https://tobiasahlin.com/blog/how-to-animate-box-shadow/ for reference.
+//
+// Note that `::before` is the default pseudo element for a good reason: because the
+// keyboard-navigation-outline uses `::after`, only `::before` will be free when used
+// in conjunction.
+@mixin transition-shadow($pseudo-element: "::before") {
+    position: relative;
+
+    &#{$pseudo-element} {
+        @include micro-transition(opacity);
+
+        border-radius: $border-radius-normal;
+        content: "";
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+
+        @content;
+    }
+}
+
+@mixin show-transition-shadow($pseudo-element: "::before") {
+    &#{$pseudo-element} {
+        opacity: 1;
+    }
+}
+
+@mixin card-shadow() {
+    box-shadow: 0 2px 6px transparentize($color: $color-primary-600, $amount: 0.9);
+}
+
+@mixin option-card-shadow() {
+    box-shadow: 0 7px 7px -4px transparentize($color: $color-primary-700, $amount: 0.5);
+}
+
+@mixin dropdown-shadow() {
+    // Use dual drop shadows for a better effect.
+    // The first is the inset/underneath kind that the ShadowButton uses.
+    // The second applies a tighter, darker shadow around the edges.
+    box-shadow: 0 16px 14px -6px transparentize($color: $color-primary, $amount: 0.8),
+        0 4px 10px transparentize($color: $color-primary, $amount: 0.7);
+}
+
+@mixin list-item-shadow($transparency: 0.9) {
+    // Just a small, subtle shadow to give the list item a tiny bit of depth.
+    box-shadow: 0 1px 2px transparentize($color: $color-neutral-700, $amount: $transparency);
+}
+
+// This is the 'double' shadow that is used by e.g. the `ShadowButton`.
+// Basically, it just makes the shadow look animated when the user interacts with the element.
+@mixin double-shadow($shadow-color: $color-primary-700) {
+    @include animate-transition-shadow();
+
+    box-shadow: 0 8px 6px -4px transparentize($color: $shadow-color, $amount: 0.5);
+
+    @include transition-shadow {
+        // This is a bigger shadow that simulates the button being further from the
+        // 'ground' of the screen (i.e. closer to the user).
+        box-shadow: 0 9px 7px -4px transparentize($color: $shadow-color, $amount: 0.5);
+    }
+}
+
+@mixin animate-transition-shadow($pseudo-element: "::before", $key: "-shadow") {
+    @include non-sticky-interactions($pseudo-element, $key) {
+        %base#{$key} {
+            // Hide the bigger shadow by default.
+            opacity: 0;
+        }
+
+        %hover#{$key} {
+            // Show the bigger shadow on hover.
+            opacity: 1;
+        }
+
+        %active-override#{$key} {
+            // Hide the bigger shadow when the user clicks to simulate pushing the button in.
+            opacity: 0;
+        }
+    }
+}
+
+@mixin clamp-lines($max-lines: 1) {
+    // Yes, you need all four of these properties to get line-clamp to work properly.
+    // For reference: https://css-tricks.com/almanac/properties/l/line-clamp/.
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: $max-lines;
+    overflow: hidden;
+}
+
+@mixin transactions-type-colors($base-selector, $color-suffix: "-dark", $property: "color") {
+    &.#{$base-selector}--income {
+        #{$property}: map-get($color-positives, color-positive#{$color-suffix});
+    }
+
+    &.#{$base-selector}--expense {
+        #{$property}: map-get($color-negatives, color-negative#{$color-suffix});
+    }
+
+    &.#{$base-selector}--debt {
+        #{$property}: map-get($color-warnings, color-warning#{$color-suffix});
+    }
+
+    &.#{$base-selector}--transfer {
+        #{$property}: map-get($color-supports, color-support#{$color-suffix});
+    }
+}
+
+// A hack for forcing the date picker to open (in Chrome) when the user clicks on a date input.
+// This should be applied to the container of the input (i.e. its label).
+// For example, with a `LabelledInput`, include this mixin on the `containerClassName`.
+//
+// Coincidentally, this hack also 'hides' the date picker icon, so one less thing for us to do.
+//
+// Reference: https://stackoverflow.com/a/53483852
+@mixin open-date-calendar-hack() {
+    position: relative;
+
+    input {
+        overflow: hidden;
+    }
+
+    input::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        height: 300%;
+        left: -150%;
+        position: absolute;
+        top: -150%;
+        width: 300%;
+    }
+}
+
+@mixin authentication-scene-styles() {
+    align-items: center;
+    background-color: $color-background-dark;
+    display: flex;
+    flex-direction: column;
+
+    // Because Safari sucks...
+    flex-shrink: 0;
+
+    // Provide lots of bottom padding so that mobile users can scroll the screen
+    // to see the form better.
+    padding-bottom: 35vh;
+
+    // Need separation between the logo and the top of the screen.
+    padding-top: 5vh;
+
+    width: 100%;
+
+    @include media-query-small-vertical {
+        // At smaller screen sizes, setting height: 100% actually _limits_ the height,
+        // such that the background color isn't applied to scrolled background.
+        // As such, below this breakpoint, just the padding-bottom is enough to cover everything.
+        // But at this breakpoint, the padding-bottom isn't enough, but the screen shouldn't
+        // scroll anyways, so we turn on height: 100% to get full coverage.
+        height: 100%;
+
+        // Can afford more padding now.
+        padding-top: 8vh;
+    }
+
+    .LogoLink {
+        // The Logo can shrink as the vertical screen space is reduced; prevent that.
+        flex-shrink: 0;
+
+        // Need separation between the logo and the form.
+        margin-bottom: $size-500;
+
+        @include media-query-small-vertical {
+            // Can afford more separation now.
+            margin-bottom: $size-700;
+        }
+    }
+}
+
+// These are the styles applied to the top-level of a single step in a 'wizard' process
+// (you know, like a 'setup wizard', where there's a bunch of steps to complete a task).
+@mixin wizard-process-step-styles($flex-layout: false) {
+    display: grid;
+    gap: $size-600;
+    grid-template-columns: 1fr;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        gap: $size-700;
+    }
+
+    &-body {
+        @if $flex-layout {
+            display: flex;
+            flex-direction: column;
+        } @else {
+            display: grid;
+            gap: $size-500;
+        }
+
+        // I don't know why something like justify-content: center on the Step container
+        // doesn't center this in its column, but using auto margins sure does.
+        margin: 0 auto;
+
+        max-width: $size-transactions-import-step-width;
+        width: 100%;
+    }
+}
+
+// Utility class that can be applied to elements to force the focus outline to be applied.
+// Useful for showing focus states in stories.
+.Element--story-FocusOutline {
+    &::after {
+        opacity: 1;
+    }
+}

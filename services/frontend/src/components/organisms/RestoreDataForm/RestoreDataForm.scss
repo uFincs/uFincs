@@ -1,0 +1,61 @@
+@import "styles/_shared.scss";
+
+.RestoreDataForm {
+    display: grid;
+    gap: $size-500;
+    width: 100%;
+
+    .RestoreDataForm-header {
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    #restore-data-form-file-input {
+        // Reference for styling inputs with type="file":
+        // https://benmarshall.me/styling-file-inputs/
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        width: 0.1px;
+        z-index: -1;
+    }
+
+    .RestoreDataForm-SubmitButton-container {
+        justify-self: flex-start;
+        width: 100%;
+
+        // Use the medium breakpoint to match when the BackupDataForm switches from single column
+        // to 2 columns. This is unlike all of the UserAccount forms which use the small breakpoint.
+        @include media-query-medium {
+            max-width: 250px;
+        }
+
+        .RestoreDataForm-SubmitButton {
+            padding: 0;
+
+            .Button-child-wrapper {
+                // Need the wrapper to have 100% width so that the label can have 100% width.
+                width: 100%;
+
+                // This is the label that enables the file input styling hack.
+                label {
+                    // Give the label the same dimensions as a normal button, to increase the clickable
+                    // surface area for opening the file picker.
+                    @include button-height();
+
+                    // Need to center the label (within itself...) once it has the extra height/width.
+                    align-items: center;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+
+                    // Give the label the full width of the button, so that no matter where the user
+                    // clicks on the button, they're actually clicking on the label
+                    // (which in turn means they're clicking on the 'input').
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

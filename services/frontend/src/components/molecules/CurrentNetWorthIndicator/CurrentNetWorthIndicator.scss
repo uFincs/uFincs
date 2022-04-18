@@ -1,0 +1,24 @@
+@import "styles/_shared.scss";
+
+.CurrentNetWorthIndicator {
+    display: grid;
+    gap: $size-50;
+
+    .CurrentNetWorthIndicator-title {
+        color: $color-text-secondary;
+        font-size: $font-size-200;
+        text-align: right;
+    }
+
+    .CurrentNetWorthIndicator-amount {
+        font-size: $font-size-300;
+        text-align: right;
+
+        .CurrentAmount-amount {
+            // Make it semibold to tone down its visual hierarchy; bold is too much.
+            // Need to target .CurrentAmount-amount directly to get the style to apply correctly;
+            // otherwise, even !important isn't enough, because the style is inherited.
+            font-weight: $font-weight-semibold;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@import "styles/_shared.scss";
+
+.WarningMessage {
+    background-color: $color-warning-100;
+    border: 1px solid $color-warning-500;
+    border-radius: $border-radius-normal;
+    font-size: $font-size-200;
+    max-width: 500px;
+    padding: $size-300;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        font-size: $font-size-300;
+        padding: $size-400;
+    }
+}

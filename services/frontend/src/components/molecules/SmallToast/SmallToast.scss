@@ -1,0 +1,107 @@
+@import "styles/_shared.scss";
+
+.SmallToast {
+    @include animate-transition-shadow();
+    @include keyboard-navigation-outline($focus-within: false);
+    @include micro-interactive-bounce();
+
+    align-items: center;
+    background-color: $color-primary-dark;
+    border-radius: $border-radius-normal;
+    box-shadow: 0 3px 6px transparentize($color: $color-primary, $amount: 0.4);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: $size-300;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+
+    @include media-query-small {
+        padding: $size-300 $size-400;
+    }
+
+    @include transition-shadow {
+        // Setup a bigger shadow for hovering.
+        box-shadow: 0 4px 12px transparentize($color: $color-primary, $amount: 0.4);
+    }
+
+    @include media-query-medium {
+        width: 400px;
+    }
+
+    .SmallToast-message {
+        color: $color-light;
+        font-size: $font-size-100;
+        font-weight: $font-weight-semibold;
+        -webkit-user-drag: none;
+        user-select: none;
+
+        @include media-query-small {
+            font-size: $font-size-200;
+        }
+    }
+
+    .SmallToast-actions {
+        display: grid;
+        gap: $size-500;
+        grid-auto-flow: column;
+
+        // Need some left margin so that the toast message doesn't butt up against the actions.
+        margin-left: $size-400;
+
+        .SmallToast-action {
+            @include micro-transition(background-color, transform);
+
+            border-radius: $border-radius-normal;
+            color: $color-light;
+            font-size: $font-size-100;
+            margin: (-($size-100)) (-($size-200));
+            padding: $size-100 $size-200;
+            -webkit-user-drag: none;
+            user-select: none;
+
+            @include media-query-small {
+                font-size: $font-size-200;
+            }
+
+            @include non-sticky-interactions($key: "-action") {
+                %base-action {
+                    background-color: transparent;
+                }
+
+                %hover-action {
+                    background-color: lighten($color-primary-dark, 15%);
+                }
+
+                %active-override-action {
+                    background-color: lighten($color-primary-dark, 20%);
+                }
+            }
+        }
+
+        .SmallToast-close-button {
+            @include svg-icon-color($color-primary-100);
+
+            // Remove the button's padding to account for the CircularCountdown.
+            padding: 0;
+
+            @include non-sticky-interactions($key: "-close-button") {
+                %base-close-button {
+                    background-color: transparent;
+                }
+
+                %hover-close-button {
+                    background-color: lighten($color-primary-dark, 15%);
+                }
+
+                %active-override-close-button {
+                    background-color: lighten($color-primary-dark, 20%);
+                }
+            }
+
+            .SmallToast-countdown {
+                stroke: $color-primary-400;
+            }
+        }
+    }
+}

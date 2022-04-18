@@ -1,0 +1,53 @@
+@import "styles/_shared.scss";
+
+.SettingsListItem {
+    &.SettingsListItem-desktop-layout {
+        height: auto;
+        padding: $size-300 $size-400;
+        width: 200px;
+
+        .SettingsListItem-content {
+            .SettingsListItem-content-body {
+                .SettingsListItem-title {
+                    font-size: $font-size-300;
+                }
+            }
+        }
+    }
+
+    &.SettingsListItem-mobile-layout {
+        // Up the max-height a bit since there are fewer list items and they need to take up more
+        // vertical space to look visually appealing.
+        max-height: 64px;
+
+        max-width: unset;
+
+        // See reasoning for upping max-height.
+        min-height: 56px;
+
+        .ListItem-top-layer {
+            padding: $size-300 $size-400;
+        }
+
+        .SettingsListItem-content {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+
+            .SettingsListItem-content-body {
+                .SettingsListItem-title {
+                    font-weight: $font-weight-bold;
+                }
+
+                .SettingsListItem-description {
+                    color: $color-text-tertiary;
+                    font-size: $font-size-100;
+                }
+            }
+
+            .SettingsListItem-icon {
+                @include svg-icon-color($color-text-tertiary);
+            }
+        }
+    }
+}

@@ -1,0 +1,86 @@
+@import "styles/_shared.scss";
+
+@mixin double-column-layout {
+    @include media-query-navigation-change {
+        @content;
+    }
+}
+
+.Settings {
+    display: grid;
+    gap: $size-600;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    @include double-column-layout {
+        gap: $size-700 $size-800;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .Settings-header-desktop {
+        display: none;
+
+        @include double-column-layout {
+            display: block;
+            grid-column: 1;
+            grid-row: 1;
+        }
+    }
+
+    .Settings-header-mobile {
+        @include double-column-layout {
+            display: none;
+        }
+    }
+
+    .Settings-page-heading-container {
+        align-items: center;
+        align-self: flex-end;
+        display: flex;
+
+        @include double-column-layout {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .Settings-BackButton {
+            margin-right: $size-300;
+
+            @include double-column-layout {
+                display: none;
+            }
+        }
+
+        .Settings-page-heading {
+            font-size: $font-size-500;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .Settings-navigation-desktop {
+        display: none;
+
+        @include double-column-layout {
+            display: block;
+            grid-column: 1;
+            grid-row: 2;
+        }
+    }
+
+    .Settings-navigation-mobile {
+        @include double-column-layout {
+            display: none;
+        }
+    }
+
+    .Settings-content-container {
+        // Bottom spacing to give users enough height to scroll the whole page.
+        margin-bottom: 40vh;
+
+        @include double-column-layout {
+            grid-column: 2;
+            grid-row: 2;
+        }
+    }
+}

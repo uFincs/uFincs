@@ -1,0 +1,188 @@
+@import "styles/_shared.scss";
+
+.AppNavigation--large {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Show the large app navigation.
+        display: flex;
+    }
+
+    .AppNavigation-content {
+        align-items: flex-end;
+        display: flex;
+        margin-bottom: $size-300;
+
+        .AppNavigation-content-left {
+            display: flex;
+
+            // Because the UserDropdown is so tall, it makes everything else look quite short
+            // and too close to the divider.
+            // As such, this moves everything else up a bit to give the illusion that everything
+            // is evenly spaced.
+            margin-bottom: $size-100;
+
+            .AppNavigation-nav-group {
+                // Push the nav away from the logo.
+                margin-left: $size-500;
+
+                @media (min-width: 1000px) {
+                    // Can increase the amount of spacing once there's enough screen width.
+                    margin-left: $size-800;
+                }
+
+                &-underline {
+                    // Change the TabBar's underline's spacing to match that of the Divider.
+                    bottom: -18px;
+                }
+            }
+        }
+
+        .AppNavigation-content-right {
+            align-items: center;
+            display: grid;
+            gap: $size-600;
+            grid-auto-flow: column;
+            margin-left: auto;
+
+            // Because this is the 'desktop' navigation, I'm allowing the use of max-width instead of
+            // min-width. Also, because it's easier to set "display: none" than "display: whatever the
+            // actual component uses".
+            //
+            // 900px is the width at which we can no longer fit the Current Net Worth.
+            @media (max-width: 900px) {
+                .CurrentNetWorthIndicator {
+                    display: none;
+                }
+            }
+
+            .AppNavigation-signup-button {
+                height: 38px;
+
+                @media (max-width: 1100px) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+// Experimentally, I found that having the FAB cutout as an actual circle looked weird.
+// The outer edges looked too far away from the FAB, whereas I wanted it to look more like
+// it was surrounding it.
+// As such, the width of the cutout (which is now an ellipse) is slightly smaller than its
+// height, giving it that impression that I want.
+//
+// As for the cutout's dimensions' relation with the dimensions of the FAB itself, I've found
+// that anywhere in ($size-fab-diameter / 2 (+6 to +8)) seemed to work well for the height,
+// with the offset seeming to increase as the $size-fab-diameter increased.
+// A 3 to 4 pixel negative offset from the height seemed to work well for the width.
+$fab-cutout-width: 33px;
+$fab-cutout-height: 34px;
+
+.AppNavigation--small {
+    // This radial-gradient is what enables the cutout circle (ellipse) that surrounds
+    // the FAB. Adopted from:
+    // https://stackoverflow.com/questions/8503636/transparent-half-circle-cut-out-of-a-div
+    background-image: radial-gradient(
+        ellipse $fab-cutout-width $fab-cutout-height at top,
+        transparent 100%,
+        $color-light 100%
+    );
+
+    // Subjectively, the nav bar looks better with the bigger border radius.
+    // Might have to do with the FAB being close by and round.
+    border-radius: $border-radius-large;
+
+    bottom: $size-200;
+
+    // The first shadow is the obvious inset shadow that mimics the ShadowButton.
+    // The second shadow is a much more subtle shadow to highlight the side edges and a bit
+    // of the top more.
+    box-shadow: 0 8px 6px -4px transparentize($color: $color-primary, $amount: 0.5),
+        0 4px 8px transparentize($color: $color-primary, $amount: 0.7);
+
+    display: flex;
+    justify-content: space-between;
+    left: 50%;
+
+    max-width: $size-app-navigation-small-max-width;
+
+    padding: $size-300;
+    position: fixed;
+    transform: translateX(-50%);
+    width: calc(100% - #{($size-app-padding-horizontal-small * 2)});
+    z-index: $z-index-app-navigation-small;
+
+    @include supports-safe-area-insets {
+        // Need extra spacing to account for notched devices.
+        bottom: calc(#{$size-200} + env(safe-area-inset-bottom));
+    }
+
+    // Experimentally derived.
+    // Below this width, we need as much horizontal space as we can get.
+    // But past this width, we can loosen the padding.
+    @include media-query-extra-small {
+        padding: $size-300 $size-400;
+    }
+
+    @include media-query-navigation-change {
+        // Hide the small app navigation.
+        display: none;
+    }
+
+    &.AppNavigation--small-safari {
+        // For some reason, on Safari, the radial-gradient for the background-image causes the background
+        // of the AppNavigation to be only transparent. As such, we add background-color here as a fallback;
+        // to make sure the background is white.
+        //
+        // Note that this kinda makes the radial-gradient pointless since the cutout for the FAB is removed.
+        background-color: $color-light;
+    }
+
+    .AppNavigation-add-button {
+        // The left, right, and margin properties are used for absolute horizontal centering.
+        // Note that we can't use the translateX(-50%) trick here because it'd override
+        // the transforms defined on the underlying Button for the focus/hover/active states.
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+
+        // The -2px is an offset to get the plus icon lined up with the top of the nav bar.
+        top: -($size-fab-diameter / 2 - 2px);
+
+        width: $size-fab-diameter;
+    }
+
+    // Since the FAB is absolutely positioned, this invisible spacer plays the role of
+    // taking up the space the FAB would have if it weren't absolute. This pushes the
+    // NavItems away from the center and neatly separates them into two groups.
+    .AppNavigation-spacer {
+        width: 60px;
+
+        // Experimentally derived.
+        // Just like the horizontal padding of the container itself, the amount of space
+        // in the middle can grow as the screen width grows, to push the NavItems more
+        // out from the middle.
+        @include media-query-extra-small {
+            width: 70px;
+        }
+
+        @include media-query-small {
+            width: 80px;
+        }
+    }
+
+    .AppNavigation-nav-group {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+
+        @media (min-width: #{$size-app-navigation-small-max-width}) {
+            justify-content: space-around;
+        }
+    }
+}

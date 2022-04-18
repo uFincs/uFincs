@@ -1,0 +1,43 @@
+@import "styles/_shared.scss";
+
+.StepNavigationButtons {
+    .StepNavigationButtons-next-disabled-reason {
+        color: $color-negative-text;
+        font-weight: $font-weight-bold;
+        margin-bottom: $size-400;
+        width: 100%;
+    }
+
+    .StepNavigationButtons-buttons-container {
+        align-items: center;
+        display: grid;
+        gap: $size-400;
+        grid-auto-columns: auto;
+        grid-auto-flow: column;
+        justify-content: flex-end;
+
+        @include media-query-small {
+            gap: $size-600;
+        }
+
+        .StepNavigationButtons-back {
+            @include non-sticky-interactions {
+                %base {
+                    color: $color-text-secondary;
+                }
+
+                %hover {
+                    color: $color-text-primary;
+                }
+
+                %disabled {
+                    color: $color-text-disabled;
+                }
+            }
+        }
+
+        .StepNavigationButtons-next {
+            min-width: 80px;
+        }
+    }
+}

@@ -1,0 +1,78 @@
+@import "styles/_shared.scss";
+
+@mixin table-grid() {
+    align-items: center;
+    display: grid;
+    gap: $size-600;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    grid-template-columns: 100px;
+}
+
+.CsvMappingTable {
+    display: grid;
+    gap: $size-400;
+    width: 100%;
+
+    .CsvMappingTable-head {
+        display: grid;
+        gap: $size-100;
+        padding-right: $size-200;
+
+        .CsvMappingTable-head-row {
+            @include table-grid();
+
+            th {
+                text-align: left;
+            }
+        }
+
+        .CsvMappingTable-head-columns {
+            th {
+                color: $color-text-secondary;
+                font-size: $font-size-100;
+                font-weight: $font-weight-semibold;
+            }
+        }
+
+        .CsvMappingTable-head-fields {
+            th {
+                color: $color-text-primary;
+                font-weight: $font-weight-bold;
+            }
+
+            .CsvMappingTable-head-sample-data {
+                color: $color-text-secondary;
+                font-weight: $font-weight-semibold;
+                text-align: right;
+            }
+        }
+    }
+
+    .CsvMappingTable-body {
+        display: grid;
+        gap: $size-100;
+
+        .CsvMappingTable-row {
+            @include list-item-shadow();
+            @include table-grid();
+
+            background-color: $color-background-light;
+            border-radius: $border-radius-normal;
+
+            // OK, we're kinda cheating by setting a fixed height here instead of using something like padding.
+            // However, this height is the final height of the TransactionsTableRow, which has a naturally taller
+            // height (even though it uses little padding) because of the height of the TransactionTypeIcon.
+            // Since we're not using the icons here, we can't just slap on the same padding value.
+            // So we cheat and use its final height to get a consistent look. /shrug
+            height: 44px;
+
+            padding-right: $size-200;
+
+            .CsvMappingTable-row-cell {
+                color: $color-text-tertiary;
+                text-align: right;
+            }
+        }
+    }
+}

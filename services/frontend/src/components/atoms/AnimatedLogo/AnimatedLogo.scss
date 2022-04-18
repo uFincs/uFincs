@@ -1,0 +1,13 @@
+@import "styles/_shared.scss";
+
+.AnimatedLogo {
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.AnimatedLogo--story-Large {
+    height: 100px;
+    width: 80px;
+}

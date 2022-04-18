@@ -1,0 +1,64 @@
+@import "styles/_shared.scss";
+
+.ChartStats {
+    display: grid;
+    gap: $size-300;
+
+    .ChartStats-title {
+        font-size: $font-size-200;
+
+        @include media-query-navigation-change {
+            font-size: $font-size-400;
+        }
+    }
+
+    .ChartStats-amount {
+        // Want the 'From' amount aligned with the bottom of the current amount.
+        align-items: flex-end;
+
+        display: flex;
+
+        .CurrentAmount {
+            font-size: $font-size-600;
+
+            @include media-query-navigation-change {
+                font-size: $font-size-800;
+            }
+
+            .CurrentAmount-dollar-sign {
+                color: $color-primary-500;
+            }
+
+            .CurrentAmount-amount {
+                color: $color-primary-600;
+            }
+        }
+
+        .FromAmount {
+            font-size: $font-size-200;
+
+            // Need to bring the 'From' amount up a bit to make it visually aligned with
+            // the bottom of the current amount.
+            margin-bottom: $size-50;
+
+            // Push the 'From' amount away from the current amount.
+            margin-left: $size-200;
+
+            @include media-query-navigation-change {
+                font-size: $font-size-400;
+            }
+        }
+    }
+
+    .AmountChange {
+        // Match the 'From' amount font.
+        font-size: $font-size-200;
+
+        // Need it to be bold to give it more contrast against the light background.
+        font-weight: bold;
+
+        @include media-query-navigation-change {
+            font-size: $font-size-400;
+        }
+    }
+}

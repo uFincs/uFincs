@@ -1,0 +1,479 @@
+{
+    "version": "1.3",
+    "encrypted": true,
+    "data": {
+        "accounts": {
+            "4842a8d8-e596-49ea-9265-a2050b1ff3f3": {
+                "id": "4842a8d8-e596-49ea-9265-a2050b1ff3f3",
+                "name": "eBrmm2x6xbV2d4IC:YdDmvao6QaV2WavXT2r1rKK5Otg=",
+                "type": "ab0KWOED1PUAfT4+:xYXue7TVL6waVuCzw5r9eDd0kUE3URY=",
+                "openingBalance": "nSRqoBVTc7id9Fam:Ym8q6efHJFLZC0nSba67sKU=",
+                "interest": "XzzIzf8yRqJBYVKZ:FWUGJHi/Tin5/E5qlfhBvD0=",
+                "createdAt": "s33eoedSpi5Hanuz:qgERSwcfBIixu9oGM2fBPRjdU2KB26bJ2R0ig3yCOWYvY0RnF+KJVQ==",
+                "updatedAt": "x3bkKXCDIDV8ky6P:TclgWdqDuip4eX54Zlt0ksQVIozdDxdempPa7k0BXID7GhAbXLjVNA==",
+                "transactions": [],
+                "transactionIds": [
+                    "7bacc3dd-a944-4327-8458-70c550018c7a",
+                    "6f554367-32b7-42b3-9f89-f78b34d8eae2"
+                ]
+            },
+            "3c9a72ad-13b4-49a4-9635-6b3f88776e59": {
+                "id": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "name": "6tNcUclK7OSq0dpc:uNxkID8Rq2qHgNL431Vs0AKB+Ew=",
+                "type": "6HLBKU6BF9YD2vrh:cx9SQWJLBSUYWYSRNz/CrbuLaLNC1OI=",
+                "openingBalance": "yiOLQgWrB5WDFhsr:3lYGjiVr/BhU7eAmvI6xF+E=",
+                "interest": "pqDv4N2j3XPS7tZ3:UN0pVhWDfu6tqc66AKK42gs=",
+                "createdAt": "ZuMA/zdkySDBChYh:tSalvFikWwwvQnJ5joHVtI43fZAB8jBL4myTc2TDfSHycRoLTr561w==",
+                "updatedAt": "lhAZlgKcHaUwqHro:Vaelk9rUAKFh0ySGNtM3v9q9sftOb9ifJqtOC9hCy9QRIaDEv+O0eQ==",
+                "transactions": [],
+                "transactionIds": [
+                    "8d22157b-3d79-4773-af1a-0b0a768c3a38",
+                    "376212f2-6a41-40f3-ad0f-6283df42badc",
+                    "cae695b0-d257-42c8-abff-aa31790da311",
+                    "3e22c513-2c54-4273-a56f-f76d89521fa4",
+                    "d8194766-cb99-4488-b07a-9e08fbea2a5a"
+                ]
+            },
+            "1f1ae8f1-fde8-4679-ba0d-6192bc599f81": {
+                "id": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "name": "8CFo6vhyOoMmeeqS:aZV8MiGJNf84V/NyX/un1JU7cL5QOevS",
+                "type": "M+GOxcsRGfZ7xoW1:oavXLMuZNjxhlh6oWDNtomskOd7/",
+                "openingBalance": "oKcj1xauWiKl9ct6:zZwevoR6y/y2KWNZXIVnm1Voo8JvWg==",
+                "interest": "5EzwDdxhvTYY9qmO:yC+Jz0mEfaENmME+2/CZVPo=",
+                "createdAt": "JbGL7t3YKs0qBjLu:T6v1bU4PAR4OykWt1PaTlQ+wYEGHZH6yUySTgTXGmnru21+ln+TXFw==",
+                "updatedAt": "LXFg3szR1USrhgph:3r3GOwWna079i1JmEvDd3IYs7iulLDYpogBBctBJC3yG/uw+wsIS9Q==",
+                "transactions": [],
+                "transactionIds": [
+                    "6f554367-32b7-42b3-9f89-f78b34d8eae2",
+                    "cae695b0-d257-42c8-abff-aa31790da311",
+                    "3e22c513-2c54-4273-a56f-f76d89521fa4",
+                    "d8194766-cb99-4488-b07a-9e08fbea2a5a",
+                    "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07",
+                    "768988c6-119b-4251-9421-5bdd2be480cd",
+                    "99d9d685-1897-4862-aba8-c8d72cae4050",
+                    "79e5e6e5-a041-4186-a453-a84d84e38c46",
+                    "a2fa4501-158b-496b-b9b1-1c12f8a10e44",
+                    "1e395539-7516-46a5-a652-f6004f88167c",
+                    "73d90c25-3687-44a9-9a44-e85e9cd21f68"
+                ]
+            },
+            "cf1ca111-0591-43fd-891f-03242c21990b": {
+                "id": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "name": "DpVGgvuv78O/tDP6:ZrCExR5kZKVU8ij/cket0kGbVqm2gYVYj6k41Vz2FQ==",
+                "type": "sRlRbrSOaI4OJRIc:DLC3faTRDs37X0/9Pn443t8QnPyX",
+                "openingBalance": "VrJVTCJHFcsmghPq:I+SskK0zfkyip2L7cS4OoY6ZSr1CRg==",
+                "interest": "hfLdY7kVVolDS1Gf:guheSgfWMD2eyRSVScgBJsa19Pc=",
+                "createdAt": "B5nlc4/nbJVqlKb8:56MvOcdgC12g5umj+iRQJ+4TpZdY692jYBz4dWjRxhuJo3oUX/ZfzQ==",
+                "updatedAt": "Gxm6jaxUACWyzyqD:kTOMfuiSSazgP9W3nBuGVtCWnNJcU1T6C0KKqg+jvNddXeFTGwRYrw==",
+                "transactions": [],
+                "transactionIds": [
+                    "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07",
+                    "3f587951-8902-42db-826e-f76f922fb563"
+                ]
+            },
+            "15157a84-721e-4bb2-b138-80e47748d2a3": {
+                "id": "15157a84-721e-4bb2-b138-80e47748d2a3",
+                "name": "EBIy6QK7NAtELS9v:u4qY1peBG1xH8sjG437YaBPDN6klO9ak",
+                "type": "whHv3ASPFft8HkwM:gxYZ07KPXLSLip4gZccO4jouXCskbg==",
+                "openingBalance": "EvRUvnxnHCtGHXC8:WU83dySd+2uWgu0fHqzcfRo=",
+                "interest": "czrfeShw8AynlfZF:oneAMKk+VTjzmPxHBFK2fps=",
+                "createdAt": "SyWWHLDLd2rPxVyi:7iEh3GNNRDjFS0xoLqHsTs3u3tj0FH37p0Bza2qvbd2JxQwrbQQ2hA==",
+                "updatedAt": "DMoCG7ooJEu6Uerk:NvqI8xeg1tKpW64xql2Jg8+8z7h1eYqK8gT0nvLCPax1DUzOOpZ6nA==",
+                "transactions": [],
+                "transactionIds": ["3f587951-8902-42db-826e-f76f922fb563"]
+            },
+            "176f8fa3-56b4-4ebd-839a-894b96e5cecf": {
+                "id": "176f8fa3-56b4-4ebd-839a-894b96e5cecf",
+                "name": "EzRs7LFZaRkeN2d1:G8aQcvYlQqXVJjMHUdmGr+rDZzc=",
+                "type": "mbKN5Sj5UbNSBu72:A4S9ZtHIDHxF5wgkcBVPWD6IF67G",
+                "openingBalance": "AO0MrWauEtl3w4AB:hXzlz+PC6ofIjuGU+W04cr3pW+f9",
+                "interest": "RP/y6dHwLpI76wrg:QS7XijhVjqP92pZ5PFxWUmE=",
+                "createdAt": "HYXF97WULGH75i4t:OfsAyPwSj2Coadu82+7p0eCXKxC3/nxOmKztQeL0x2p3rdcBXXSHEQ==",
+                "updatedAt": "HixiknGQ0Tn6u/2Y:n4yFqjkGmncCRKo3QaQp5y4KfY5Q7YjjQ3q5I6k//vdRiAT/R//wnw==",
+                "transactions": [],
+                "transactionIds": ["7bacc3dd-a944-4327-8458-70c550018c7a"]
+            },
+            "5426f299-6475-47e2-ac03-b760f0f46f11": {
+                "id": "5426f299-6475-47e2-ac03-b760f0f46f11",
+                "name": "fP6T+rE+hDxDm9fK:jgz6mRXQdCZw9s5ooGyA+9GHwxkv33/Lswkw",
+                "type": "55vqDHCjw3rxQmOn:Ff1CjD7X5b2rM9T2nvINXUwpiUfzy7Loag==",
+                "openingBalance": "nuh04F0X6qeK54fr:pR+FtSUw2IpS54vr8eBeHQ8=",
+                "interest": "a39D4hsy6Nai1dZj:drYmB5zszEw+KR190KZ5XSc=",
+                "createdAt": "3l79hABGzf+2VaEr:/MMRxUmcSviRnasTIrm21ZKg0rZpHD1u3eXoN0AnJpKovRk90uCvsA==",
+                "updatedAt": "sut/a7mteyw34hKR:cxohOnZahq3g2VFqSrPn514w3tlKOVnltE5sKfGii6UVit+k6EbmWA==",
+                "transactions": [],
+                "transactionIds": [
+                    "8d22157b-3d79-4773-af1a-0b0a768c3a38",
+                    "376212f2-6a41-40f3-ad0f-6283df42badc"
+                ]
+            },
+            "72447072-fa82-424b-b7e6-a8afe4e2e1a4": {
+                "id": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "name": "PJCllOR7GiPB4UZ2:HHg4FB8bhOXEBJ8qewsiGelbfeI5mw==",
+                "type": "WCGNMr5IBvyzjlWO:E9/cu/RFo9w1xaxgr38GR/FgnL3weg==",
+                "openingBalance": "ua1m5Tq3HwM7TpPP:Q29a7uqO/n/s/p+k0bqez6s=",
+                "interest": "CvLSk4MQqJgAT62i:0qvOorlTAH0ZPsUW3nm2ojY=",
+                "createdAt": "l3JgL0bjfMKmHXlL:9fHjkdIE4CAE5W4kTnOaePHZQibdua+mZ54Edfnqc16mJV62NOu87w==",
+                "updatedAt": "L2wcCyuP27dKbVhl:P30DJXSyCUYrOl3D7Ec4YcJPl4774EvxZcrzp1Ao7+F2X7UBl0KNlg==",
+                "transactions": [],
+                "transactionIds": [
+                    "768988c6-119b-4251-9421-5bdd2be480cd",
+                    "99d9d685-1897-4862-aba8-c8d72cae4050",
+                    "79e5e6e5-a041-4186-a453-a84d84e38c46",
+                    "a2fa4501-158b-496b-b9b1-1c12f8a10e44",
+                    "1e395539-7516-46a5-a652-f6004f88167c",
+                    "73d90c25-3687-44a9-9a44-e85e9cd21f68"
+                ]
+            }
+        },
+        "importProfiles": {
+            "34726730-3b63-4067-8a2d-a7ff557f53f2": {
+                "id": "34726730-3b63-4067-8a2d-a7ff557f53f2",
+                "name": "HIgzdih6GDYBpAg/:QwcihWO+KDJ4F24ppgVwUDcjmWVr+wcOAGDcPxTpRwz6Iro=",
+                "createdAt": "G0qVwg53I3rVH3u/:QTnvZbcBP5nT6CKbjRr/YWn5tBD85bLLiZF67NxxSlXT/q8yy0KdaA==",
+                "updatedAt": "AUJ8S9gzrboa32g+:w6TwxzwL6vmKAb2Lpv9NH0eK4pHNKasnyN/MvFUc6njJW1zRUmS7nA==",
+                "importProfileMappings": [],
+                "importProfileMappingIds": []
+            }
+        },
+        "importProfileMappings": {},
+        "importRules": {
+            "8afbeb75-00cd-460e-a431-4f14db54c084": {
+                "id": "8afbeb75-00cd-460e-a431-4f14db54c084",
+                "createdAt": "nWy5OjgmEw97I3HY:pHtmjQ1GS6oDKn+xLCHP8lhq1OozN05qI6moI5Uq08TZ0iIySRQLqw==",
+                "updatedAt": "ADWi5z9aHXEqa0en:6rCR9O5zGOK/T43BBueaQmgHTVdLzHpguk+X+Db1AD8MSp6YuwPL0w==",
+                "importRuleActions": [],
+                "importRuleConditions": [],
+                "importRuleActionIds": [
+                    "79bfd604-9cf8-447c-be5d-f345efb2d7cd",
+                    "996b313f-631e-45a2-8d23-639b45622c25",
+                    "860cdbd3-f8e2-4f08-8635-60342d01f6a8"
+                ],
+                "importRuleConditionIds": ["bc4a983c-2ecc-470d-a537-ce9508e24c03"]
+            },
+            "b032b17b-eb2b-4362-86d3-93bb556037f9": {
+                "id": "b032b17b-eb2b-4362-86d3-93bb556037f9",
+                "createdAt": "JqTP8WGjz/CQ9HvX:n17pfcaECvkjweG9S3+vZEt5CVzWueaEmC+aT/mXF0TXryjBOTd+sA==",
+                "updatedAt": "2/lN3nC1ll67JfXS:WN5KBq7ghgTHctJ5Ft94YNQNvhQCUKbiz5WqOfNR9ISt9XNayGTSsw==",
+                "importRuleActions": [],
+                "importRuleConditions": [],
+                "importRuleActionIds": [
+                    "4cbb4a18-702c-4a06-8841-a173c17ecf60",
+                    "da700417-9385-40a1-809d-95bfc9523cbd",
+                    "d8368d0b-b568-4f40-9e12-c43a0472b61e"
+                ],
+                "importRuleConditionIds": ["d7289775-e746-4aa2-b9c5-d68978c83b77"]
+            }
+        },
+        "importRuleActions": {
+            "79bfd604-9cf8-447c-be5d-f345efb2d7cd": {
+                "id": "79bfd604-9cf8-447c-be5d-f345efb2d7cd",
+                "property": "p9OSeB2hS8+b3yuZ:yqMUfMvZFYfk7z+AjFxab+QiiZWuycaQe9Dl",
+                "value": "WGjTPCgZk4DqKFiE:sLxwrhYCTZEDe2I2UeLACkzpWDA7VA==",
+                "createdAt": "IFKNciERXh/Xm5V1:VAOj6PDRHuS3nyEl2/7MtEUqgkBWQIN4HARuKU/vrOQeUTfO3RbXuQ==",
+                "updatedAt": "iNawCcTfIgyd+2gp:DV39Tl61OAYi4KfmYZGKUp68VDQGbnHaZPLubtd1gkO73w341roxNA==",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "996b313f-631e-45a2-8d23-639b45622c25": {
+                "id": "996b313f-631e-45a2-8d23-639b45622c25",
+                "property": "ulDHFes6bySjYd4r:easK/ZuAzKXmunjYq0iWZsOQCuI2PJw=",
+                "value": "leZs1ONo7ITs3DlE:epzHj8R9VAqRhTiZ31qZN3NVGMBJGSY0eZMfppbMx6RDe9GppdyAAUwS3AUou6/qaoHa9A==",
+                "createdAt": "3tnWLI0F0fmSQdec:kQB8KBs+381DaxZvOnkEHNVDerHa6+6d13RzOA4Qk2qVVrgVRPz6Gg==",
+                "updatedAt": "VuC0X166EujXrlPs:2agFm1Rk31b2J3FjWv84dAb8gXXuxZ776h7nM+vB8kNt+jSdIC6PqA==",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "860cdbd3-f8e2-4f08-8635-60342d01f6a8": {
+                "id": "860cdbd3-f8e2-4f08-8635-60342d01f6a8",
+                "property": "mMdXvKZr7nSRabIF:Kxm06zz5CBUgzLb3szG8Dk6w12Y=",
+                "value": "Uum4Y2zS4+yimNYO:XrZpGB71CCWtjCqesE1gFmbBPe7Zhw==",
+                "createdAt": "hh+oaElnCJuycQVi:hCwDzyILtcW2ZXEvlfXuHuGVhegIUX57oEsn7nRNbHDhSYbxDB6PaQ==",
+                "updatedAt": "yeSlFNxQOVgTrFyi:OrAaZTJUmh3VqE+v68GQyGS2DINoK9BgDO2coR3w5fMpy0eysq6dJg==",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "4cbb4a18-702c-4a06-8841-a173c17ecf60": {
+                "id": "4cbb4a18-702c-4a06-8841-a173c17ecf60",
+                "property": "khiJ/7jBwBGeocnk:DEXumsL0fXqD7QTwfXoVGeLNGyCiu5enCuhY",
+                "value": "MbF37UJ28aFbkGYi:RZ8r7aeo9Mg/d8Rh5TDCtTJJSUesECayMR76Fw==",
+                "createdAt": "7PoIb0FMNJL7em45:Mkyyfc3JCbpZeZB8FYFwLS7p/zz1BOOnDLWiQ3Dt9YPPem4HTHLPsw==",
+                "updatedAt": "Hf7lz0VZEbzcvMnr:CEce774z9sPD4a5X0Oj+XaqL7iNR4rad4DqTur7ZyRloQ8WiMGYw+w==",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            },
+            "da700417-9385-40a1-809d-95bfc9523cbd": {
+                "id": "da700417-9385-40a1-809d-95bfc9523cbd",
+                "property": "BoCnqxz6gB9R/H9J:4FrSVXrT8Olj+Q1ZVLz7gBeP1ZIoOSo=",
+                "value": "4IYyzHLYFVzqxJ1M:Sq9QDRC8fri6qt8cZnlLNe7LCxReIX2KeyUEFTeJJ6p2qDahTxMxBW3Rxgf5Wde7jbt37Q==",
+                "createdAt": "ak990E1MpRwMe1nR:RroJTGNhdtXQKRgiJLW/HhYncvd6S61Y+BA+p3yVI6IvlArAMdTGaA==",
+                "updatedAt": "dzjV12/e9/99qLaM:Gv9zIPnGDA1xeTSMTzxg9jcwlWHMguLuMlI26i7qKZUb2AFRBXLvLA==",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            },
+            "d8368d0b-b568-4f40-9e12-c43a0472b61e": {
+                "id": "d8368d0b-b568-4f40-9e12-c43a0472b61e",
+                "property": "rZhzF4g5g+i4qujg:2oHO+/r9wXer23m9D/Pkhtg87vE=",
+                "value": "bVhQAMh0O+MsVZiP:g05nXplkD2Yq8dKCi+BI2k94ir0SdjkE",
+                "createdAt": "ewQ8wesQxKnFsat4:Vb7bx/J3QHs9Rb5dQz50RA0cALWSbI3Gn4L7d8qrGtNwtS7NpfaAZg==",
+                "updatedAt": "I90jRJ1VxOwCTgJH:LADzr+b18p0UrjZKFghptOwovq+o9tChAqa1BnI5BndB/1jYfTst+A==",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            }
+        },
+        "importRuleConditions": {
+            "bc4a983c-2ecc-470d-a537-ce9508e24c03": {
+                "id": "bc4a983c-2ecc-470d-a537-ce9508e24c03",
+                "condition": "hToZsqXgsAwaQeb9:zLYwzl6chW6g4RgGVsL3HGaukjkV6dho",
+                "property": "FKqFhUT9dEdKjIBk:xRB/dcCw4hQemwnznB3JfD7qL6/xofmb3A5Z",
+                "value": "7TCpGtRk4y3uUrJ5:RBe6dVqTHqoSCM3wqwpHTEWCbA8JVbQ=",
+                "createdAt": "DoAHvz0uJsvyLJMV:agsx5g9Pb+ZUbL/t7Wa5JhyIx5qXKznH3e4npekstGOWD3qtkNrQ2A==",
+                "updatedAt": "i1ANiyn2nsqtTy7U:RP2lzjPNnJQanzDSDevpp31BIxaFA9khoygMo/qV0JbB8kDK4pVzgA==",
+                "importRuleId": "8afbeb75-00cd-460e-a431-4f14db54c084"
+            },
+            "d7289775-e746-4aa2-b9c5-d68978c83b77": {
+                "id": "d7289775-e746-4aa2-b9c5-d68978c83b77",
+                "condition": "r9+ZfOSMDUuiYYEf:6jMzKegu/Fiz9q5qXX2ptT14cYE7ID2w",
+                "property": "ACsS2ONYijSDeWF9:6dvonD+BZ5OTyR70uVA/N+NnYVygtb+Iaqlv",
+                "value": "VamXWR37Cq5SkDGj:SnO4KbFQKLWnAzyXYeK82MkELxH10Csj",
+                "createdAt": "x6D91hH+n1kaWdN8:un0qMG8hkSdo7hD1fSyMFhJ7vyKJDxbdcDTemgACI4nhZk4izjEyRw==",
+                "updatedAt": "ZSAl6pjaImBdhWuh:vnKEk8qLWWkyxhJKi5RL57Zja8I0mSQ5y2cwrFx/Lky0uJk2XnIPeA==",
+                "importRuleId": "b032b17b-eb2b-4362-86d3-93bb556037f9"
+            }
+        },
+        "preferences": {
+            "currency": "071CRZ5+h9EEsPdB:bViDZhhW9zE7r1PDwLMJjPeCAg=="
+        },
+        "recurringTransactions": {
+            "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee": {
+                "id": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee",
+                "amount": "KpEYEKgm7w3NYa8S:rQMJAVPJt7hmSSytzjgfl+ZQvKygnA==",
+                "description": "YSlmgvN7BkyZfpUL:HkNId8+2AUVQdEYGMfNQuKbbv5S8Ag==",
+                "notes": "poFFcd1TwGqJsF5Q:mKiOH1XyAKvxEZ1g2xFkBQ==",
+                "type": "oYFlZCmc+ZOl5HbE:eT1Vu/Y9awGk0LtkYmZeoTVFYUinEw==",
+                "createdAt": "O0EqcdTvLzd7B7wL:Zhfi+mqu7MdHkbXXmuvkMFT2rxEedTwk7rhsjJuhU+uCNCmFEHmc7w==",
+                "updatedAt": "RFreNb2TMaPSFCHb:QijzhGg5j7FBn/yvrv9tE3ZzZop1Ch0a6K/McvfnSqyzbd9QDSAvcQ==",
+                "interval": "5ddoUqKEhSxc5CAi:3MWHOh9/y4JyF90S10qwkjs=",
+                "freq": "spddgwWePcSHznEa:lFME/I65ox+3t6EBffhqEtjfX1/38g==",
+                "on": "t0itJ/UDIetwLqUt:YmeUtiJ/2N9uPeWbIqtoiZ4=",
+                "startDate": "WykpoNr0E91ivMwy:zS7IQKmiXkoibmgPMCX4nyPsCR3Gjcaz1+kPI6v/xAXlxxeomTKuug==",
+                "endDate": "Ouf5XjSfwyevTslD:A5QDqLv2Kx2P3LsBHC0Wlxe1LpI=",
+                "count": "ZzMBUjhhoOnK/bp5:FPP7MHY0HPkNjQs/wMDXmydZ51E=",
+                "neverEnds": "NvMVN2ts0zWwpLzf:D+pCVt1WqZVG81hPYin74OU2W2U=",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d"
+            },
+            "5fdf6364-fafd-4f05-9795-0c16946aa96e": {
+                "id": "5fdf6364-fafd-4f05-9795-0c16946aa96e",
+                "amount": "xWSTx8UmBwFUYwpG:a/iGnTRh2cgR4M3sQ90wq1XFzvA=",
+                "description": "bDr8b3cgjDQyJyEW:lWMrzvwQCMBscY0fJgNC/0iPmGagjsRqFZc=",
+                "notes": "6S8Yo3MJ0KBHNFI3:HS519xeoLSp1D2EnIwFWMg==",
+                "type": "bKZV65w5ueyn4Sui:7auN3aXtipDwIrUQrByl3yIbgaIKzUo=",
+                "createdAt": "kMUIHXK9lot0S/5h:2MFl7DjeR5s4FHQswdptkk47UON4drZXov9hl0uD1he4PqluaYhmMg==",
+                "updatedAt": "7XTKghMIJntMGAh5:FP0Lg4xA1jv4DsiWguqEeCxF+zrI3e8RJ46V/ngnJHKbCo05BvZxJg==",
+                "interval": "FgVsA9H5nbbmupRg:0b8mOI5t+mqXhwuJF9pDFXM=",
+                "freq": "f+Y1x5X1vOWZAyOi:++Y1nd3TbBoKR19qQBJU8gAzi3ejKB8=",
+                "on": "NSRkYZYqMVFcL1e6:R2M3DmkJMlYgvoE//YrmP/et",
+                "startDate": "BeCCovlFs3awaQi2:VWILdgx/jooL2xMJFa8ZM7oT3Nxg+OyfwaiH/4uHIrenzfZACaNplQ==",
+                "endDate": "MolutEd++vE0HdfO:gGp+JA3Qbx2YlvBfoTis01psJH0=",
+                "count": "cmAM9/CsWdyjHyjW:Lp6ftBWDVQUxWOh/35aNps7ANYs=",
+                "neverEnds": "7pp83oBxa7MoaHC/:B1OYYj6AUzYxUpTarOH4x7POalE=",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d"
+            }
+        },
+        "transactions": {
+            "7bacc3dd-a944-4327-8458-70c550018c7a": {
+                "id": "7bacc3dd-a944-4327-8458-70c550018c7a",
+                "amount": "EsPHYWdJankE4Uso:fM+E3w9Ny9LldsMWAzmNkif3Q7s=",
+                "date": "Wf8U/qIFEc2qdgzD:Bg/Y1ABc79A429DaP3cT96JkmKa4k6yldKJvt91CT8ef7zpUe6HcBA==",
+                "description": "5wB8Bx/+ocG4uu/X:O419bkaLCs+xavcofyKJSNGFkeI5VKZktnoXeTmZiEfbGw==",
+                "notes": "R71gIEI6ocTNibCA:l+FIeRBgO3NRBDiMoaCcqQ==",
+                "type": "QZMdgPUCA1H3+P83:goK2izciT+idvB5UCz5HTAcSlwCeRZ8=",
+                "createdAt": "8wViGBr8frDhidUT:Wl1lddl3sgmfXCOCYfxWvS0OvEGoQnqAajLyHnFHP6hWO2ZDgAsi3Q==",
+                "updatedAt": "Ss7eczNevzse4lPO:2M4PzqlQL7FRyHvz4EOkVWAnbjYPdVgAZUWjXVQHqeK2OQkJe1lkVQ==",
+                "creditAccountId": "176f8fa3-56b4-4ebd-839a-894b96e5cecf",
+                "debitAccountId": "4842a8d8-e596-49ea-9265-a2050b1ff3f3",
+                "recurringTransactionId": null
+            },
+            "6f554367-32b7-42b3-9f89-f78b34d8eae2": {
+                "id": "6f554367-32b7-42b3-9f89-f78b34d8eae2",
+                "amount": "+m6cuC1Nvd8+hcLb:c1jpiDTyz1O7hz+nbWPWDgGjqkU=",
+                "date": "k0T8UHwNumBS38YN:bZ5DzFW2ReZwIexBfJKt86tpYksu415BoCS6Sqgih0hXIZG2e5AK+A==",
+                "description": "a/I5NR/p1vhJSK1f:0z1ZVGS6PukaOaknqDFVdcLyNa0/SWsphtRJZOnSyLE1VNykoGcx7+JIuemA3h2A",
+                "notes": "cDFGqCxVH2cJy9Y+:UgTZEdZB0QkjUMqfPRZ7CA==",
+                "type": "8eH4I6G5Pm0ZHmZ/:b2ekxiuDOdFXz+EnnTPQI2iCnStUwtM=",
+                "createdAt": "r0A6ZA6xWX9O5JOa:5VSRc5kdlta/UkuXiEUZL+xuilNM+44LxCJn57wm8CPLonILi+sxZg==",
+                "updatedAt": "lvnvFGJ42sYgF2+p:QCIIxEIg4Ww9WxMzdJMQQZF6MSAryccsKcSh1a17rn7dzdRzev2sWw==",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "4842a8d8-e596-49ea-9265-a2050b1ff3f3",
+                "recurringTransactionId": null
+            },
+            "8d22157b-3d79-4773-af1a-0b0a768c3a38": {
+                "id": "8d22157b-3d79-4773-af1a-0b0a768c3a38",
+                "amount": "ldShGEEIdQeiUAz7:DAKh2JT3jsrmfpf4kUxn8WO0LIKv",
+                "date": "6l9pX2/f++XlRFPY:83CDOhF1vTJTV+HCubTkMAIOMBoZz8M1I6UkCEIP6XxaGmr6Z8Roeg==",
+                "description": "2Zu2zDJvkEPwUVsA:SrFS+RlZ1pDkUr4XflPKs4JMvp01mx9967VvckCXuw3kPhKfk52KgeBmBv8PEzE=",
+                "notes": "Vfx24zftkW8vrI+a:+MU3HXgIUWMPcwbAj9gWUA==",
+                "type": "Mr/IL31mOf1q/rfS:4Nj7ttbdhGUjcZI9C5w8SXpQesI=",
+                "createdAt": "jnKgBQS6qmL3KIjg:AnXt4mAqrKdezNf3ami3tgg9yyS/xknZ3BJov6LkiCIHGxoIKd2feQ==",
+                "updatedAt": "rZCXGUdTzu23JClv:epS5lzn4sDSJRuM4hUbOg+7TihkeS8HuE6ChG1vdjmPgbK40aIVLeA==",
+                "creditAccountId": "5426f299-6475-47e2-ac03-b760f0f46f11",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": null
+            },
+            "376212f2-6a41-40f3-ad0f-6283df42badc": {
+                "id": "376212f2-6a41-40f3-ad0f-6283df42badc",
+                "amount": "5LtK2tLp70NAn2Qs:e+Vg3Iwl1y7u/cKYkWHm5IbJGObY",
+                "date": "cJMFlku93MwTYZN+:4CAMTCnpPOYlp7FSppBhdf/eOO7dcgnpk5KYaac+cxr2MiwsRpaC2w==",
+                "description": "3qRGOEx1DblvlGP3:XAzYpF+GCjbFkV8BzF4SucSrvUwJMgbhcTHYeTDbUlvh1bn7ubA2uLc70FhRTUQE",
+                "notes": "91wjf6zZvv/4SvMW:VcGMjH6JzzF4FuRyBXPl5Q==",
+                "type": "G8wl5gjG4VfruaQ1:gLxcx2qm34LfUTkD98eusxrDVVI=",
+                "createdAt": "LWrm808A5ypLlqk/:NAe/joBl+71e1ITfAqAy+0ELjpExJVsr19M+je3d1kQMY0j3KIItHg==",
+                "updatedAt": "bii3yYE1tANQ+fhp:xNMdQ6mQap4DHfvSr0r7Jk12PMIE9L2/8LDZZaGHITB8BU1Xk1oNLA==",
+                "creditAccountId": "5426f299-6475-47e2-ac03-b760f0f46f11",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": null
+            },
+            "cae695b0-d257-42c8-abff-aa31790da311": {
+                "id": "cae695b0-d257-42c8-abff-aa31790da311",
+                "amount": "ENs1Px0huM+5njYg:imN3l9dxWGlvwqfAUPRQS9OIBQ==",
+                "date": "VFkytyz2rgruBm2Q:zfOnpe3C1JWCrl6zGqQS5sujz5ZODMdV044rhAXyTb9o2yAUHif18g==",
+                "description": "g6x0yzMBPLZQ2em/:I6VqTUpsJY2bOy0fEv83DAQHpMe04S7lbHVOODfbj+wuEBdoyfW6053k8yu/DaVCiA==",
+                "notes": "JArJ+DxlX1DUV3n2:+mjmJd7ieE/YQfPPY8xL+Q==",
+                "type": "1vm65G0KnyZK2SHe:qWuHZVnDqnfsgR+8zzlaSwNLC7bbhf0=",
+                "createdAt": "1j3qZNFWZT07/geZ:ruTWCLZzB8KlNZcWmF4WwieAENFsUw/GFg32JgDhRIPl5HuoSVYEnA==",
+                "updatedAt": "3AcA3NG7xj7wET6N:QCf0zBlik6lqaAsNhEO7n5Pzi/1iayA8A7ic/QXeSsOqlEp18+aQiw==",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": null
+            },
+            "3e22c513-2c54-4273-a56f-f76d89521fa4": {
+                "id": "3e22c513-2c54-4273-a56f-f76d89521fa4",
+                "amount": "8+3vJ+w/ilQ1Q5uV:9NihhFq20Y9gLCevJFIAG1cof60=",
+                "date": "FYqAHHHWjTN3lwhw:RgiVxzpcjuapOVEmeQW4/eGqp/BAF+/vIEFWPGE6eK5ucxXM1eaQNQ==",
+                "description": "6lUR3RXv2rmNnU4O:yh+smUUPSMAqRavEQEQshOvWUANqDhDymO8=",
+                "notes": "gZQhTwdCI8k1BXMn:b9+DIRwyJxDgVxyW8NdFtQ==",
+                "type": "O9SiVEBCbcJvwfCO:8mne62mIM+cSUReTawvUvmFqs5YfQ0w=",
+                "createdAt": "yceHFYxc2cKOjNP2:VOPE/Am8+964x2QxtX9S0DSgAyvgv/WoLqZQsofHXcVde+zbeERSgA==",
+                "updatedAt": "tfWfYtF96LKpWzhl:qnbR4uUAsUk+KbnrTwlnomTLpvBiMYIvok9TF5vYAOnTa2qH9QjyMg==",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": "5fdf6364-fafd-4f05-9795-0c16946aa96e"
+            },
+            "d8194766-cb99-4488-b07a-9e08fbea2a5a": {
+                "id": "d8194766-cb99-4488-b07a-9e08fbea2a5a",
+                "amount": "WtkEzFIu318yB+Az:VKcWQjJIPMMSSChPDQCIqHBhSUc=",
+                "date": "AcGo5zfQ1xzKYkhW:BfMHehHKgSHOt9hKnySKJFeo8DquN0oWfsaxQQmLhlCGC8Pw7Hp0iw==",
+                "description": "u3uqIM1YnR9//Yhy:iLvhNgP6MDA01yiMkUSSRHSv/LGQ7CwOy3g=",
+                "notes": "XfkE1wPB3cp8oXkW:YTnFVukYk7kEkoKcTRN0dg==",
+                "type": "cwyq7WjodJc2B3iW:bL90hWqnYb7OkPZGmJhhCJS1sLIaNVc=",
+                "createdAt": "UvdsHyYrWQUqTT2+:Lvy9KHSXtoJMBQ+TevAF4bW5WwWvsGcKuOhCb6OB90Nr8zuRNbZtyQ==",
+                "updatedAt": "yw2Bqi6W/zNak+ck:UeO1u0mGcLroD6K3MQbEXxnpb3mts4Nxd1qEQxnKV5zHp7Rw2P18OQ==",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "3c9a72ad-13b4-49a4-9635-6b3f88776e59",
+                "recurringTransactionId": "5fdf6364-fafd-4f05-9795-0c16946aa96e"
+            },
+            "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07": {
+                "id": "fbc0f8bf-ea31-4292-b8c9-8bf5e7fdae07",
+                "amount": "WCY/p9qxm/9g8ZDg:hEPBxUGqXlAuEq9IaPiDmOe5HJA6vw==",
+                "date": "RoxV211VuK/xlkpd:3SaXghFGXbpckk05f6RsX0u7yAgDvpLjZWAeFWUYEhd7dFiG2VgOCg==",
+                "description": "ArYxuvsWcGwSuvQ2:/5nfneQeTmb+wUp7kBtDr1JgOzSpNTfal8Xh0oNpSn2BTizC8i9p6ZRS8w==",
+                "notes": "3uuaJFZfTgeIb2zk:VbFRD0igFRB/fz6k/P9cmg==",
+                "type": "W/RzGuY/eJ15Yyq2:ePiQlttiS8zcKrhM06mTHabkQXBlSshm",
+                "createdAt": "i55OsiwdddApgev3:e/iLkth6eJkyaXF8aIK5SEb71GcqpOvrjVQifNPtevrO93pC9Rg7tg==",
+                "updatedAt": "ZzwhnZb8n3NO7942:jDt0jemKxEW/LgxEJIKIE1zvuPbxFg0tKRaCMfSzc0D7jlk0OVQFEA==",
+                "creditAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "debitAccountId": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "recurringTransactionId": null
+            },
+            "768988c6-119b-4251-9421-5bdd2be480cd": {
+                "id": "768988c6-119b-4251-9421-5bdd2be480cd",
+                "amount": "O71K0hLCZwRwj8BR:UA1FMZ8Yv6eB+G01WX7pa2n07yorGw==",
+                "date": "bSX2S0bah8i9OKmI:EGgXikpx0Jcy8DKyEZPynZxsm1Z8ZDq/segyJ/Dc5BFBeWZQT7Jcsg==",
+                "description": "zvkffQd0QZdTXvgQ:qBx/IyKPTVPVI9cOn/g6SYfSmnOcyg/13QtxiXLit7ZNoEQ=",
+                "notes": "QBTvjq87+z5p3Twl:kdVISUENrkp3tB1UQ6zFmA==",
+                "type": "8Oew1+R3IeZDEQQc:W3DsL56Nzbcs+tAUtG42Io6zE/3JtQ==",
+                "createdAt": "AnycgIRpWsP5B812:FsRJPTbUT+bQq7c15N8o3zo4N8l+kgJAO7x2ruAI6oeU0yYWBps/+Q==",
+                "updatedAt": "pAIXV/hozI8R+La6:5C3p+SxcZarM2nwsMhx8bVqgI9w4T7T4brZyGdYuGBddw/N8Ovv5oA==",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": null
+            },
+            "99d9d685-1897-4862-aba8-c8d72cae4050": {
+                "id": "99d9d685-1897-4862-aba8-c8d72cae4050",
+                "amount": "tc2C6mIGYDuCkIj0:hbh9cD29e3GsSg60BhAPWpjQUhKBFg==",
+                "date": "rTLvBjEPtHiecstf:5T2HNsJ7e2UreqboL51FnxXvPu2K/hClyklcpKtWtY++r+rbxZg0sw==",
+                "description": "X1U6DM98WrW/uyLv:FRjagcVLZRI/fy80q4PdxVGFsWpHBsPMCs9V/h9GY7n3g3Q=",
+                "notes": "o2w6Tns9buT6AkMl:2wd8W8/lyKViZ4+jpeaARg==",
+                "type": "2xJyF4EBauD6KoPB:3iaimKLhH+eOusL/c9R6q16T+ccCUw==",
+                "createdAt": "XrRVgah807giSa4y:QSrU1ZvqXb2ZWhyLsj3odcDaf9kl4cXI77Cp8ynCm36folGPSmjL2w==",
+                "updatedAt": "IKbCbfcc8OpMSYYt:XeNvFf+hl+o3Myr2YHsIrukgB5N4uKndoRuG2aJxPRdgJ3UNSrlRcg==",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": null
+            },
+            "79e5e6e5-a041-4186-a453-a84d84e38c46": {
+                "id": "79e5e6e5-a041-4186-a453-a84d84e38c46",
+                "amount": "Gc4sUZNUQReqK3rR:EK+lR3YDxdEC/R5pKAIPu8fghIwQZw==",
+                "date": "RWu0EUpCk+ss9LYJ:tmeRG0b5GtBsm+n87oWffOzSZvW908y+JAMmIdwby6ZSlUaBdkHToA==",
+                "description": "YNTHXUtvDb/0MMoi:hMPzHQj7/UUZUB70noSypfLM/YL6aA==",
+                "notes": "ENNfuDNLeSeRHN4P:OvZ7Aot3Gv3YUJgcS1+2BQ==",
+                "type": "I1DnpAl2hAC4KRcj:26vsNsGfy1RtZ4yZaeciuD4ZoZhzBw==",
+                "createdAt": "UsQvOVU+O5XPcY8a:gVe/pzqBXUTcRMB1+/eC4En0Fpxmfo17rvE3GIxHC5cVU2BZZ+DNjQ==",
+                "updatedAt": "Em/V0iQ2NlMNi6dY:8kL6b/ioo5/Or22eoSoY/NvD36Xs1XjxEV8F6pCPJn+RCdOpJ/F1gA==",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "a2fa4501-158b-496b-b9b1-1c12f8a10e44": {
+                "id": "a2fa4501-158b-496b-b9b1-1c12f8a10e44",
+                "amount": "pe8nhVMIYOfmm2XE:oBpUMTP+HK+z/xMZ8Y/dP815On24fg==",
+                "date": "MI5t44h4x8x1iT0G:UbDYjAuhB5ax/QRmXo25KfjFu2k9I0Ki/KlMIEZU6ur1JabjL5FUWg==",
+                "description": "ftnHwXniFEmMr8mB:jFrSLIKObSKShBg85wYrKAc8gLyZSw==",
+                "notes": "25Fd2YUBxELEh3NP:uDBe/Brjz271RQwoV0Eo3Q==",
+                "type": "ryC3Dj37/QI6Bmfw:ADPs+kLkK1dC1zEXIMECRJdruZSN7A==",
+                "createdAt": "RxEotd4dv1JOc7h8:9NsUw1FrmR1kvK5iruZuhE6ieP5PvWnxQkit1I7MvHbh6mvSvK11Hg==",
+                "updatedAt": "HVSSg7k+2R50jeN+:lo0Q8Vi7hvh9+lZm9Tbt5MvYhQ/JNd70CDN/VQJyLhLXq5HpJbmT7A==",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "1e395539-7516-46a5-a652-f6004f88167c": {
+                "id": "1e395539-7516-46a5-a652-f6004f88167c",
+                "amount": "+KhKbeCEi2zBW3IC:Dz0PkTVBO8ysw4SutK840YMzJ+F6Qw==",
+                "date": "gzipYxf7lD93b6rs:KTk1ReHLvPPqh/9JmG7rASn5QtPRetZ3lKkjWxSJf9KGfluJJdjLkA==",
+                "description": "kQFydTvnsO006x5L:2JNoarIi4T9Zd9Qh2pukcOvqbcGCyA==",
+                "notes": "EeeQMiOcATwPWZD+:4KJ+ugo2dV/GtOOxeHIJnw==",
+                "type": "+sxTc2anBQybR88b:LGKS7FpY0djM9Ze7zm6va5dIxFyC1w==",
+                "createdAt": "8nvbab3wY2M7PnTY:WoaAl04WMOzimxwfKU0dU9B8gKq2fFC2y42QDOh9EhAwIPv0e/p3aQ==",
+                "updatedAt": "GN/61aQjsWSGGT3+:XB38Urnz88pdqnq/vbETGJiNnpEMoXKxRZDmseaxaaqzceUGmLO2BQ==",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "73d90c25-3687-44a9-9a44-e85e9cd21f68": {
+                "id": "73d90c25-3687-44a9-9a44-e85e9cd21f68",
+                "amount": "7F0yMWJhQ7WqlfOq:oOGnAV4DAlu/+FfvvR5nA0rcUNDuVQ==",
+                "date": "6jC6lNG7uuv0L1y9:smfZxYWASQ5Y3P/56Gb7ZZDFCfbnBaGozLqPsLEvmPkcNkL1QwOsUA==",
+                "description": "f5qFbEFsCAZmhW7x:wRMQraFR4yXWev6msO/fuMDOpOjqPg==",
+                "notes": "E7C7HwpkSoxBnreA:nfWsD4E8YRz/d7g0qUud7g==",
+                "type": "jFM8XWJ/nQKje5ch:t2JE8q737e9Dsz9Bl0on4D3iVLNUQg==",
+                "createdAt": "WeMtPlxkKO3S37rM:Ggp70S3dh2jatECYpY4G1YLp7bLpao5s2+WlXB0q6/obU4QpA4zSeg==",
+                "updatedAt": "cDcfQLnjZLukCx7l:HfYsB9YOZYmhmz2jFvGcaHfc5j0HsFAfue6ciFxebOwcGslh+dwc5w==",
+                "creditAccountId": "72447072-fa82-424b-b7e6-a8afe4e2e1a4",
+                "debitAccountId": "1f1ae8f1-fde8-4679-ba0d-6192bc599f81",
+                "recurringTransactionId": "5543a5d5-e1a5-4d52-83cc-edfaa4fbbaee"
+            },
+            "3f587951-8902-42db-826e-f76f922fb563": {
+                "id": "3f587951-8902-42db-826e-f76f922fb563",
+                "amount": "/G2bC9xdTaJftxTp:ipHZv8JwnvV8fui3Qm03Qhd+PFo=",
+                "date": "J6U1IIDz8W9qY/MU:DMRvvE6doanYDZlfT/eZiDMT6+NkzaFZmjI2n1YBibyMYVOp2BfeTg==",
+                "description": "PDLx2hk2nfltwREi:jy/BdTK6Xvz9Wl03Z72jAjjI7IKDiJ2hw8b2TTfvsOYa67Iz6s7hu3aq",
+                "notes": "K6JVRFD0A6Gn+YcP:45y4Y4f1GTtOf4VwGS6MbQ==",
+                "type": "1fE1eczWy+gbMfzV:4GLWJiSPrLHWeO3j/zlillg4b9CUaw==",
+                "createdAt": "SKqWJVmgCd577nX4:2UAjsGCf5CpsKn366Ivl7oR+8e+T9I9RCG+2KQHPv0O/zZOSs9LxjA==",
+                "updatedAt": "5PvHXIDydH8D/Jmc:4eRARVnT+nXm25dpeRjKhAuF/tfQpkLZjFnmA/ToN93c6SDRAsm+ag==",
+                "creditAccountId": "15157a84-721e-4bb2-b138-80e47748d2a3",
+                "debitAccountId": "cf1ca111-0591-43fd-891f-03242c21990b",
+                "recurringTransactionId": null
+            }
+        }
+    }
+}

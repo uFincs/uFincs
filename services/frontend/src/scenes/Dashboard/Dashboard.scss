@@ -1,0 +1,61 @@
+@import "styles/_shared.scss";
+
+.Dashboard {
+    // Bottom spacing to give users enough height to scroll the whole Dashboard.
+    margin-bottom: 40vh;
+
+    width: 100%;
+
+    @include media-query-navigation-change {
+        gap: $size-400;
+    }
+
+    .Dashboard-header {
+        margin-bottom: $size-300;
+
+        @include media-query-navigation-change {
+            margin-bottom: $size-600;
+        }
+    }
+
+    .Dashboard-content {
+        display: grid;
+        gap: $size-500;
+        margin-top: $size-500;
+
+        @include media-query-navigation-change {
+            grid-template-columns: 1fr 350px;
+            grid-template-rows: auto auto;
+            margin-top: $size-600;
+        }
+
+        @media (min-width: 1000px) {
+            grid-template-columns: 1fr 400px;
+        }
+
+        .Dashboard-NetWorthChart {
+            @include media-query-navigation-change {
+                grid-column: 1;
+                grid-row: 1;
+            }
+        }
+
+        .Dashboard-IncomeExpenseChart {
+            @include media-query-navigation-change {
+                grid-column: 1 / 3;
+                grid-row: 2;
+            }
+        }
+
+        .Dashboard-RecentTransactionsList {
+            border: 1px solid $color-neutral-400;
+            border-radius: $border-radius-large;
+            padding: $size-400;
+
+            @include media-query-navigation-change {
+                grid-column: 2;
+                grid-row: 1;
+            }
+        }
+    }
+}

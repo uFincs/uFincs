@@ -1,0 +1,31 @@
+
+{{- if and .Values.__services .Values.serviceName}}
+{{- $projectName := .Values.__project_name}}
+{{- $serviceMap := index .Values.__services .Values.serviceName}}
+{{- $serviceType := index $serviceMap "type" | default ""}}
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: {{.Values.serviceName}}
+    labels:
+        app: {{$projectName}}
+        run: {{.Values.serviceName}}
+    namespace: {{.Values.namespace | lower}}
+spec:
+    {{- if not (eq $serviceType "headless")}}
+    type: {{$serviceType}}
+    {{- else if eq $serviceType "headless"}}
+    clusterIP: None
+    {{- end}}
+    selector:
+        run: {{.Values.serviceName}}
+    ports:
+      - port: {{index $serviceMap "external_port"}}
+        protocol: TCP
+        targetPort: {{index $serviceMap "container_port"}}
+    {{- if eq $serviceType "LoadBalancer"}}
+    loadBalancerIP: {{index $serviceMap "host"}}
+    {{- end}}
+{{- end}}
+

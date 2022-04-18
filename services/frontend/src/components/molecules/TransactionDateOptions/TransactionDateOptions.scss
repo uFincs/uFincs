@@ -1,0 +1,25 @@
+@import "styles/_shared.scss";
+
+// Want to give both tab sections the same height so that switching between them is seamless.
+// Also, it gives the WIP message of the Recurring tab a larger swipe area.
+$tab-section-height: 74px;
+
+.TransactionDateOptions {
+    width: 100%;
+
+    .TransactionDateOptions-one-off-input {
+        @include open-date-calendar-hack();
+
+        height: $tab-section-height;
+
+        // Disable text selection to make the tab swiping better.
+        user-select: none;
+    }
+
+    .TransactionDateOptions-work-in-progress {
+        height: $tab-section-height;
+
+        // Disable text selection to make the tab swiping better.
+        user-select: none;
+    }
+}

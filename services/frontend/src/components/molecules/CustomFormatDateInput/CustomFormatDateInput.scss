@@ -1,0 +1,102 @@
+@import "styles/_shared.scss";
+
+$custom-date-input-padding: $size-100;
+
+.CustomFormatDateInput {
+    position: relative;
+
+    .CustomFormatDateInput-input {
+        // Since this input isn't in a form, we don't want it to have an always-on nav outline.
+        @include custom-navigation-outline();
+
+        // Enable the hack so that clicking opens the date picker immediately (on Chrome).
+        @include open-date-calendar-hack();
+
+        height: 100%;
+
+        // Need this minimum width so that the input value doesn't get cut off on Android
+        // due to the inherent right 'padding' that the input has.
+        min-width: 95px;
+
+        padding: $custom-date-input-padding;
+
+        // Need this to position the input on top of the formatted date value.
+        position: absolute;
+
+        width: 100%;
+
+        &.CustomFormatDateInput-input--visible {
+            input {
+                // When the input becomes focused, then we show its version of the date value,
+                // which is dependent on the user's browser.
+                color: $color-text-primary;
+            }
+        }
+
+        input {
+            // Remove the arrow from the date picker input on Android.
+            appearance: none;
+
+            // Remove all of the input's styling that makes it look like an input.
+            // I know, intuitive.
+            // This is because this input is pretty much designed specifically for use with the
+            // `DateRangePicker`, which has its own 'input' stylings from the `IntervalSwitcher`.
+            background: none;
+            border: 0;
+            bottom: 0;
+
+            // Because we have the input layered on top of the formatted date value, we only
+            // want to hide its value by default, until it becomes focused (see above).
+            color: transparent;
+
+            height: 100%;
+            left: 0;
+
+            // Need to wipe out all padding from the input, otherwise it's not gonna fit.
+            padding: 0 !important;
+
+            // Need the input to be absolutely positioned so that it matches the height/width
+            // of the container.
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            // Remove the default width so that the input is only as wide as the whole container.
+            width: 100%;
+
+            &::-webkit-clear-button {
+                display: none;
+            }
+
+            &:disabled {
+                // Darken the background the and change the text color to the
+                // placeholder color to reduce contrast and indicate 'disabled'.
+                background-color: transparent;
+                color: transparent;
+            }
+        }
+
+        // Need to remove the error icon from the flow so it doesn't interfere with other elements.
+        .Input-ErrorIcon {
+            display: none;
+        }
+    }
+
+    .CustomFormatDateInput-formatted-value {
+        height: 100%;
+
+        // Get rid of the extra line height since it makes no sense for this use case.
+        line-height: 1;
+
+        padding: $custom-date-input-padding;
+
+        &.CustomFormatDateInput-formatted-value--hidden {
+            // Hide our formatted date value when the input is being edited.
+            color: transparent;
+        }
+
+        &.CustomFormatDateInput-formatted-value--disabled {
+            color: $color-neutral-500;
+        }
+    }
+}

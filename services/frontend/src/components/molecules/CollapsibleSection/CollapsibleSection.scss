@@ -1,0 +1,37 @@
+@import "styles/_shared.scss";
+
+.CollapsibleSection {
+    width: 100%;
+
+    .CollapsibleSection-LinkButton {
+        .CollapsibleSection-chevron {
+            @include svg-icon-color($color-neutral-500);
+            @include micro-transition(transform);
+
+            height: 20px;
+            margin-left: $size-100;
+            width: 20px;
+
+            &.CollapsibleSection-chevron--open {
+                // Flips the down chevron into an up chevron.
+                transform: rotate(-180deg);
+            }
+        }
+    }
+
+    .CollapsibleSection-section {
+        // We're foregoing any animations/transitions on the section here because
+        // it would require figuring out some hard-coded heights, and because we're going
+        // with the theme of minimal animations on input components (more so the former tho...)
+        display: none;
+        margin-top: $size-400;
+
+        &.CollapsibleSection-section--open {
+            display: flex;
+        }
+    }
+}
+
+.CollapsibleSection--story-sample {
+    max-width: 250px;
+}

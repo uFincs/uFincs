@@ -1,0 +1,40 @@
+@import "styles/_shared.scss";
+
+.CircularCountdown-container {
+    // This height (and width) is just a default that works well with a single 24px icon.
+    // Obviously, they'll need to be changed downstream depending on usage.
+    height: 24px + ($size-icon-button-padding * 2);
+    position: relative;
+    width: 24px + ($size-icon-button-padding * 2);
+
+    .CircularCountdown {
+        // Get rid of the default colors; we want it empty.
+        fill: none;
+        stroke: none;
+
+        .CircularCountdown-remaining {
+            fill-rule: nonzero;
+            stroke: $color-primary-400;
+            stroke-linecap: round;
+            stroke-width: 8px;
+
+            // Rotate it so that the start point of the countdown is at the top.
+            transform: rotate(90deg);
+            transform-origin: center;
+
+            transition: all $circular-countdown-interval linear;
+
+            &.CircularCountdown-remaining--times-up {
+                display: none;
+            }
+        }
+    }
+
+    .CircularCountdown-content {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+}

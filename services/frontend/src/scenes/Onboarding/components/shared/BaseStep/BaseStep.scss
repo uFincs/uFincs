@@ -1,0 +1,5 @@
+@import "styles/_shared.scss";
+
+.BaseStep {
+    @include wizard-process-step-styles();
+}

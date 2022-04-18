@@ -1,0 +1,249 @@
+@import "styles/_shared.scss";
+
+$account-arrow-spacing: $size-200;
+$border-left-width: 3px;
+
+.TransactionsTableRow {
+    @include transactions-table-grid();
+
+    // Need to have an implicit left border so that it matches up with the border we apply
+    // with `--virtual`. Otherwise, everything will be misaligned.
+    border-left: $border-left-width solid transparent;
+
+    grid-template-areas:
+        "type date description description amount actions"
+        "type date from to amount actions";
+
+    @include transactions-table-full {
+        grid-template-areas:
+            "type date description amount from to actions"
+            "type date description amount from to actions";
+
+        row-gap: 0;
+    }
+
+    @include transactions-table-with-running-balance {
+        grid-template-areas:
+            "type date description description amount balance actions"
+            "type date from to amount balance actions";
+
+        row-gap: 2px;
+    }
+
+    @include transactions-table-with-running-balance-full {
+        grid-template-areas:
+            "type date description amount from to balance actions"
+            "type date description amount from to balance actions";
+
+        row-gap: 0;
+    }
+
+    &.TransactionsTableRow--disabled {
+        @include non-sticky-interactions($key: "-disabled") {
+            %base-disabled {
+                background-color: $color-neutral-100;
+
+                > * {
+                    // Need this to override the text color of each cell.
+                    color: $color-text-disabled !important;
+                }
+            }
+
+            %hover-disabled {
+                background-color: $color-neutral-300;
+            }
+        }
+    }
+
+    &.TransactionsTableRow--has-error {
+        @include non-sticky-interactions($key: "-error") {
+            %base-error {
+                // Use a box-shadow instead of an outline so that it can be rounded.
+                // (and we want to use an outline over a border so that it doesn't shift the row around)
+                box-shadow: 0 0 0 1px $color-negative;
+            }
+        }
+    }
+
+    &.TransactionsTableRow--selected {
+        @include non-sticky-interactions($key: "-selected") {
+            %base-selected {
+                background-color: $color-primary-200;
+
+                // Use a box-shadow instead of an outline so that it can be rounded.
+                // (and we want to use an outline over a border so that it doesn't shift the row around)
+                box-shadow: 0 0 0 1px $color-primary-400;
+            }
+
+            %hover-selected {
+                background-color: $color-primary-200;
+            }
+        }
+    }
+
+    &.TransactionsTableRow--virtual {
+        @include non-sticky-interactions($key: "-virtual") {
+            %base-virtual {
+                @include list-item-shadow();
+
+                background-color: $color-light;
+                cursor: default;
+            }
+
+            %hover-virtual {
+                background-color: $color-light;
+            }
+        }
+
+        .TransactionsTableRow-date {
+            color: $color-text-tertiary;
+            font-style: italic;
+        }
+    }
+
+    &.TransactionsTableRow--future {
+        @include non-sticky-interactions($key: "-future") {
+            %base-future {
+                border-left: $border-left-width solid $color-future-400;
+            }
+        }
+    }
+
+    .TransactionsTableRow-date,
+    .TransactionsTableRow-amount,
+    .TransactionsTableRow-balance {
+        text-align: right;
+    }
+
+    .TransactionsTableRow-account {
+        // Need this for the From account to align the text and right arrow in a row.
+        display: flex;
+
+        &.TransactionsTableRow-account--target {
+            .TransactionsTableRow-text {
+                color: $color-warning-600;
+                font-style: italic;
+
+                &::before {
+                    // Want to add the asterisk indicating that this is a target account
+                    // as CSS instead of in JS because I'm lazy.
+                    content: "*";
+                }
+            }
+        }
+
+        .TransactionsTableRow-text {
+            // Clamp to 1 line in the compressed view, since we're already taking up to rows
+            // between the Description and the accounts.
+            @include clamp-lines(1);
+
+            @include transactions-table-full {
+                // Once the accounts have their own columns, they can wrap to 2 lines.
+                @include clamp-lines(2);
+            }
+        }
+    }
+
+    .TransactionsTableRow-account--from,
+    .TransactionsTableRow-account--to {
+        // Decrease visual hierarchy of From/To accounts in compressed view, to emphasize
+        // the Description.
+        color: $color-text-tertiary;
+        font-size: $font-size-200;
+
+        @include transactions-table-full {
+            // Bring the From/To account back up to normal visual hierarchy for the table.
+            color: $color-text-primary;
+            font-size: $font-size-300;
+        }
+    }
+
+    .TransactionsTableRow-type {
+        grid-area: type;
+    }
+
+    .TransactionsTableRow-date {
+        // Shrink the Date in compressed view to try and squeeze more room horizontally.
+        font-size: $font-size-200;
+
+        grid-area: date;
+
+        @include transactions-table-full {
+            // Bring the font back up to match the rest of the columns.
+            font-size: $font-size-300;
+        }
+    }
+
+    .TransactionsTableRow-description {
+        @include clamp-lines(2);
+
+        font-weight: $font-weight-semibold;
+        grid-area: description;
+    }
+
+    .TransactionsTableRow-amount {
+        @include transactions-type-colors("TransactionsTableRow-amount", "-dark");
+
+        // Sets the text direction to 'right-to-left', so that _really_ large numbers overflow to
+        // the left (towards the Description) as opposed to the right (towards the Actions).
+        direction: rtl;
+
+        font-weight: $font-weight-semibold;
+        grid-area: amount;
+    }
+
+    .TransactionsTableRow-account--from {
+        grid-area: from;
+
+        &::after {
+            color: $color-text-tertiary;
+
+            // This is a 'right arrow'.
+            content: "\2192";
+
+            margin-left: $account-arrow-spacing;
+
+            @include transactions-table-full {
+                display: none;
+            }
+        }
+    }
+
+    .TransactionsTableRow-account--to {
+        grid-area: to;
+
+        // This is to nudge the To account to the left a bit so that it matches the arrow spacing.
+        margin-left: -($transactions-table-gap - $account-arrow-spacing);
+
+        @include transactions-table-full {
+            // Remove the arrow nudge.
+            margin-left: 0;
+        }
+    }
+
+    .TransactionsTableRow-balance {
+        // Use the same primary color that is used to highlight the current balance in the
+        // Account Balance chart, so that they match up.
+        color: $color-primary-600;
+
+        // Sets the text direction to 'right-to-left', so that _really_ large numbers overflow to
+        // the left (towards the To account) as opposed to the right (out of the row).
+        direction: rtl;
+
+        font-weight: $font-weight-bold;
+        grid-area: balance;
+    }
+
+    .TransactionsTableRow-number-wrapper {
+        // OK, this is kinda hacky, but it turns out there's a side effect of using `direction: rtl`
+        // to make the amounts overflow to the left instead of the right: negative signs get put
+        // on the right side instead of the left.
+        //
+        // So we basically have to follow https://stackoverflow.com/a/39874526 and wrap the inner
+        // text in a span, reset the direction to `ltr`, and apply inline-block. This way, the
+        // text is displayed ltr (i.e. negative signs are on the left) but we still retain the
+        // left overflow property that we were after.
+        direction: ltr;
+        display: inline-block;
+    }
+}

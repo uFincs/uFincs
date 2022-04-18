@@ -1,0 +1,17 @@
+@import "styles/_shared.scss";
+
+.Card {
+    background-color: $color-background-neutral;
+    border-radius: $border-radius-normal;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: $size-600;
+}
+
+.Card--story-WithElements {
+    gap: $size-500;
+
+    .ShadowButton {
+        width: 100%;
+    }
+}

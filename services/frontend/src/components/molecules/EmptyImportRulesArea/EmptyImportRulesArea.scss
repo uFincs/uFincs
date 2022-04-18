@@ -1,0 +1,8 @@
+@import "styles/_shared.scss";
+
+.EmptyImportRulesArea {
+    .EmptyArea-message {
+        // Increase the width to fit the whole message in one line.
+        max-width: 380px;
+    }
+}

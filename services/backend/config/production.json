@@ -1,0 +1,18 @@
+{
+    "paginate": {},
+    "authentication": {
+        "secret": "TOKEN_SECRET"
+    },
+    "billing": {
+        "testKey": "STRIPE_SECRET_KEY_TEST",
+        "prodKey": "STRIPE_SECRET_KEY_PROD",
+        "webhookSecret": "STRIPE_WEBHOOK_SECRET"
+    },
+    "internalNotifier": {
+        "slackWebhook": "SLACK_WEBHOOK",
+        "slackWebhookTest": "SLACK_WEBHOOK_TEST"
+    },
+    "mailer": {
+        "apiKey": "MAILGUN_API_KEY"
+    }
+}

@@ -1,0 +1,68 @@
+@import "styles/_shared.scss";
+
+.TabBar {
+    display: grid;
+    gap: $size-tab-bar-spacing;
+
+    // This is so that tabs overflow into columns instead of rows.
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+
+    // Needed for the absolutely positioned underline.
+    position: relative;
+
+    .TabBar-tab {
+        @include keyboard-navigation-outline();
+        @include micro-interactive-bounce();
+
+        cursor: pointer;
+
+        &.TabBar-tab--active {
+            // Disable the bounce once the tab is active.
+            transform: translateY(0);
+        }
+
+        .TabBar-tab-content {
+            // The underlying element could have a micro bounce applied;
+            // turn it off so that we only get the bounce from the TabBar-tab.
+            transform: none !important;
+        }
+
+        .TabBar-tab-LinkButton {
+            color: $color-text-tertiary;
+            font-weight: normal;
+            letter-spacing: 0;
+
+            &.TabBar-tab-LinkButton--active {
+                @include fake-bold($color-primary);
+
+                color: $color-primary;
+            }
+        }
+    }
+
+    .TabBar-underline {
+        @include micro-transition(transform);
+
+        background-color: $color-primary;
+
+        bottom: -($size-200);
+
+        height: 2px;
+        left: 0;
+        position: absolute;
+
+        // Need the transform-origin to the left side of the underline,
+        // otherwise it uses the center. This way, the `translate`s
+        // use 0 as the leftmost position.
+        transform-origin: 0 0;
+
+        width: 100%;
+    }
+}
+
+.TabBar--story-FartherUnderline {
+    // This amount of spacing is for the AppNavigation's use of the TabBar.
+    // It can be adjusted by passing an `underlineClassName`.
+    bottom: -18px !important;
+}

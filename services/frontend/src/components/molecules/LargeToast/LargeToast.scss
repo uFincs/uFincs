@@ -1,0 +1,93 @@
+@import "styles/_shared.scss";
+
+.LargeToast {
+    @include animate-transition-shadow();
+    @include keyboard-navigation-outline($focus-within: false);
+    @include micro-interactive-bounce();
+
+    background-color: $color-light;
+    border-left: 4px solid;
+    border-radius: $border-radius-normal;
+    box-shadow: 0 4px 8px transparentize($color: $color-primary, $amount: 0.5);
+    cursor: pointer;
+    display: flex;
+    padding: $size-400;
+    -webkit-tap-highlight-color: transparent;
+    width: 100%;
+
+    @include transition-shadow {
+        // Setup a bigger shadow for hovering.
+        box-shadow: 0 6px 12px transparentize($color: $color-primary, $amount: 0.5);
+    }
+
+    @include media-query-medium {
+        max-width: 400px;
+    }
+
+    &.LargeToast--positive {
+        border-left-color: $color-positive;
+    }
+
+    &.LargeToast--warning {
+        border-left-color: $color-warning;
+    }
+
+    &.LargeToast--negative {
+        border-left-color: $color-negative;
+    }
+
+    .LargeToast-icon {
+        align-self: flex-start;
+        flex-shrink: 0;
+        margin-right: $size-400;
+
+        &.LargeToast-icon--positive {
+            @include svg-icon-color($color-positive-600);
+        }
+
+        &.LargeToast-icon--warning {
+            @include svg-icon-color($color-warning-600);
+        }
+
+        &.LargeToast-icon--negative {
+            @include svg-icon-color($color-negative-600);
+        }
+    }
+
+    .LargeToast-content {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin-top: 2px;
+
+        .LargeToast-header {
+            font-size: $font-size-400;
+            font-weight: $font-weight-bold;
+
+            // This is to get the header vertically centered with the two icons.
+            margin-top: 2px;
+        }
+
+        .LargeToast-message {
+            margin-top: $size-400;
+        }
+    }
+
+    .LargeToast-close-button {
+        align-self: flex-start;
+        flex-shrink: 0;
+
+        &.LargeToast-close-button--countdown {
+            // Remove the button's padding to account for the CircularCountdown.
+            padding: 0;
+        }
+
+        .LargeToast-countdown--positive {
+            stroke: $color-positive-600;
+        }
+
+        .LargeToast-countdown--warning {
+            stroke: $color-warning-600;
+        }
+    }
+}

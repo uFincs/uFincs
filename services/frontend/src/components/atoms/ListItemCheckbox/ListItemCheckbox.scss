@@ -1,0 +1,20 @@
+@import "styles/_shared.scss";
+
+.ListItemCheckbox {
+    @include keyboard-navigation-outline();
+    @include circular-custom-outline();
+
+    align-items: center;
+
+    // Border color is controlled through component animations.
+    border: 2px solid;
+
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    height: $size-icon;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    width: $size-icon;
+    z-index: $z-index-input;
+}

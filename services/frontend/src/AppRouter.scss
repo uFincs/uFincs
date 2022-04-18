@@ -1,0 +1,37 @@
+@import "styles/_shared.scss";
+
+.authenticated-app {
+    background-color: $color-background-neutral;
+}
+
+.modal-open #AppRouter {
+    // See the explanation in AppRouter.tsx for why we disable scrolling with open modals.
+    // tl;dr cause multiple scroll bars are ugly.
+    overflow: hidden;
+}
+
+#AppRouter {
+    height: 100%;
+
+    // Hide the x overflow to prevent any horizontal scrolling caused by, for example, the error
+    // icons rendered outside of an Input.
+    //
+    // This likely has unforeseen consequences, because this is really just a band-aid for
+    // preventing x overflow in the Transactions Import process.
+    overflow-x: hidden;
+
+    padding: $size-500 $size-app-padding-horizontal-small;
+    width: 100%;
+
+    @include media-query-medium {
+        padding: $size-500 $size-app-padding-horizontal-medium;
+    }
+
+    @include media-query-navigation-change {
+        padding: $size-300 $size-app-padding-horizontal-large;
+
+        .AppRouter-navigation {
+            margin-bottom: $size-app-padding-horizontal-large;
+        }
+    }
+}

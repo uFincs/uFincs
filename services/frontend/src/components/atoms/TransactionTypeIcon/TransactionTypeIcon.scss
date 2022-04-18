@@ -1,0 +1,165 @@
+@import "styles/_shared.scss";
+
+// These are the sizes of the total TransactionTypeIcon, including icon and padding.
+$transaction-type-icon-size-small: $size-icon-small + ($size-icon-button-padding * 2);
+$transaction-type-icon-size: $size-icon + ($size-icon-button-padding * 2);
+
+.TransactionTypeIcon {
+    align-items: center;
+    display: flex;
+    height: $size-icon-small;
+    justify-content: center;
+    width: $size-icon-small;
+
+    @include media-query-extra-small {
+        height: $size-icon;
+        width: $size-icon;
+    }
+
+    svg {
+        height: $size-icon-small;
+        width: $size-icon-small;
+
+        @include media-query-extra-small {
+            height: $size-icon;
+            width: $size-icon;
+        }
+    }
+
+    &.TransactionTypeIcon--with-background {
+        @include transactions-type-colors("TransactionTypeIcon", "-100", "background-color");
+
+        border-radius: 50%;
+        height: $transaction-type-icon-size-small;
+        width: $transaction-type-icon-size-small;
+
+        @include media-query-extra-small {
+            height: $transaction-type-icon-size;
+            width: $transaction-type-icon-size;
+        }
+    }
+
+    &.TransactionTypeIcon--light-shade {
+        &.TransactionTypeIcon--income {
+            @include svg-icon-color($color-positive-400);
+        }
+
+        &.TransactionTypeIcon--expense {
+            @include svg-icon-color($color-negative-400);
+        }
+
+        &.TransactionTypeIcon--debt {
+            @include svg-icon-color($color-warning-400);
+        }
+
+        &.TransactionTypeIcon--transfer {
+            @include svg-icon-color($color-support-400);
+        }
+    }
+
+    &.TransactionTypeIcon--income {
+        @include svg-icon-color($color-positive);
+    }
+
+    &.TransactionTypeIcon--expense {
+        @include svg-icon-color($color-negative);
+    }
+
+    &.TransactionTypeIcon--debt {
+        @include svg-icon-color($color-warning);
+    }
+
+    &.TransactionTypeIcon--transfer {
+        @include svg-icon-color($color-support);
+    }
+
+    &.TransactionTypeIcon--checkable {
+        @include keyboard-navigation-outline();
+        @include circular-custom-outline();
+
+        background-color: transparent !important;
+        cursor: pointer;
+
+        // Perspective controls how '3D' the flipping effect looks.
+        // Without any perspective, it doesn't look 3D at all.
+        perspective: 400px;
+
+        // Need an inner container so that the perspective is applied on the parent
+        // TransactionTypeIcon; it can't be applied on the thing being flipped.
+        .TransactionTypeIcon-inner {
+            align-items: center;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+            width: 100%;
+
+            &.TransactionTypeIcon--checked {
+                // This is what handles the flipping; when checked, flip to the back side.
+                transform: rotateY(180deg);
+            }
+
+            .TransactionTypeIcon-front,
+            .TransactionTypeIcon-back {
+                backface-visibility: hidden;
+                border-radius: 50%;
+                height: 100%;
+
+                // Need to absolutely position the front/back on top of each other, so that
+                // one side is always treated as the 'backface'.
+                position: absolute;
+
+                // Hack to get 'backface-visibility: hidden' to work properly for both the front
+                // and back sides of the card for all browsers on both desktop and mobile.
+                // For reference: https://stackoverflow.com/a/32421734.
+                transform: rotateX(0deg);
+
+                width: 100%;
+
+                svg {
+                    // Use absolute centering instead of flex centering, cause for some reason
+                    // the front icon shifts around when it flips from the back to the front,
+                    // when using flex centering.
+                    left: 50%;
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            .TransactionTypeIcon-front {
+                // Since we're coloring the front side (which is a different element than
+                // `TransactionTypeIcon`), we need the transaction type colors again
+                // to make sure the front side has the right icon and background colors.
+                @include transactions-type-colors(
+                    "TransactionTypeIcon",
+                    "-100",
+                    "background-color"
+                );
+            }
+
+            .TransactionTypeIcon-back {
+                @include svg-icon-color($color-light);
+
+                background-color: $color-primary-600;
+                transform: rotateY(180deg);
+            }
+        }
+    }
+
+    &.TransactionTypeIcon--disabled {
+        background-color: $color-neutral-200;
+
+        &.TransactionTypeIcon--checkable {
+            .TransactionTypeIcon-inner {
+                .TransactionTypeIcon-front {
+                    @include svg-icon-color($color-neutral-400);
+
+                    background-color: $color-neutral-200;
+                }
+            }
+        }
+    }
+}

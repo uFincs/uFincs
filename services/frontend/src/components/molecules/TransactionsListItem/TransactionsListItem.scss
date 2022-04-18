@@ -1,0 +1,183 @@
+@import "styles/_shared.scss";
+
+$transactions-list-item-icon-margin-left: -($size-100);
+$transactions-list-item-icon-margin-right: $size-200;
+
+$border-width: 1px;
+$border-left-width: 3px;
+
+.TransactionsListItem {
+    // Unset from ListItem for real use.
+    max-width: unset;
+
+    .ListItem-top-layer {
+        // Add a transparent border so that things don't shift around once we add in the real border
+        // for the selected state.
+        border: $border-width solid transparent;
+
+        // And we need this border to account for the thicker left border used for future transactions.
+        border-left: $border-left-width solid transparent;
+    }
+
+    &.TransactionsListItem--disabled {
+        .ListItem-top-layer {
+            background-color: $color-neutral-100;
+        }
+
+        .TransactionsListItem-content {
+            .TransactionsListItem-body {
+                .TransactionsListItem-description {
+                    color: $color-text-disabled;
+                }
+
+                .TransactionsListItem-accounts {
+                    .TransactionsListItem-accounts-name {
+                        color: $color-text-disabled;
+                    }
+                }
+            }
+
+            .TransactionsListItem-amount {
+                // Need to important to override the type color.
+                color: $color-text-disabled !important;
+            }
+        }
+    }
+
+    &.TransactionsListItem--has-error {
+        .ListItem-top-layer {
+            border: $border-width solid $color-negative;
+        }
+    }
+
+    &.TransactionsListItem--future {
+        .ListItem-top-layer {
+            border-left: $border-left-width solid $color-future-400;
+        }
+    }
+
+    &.TransactionsListItem--selected {
+        .ListItem-top-layer {
+            background-color: $color-primary-200;
+            border: $border-width solid $color-primary-400;
+        }
+    }
+
+    &.TransactionsListItem--virtual {
+        .ListItem-top-layer {
+            .TransactionsListItem-description {
+                color: $color-text-tertiary;
+                font-style: italic;
+            }
+        }
+    }
+
+    .TransactionsListItem-content {
+        align-items: center;
+        display: flex;
+
+        .TransactionsListItem-icon {
+            // Visually, because the icon has a lightly colored background, it looks like
+            // we can push the icon closer to the left edge of the list item.
+            // This way, it looks like the top/bottom and left padding are more-or-less identical.
+            margin-left: $transactions-list-item-icon-margin-left;
+
+            // Push the body away from the icon.
+            margin-right: $size-200;
+        }
+
+        .TransactionsListItem-body {
+            align-content: center;
+            display: grid;
+
+            // Want the body to take up most of the space.
+            flex: 1;
+
+            // Only want the slightest amount of separation between the description and accounts.
+            // Trying to optimize for as much text in as a little vertical space.
+            gap: $size-50;
+
+            // Match the size of the list item, so that we can fit a 2 line description.
+            height: $size-touch-target;
+
+            // Just enough right spacing so that the amount doesn't butt up right against
+            // the description.
+            margin-right: $size-50;
+
+            // This is just so that, when there is 2 lines of description, the body favours
+            // being farther from the top of the list item than farther from the bottom.
+            margin-top: $size-100;
+
+            .TransactionsListItem-description {
+                @include clamp-lines(2);
+
+                // Shrink the text for really small screens to try and fit as much as possible.
+                font-size: $font-size-100;
+
+                // Make the description semibold to give it even more emphasis over the accounts.
+                font-weight: $font-weight-semibold;
+
+                // Reset the bigger line-height from TextField to optimize for compressing
+                // as much text in as little as height as possible.
+                line-height: 1;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-200;
+                }
+            }
+
+            .TransactionsListItem-accounts {
+                display: flex;
+
+                .TransactionsListItem-accounts-name {
+                    // Enable single line text truncation.
+                    @include clamp-lines(1);
+
+                    color: $color-text-secondary;
+                    font-size: $font-size-100;
+
+                    &.TransactionsListItem-accounts-name--target {
+                        color: $color-warning-600;
+                        font-style: italic;
+
+                        &::before {
+                            // Want to add the asterisk indicating that this is a target account
+                            // as CSS instead of in JS because I'm lazy.
+                            content: "*";
+                        }
+                    }
+                }
+
+                .TransactionsListItem-accounts-arrow-icon {
+                    @include svg-icon-color($color-neutral-400);
+
+                    // Don't want the arrow to shrink when the accounts are too long.
+                    flex-shrink: 0;
+
+                    height: 16px;
+
+                    // Put some space between the arrow and the account names.
+                    margin: 0 $size-100;
+
+                    width: 16px;
+                }
+            }
+        }
+
+        .TransactionsListItem-amount {
+            @include transactions-type-colors("TransactionsListItem-amount", "-dark");
+
+            color: $color-positive-dark;
+
+            // Shrink the text for really small screens to try and fit as much as possible.
+            font-size: $font-size-200;
+
+            // Make the amount semibold to give that little bit more of readability.
+            font-weight: $font-weight-semibold;
+
+            @include media-query-extra-small {
+                font-size: $font-size-300;
+            }
+        }
+    }
+}

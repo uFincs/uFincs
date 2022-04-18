@@ -1,0 +1,63 @@
+@import "styles/_shared.scss";
+
+.AccountsList {
+    display: grid;
+    gap: $size-400;
+
+    // Provide lots of bottom padding so that users can scroll the screen
+    // past the list to see the bottom of the list better.
+    padding-bottom: 30vh;
+
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Reduce on desktop since it's not needed nearly as much,
+        // and we don't want any unnecessary scrolling.
+        padding-bottom: 10vh;
+    }
+
+    &.AccountsList-single-layer {
+        // Increase the gap between sections to make them look for visually separate.
+        // Need more visual separation because the single layer list items have no background.
+        gap: $size-500;
+
+        .AccountsListSection {
+            // Decrease the gap between the list items to tighten everything up.
+            gap: 2px;
+        }
+    }
+}
+
+.AccountsListSection {
+    display: grid;
+    gap: $size-100;
+
+    .AccountsListSection-header {
+        @include trigger-animate-in-list-item();
+
+        // The header needs slightly more separation from the list items just to look good.
+        margin-bottom: $size-100;
+
+        // Push out the header to be in line with the content of the list item.
+        margin-left: $size-list-item-left-padding;
+
+        will-change: opacity, transform;
+    }
+
+    .EmptySectionMessage {
+        @include trigger-animate-in-list-item();
+
+        // Push out the message to be in line with the content of the list item.
+        margin-left: $size-list-item-left-padding;
+
+        will-change: opacity, transform;
+    }
+
+    .AccountsListItem {
+        @include trigger-animate-in-list-item();
+
+        max-width: unset;
+
+        will-change: opacity, transform;
+    }
+}

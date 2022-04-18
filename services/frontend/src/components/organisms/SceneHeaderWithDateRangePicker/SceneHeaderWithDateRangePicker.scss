@@ -1,0 +1,116 @@
+@import "styles/_shared.scss";
+
+$breakpoint-single-row-header: $breakpoint-navigation-change;
+$breakpoint-full-desktop-picker: 1200px;
+
+.SceneHeaderWithDateRangePicker {
+    display: grid;
+
+    // This is row gap.
+    gap: $size-300;
+
+    // When there isn't a lot of horizontal space, we want the DateRangePicker to be on
+    // a separate row from the OverlineHeading.
+    grid-template-rows: auto auto;
+
+    width: 100%;
+
+    @media (min-width: #{$breakpoint-single-row-header}) {
+        // This is now column gap.
+        gap: $size-600;
+
+        // Now that we have enough space, we can put the DateRangePicker on the same row
+        // as the OverlineHeading, along with increase the gap.
+        grid-template-columns: 1fr auto;
+
+        // Need to change to a single so that there isn't any accidental extra space.
+        grid-template-rows: auto;
+    }
+
+    .SceneHeaderWithDateRangePicker-heading-container {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .SceneHeaderWithDateRangePicker-heading-container-right-half {
+            align-items: center;
+            display: grid;
+            gap: $size-300;
+            grid-auto-flow: column;
+
+            @media (min-width: #{$breakpoint-single-row-header}) {
+                align-items: flex-start;
+
+                .ShowFutureToggle {
+                    display: none;
+                }
+
+                .AppRefreshButton {
+                    display: none;
+                }
+            }
+
+            .AppRefreshButton {
+                // The button needs some margin and not just grid gap for the case
+                // when the ShowFutureToggle isn't shown.
+                margin-right: $size-100;
+            }
+        }
+    }
+
+    .DateRangePicker {
+        .Divider,
+        .ShowFutureToggle {
+            display: none;
+
+            @media (min-width: #{$breakpoint-single-row-header}) {
+                display: flex;
+            }
+        }
+
+        @media (min-width: #{$breakpoint-single-row-header}) {
+            // At this width, the DateRangePicker moves back onto the same line as the
+            // OverlineHeading. As such, it has quite a bit more horizontal space to work with.
+            // As such, we can put a max width on the mobile DateRangeSizePicker so that
+            // it doesn't look completely ridiculous.
+            grid-template-columns: 110px auto;
+
+            // Pull up the DateRangePicker to be better in line with the OverlineHeading.
+            // We don't want to use align-items: center or something because that would cause
+            // the OverlineHeading to move down, which we don't want because we want the
+            // OverlineHeading to be in the same spot on all pages.
+            margin-top: -($size-200);
+        }
+
+        .DateRangeSizePicker-mobile {
+            // We're basically changing the media query where the DateRangeSizePicker
+            // changes between mobile and desktop.
+            // Because DateRangePicker is on the same row as the OverlineHeading, it has
+            // less horizontal space to work with. As a result, we have to switch to the
+            // mobile DateRangeSizePicker sooner than we would if the DateRangePicker
+            // had an entire row to itself (like in the Transactions scene).
+            display: block;
+        }
+
+        .DateRangeSizePicker-desktop {
+            // Hide the desktop version.
+            display: none;
+        }
+
+        @media (min-width: #{$breakpoint-full-desktop-picker}) {
+            // Switch back to the desktop column layout.
+            grid-template-columns: 1fr auto;
+
+            .DateRangeSizePicker-mobile {
+                // Can now hide the mobile picker and show the desktop one.
+                display: none;
+            }
+
+            .DateRangeSizePicker-desktop {
+                // Show the desktop version.
+                display: grid;
+            }
+        }
+    }
+}

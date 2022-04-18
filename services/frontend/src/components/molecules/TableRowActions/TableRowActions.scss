@@ -1,0 +1,56 @@
+@import "styles/_shared.scss";
+
+.TableRowActions {
+    align-items: center;
+    display: flex;
+    grid-area: actions;
+    justify-content: flex-end;
+
+    // Make sure the actions container has min dimensions so that it has a surface to display
+    // the title tooltip from when there are no actions for virtual transactions.
+    min-height: 30px;
+    min-width: 30px;
+
+    opacity: 0;
+    padding-right: $size-100;
+
+    // The lobotomized owl selector: https://alistapart.com/article/axiomatic-css-and-lobotomized-owls/
+    // Want to use this to apply 'dynamic' intra spacing between the actions (as opposed to grid gap)
+    // because using a grid here causes the actions to take on funky (non-circular) widths.
+    // And we want 'dynamic' intra spacing (i.e. spacing that only exists between elements) as opposed to
+    // fixed left or right margin because the number of actions can change.
+    * + * {
+        margin-left: $size-200;
+    }
+
+    &:focus-within,
+    &:hover {
+        // When one of the actions receives focus, make sure the actions are visible.
+        opacity: 1;
+    }
+
+    .TableRowActions-delete,
+    .TableRowActions-edit {
+        // Need to change the hover colors since the row hover color is the same as the
+        // IconButton's original hover color.
+        @include non-sticky-interactions() {
+            %base {
+                background-color: transparent;
+            }
+
+            %hover {
+                background-color: $color-neutral-400;
+            }
+
+            %active-override {
+                background-color: $color-neutral-500;
+            }
+        }
+
+        svg {
+            // Shrink the icons so they don't look so ridiculously big.
+            height: 16px;
+            width: 16px;
+        }
+    }
+}

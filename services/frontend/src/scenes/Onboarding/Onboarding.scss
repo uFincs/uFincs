@@ -1,0 +1,47 @@
+@import "styles/_shared.scss";
+
+.Onboarding {
+    padding-bottom: 50vh;
+
+    // Need this because the Onboarding-step-container (which is used for the animations) uses
+    // position: absolute. If we don't have this, then the steps (when animating out) will
+    // shift downwards if the page is scrolled enough. Why? idk.
+    position: relative;
+
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Want a bit more top spacing on desktop, just makes the ProgressStepper look better positioned.
+        padding-top: $size-400;
+    }
+
+    &.Onboarding-WelcomeStep {
+        padding-bottom: 0;
+
+        @include media-query-navigation-change {
+            padding-top: 0;
+        }
+    }
+
+    .ProgressStepper {
+        // Using margins instead of grid gap. See above.
+        margin-bottom: $size-600;
+
+        margin-left: -$size-app-padding-horizontal-small;
+        width: calc(100% + (2 * #{$size-app-padding-horizontal-small}));
+
+        @include media-query-medium {
+            margin-left: -$size-app-padding-horizontal-medium;
+            width: calc(100% + (2 * #{$size-app-padding-horizontal-medium}));
+        }
+
+        @include media-query-navigation-change {
+            margin-left: -$size-app-padding-horizontal-large;
+            width: calc(100% + (2 * #{$size-app-padding-horizontal-large}));
+        }
+    }
+
+    .Onboarding-step-container {
+        will-change: opacity, transform;
+    }
+}

@@ -1,0 +1,818 @@
+{
+    "displayName": "ufincs-cluster",
+    "gridLayout": {
+        "columns": "3",
+        "widgets": [
+            {
+                "scorecard": {
+                    "gaugeView": {
+                        "upperBound": 1
+                    },
+                    "thresholds": [
+                        {
+                            "color": "RED",
+                            "direction": "ABOVE",
+                            "value": 0.9
+                        },
+                        {
+                            "color": "YELLOW",
+                            "direction": "ABOVE",
+                            "value": 0.7
+                        }
+                    ],
+                    "timeSeriesQuery": {
+                        "timeSeriesFilter": {
+                            "aggregation": {
+                                "alignmentPeriod": "60s",
+                                "perSeriesAligner": "ALIGN_RATE"
+                            },
+                            "filter": "metric.type=\"kubernetes.io/node/cpu/core_usage_time\" resource.type=\"k8s_node\"",
+                            "secondaryAggregation": {
+                                "alignmentPeriod": "60s",
+                                "crossSeriesReducer": "REDUCE_MAX",
+                                "perSeriesAligner": "ALIGN_MAX"
+                            }
+                        }
+                    }
+                },
+                "title": "Cluster - Max Node CPU usage"
+            },
+            {
+                "scorecard": {
+                    "gaugeView": {
+                        "upperBound": 4295000000
+                    },
+                    "thresholds": [
+                        {
+                            "color": "RED",
+                            "direction": "ABOVE",
+                            "value": 3758000000
+                        },
+                        {
+                            "color": "YELLOW",
+                            "direction": "ABOVE",
+                            "value": 3221000000
+                        }
+                    ],
+                    "timeSeriesQuery": {
+                        "timeSeriesFilter": {
+                            "aggregation": {
+                                "alignmentPeriod": "60s",
+                                "crossSeriesReducer": "REDUCE_MAX",
+                                "perSeriesAligner": "ALIGN_MAX"
+                            },
+                            "filter": "metric.type=\"kubernetes.io/node/memory/used_bytes\" resource.type=\"k8s_node\""
+                        }
+                    }
+                },
+                "title": "Cluster - Max Node Memory usage"
+            },
+            {
+                "scorecard": {
+                    "gaugeView": {
+                        "upperBound": 32210000000
+                    },
+                    "thresholds": [
+                        {
+                            "color": "RED",
+                            "direction": "ABOVE",
+                            "value": 26840000000
+                        },
+                        {
+                            "color": "YELLOW",
+                            "direction": "ABOVE",
+                            "value": 21470000000
+                        }
+                    ],
+                    "timeSeriesQuery": {
+                        "timeSeriesFilter": {
+                            "aggregation": {
+                                "alignmentPeriod": "60s",
+                                "crossSeriesReducer": "REDUCE_MAX",
+                                "perSeriesAligner": "ALIGN_MAX"
+                            },
+                            "filter": "metric.type=\"kubernetes.io/node/ephemeral_storage/used_bytes\" resource.type=\"k8s_node\""
+                        }
+                    }
+                },
+                "title": "Cluster - Max Node Storage usage"
+            },
+            {
+                "title": "Cluster - CPU usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/node/cpu/core_usage_time\" resource.type=\"k8s_node\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"node_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/node/cpu/core_usage_time\" resource.type=\"k8s_node\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_SUM",
+                                        "groupByFields": [
+                                            "resource.label.\"cluster_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Cluster - Memory usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"node_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/node/memory/used_bytes\" resource.type=\"k8s_node\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Cluster - Node Storage usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"node_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/node/ephemeral_storage/used_bytes\" resource.type=\"k8s_node\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Cluster - Network usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/node/network/sent_bytes_count\" resource.type=\"k8s_node\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"cluster_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/node/network/received_bytes_count\" resource.type=\"k8s_node\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"cluster_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Master CPU usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"master\" metadata.user_labels.\"app\"=\"ufincs\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Master Memory usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/container/memory/used_bytes\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"master\" metadata.user_labels.\"app\"=\"ufincs\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Database Volume Usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/pod/volume/used_bytes\" resource.type=\"k8s_pod\" metadata.user_labels.\"run\"=\"backend-database\" resource.label.\"namespace_name\"=\"master\" metric.label.\"volume_name\"=\"backend-database-volume\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Database Query Duration",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/database/query-duration\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/database/query-duration\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Database Backups Object Count",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    },
+                                    "filter": "metric.type=\"storage.googleapis.com/storage/object_count\" resource.type=\"gcs_bucket\" resource.label.\"bucket_name\"=\"ufincs2-cluster-database-backups\""
+                                },
+                                "unitOverride": "1"
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Nginx CPU Usage",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"ingress-nginx\" resource.label.\"container_name\"=\"controller\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Nginx Requests Rate",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/nginx/requests-count\" resource.type=\"k8s_container\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_MEAN",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Nginx Latency 50th/99th",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/nginx/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/nginx/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Backend Latency 50th/99th",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/backend/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/backend/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Frontend Latency 50th/99th",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/frontend/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/frontend/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Marketing Latency 50th/99th",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_50",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/marketing/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        },
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_PERCENTILE_99",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_DELTA"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/marketing/latency\" resource.type=\"k8s_container\""
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "No Account Logins",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "LINE",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/no-account-logins\" resource.type=\"k8s_container\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_SUM",
+                                        "groupByFields": [
+                                            "resource.label.\"container_name\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            },
+            {
+                "title": "Node Preemptions",
+                "xyChart": {
+                    "chartOptions": {
+                        "mode": "COLOR"
+                    },
+                    "dataSets": [
+                        {
+                            "minAlignmentPeriod": "60s",
+                            "plotType": "STACKED_BAR",
+                            "targetAxis": "Y1",
+                            "timeSeriesQuery": {
+                                "timeSeriesFilter": {
+                                    "aggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "perSeriesAligner": "ALIGN_RATE"
+                                    },
+                                    "filter": "metric.type=\"logging.googleapis.com/user/ufincs-cluster/preemptions\" resource.type=\"gce_instance\"",
+                                    "secondaryAggregation": {
+                                        "alignmentPeriod": "60s",
+                                        "crossSeriesReducer": "REDUCE_SUM",
+                                        "groupByFields": [
+                                            "resource.label.\"project_id\""
+                                        ],
+                                        "perSeriesAligner": "ALIGN_MEAN"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "timeshiftDuration": "0s",
+                    "yAxis": {
+                        "label": "y1Axis",
+                        "scale": "LINEAR"
+                    }
+                }
+            }
+        ]
+    }
+}

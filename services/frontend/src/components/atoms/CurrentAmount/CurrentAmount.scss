@@ -1,0 +1,26 @@
+@import "styles/_shared.scss";
+
+.CurrentAmount {
+    &.CurrentAmount--light-shade {
+        .CurrentAmount-dollar-sign {
+            color: $color-primary-200;
+        }
+
+        .CurrentAmount-amount {
+            color: $color-light;
+        }
+    }
+
+    .CurrentAmount-dollar-sign {
+        color: $color-text-secondary;
+        font-weight: $font-weight-semibold;
+
+        // It just looks better with this tiny smidge of extra spacing between the dollar sign and amount.
+        margin-right: 1px;
+    }
+
+    .CurrentAmount-amount {
+        color: $color-text-primary;
+        font-weight: $font-weight-bold;
+    }
+}

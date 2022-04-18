@@ -1,0 +1,102 @@
+@import "styles/_shared.scss";
+
+.SelectInput-container {
+    @include keyboard-navigation-outline();
+    @include disable-custom-outline-transitions();
+
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    z-index: $z-index-input;
+
+    &::before {
+        // Setup the error outline.
+        @include rounded-outline($color-negative);
+    }
+
+    &.SelectInput--error {
+        &::before {
+            // Show the error outline.
+            opacity: 1;
+        }
+
+        .SelectInput {
+            // 'Remove' our custom input border so that it doesn't clash
+            // with the error outline.
+            border-color: $color-light;
+        }
+    }
+
+    &.SelectInput--has-status-icon {
+        .SelectInput-arrow-icon {
+            right: 40px;
+        }
+    }
+
+    .SelectInput {
+        @include input-height();
+        @include micro-transition(background-color);
+
+        // Hide the select input's default arrow.
+        appearance: none;
+
+        // Most of these stylings are just ripped straight from `Input`.
+        // Maybe we'll make a mixin for these one day...
+        background-color: $color-light;
+        border: $border-width-normal solid $color-neutral-400;
+        border-radius: $border-radius-normal;
+        color: $color-text-primary;
+        font-size: $font-size-300;
+        outline: none;
+        padding: 0 $size-300;
+        width: 100%;
+
+        @include media-query-small {
+            // Give the input more breathing room on larger screens.
+            padding: 0 $size-400;
+        }
+
+        &:disabled {
+            // Darken the background the and change the text color to the
+            // placeholder color to reduce contrast and indicate 'disabled'.
+            background-color: $color-neutral-300;
+            color: $color-neutral-500;
+        }
+    }
+
+    .SelectInput-arrow-icon {
+        // Need a transition for 'right' since it gets changed when the SuccessIcon is shown
+        // alongside the arrow.
+        @include micro-transition(right);
+        @include svg-icon-color($color-neutral-500);
+
+        // Pass through click events to the select input so that clicking on the icon actually
+        // opens the options.
+        pointer-events: none;
+
+        position: absolute;
+        right: $size-200;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .SelectInput:disabled + .SelectInput-arrow-icon {
+        // Reduce the contrast on the arrow icon when the input is disabled so that the icon
+        // also looks disabled.
+        @include svg-icon-color($color-neutral-400);
+    }
+
+    .SelectInput-placeholder {
+        color: $color-input-placeholder;
+
+        // This might seem weird, but there was something else that was causing a particular input
+        // to have a bold placeholder, so we need to encode that it should be normal font weight here.
+        font-weight: $font-weight-normal;
+
+        left: $size-400;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

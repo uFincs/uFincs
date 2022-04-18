@@ -1,0 +1,50 @@
+@import "styles/_shared.scss";
+
+.TableColumnHeader {
+    @include keyboard-navigation-outline();
+
+    align-items: center;
+    color: $color-text-secondary;
+    cursor: pointer;
+    display: flex;
+    font-weight: $font-weight-normal;
+
+    // Left-align headers by default, and then override on a case-by-case basis.
+    justify-content: flex-start;
+
+    padding: $size-100 0;
+    -webkit-tap-highlight-color: transparent;
+
+    // Disable text selection so rapidly clicking on the header doesn't select the text.
+    // It's just kind of annoying.
+    user-select: none;
+
+    &.TableColumnHeader--no-sort {
+        cursor: default;
+    }
+
+    .TableColumnHeader-sort-icon {
+        @include micro-transition(transform);
+        @include svg-icon-color($color-text-tertiary);
+
+        height: 16px;
+
+        // Push away from the header text.
+        margin-left: $size-100;
+
+        // Move it up a bit so that it looks more visually centered with the text.
+        margin-top: -2px;
+
+        width: 16px;
+
+        &.TableColumnHeader-sort-icon--asc {
+            // Flip the chevron vertically to get an 'up' chevron.
+            transform: rotateX(180deg);
+        }
+    }
+
+    .TableColumnHeader-comma {
+        // Hide the comma by default, since it's only needed for certain columns.
+        display: none;
+    }
+}

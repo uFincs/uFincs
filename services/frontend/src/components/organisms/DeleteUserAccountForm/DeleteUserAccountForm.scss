@@ -1,0 +1,21 @@
+@import "styles/_shared.scss";
+
+.DeleteUserAccountForm {
+    display: grid;
+    gap: $size-500;
+    width: 100%;
+
+    .DeleteUserAccountForm-header {
+        color: $color-negative-text;
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    .DeleteUserAccountForm-SubmitButton {
+        @include media-query-small {
+            // Increase the width so that the 'Network error - try again later' message
+            // can display on one line.
+            max-width: 250px;
+        }
+    }
+}

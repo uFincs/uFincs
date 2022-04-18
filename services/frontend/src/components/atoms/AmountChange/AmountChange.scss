@@ -1,0 +1,60 @@
+@import "styles/_shared.scss";
+
+.AmountChange--na {
+    color: $color-text-tertiary;
+    font-weight: $font-weight-normal;
+
+    &.AmountChange--light-shade {
+        color: $color-neutral-400;
+    }
+}
+
+.AmountChange {
+    &.AmountChange--positive {
+        .AmountChange-percent {
+            color: $color-positive-500;
+        }
+
+        .AmountChange-difference {
+            color: $color-positive-400;
+        }
+    }
+
+    &.AmountChange--negative {
+        .AmountChange-percent {
+            color: $color-negative-500;
+        }
+
+        .AmountChange-difference {
+            color: $color-negative-400;
+        }
+    }
+
+    &.AmountChange--light-shade {
+        .AmountChange-percent {
+            // Only on a dark background do we want the text to be bold.
+            // It's too overbearing for it to be bold on a light background.
+            font-weight: bold;
+        }
+
+        &.AmountChange--positive {
+            .AmountChange-percent {
+                color: $color-positive-300;
+            }
+
+            .AmountChange-difference {
+                color: $color-positive-400;
+            }
+        }
+
+        &.AmountChange--negative {
+            .AmountChange-percent {
+                color: $color-negative-300;
+            }
+
+            .AmountChange-difference {
+                color: $color-negative-400;
+            }
+        }
+    }
+}

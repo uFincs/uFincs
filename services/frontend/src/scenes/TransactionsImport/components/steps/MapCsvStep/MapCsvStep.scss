@@ -1,0 +1,79 @@
+@import "styles/_shared.scss";
+
+.MapCsvStep {
+    @include wizard-process-step-styles($flex-layout: true);
+
+    .MapCsvStep-body {
+        max-width: unset;
+
+        .TabBarWithSections-TabBar-container {
+            margin: 0 auto;
+            width: 100%;
+
+            @include media-query-navigation-change {
+                max-width: $size-transactions-import-step-width;
+            }
+
+            .TabBar-tab-content {
+                font-size: $font-size-100;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-200;
+                }
+
+                @include media-query-small {
+                    font-size: $font-size-300;
+                }
+            }
+        }
+    }
+}
+
+.MapCsvStep-section {
+    display: grid;
+    gap: $size-600;
+    margin-top: $size-500;
+
+    .MapCsvStep-input {
+        margin: 0 auto;
+        width: 100%;
+
+        @include media-query-navigation-change {
+            max-width: $size-transactions-import-step-width;
+        }
+
+        label {
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    h3 {
+        font-size: $font-size-300;
+        font-weight: $font-weight-bold;
+        margin: 0 auto;
+        width: 100%;
+
+        @include media-query-navigation-change {
+            max-width: $size-transactions-import-step-width;
+        }
+    }
+
+    .CsvMappingTable {
+        display: none;
+
+        @include media-query-navigation-change {
+            display: grid;
+            margin: 0 auto;
+
+            // Don't want the table taking up the whole width; it looks _too_ big.
+            // But 95% looks good.
+            width: 95%;
+        }
+    }
+
+    .CsvMappingList {
+        @include media-query-navigation-change {
+            display: none;
+        }
+    }
+}

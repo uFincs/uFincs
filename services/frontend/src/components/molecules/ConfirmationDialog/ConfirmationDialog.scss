@@ -1,0 +1,132 @@
+@import "styles/_shared.scss";
+
+$confirmation-dialog-icon-padding: $size-200;
+$confirmation-dialog-small-padding: $size-300;
+$confirmation-dialog-large-padding: $size-500;
+
+.ConfirmationDialog {
+    border-top: 4px solid;
+
+    &.ConfirmationDialog--negative {
+        border-top-color: $color-negative;
+    }
+
+    .ConfirmationDialog-body {
+        align-items: flex-start;
+        display: flex;
+        flex: 1;
+        margin: $confirmation-dialog-small-padding;
+
+        @include media-query-dialog {
+            margin: $confirmation-dialog-large-padding;
+        }
+
+        .ConfirmationDialog-icon-container {
+            background-color: $color-negative-100;
+            border-radius: 50%;
+            margin-right: $confirmation-dialog-small-padding;
+            padding: $confirmation-dialog-icon-padding;
+
+            @include media-query-dialog {
+                margin-right: $confirmation-dialog-large-padding;
+            }
+
+            .ConfirmationDialog-icon--negative {
+                @include svg-icon-color($color-negative);
+            }
+        }
+
+        .ConfirmationDialog-content-container {
+            flex: 1;
+
+            // Bring the top of the content (the header) in line with the variant icon.
+            margin-top: $confirmation-dialog-icon-padding;
+
+            .ConfirmationDialog-header {
+                font-size: $font-size-500;
+                font-weight: $font-weight-bold;
+            }
+
+            .ConfirmationDialog-content {
+                // Push the content away from the header.
+                margin-top: $size-400;
+
+                // Set a max height so that if, for some awful reason, the content is too
+                // large, it'll just scroll instead. The value is arbitrary.
+                //
+                // Theoretically possible we interpolate something like an account name or
+                // transaction description into a dialog without applying max length constraints.
+                max-height: 250px;
+
+                // Give the content a min height so that the dialog doesn't look so small
+                // when there isn't much content.
+                min-height: $size-800;
+
+                // And here's the scrolling for our massively large content section.
+                overflow: auto;
+            }
+        }
+
+        .ConfirmationDialog-close-button {
+            // Remove the IconButton's negative margin to bring it in line with the variant icon.
+            margin-top: 0;
+        }
+    }
+
+    .ConfirmationDialog-actions {
+        background-color: $color-primary-100;
+        border-radius: 0 0 $border-radius-normal $border-radius-normal;
+
+        // We're just grid here for the gap. Simpler than item margins.
+        display: grid;
+        gap: $size-200;
+        grid-auto-flow: column;
+        justify-content: flex-end;
+
+        padding: $confirmation-dialog-small-padding;
+        width: 100%;
+
+        @include media-query-dialog {
+            gap: $size-300;
+            padding: $confirmation-dialog-small-padding $confirmation-dialog-large-padding;
+        }
+
+        .ConfirmationDialog-action-secondary {
+            // Give a non-keyboard-navigation-only custom outline to the secondary button.
+            // Since we auto focus onto this button when display the dialog, we want to show
+            // the outline so that the user knows that the focus has changed to be in the dialog.
+            @include custom-navigation-outline();
+
+            color: $color-text-secondary;
+            font-size: $font-size-200;
+            padding: 0 $size-200;
+
+            @include media-query-dialog {
+                // Bring the font size back up to normal.
+                font-size: $font-size-300;
+
+                padding: 0 $size-400;
+            }
+        }
+
+        .ConfirmationDialog-action-primary {
+            // Shrink the font size/height to make the button fit better in the actions container
+            // on small devices.
+            font-size: $font-size-200;
+            height: 40px;
+
+            // Get rid of the 100% width in favour of side padding.
+            max-width: unset;
+            padding: 0 $confirmation-dialog-small-padding;
+            width: unset;
+
+            @include media-query-dialog {
+                // Bring the button sizes back up to normal.
+                font-size: $font-size-300;
+                height: $size-input-height;
+
+                padding: 0 $confirmation-dialog-large-padding;
+            }
+        }
+    }
+}

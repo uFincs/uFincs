@@ -1,0 +1,12 @@
+// Anything that is going to be consumed by a component should be imported here,
+// so that the component only has to import this one file.
+
+@import "styles/_animations.module.scss";
+@import "styles/_borders.module.scss";
+@import "styles/_colors.module.scss";
+@import "styles/_fonts.module.scss";
+@import "styles/_media_queries.module.scss";
+@import "styles/_mixins.scss";
+@import "styles/_non_sticky_interactions.scss";
+@import "styles/_sizes.module.scss";
+@import "styles/_tables.module.scss";

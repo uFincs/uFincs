@@ -1,0 +1,199 @@
+{{- if and .Values.__services .Values.serviceName}}
+{{- $projectName := .Values.__project_name}}
+{{- $dockerRegistry := .Values.__template_docker_registry | default "gcr.io"}}
+{{- $namespace := .Values.namespace | lower}}
+{{- $isProduction := eq $namespace .Values.__production_namespace}}
+
+{{- $serviceName := .Values.serviceName}}
+{{- $serviceMap := index .Values.__services $serviceName}}
+
+{{- $tag := not (index $serviceMap "fixed_tag") | ternary (.Values.tag | default "latest") (index $serviceMap "fixed_tag")}}
+{{- $serviceImage := index $serviceMap "image"}}
+{{- $projectImage := printf "%s/%s/%s-%s:%s" $dockerRegistry .Values.__gcp_project_id $projectName $serviceImage $tag}}
+{{- $imageInProject := index $serviceMap "image_in_project"}}
+{{- $image := $imageInProject | ternary $projectImage $serviceImage}}
+
+{{- $env := index $serviceMap "env"}}
+
+{{- $pvClaimName := printf "%s-pv-claim" $serviceName}}
+{{- $volumeName := printf "%s-volume" $serviceName}}
+{{- $volumeConfig := index $serviceMap "persistent_volume"}}
+{{- $volumeConfigProduction := index $serviceMap "persistent_volume_production"}}
+
+{{- $readinessRoute := index $serviceMap "readiness_route"}}
+
+{{- $waitForService := index $serviceMap "wait_for_service"}}
+{{- $preStartupCommand := index $serviceMap "pre_startup_command"}}
+
+{{- if or $volumeConfig $volumeConfigProduction}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    labels:
+        app: {{$projectName}}
+        run: {{$serviceName}}
+    name: {{$pvClaimName}}
+    namespace: {{$namespace}}
+spec:
+    accessModes:
+      - ReadWriteOnce
+    {{- if and $volumeConfig (not $isProduction)}}
+    resources:
+        requests:
+            storage: {{index $volumeConfig "size"}}
+    storageClassName: {{(index $volumeConfig "storage_class") | default "standard"}}
+    {{- end}}
+    {{- if and $volumeConfigProduction $isProduction}}
+    resources:
+        requests:
+            storage: {{index $volumeConfigProduction "size"}}
+    storageClassName: {{(index $volumeConfigProduction "storage_class") | default "standard"}}
+    {{- end}}
+{{- end}}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+    labels:
+        app: {{$projectName}}
+        run: {{$serviceName}}
+    name: {{$serviceName}}
+    namespace: {{$namespace}}
+
+spec:
+    replicas: {{.Values.replicas | default 1}}
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxUnavailable: 0
+    selector:
+        matchLabels:
+            run: {{$serviceName}}
+    template:
+        metadata:
+            labels:
+                app: {{$projectName}}
+                run: {{$serviceName}}
+        spec:
+            {{- if $isProduction}}
+            affinity:
+              podAntiAffinity:
+                preferredDuringSchedulingIgnoredDuringExecution:
+                  - weight: 100
+                    podAffinityTerm:
+                      labelSelector:
+                        matchExpressions:
+                          - key: "run"
+                            operator: In
+                            values:
+                            - {{$serviceName}}
+                      topologyKey: "kubernetes.io/hostname"
+            {{- end}}
+            # Disable mounting the default service account's access token.
+            # This way, the pods won't have any permissions to the Kubernetes API.
+            automountServiceAccountToken: false
+            containers:
+              - image: {{$image}}
+                name: {{$serviceName}}
+                ports:
+                  - name: container-port
+                    containerPort: {{index $serviceMap "container_port"}}
+                {{- if $readinessRoute}}
+                readinessProbe:
+                  httpGet:
+                    path: {{$readinessRoute}}
+                    port: container-port
+                  initialDelaySeconds: 2
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                {{- end}}
+                securityContext:
+                  capabilities:
+                    drop:
+                      - ALL
+                  allowPrivilegeEscalation: false
+                  readOnlyRootFilesystem: true
+                env:
+                  - name: NAMESPACE
+                    value: {{$namespace}}
+
+                  # The reasoning behind this is for when the image _isn't_ in the project (i.e. database).
+                  # By not specifying the tag when using a static image, it prevents the need for the
+                  # deployment to be considered 'changed' and cause a re-creation of the pods.
+                  #
+                  # That is, for the database, the deployment file becomes idempotent on solely the branch,
+                  # preventing the database pod from being re-deployed during every deployment.
+                  {{- if $imageInProject}}
+                  - name: SOFTWARE_TAG
+                    value: {{$tag | quote}}
+                  {{- end}}
+
+                  {{- range $key, $value := .Values.__services}}
+                  - name: {{$key | upper | replace "-" "_"}}_PORT
+                    value: {{$value.external_port | quote}}
+                  - name: {{$key | upper | replace "-" "_"}}_HOST
+                    {{- if $isProduction}}
+                    value: {{$value.host | quote}}
+                    {{- else}}
+                    value: {{printf "%s.%s" $namespace $value.host | quote}}
+                    {{- end}}
+                  {{- end}}
+
+                  {{- range $env}}
+                  - name: {{.name}}
+                    value: {{.value | quote}}
+                  {{- end}}
+
+                  {{- if (index $serviceMap "secrets")}}
+                  {{- range (index $serviceMap "secrets" "variables")}}
+                  - name: {{.}}
+                    valueFrom:
+                        secretKeyRef:
+                            name: {{index $serviceMap "secrets" "name"}}
+                            key: {{.}}
+                  {{- end}}
+                  {{- end}}
+              
+                {{- if $volumeConfig}}
+                {{- $subPath := index $volumeConfig "sub_path"}}
+                volumeMounts:
+                  - name: {{$volumeName}}
+                    mountPath: {{index $volumeConfig "mount_path"}}
+                    {{- if $subPath}}
+                    subPath: {{$subPath}}
+                    {{- end}}
+                {{- end}}
+              
+            {{- if $volumeConfig}}
+            volumes:
+              - name: {{$volumeName}}
+                persistentVolumeClaim:
+                    claimName: {{$pvClaimName}}
+            {{- end}}
+
+            {{- if or $waitForService $preStartupCommand}}
+            initContainers:
+              {{- if $waitForService}}
+              - name: wait-for-service
+                image: busybox
+                command: ["sh", "-c", {{printf "until nslookup %s; do echo waiting for %s; sleep 2; done;" $waitForService $waitForService | quote}}]
+              {{- end}}
+              
+              {{- if $preStartupCommand}}
+              - name: pre-startup
+                image: {{$image}}
+                command: ["sh", "-c", {{$preStartupCommand | quote}}]
+                {{- if $env}}
+                env:
+                  {{- range $env}}
+                  - name: {{.name}}
+                    value: {{.value | quote}}
+                  {{- end}}
+                {{- end}}
+              {{- end}}
+            {{- end}}
+{{- end}}
+

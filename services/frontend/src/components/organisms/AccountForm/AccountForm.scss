@@ -1,0 +1,33 @@
+@import "styles/_shared.scss";
+
+.AccountForm {
+    .AccountForm-inputs {
+        display: grid;
+        gap: $size-500;
+
+        .AccountForm-input {
+            width: 100%;
+        }
+    }
+}
+
+.AccountForm-EmptyArea {
+    .EmptyArea-graphic {
+        // These dimensions are slightly larger than the typical graphic size (~120px),
+        // so we're also adding in some more margin to space it from the text.
+        height: 150px;
+        margin: $size-400 0;
+        width: 150px;
+
+        @include media-query-small {
+            // Can make the graphic bigger now, to make it more pronounced.
+            height: 200px;
+            width: 200px;
+        }
+    }
+
+    .EmptyArea-sub-message {
+        // Want the sub message large enough that it can fit on one line.
+        max-width: 400px;
+    }
+}

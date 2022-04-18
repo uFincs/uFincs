@@ -1,0 +1,38 @@
+@import "styles/_shared.scss";
+
+.StepDescription {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .StepDescription-title {
+        color: $color-primary-700;
+        font-size: $font-size-400;
+        font-weight: $font-weight-semibold;
+        text-align: center;
+
+        @include media-query-navigation-change {
+            font-size: $font-size-600;
+        }
+    }
+
+    .StepDescription-description {
+        font-size: $font-size-200;
+        line-height: 1.5;
+        margin-top: $size-400;
+        text-align: center;
+
+        @include media-query-extra-small {
+            max-width: 350px;
+        }
+
+        @include media-query-small {
+            max-width: 400px;
+        }
+
+        @include media-query-navigation-change {
+            font-size: $font-size-300;
+        }
+    }
+}

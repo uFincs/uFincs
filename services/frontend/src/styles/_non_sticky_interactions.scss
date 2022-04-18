@@ -1,0 +1,164 @@
+// This is a very cool mixin that I came up with for abstracting how to do 'non-sticky'
+// interactions. That is, once the user is no longer interacting with an element,
+// the element should return to its state before the user ever interacted with it.
+//
+// An example of a 'sticky' interaction is applying a regular `:hover` on a button to,
+// for example, change its background color. Sans anything else, tapping the button
+// on mobile will cause the button's background to be changed even after the user
+// has stopped tapping/touching the button.
+//
+// This is because, to generalize, focus states are ignored on mobile, hover states act
+// as focus states, and active states act as hover states.
+//
+// With the below mixin, the 'stickiness' is eliminated: once the user stops touching/interacting
+// with the button, it will revert to its default background color.
+//
+// Inspiration for this code was taken from the following:
+// https://github.com/sass/sass/issues/1943#issuecomment-165882918
+//
+// Here's how it works:
+//
+// The `%` syntax are Sass placeholders:
+// (https://sass-lang.com/documentation/style-rules/placeholder-selectors)
+//
+// The way we use them is basically the reverse of how they were intended to be used (see the
+// above GitHub comment for why).
+//
+// The placeholders basically allow the consumer of the mixin to specify multiple blocks of
+// @content that are then injected wherever there is a corresponding placeholder.
+//
+// For example, the basic usage of this mixin requires only the `%base` and `%hover` placeholders:
+//
+// @include non-sticky-interactions {
+//     %base {
+//         background-color: $some-color;
+//     }
+//
+//     %hover {
+//         background-color: $some-darker-color;
+//     }
+// }
+//
+// The result of this mixin is that, on a regular computer with a mouse, hovering and clicking
+// the button will result in the background getting darker, while on a mobile device without
+// a mouse, tapping on the button will make the background darker but only while the user
+// is touching the button.
+//
+// The following placeholders are available:
+//
+// %base            The base attributes applied to the element without any interaction.
+// %hover           What the normal 'hovered' state of the element looks like.
+// %focus-regular   An override for the top-level &:focus state that is normally ignored.
+// %active-override An override for when the active state isn't the same as the hover state.
+// %disabled        What the disabled state looks like; defaults to `%base` when not specified.
+//
+// And the params:
+//
+// $pseudo-element  A pseudo element (either "::before" or "::after") to apply to.
+//
+// $key             Because placeholders are global, if multiple instances of this mixin
+//                  are used in the same file, then they'll need keys to identify the placeholders.
+//                  This is done by suffixing the placeholders with the key.
+//
+//                  Note: $key is expected to have a hyphen (-) at the start of its value.
+//                        This is so we don't have to put a bunch of conditional handling code
+//                        in the mixin to handle key or no key.
+@mixin non-sticky-interactions($pseudo-element: "", $key: "") {
+    // Use at-root to scope the use of the placeholders to the parent and to remove
+    // the parent from output.
+    @at-root {
+        // This, as usual, allows this mixin to accept a block of attributes.
+        // It just so happens that we're using that block to specify a bunch of placeholders
+        // instead of attributes.
+        @content;
+
+        @if $pseudo-element == "" {
+            // Apply the `%base` effect to the element at rest.
+            @extend %base#{$key} !optional;
+        } @else {
+            &#{$pseudo-element} {
+                // Apply the `%base` effect only to the pseudo element when at rest.
+                @extend %base#{$key} !optional;
+            }
+        }
+
+        @include keyboard-navigation {
+            // Because there is no 'hover' state when navigating purely with a keyboard,
+            // we can leverage the 'focus' state to provide the regular `%hover` effect.
+            &:focus#{$pseudo-element} {
+                @extend %hover#{$key} !optional;
+            }
+
+            // This 'active' state normally isn't specified at all, but in some cases the 'active'
+            // state differs from the 'hover' state, so like all of the 'active' states below,
+            // the 'active' while navigating with a keyboard can be overriden with the
+            // `%active-override` effect.
+            &:active#{$pseudo-element} {
+                @extend %active-override#{$key} !optional;
+            }
+        }
+
+        @include touch-support {
+            // This 'hover' is really mobile's 'focus' state, so since we're eliminating
+            // stickiness, we want to 'disable' it be forcing the `%base` effect to be set.
+            &:hover#{$pseudo-element} {
+                @extend %base#{$key} !optional;
+            }
+
+            // This 'active' is really mobile's 'hover' state, so we use the regular `%hover`
+            // effect here.
+            //
+            // However, sometimes we want the 'hover' state on mobile to be different from desktop,
+            // so the `%active-override` effect can be specified to override it.
+            //
+            // For an example, see the `micro-interactive-bounce` mixin.
+            &:active#{$pseudo-element} {
+                @extend %hover#{$key} !optional;
+                @extend %active-override#{$key} !optional;
+            }
+        }
+
+        // The regular hover state must always be provided with `%hover`.
+        &:hover#{$pseudo-element} {
+            @extend %hover#{$key} !optional;
+        }
+
+        // We normally don't make use of the normal 'focus' state, because it's what gives
+        // that 'sticky' effect while on desktop. However, there are cases where it's useful,
+        // so it can be specified using `%focus-regular`.
+        //
+        // For an example, see the `micro-interactive-bounce` mixin.
+        &:focus#{$pseudo-element} {
+            @extend %focus-regular#{$key} !optional;
+        }
+
+        // Normally we just want the regular 'active' state to mirror the 'hover' state,
+        // but sometimes we want it to be different. This is what `%active-override` is for.
+        &:active#{$pseudo-element} {
+            @extend %hover#{$key} !optional;
+            @extend %active-override#{$key} !optional;
+        }
+
+        // The 'disabled' state normally just uses the `%base` effect, but for things
+        // where the 'disabled' state needs to look visually different, the `%disabled` effect
+        // can be specified.
+        &:disabled {
+            @if $pseudo-element == "" {
+                @extend %base#{$key} !optional;
+                @extend %disabled#{$key} !optional;
+            } @else {
+                &#{$pseudo-element} {
+                    @extend %base#{$key} !optional;
+                    @extend %disabled#{$key} !optional;
+                }
+            }
+
+            &:active#{$pseudo-element},
+            &:focus#{$pseudo-element},
+            &:hover#{$pseudo-element} {
+                @extend %base#{$key} !optional;
+                @extend %disabled#{$key} !optional;
+            }
+        }
+    }
+}

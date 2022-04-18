@@ -1,0 +1,30 @@
+@import "styles/_shared.scss";
+
+.FeedbackForm {
+    display: grid;
+    gap: $size-400;
+    width: 100%;
+
+    .FeedbackForm-message-input {
+        // It looks like a good height.
+        height: 100px;
+    }
+
+    .FeedbackForm-stacktrace-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        p {
+            margin-bottom: $size-400;
+        }
+
+        .FeedbackForm-stacktrace-input {
+            // Need more height for the stack traces.
+            height: 200px;
+
+            // Don't wrap the stack trace, otherwise it gets unreadable at smaller widths.
+            white-space: nowrap;
+        }
+    }
+}

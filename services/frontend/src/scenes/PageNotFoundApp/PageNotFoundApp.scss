@@ -1,0 +1,8 @@
+@import "styles/_shared.scss";
+
+.PageNotFoundApp {
+    // Bottom spacing to give users enough height to scroll.
+    margin-bottom: 40vh;
+
+    margin-top: $size-700;
+}

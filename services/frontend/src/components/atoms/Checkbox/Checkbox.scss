@@ -1,0 +1,38 @@
+@import "styles/_shared.scss";
+
+.Checkbox-container {
+    @include keyboard-navigation-outline();
+
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    z-index: $z-index-input;
+
+    .Checkbox {
+        // Somehow, putting the pointer cursor on the container doesn't add it to the checkbox itself.
+        // Have to add it manually.
+        cursor: pointer;
+
+        flex-shrink: 0;
+        outline: none;
+    }
+
+    .Checkbox-Label {
+        // Long labels that wrap onto multiple lines definitely need some line-height.
+        line-height: $font-line-height-200;
+
+        // The text just looks more centered with the checkbox with this minor adjustment.
+        margin-bottom: -2px;
+
+        margin-left: $size-200;
+
+        &.Checkbox-Label--error {
+            color: $color-negative-text;
+            font-weight: $font-weight-bold;
+        }
+
+        &.Checkbox-Label--empty {
+            margin-left: 0;
+        }
+    }
+}

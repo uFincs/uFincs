@@ -1,0 +1,16 @@
+@import "styles/_shared.scss";
+
+.AccountTypeFilters {
+    display: grid;
+    gap: $size-100;
+    grid-template-columns: repeat(4, 1fr);
+
+    @include media-query-medium {
+        gap: $size-200;
+    }
+
+    .AccountTypeOption {
+        @include keyboard-navigation-outline();
+        @include micro-interactive-bounce($disable-immobile-focus: true);
+    }
+}

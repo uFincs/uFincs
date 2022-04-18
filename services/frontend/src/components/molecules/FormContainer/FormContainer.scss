@@ -1,0 +1,73 @@
+@import "styles/_shared.scss";
+
+.FormContainer {
+    display: grid;
+
+    // Want more gap spacing on mobile to make it feel more spacious.
+    // Why? Cause the layout feels kind of cramped with the smaller inputs.
+    gap: $size-600;
+
+    // Need to hide X overflow because of the errors in the inputs that are rendered
+    // outside the form.
+    overflow-x: hidden;
+
+    padding: $size-500 $size-300;
+    width: 100%;
+
+    @include media-query-extra-small {
+        padding: $size-400;
+    }
+
+    @include media-query-small {
+        // The slightly reduced horizontal padding is because, when the title is
+        // Edit Recurring Transaction", the title is slightly too close to the close button
+        // on desktop. So... reduce horizontal padding to give more space between them.
+        padding: $size-600 ($size-500 + $size-100);
+    }
+
+    @include media-query-navigation-change {
+        gap: $size-500;
+    }
+
+    // Because of the wonders of CSS overflows (see https://stackoverflow.com/a/18135319),
+    // setting overflow-x to hidden changes how overflow-y works.
+    // As such, we can't use our normal padding-bottom technique on the form to give users extra
+    // scroll room. Instead, we just jump an element in there with a bunch of height.
+    // Yay for hacks.
+    .padding-spacer {
+        height: 30vh;
+
+        @include media-query-navigation-change {
+            // Reduce on desktop since it's not needed nearly as much,
+            // however it doesn't really reduce scrolling considering how large the form is.
+            //
+            // But we _do_ need it because because the suggestions for the second account input
+            // can extend pretty far down.
+            height: 10vh;
+        }
+    }
+}
+
+.FormSubmissionButtons {
+    display: grid;
+
+    // Need a bigger gap on mobile to give the Make Another button more touch space.
+    gap: $size-500;
+
+    // Want to push the submission buttons down further apart from the last elements of the form.
+    margin-top: $size-400;
+
+    width: 100%;
+
+    @include media-query-navigation-change {
+        gap: $size-400;
+    }
+
+    .FormSubmissionButtons-SubmitButton {
+        max-width: unset;
+    }
+
+    .FormSubmissionButtons-make-another-button {
+        justify-self: center;
+    }
+}

@@ -1,0 +1,19 @@
+@import "styles/_shared.scss";
+
+.FormHeader {
+    display: flex;
+    justify-content: space-between;
+
+    // While the grid gap works fine for every section of the form, I feel like
+    // the header could be a bit closer to the first inputs. As such, the following.
+    margin-bottom: -($size-200);
+
+    width: 100%;
+
+    .FormHeader-close-button {
+        // Because of the extra padding around the icon button for the hover background,
+        // we need to push it down a little to line up the bottom of the X with the
+        // bottom of the heading.
+        margin-top: 2px;
+    }
+}

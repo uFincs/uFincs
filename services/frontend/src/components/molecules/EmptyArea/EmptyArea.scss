@@ -1,0 +1,29 @@
+@import "styles/_shared.scss";
+
+.EmptyArea {
+    display: grid;
+    gap: $size-400;
+    justify-items: center;
+    width: 100%;
+
+    .EmptyArea-title {
+        font-weight: $font-weight-bold;
+        text-align: center;
+
+        span {
+            display: block;
+            margin-top: $size-200;
+        }
+    }
+
+    .EmptyArea-message,
+    .EmptyArea-sub-message {
+        color: $color-text-secondary;
+        max-width: 220px;
+        text-align: center;
+    }
+
+    .ShadowButton {
+        max-width: 200px;
+    }
+}

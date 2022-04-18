@@ -1,0 +1,16 @@
+@import "styles/_shared.scss";
+
+.Divider {
+    background-color: $color-neutral-400;
+    border-radius: $border-radius-normal;
+
+    &.Divider--horizontal {
+        height: 1px;
+        width: 100%;
+    }
+
+    &.Divider--vertical {
+        height: 100%;
+        width: 1px;
+    }
+}

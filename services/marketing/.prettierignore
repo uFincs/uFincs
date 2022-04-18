@@ -1,0 +1,4 @@
+cypress/downloads
+
+# It has a minified script that we don't want prettified.
+AnalyticsScript.js

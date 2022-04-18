@@ -1,0 +1,60 @@
+@import "styles/_shared.scss";
+
+@mixin grid-gap() {
+    gap: $size-100;
+
+    // All these media queries are just minor tweaking to get the size picker and date switcher
+    // to fit well on one line from extra small devices up to desktops.
+    @include media-query-extra-small {
+        gap: $size-200;
+    }
+
+    @media (min-width: 900px) {
+        gap: $size-400;
+    }
+}
+
+.DateRangePicker {
+    @include grid-gap();
+    @include input-height();
+
+    align-items: center;
+    display: grid;
+    gap: $size-100;
+    grid-template-columns: auto auto;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Have the size picker take up excess space so that the date switcher has a fixed width.
+        grid-template-columns: 1fr auto;
+    }
+
+    .DateRangeSizePicker {
+        // Need both elements to take the container's height so that they're both the same height.
+        height: 100%;
+    }
+
+    .DateRangePicker-right-half {
+        @include grid-gap();
+
+        align-items: center;
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-flow: column;
+        height: 100%;
+
+        .Divider,
+        .ShowFutureToggle {
+            display: None;
+
+            @include media-query-navigation-change {
+                display: flex;
+            }
+        }
+
+        .DateSwitcher {
+            // Need both elements to take the container's height so that they're both the same height.
+            height: 100%;
+        }
+    }
+}

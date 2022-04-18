@@ -1,0 +1,126 @@
+@import "styles/_shared.scss";
+
+$breakpoint-show-desktop: 950px;
+
+.DateRangeSizePicker {
+    // Use 100% width on mobile so that the mobile picker takes as much room as it can.
+    width: 100%;
+
+    @include media-query-navigation-change {
+        display: flex;
+        justify-content: flex-end;
+
+        // Whereas on desktop, we only want the desktop picker to take as much room as it needs.
+        width: auto;
+    }
+}
+
+.DateRangeSizePicker-mobile {
+    // Make sure the picker takes the full container's height. This way, in `DateRangePicker`,
+    // the picker matches the height of `DateSwitcher`.
+    height: 100%;
+
+    @media (min-width: #{$breakpoint-show-desktop}) {
+        display: none;
+    }
+
+    .DateRangeSizePicker-mobile-input {
+        // Like the `DateSwitcher`, we need to shrink the font size way down to get it to fit.
+        font-size: $font-size-50;
+
+        // Need this so that the input takes the full height and matches the height of the DateSwitcher.
+        height: 100%;
+
+        @include media-query-extra-small {
+            font-size: $font-size-100;
+        }
+
+        @include media-query-medium {
+            // But we can up it back to normal now.
+            font-size: $font-size-200;
+        }
+    }
+
+    .SelectInput-arrow-icon {
+        // There is so little room at these extra small screen sizes that we can't fit the icon.
+        display: none;
+
+        @include media-query-small {
+            // OK, now we can bring the icon back, just smaller.
+            display: block;
+            height: 16px;
+            width: 16px;
+        }
+
+        @include media-query-medium {
+            // And now there's enough room to fit the full size icon.
+            height: 24px;
+            width: 24px;
+        }
+    }
+}
+
+.DateRangeSizePicker-desktop {
+    display: none;
+
+    // Make sure the picker takes the full container's height. This way, in `DateRangePicker`,
+    // the picker matches the height of `DateSwitcher`.
+    height: 100%;
+
+    // Because the size picker and the date switcher just _barely_ don't fit at the navigation
+    // change point when used together in `DateRangePicker`, we need to tweak the sizes/spacings
+    // to get the size picker to fit better.
+    @media (min-width: #{$breakpoint-show-desktop}) {
+        align-items: center;
+        display: grid;
+        gap: $size-100;
+        grid-template-columns:
+            minmax(auto, 75px)
+            minmax(auto, 75px)
+            minmax(auto, 75px)
+            minmax(auto, 75px)
+            minmax(auto, 75px)
+            minmax(auto, 75px);
+    }
+
+    @media (min-width: 1000px) {
+        gap: $size-200;
+        grid-template-columns:
+            minmax(auto, 80px)
+            minmax(auto, 80px)
+            minmax(auto, 80px)
+            minmax(auto, 80px)
+            minmax(auto, 80px)
+            minmax(auto, 80px);
+    }
+
+    @media (min-width: 1050px) {
+        gap: $size-400;
+    }
+}
+
+.RangeSizeButton {
+    color: $color-text-primary;
+    font-size: $font-size-200;
+    font-weight: $font-weight-normal;
+    height: 36px;
+    padding: $size-200;
+
+    @include non-sticky-interactions {
+        %base {
+            background-color: transparent;
+        }
+
+        %hover {
+            background-color: $color-primary-200;
+        }
+    }
+
+    &.RangeSizeButton--active {
+        // Use a fake bold so that it doesn't shift the buttons around when switching.
+        @include fake-bold();
+
+        background-color: $color-primary-200;
+        color: $color-primary-700;
+    }
+}

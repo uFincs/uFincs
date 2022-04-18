@@ -1,0 +1,65 @@
+@import "styles/_shared.scss";
+
+.UserAvatar {
+    @include keyboard-navigation-outline();
+
+    align-items: center;
+    background: none;
+    display: flex;
+
+    // We actually do want the regular 'sticky' focus state here (as opposed to the keyboard
+    // navigation only one), because when the UserAvatar is used with Dropdown, we want the
+    // focus state to sticky while the user is choosing an option or closing the Dropdown.
+    //
+    // That way, it doesn't feel unnatural to have to click again (somewhere) to make the
+    // focus go away.
+    &:focus,
+    &:hover {
+        .UserAvatar-user-icon-container .UserAvatar-user-icon {
+            // Make just the icon slightly darker.
+            @include svg-icon-color($color-primary-500);
+
+            transform: translateY(-1px);
+        }
+
+        .UserAvatar-chevron-icon {
+            // Like the user icon, we want the chevron to be slightly darker.
+            @include svg-icon-color($color-neutral-600);
+        }
+    }
+
+    &:active {
+        .UserAvatar-user-icon-container .UserAvatar-user-icon {
+            transform: translateY(1px);
+        }
+    }
+
+    // We use a container around the user icon so that we can animate the user icon separately.
+    // We only want the icon itself to bounce up and down, not the whole circle.
+    .UserAvatar-user-icon-container {
+        background-color: $color-light;
+        border-radius: 50%;
+        padding: $size-200;
+
+        .UserAvatar-user-icon {
+            @include micro-transition(transform);
+            @include svg-icon-color($color-primary-400);
+
+            path {
+                @include micro-transition(stroke);
+            }
+        }
+    }
+
+    .UserAvatar-chevron-icon {
+        @include svg-icon-color($color-neutral-500);
+
+        height: $size-400;
+        margin-left: $size-100;
+        width: $size-400;
+
+        path {
+            @include micro-transition(stroke);
+        }
+    }
+}

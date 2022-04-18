@@ -1,0 +1,22 @@
+FROM node:15
+
+ENV NPM_CONFIG_LOGLEVEL warn
+ENV NEXT_TELEMETRY_DISABLED=1
+
+ARG app_env
+ARG branch
+
+ENV NODE_ENV $app_env
+ENV BRANCH $branch
+
+RUN mkdir -p /marketing && chown node /marketing
+USER node
+WORKDIR /marketing
+
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm install
+
+COPY --chown=node:node . .
+EXPOSE 3000
+
+CMD ["./scripts/run.sh"]

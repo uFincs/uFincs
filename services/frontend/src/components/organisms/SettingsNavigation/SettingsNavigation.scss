@@ -1,0 +1,56 @@
+@import "styles/_shared.scss";
+
+.SettingsNavigation {
+    display: grid;
+    gap: $size-200;
+
+    // Provide lots of bottom padding so that users can scroll the screen
+    // past the list to see the bottom of the list better.
+    padding-bottom: 30vh;
+
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Reduce on desktop since it's not needed nearly as much,
+        // and we don't want any unnecessary scrolling.
+        padding-bottom: 10vh;
+    }
+
+    .SettingsNavigation-no-account-signup {
+        &.ListItem-single-layer {
+            border: $border-width-thick solid $color-warning-600;
+
+            &:focus,
+            &:focus-within,
+            &:hover {
+                background-color: $color-warning-600;
+
+                .SettingsListItem-title {
+                    color: $color-light;
+                }
+            }
+        }
+
+        .ListItem-top-layer {
+            @include svg-icon-color($color-warning-600, $important: true);
+        }
+
+        .SettingsListItem-title {
+            color: $color-warning-600;
+            font-weight: $font-weight-bold;
+        }
+    }
+
+    .Divider {
+        // Add more spacing between the Divider and the other elements.
+        margin: $size-200 0;
+    }
+
+    .SettingsNavigation-regular-icon {
+        @include svg-icon-color($color-text-tertiary);
+    }
+
+    .SettingsNavigation-logout-icon {
+        @include svg-icon-color($color-primary);
+    }
+}

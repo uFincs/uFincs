@@ -1,0 +1,9 @@
+@import "styles/_shared.scss";
+
+.Link {
+    @include keyboard-navigation-outline();
+    @include micro-interactive-bounce();
+
+    // Remove the tap color since we have our own hover/active styles.
+    -webkit-tap-highlight-color: transparent;
+}

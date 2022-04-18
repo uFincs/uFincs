@@ -1,0 +1,100 @@
+@import "styles/_shared.scss";
+
+.NavItem {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    // Remove the tap color since we have our own hover/active styles.
+    -webkit-tap-highlight-color: transparent;
+
+    @include media-query-navigation-change {
+        // Restack the icon and text from vertical to horizontal.
+        flex-direction: row;
+    }
+
+    &.NavItem--active {
+        .NavItem-icon {
+            @include svg-icon-color($color-primary);
+
+            path {
+                // This only really matters on small screens, where the stroke width is reduced.
+                // Want to increase it when active to give it more emphasis.
+                stroke-width: 2;
+            }
+        }
+
+        .NavItem-TextField {
+            @include fake-bold($color-primary);
+
+            color: $color-primary;
+        }
+    }
+
+    .NavItem-icon {
+        // Yes, we're treating the icon with the secondary treatment and the text with the
+        // the tertiary. This is something I've seen other apps doing, where the icon
+        // is darker (i.e. more prominent) than the text.
+        //
+        // This is probably because it's faster to scan the icons than the text.
+        // Also helps that the icon is above the text, yielding more emphasis.
+        @include svg-icon-color($color-text-secondary);
+
+        // Need a smaller icon on smaller screens, since there isn't enough room for the default.
+        height: 20px;
+
+        // Want just a _little_ bit extra room between the icon and the text.
+        margin-bottom: 2px;
+
+        width: 20px;
+
+        // Experimentally derived.
+        // This is the point where we've got plenty enough space to show the full size.
+        // Note that this corresponds with
+        @media (min-width: #{$size-app-navigation-small-max-width}) {
+            height: 24px;
+            width: 24px;
+        }
+
+        @include media-query-navigation-change {
+            // Now that we're using the large layout, the icon and text are horizontally aligned.
+            // As such, we want to remove the bottom margin and add some right.
+            margin-bottom: 0;
+            margin-right: $size-200;
+        }
+
+        path {
+            @include micro-transition(stroke);
+
+            // Need a smaller stroke when the size is smaller,
+            // otherwise the icons look all smudged.
+            stroke-width: 1;
+
+            @include media-query-navigation-change {
+                // This is just resetting to the default stroke width.
+                stroke-width: 2;
+            }
+        }
+    }
+
+    .NavItem-TextField {
+        @include micro-transition(color, text-shadow);
+
+        color: $color-text-tertiary;
+        font-size: $font-size-50;
+
+        // All of these font size changes were experimentally derived, to get to the point
+        // where there's enough space to show the larger sizes.
+        @include media-query-extra-small {
+            font-size: $font-size-100;
+        }
+
+        @media (min-width: #{$size-app-navigation-small-max-width}) {
+            font-size: $font-size-200;
+        }
+
+        @include media-query-navigation-change {
+            font-size: $font-size-300;
+        }
+    }
+}

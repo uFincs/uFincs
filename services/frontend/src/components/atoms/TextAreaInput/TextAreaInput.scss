@@ -1,0 +1,98 @@
+@import "styles/_shared.scss";
+
+.TextAreaInput-Label-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .TextAreaInput-Label {
+        cursor: pointer;
+        margin-bottom: $size-200;
+
+        @include media-query-small {
+            margin-bottom: $size-300;
+        }
+
+        &.TextAreaInput-Label--error {
+            color: $color-negative-text;
+            font-weight: $font-weight-bold;
+        }
+
+        &.TextAreaInput-Label--empty {
+            // When there isn't (visible) label (or error), we want to remove the bottom margin
+            // so that the 'label' isn't taking up any space.
+            margin-bottom: 0;
+        }
+    }
+
+    .TextAreaInput-container {
+        // Inputs should always have a focus outline, regardless of keyboard navigation.
+        @include custom-navigation-outline();
+
+        // Disable the navigation outline transition, because I feel that form inputs
+        // feel snappier when they don't have transitions.
+        @include disable-custom-outline-transitions();
+
+        // IDK why, but there's excess height to the container vs the textarea itself when using
+        // inline-block (like we did with Input, but flex seems to remove it. So... use flex.
+        display: flex;
+
+        position: relative;
+
+        width: 100%;
+
+        // Need this so that inputs, when put on other surfaces, are explicitly above the surface,
+        // and thus their rounded-outline (and error outline) still appear at the level of the input,
+        // and not behind the input on the surface.
+        z-index: $z-index-input;
+
+        &::before {
+            // Setup the error outline.
+            @include rounded-outline($color-negative);
+        }
+
+        &.TextAreaInput--error {
+            &::before {
+                // Show the error outline.
+                opacity: 1;
+            }
+
+            .TextAreaInput {
+                // 'Remove' our custom input border so that it doesn't clash
+                // with the error outline.
+                border-color: $color-light;
+            }
+        }
+
+        .TextAreaInput {
+            @include input-border();
+            @include micro-transition(background-color);
+
+            background-color: $color-light;
+            color: $color-text-primary;
+            font-size: $font-size-300;
+            outline: none; // Remove the default browser outline.
+            padding: $size-300;
+            position: relative;
+            resize: none;
+            width: 100%;
+
+            @include media-query-small {
+                // Give the input more breathing room on larger screens.
+                padding: $size-300 $size-400;
+            }
+
+            &::placeholder {
+                // Change the placeholder color.
+                color: $color-input-placeholder;
+            }
+
+            &:disabled {
+                // Darken the background the and change the text color to the
+                // placeholder color to reduce contrast and indicate 'disabled'.
+                background-color: $color-neutral-300;
+                color: $color-input-placeholder;
+            }
+        }
+    }
+}

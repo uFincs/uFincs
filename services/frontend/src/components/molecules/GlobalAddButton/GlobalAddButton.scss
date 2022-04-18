@@ -1,0 +1,64 @@
+@import "styles/_shared.scss";
+
+.GlobalAddButton {
+    .GlobalAddButton-button {
+        // Make the button a circle.
+        border-radius: 50%;
+        height: $size-fab-diameter;
+        width: $size-fab-diameter;
+
+        @include media-query-navigation-change {
+            border-radius: $border-radius-normal;
+
+            // This isn't a standard input or button height, but it's the amount that makes
+            // the button look right in the large AppNavigation. Ditto on the width.
+            height: 38px;
+            width: 90px;
+
+            svg {
+                // Want the icon to match the size of the text.
+                height: $font-size-300;
+                margin-right: $size-100;
+                width: $font-size-300;
+
+                path {
+                    // With the smaller icon size (specified above), the icon needs just
+                    // a smidge more stroke width to match the weight of the text label.
+                    stroke-width: 3px;
+                }
+            }
+        }
+
+        &::before,
+        &::after {
+            // Need to make the pre-rendered extra shadow a circle.
+            // Otherwise, you can see the outline of a square when the hover is triggered.
+
+            // Also need to make the custom outline a circle too.
+            border-radius: 50%;
+
+            @include media-query-navigation-change {
+                // Reset back to default.
+                border-radius: $border-radius-normal;
+            }
+        }
+
+        .GlobalAddButton-button-text {
+            display: none;
+
+            @include media-query-navigation-change {
+                display: inline;
+            }
+        }
+    }
+
+    .Dropdown {
+        // Experimentally derived to optimally fit all of the items.
+        width: 230px;
+    }
+}
+
+.GlobalAddButton--story-sample {
+    // Just centering the button for easier viewing.
+    margin: auto;
+}

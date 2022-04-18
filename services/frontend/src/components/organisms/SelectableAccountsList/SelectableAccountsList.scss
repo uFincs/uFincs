@@ -1,0 +1,37 @@
+@import "styles/_shared.scss";
+
+.SelectableAccountsList {
+    display: grid;
+    gap: $size-200;
+    grid-template-columns: 1fr;
+    max-width: 400px;
+
+    .SelectableAccountsList-header {
+        @include selectable-accounts-list-grid($vertical-padding: false);
+
+        .ListSectionHeader {
+            font-size: $font-size-100;
+
+            @include media-query-extra-small {
+                font-size: $font-size-200;
+            }
+        }
+
+        .SelectableAccountsList-header-name {
+            grid-column: 2;
+        }
+
+        .SelectableAccountsList-header-balance {
+            grid-column: 3;
+        }
+    }
+
+    .SelectableAccountsList-footer {
+        @include selectable-accounts-list-grid();
+
+        .SelectableAccountsList-add-account-button {
+            grid-column: 2;
+            justify-self: flex-start;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+/** Border Radius Scale **/
+
+$border-radius-normal: 3px;
+$border-radius-large: 6px;
+
+/** Border Width Scale **/
+
+$border-width-normal: 1px;
+$border-width-thick: 2px;
+
+/** Semantic Border Values **/
+
+$border-loading-spinner-width: 4px;
+
+/** Mixins **/
+
+@mixin input-border() {
+    border: $border-width-normal solid $color-neutral-400;
+    border-radius: $border-radius-normal;
+}
+
+/** JavaScript Exports **/
+
+:export {
+    /* stylelint-disable */
+    borderRadiusNormal: $border-radius-normal;
+    borderRadiusLarge: $border-radius-large;
+    /* stylelint-enable */
+}

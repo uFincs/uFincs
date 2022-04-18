@@ -1,0 +1,19 @@
+# Files we don't want in the container
+.dockerignore
+.eslintcache
+.gitignore
+.git
+.vscode
+Dockerfile
+Dockerfile.development
+README.md
+
+# Build artifacts we definitely don't want
+node_modules
+build
+
+# Capacitor stuff we _really_ don't want
+android
+ios
+electron
+resources

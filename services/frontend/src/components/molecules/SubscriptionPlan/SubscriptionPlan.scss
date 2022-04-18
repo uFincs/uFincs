@@ -1,0 +1,127 @@
+@import "styles/_shared.scss";
+
+.SubscriptionPlan {
+    align-items: center;
+    background-color: $color-background-light;
+    border: 2px solid transparent;
+    border-radius: $border-radius-normal;
+    box-shadow: 0 2px 6px transparentize($color: $color-neutral-600, $amount: 0.9);
+    cursor: pointer;
+    display: flex;
+    height: 76px;
+    justify-content: space-between;
+    padding: 0 $size-300;
+    width: 100%;
+
+    @include media-query-small {
+        padding: 0 $size-400;
+    }
+
+    &.SubscriptionPlan--selected {
+        border: 2px solid $color-primary;
+        box-shadow: 0 4px 6px transparentize($color: $color-primary-600, $amount: 0.6);
+    }
+
+    .SubscriptionPlan-left-section {
+        align-items: center;
+        display: flex;
+
+        .SubscriptionPlan-name-container {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            margin-left: $size-400;
+
+            @include media-query-medium {
+                align-items: center;
+                flex-direction: row;
+            }
+
+            .SubscriptionPlan-name {
+                font-size: $font-size-300;
+
+                // Need a fixed width so that the Percent Off badges are vertically aligned.
+                // 80px is just the rounded up width of the name when it's "Annually".
+                width: 80px;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-400;
+                }
+
+                @include media-query-medium {
+                    font-size: $font-size-500;
+                }
+            }
+
+            .SubscriptionPlan-percent-off {
+                background-color: $color-positive-200;
+                border-radius: 50px;
+                color: $color-positive-800;
+                font-size: $font-size-50;
+                font-weight: $font-weight-semibold;
+                padding: $size-50 $size-200;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-200;
+                }
+
+                @include media-query-medium {
+                    margin-left: $size-400;
+                    padding: $size-100 $size-300;
+                }
+            }
+        }
+    }
+
+    .SubscriptionPlan-right-section {
+        align-items: center;
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+
+        .SubscriptionPlan-price-container {
+            align-items: center;
+            display: flex;
+
+            .SubscriptionPlan-price {
+                font-size: $font-size-300;
+                font-weight: $font-weight-bold;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-500;
+                }
+
+                @include media-query-medium {
+                    font-size: $font-size-600;
+                }
+            }
+
+            .SubscriptionPlan-month {
+                color: $color-text-secondary;
+                margin-left: $size-100;
+
+                @include media-query-medium {
+                    // Just need to push it down a bit to get it baseline aligned with the price.
+                    margin-top: $size-50;
+                }
+            }
+        }
+
+        .SubscriptionPlan-alternative-price-container {
+            display: flex;
+
+            .SubscriptionPlan-alternative-price {
+                color: $color-text-tertiary;
+                font-size: $font-size-50;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-200;
+                }
+            }
+        }
+    }
+}
+
+.SubscriptionPlan--story {
+    max-width: 500px;
+}

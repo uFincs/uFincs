@@ -1,0 +1,71 @@
+@import "styles/_shared.scss";
+
+.Transactions {
+    display: flex;
+    flex-direction: column;
+
+    // Provide lots of bottom padding so that users can scroll the screen
+    // past the list to see the bottom of the list better.
+    margin-bottom: 30vh;
+
+    min-height: 100%;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Reduce on desktop since it's not needed nearly as much,
+        // and we don't want any unnecessary scrolling.
+        padding-bottom: 10vh;
+    }
+
+    .Transactions-header {
+        margin-bottom: $size-300;
+
+        @include media-query-navigation-change {
+            margin-bottom: $size-600;
+        }
+    }
+
+    .Transactions-TransactionsSearchInput {
+        margin-bottom: $size-300;
+
+        @include media-query-navigation-change {
+            margin-bottom: $size-500;
+            max-width: 350px;
+        }
+    }
+
+    .Transactions-TransactionTypeFilters {
+        margin-bottom: $size-500;
+    }
+}
+
+.TransactionsWithSummary {
+    &.TransactionsWithSummary--large-width {
+        align-items: flex-start;
+        display: grid;
+        gap: $size-500;
+        grid-template-columns: 1fr auto;
+
+        .TransactionsSummary {
+            display: grid;
+            grid-auto-flow: row;
+
+            // This pushes the summaries down by the exact amount that is the height of the
+            // TransactionsTableColumnHeaders. It is pure coincidence that it's 32px.
+            margin-top: $size-600;
+        }
+    }
+
+    .Transactions-tabs {
+        height: 100%;
+
+        .TransactionsSummary {
+            @include media-query-navigation-change {
+                align-items: flex-start;
+                display: grid;
+                grid-auto-flow: column;
+                justify-content: flex-start;
+            }
+        }
+    }
+}

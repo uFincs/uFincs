@@ -1,0 +1,126 @@
+declare global {
+    interface Window {
+        Cypress: object;
+
+        BACKEND_HOST: string;
+        BACKEND_PORT: string;
+        BACKEND_PROTOCOL: string;
+        MARKETING_HOST: string;
+        MARKETING_PORT: string;
+        MARKETING_PROTOCOL: string;
+        SOFTWARE_TAG: string;
+        STRIPE_KEY: string;
+
+        trustedTypes?: {
+            createPolicy: (
+                name: string,
+                options: {
+                    createHTML?: (string: string) => any;
+                    createScript?: (string: string) => any;
+                    createScriptURL?: (string: string) => any;
+                }
+            ) => void;
+        };
+    }
+}
+
+// Note: The use of REACT_APP env vars here is so that the Frontend can be configured at build time,
+// rather than at runtime. This is currently relevant for building the static assets so that they can be
+// used by Capacitor for the Android/iOS/Electron apps, but might be even more relevant in the future
+// if we ever decide to host the Frontend on a static assets platform.
+
+let IS_PRODUCTION = false;
+
+// If the BACKEND values aren't set, this means we are running in development mode locally.
+// Otherwise, they are substituted by the production Node server into the root index.html.
+if (
+    window.BACKEND_HOST === undefined ||
+    window.BACKEND_HOST === "__BACKEND_HOST__" ||
+    window.BACKEND_HOST === ""
+) {
+    // Use window.location.hostname instead of just 'localhost' so that it still works
+    // when running the server locally, but also when connecting to it from another device
+    // (e.g. for mobile testing).
+    window.BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || window.location.hostname;
+} else {
+    IS_PRODUCTION = true;
+}
+
+if (
+    window.BACKEND_PORT === undefined ||
+    window.BACKEND_PORT === "__BACKEND_PORT__" ||
+    window.BACKEND_PORT === ""
+) {
+    window.BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || "5000";
+}
+
+if (window.BACKEND_PROTOCOL === undefined || window.BACKEND_PROTOCOL === "__BACKEND_PROTOCOL__") {
+    window.BACKEND_PROTOCOL = process.env.REACT_APP_BACKEND_PROTOCOL || "http";
+}
+
+if (
+    window.MARKETING_HOST === undefined ||
+    window.MARKETING_HOST === "__MARKETING_HOST__" ||
+    window.MARKETING_HOST === ""
+) {
+    // Use window.location.hostname instead of just 'localhost' so that it still works
+    // when running the server locally, but also when connecting to it from another device
+    // (e.g. for mobile testing).
+    window.MARKETING_HOST = process.env.REACT_APP_MARKETING_HOST || window.location.hostname;
+}
+
+if (
+    window.MARKETING_PORT === undefined ||
+    window.MARKETING_PORT === "__MARKETING_PORT__" ||
+    window.MARKETING_PORT === ""
+) {
+    window.MARKETING_PORT = process.env.REACT_APP_MARKETING_PORT || "3002";
+}
+
+if (
+    window.MARKETING_PROTOCOL === undefined ||
+    window.MARKETING_PROTOCOL === "__MARKETING_PROTOCOL__"
+) {
+    window.MARKETING_PROTOCOL = process.env.REACT_APP_MARKETING_PROTOCOL || "http";
+}
+
+if (
+    window.SOFTWARE_TAG === undefined ||
+    window.SOFTWARE_TAG === "__SOFTWARE_TAG__" ||
+    window.SOFTWARE_TAG === ""
+) {
+    window.SOFTWARE_TAG = "localhost";
+}
+
+let BACKEND_URL = `${window.BACKEND_PROTOCOL}://${window.BACKEND_HOST}`;
+
+if (window.BACKEND_PORT !== "80" && window.BACKEND_PORT !== "443") {
+    BACKEND_URL = `${BACKEND_URL}:${window.BACKEND_PORT}`;
+}
+
+let MARKETING_URL = `${window.MARKETING_PROTOCOL}://${window.MARKETING_HOST}`;
+
+if (window.MARKETING_PORT !== "80" && window.MARKETING_PORT !== "443") {
+    MARKETING_URL = `${MARKETING_URL}:${window.MARKETING_PORT}`;
+}
+
+const BACKEND_HEALTHCHECK_ROUTE = `${BACKEND_URL}/healthz`;
+const BACKEND_DATABASE_SERVICE = "backend-database";
+
+const SOFTWARE_TAG = window.SOFTWARE_TAG;
+
+const STRIPE_KEY =
+    window.STRIPE_KEY !== "__STRIPE_KEY__"
+        ? window.STRIPE_KEY
+        : // This is the Stripe key for the test account. It should only fall back to this default in dev.
+          "pk_test_51IPdzoHRrHYb3hYtytBQE6svreY0cPiNHxEizAAE7hOVIWIIlUK5eTgsfnsC5X4OyGQhZ5GFYY3BC9UWc5J6yfXa00I7uJx230";
+
+export {
+    BACKEND_URL,
+    BACKEND_DATABASE_SERVICE,
+    BACKEND_HEALTHCHECK_ROUTE,
+    MARKETING_URL,
+    IS_PRODUCTION,
+    SOFTWARE_TAG,
+    STRIPE_KEY
+};

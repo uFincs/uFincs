@@ -1,0 +1,23 @@
+@import "styles/_shared.scss";
+
+.ImportRulesTable {
+    width: 100%;
+
+    .ImportRulesTable-head {
+        // IDK, need this for making the head take 100% width.
+        display: grid;
+    }
+
+    .ImportRulesTable-body {
+        display: grid;
+        gap: $size-100;
+
+        .ImportRulesTableRow {
+            @include trigger-animate-in-list-item();
+        }
+    }
+
+    .EmptyTransactionsArea {
+        margin-top: $size-600;
+    }
+}

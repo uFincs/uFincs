@@ -1,0 +1,14 @@
+@import "styles/_shared.scss";
+
+.PaginationSummary {
+    color: $color-text-secondary;
+
+    // Need a smaller font size on small screens to fit in the horizontal width of the screen
+    // when placed alongside a PaginationSwitcher.
+    font-size: $font-size-200;
+
+    @include media-query-small {
+        // Can bring the font back up on bigger screens.
+        font-size: $font-size-300;
+    }
+}

@@ -1,0 +1,33 @@
+@import "styles/_shared.scss";
+
+.ShadowButton {
+    &.ShadowButton--primary {
+        @include double-shadow($color-primary-700);
+
+        &:disabled {
+            // Need this because otherwise the variant class gives higher selector priority to the
+            // box-shadow than to the :disabled selector on the underlying Button component.
+            box-shadow: none;
+        }
+    }
+
+    &.ShadowButton--negative {
+        @include double-shadow($color-negative-700);
+
+        @include non-sticky-interactions {
+            %base {
+                background-color: $color-negative;
+            }
+
+            %hover {
+                background-color: $color-negative-600;
+            }
+
+            %disabled {
+                background-color: $color-negative-300;
+                box-shadow: none;
+                cursor: default;
+            }
+        }
+    }
+}

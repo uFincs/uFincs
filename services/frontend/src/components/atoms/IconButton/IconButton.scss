@@ -1,0 +1,73 @@
+@import "styles/_shared.scss";
+
+.IconButton {
+    @include keyboard-navigation-outline();
+    @include micro-interactive-bounce();
+    @include micro-transition(background-color, transform);
+
+    // Make the background a circle, cause circles with icons looks better than squircles
+    // with icons.
+    border-radius: 50%;
+
+    // Cancel out the padding so that it's easier to lay the button out.
+    margin: -($size-icon-button-padding);
+
+    // Need just a bit of padding so that the background forms a bigger circle when hovering.
+    padding: $size-icon-button-padding;
+
+    // Remove the tap color since we have our own hover/active styles.
+    -webkit-tap-highlight-color: transparent;
+
+    @include non-sticky-interactions($key: "-primary") {
+        %base-primary {
+            @include svg-icon-color($color-text-secondary);
+
+            background-color: transparent;
+        }
+
+        %hover-primary {
+            background-color: $color-neutral-300;
+        }
+
+        %active-override-primary {
+            background-color: $color-neutral-400;
+        }
+
+        %disabled-primary {
+            @include svg-icon-color($color-neutral-400);
+
+            background-color: transparent;
+            cursor: default;
+        }
+    }
+
+    // Change the keyboard navigation outline to be a circle like the button itself.
+    &::after {
+        border-radius: 50%;
+    }
+
+    &.IconButton--dark-background {
+        @include non-sticky-interactions($key: "-dark") {
+            %base-dark {
+                @include svg-icon-color($color-neutral-300);
+
+                background-color: transparent;
+            }
+
+            %hover-dark {
+                background-color: lighten($color-background-dark, 20%);
+            }
+
+            %active-override-dark {
+                background-color: lighten($color-background-dark, 30%);
+            }
+
+            %disabled-dark {
+                @include svg-icon-color(lighten($color-background-dark, 20%));
+
+                background-color: transparent;
+                cursor: default;
+            }
+        }
+    }
+}

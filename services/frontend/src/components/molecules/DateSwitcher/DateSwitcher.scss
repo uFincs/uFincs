@@ -1,0 +1,115 @@
+@import "styles/_shared.scss";
+
+$switcher-button-size-small: 16px;
+$switcher-button-size-large: 24px;
+
+.DateSwitcher {
+    // There's a lot of modifications that have to be made to make the DateSwitcher work
+    // well on small screens. Most notably, shrinking the font size of the date inputs
+    // by _a lot_ as well as reducing icon/button size and spacing.
+    gap: $size-100;
+    grid-template-columns: $switcher-button-size-small auto $switcher-button-size-small;
+    padding: 0 $size-200;
+
+    @include media-query-medium {
+        gap: $size-300;
+        grid-template-columns: $switcher-button-size-large auto $switcher-button-size-large;
+    }
+
+    .IntervalSwitcher-button {
+        margin: -4px;
+        padding: 4px;
+
+        @include media-query-medium {
+            margin: -6px;
+            padding: 6px;
+        }
+
+        svg {
+            height: $switcher-button-size-small;
+            width: $switcher-button-size-small;
+
+            @include media-query-medium {
+                height: $switcher-button-size-large;
+                width: $switcher-button-size-large;
+            }
+        }
+    }
+
+    .DateSwitcher-content {
+        align-items: center;
+        display: grid;
+        gap: $size-100;
+        grid-auto-flow: column;
+
+        // Pull down the content a bit because it looks like it needs it to be center aligned
+        // with the increment/decrement buttons.
+        margin-bottom: -2px;
+
+        @include media-query-medium {
+            gap: $size-200;
+            margin-bottom: 0;
+        }
+
+        .DateSwitcher-input {
+            height: 100%;
+
+            // This is the minimum width that the input requires to not shift widths around when
+            // changing between various dates.
+            min-width: 70px;
+
+            @include media-query-extra-small {
+                min-width: 85px;
+            }
+
+            @include media-query-medium {
+                min-width: 100px;
+            }
+
+            .TextField {
+                font-size: $font-size-50;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-100;
+                }
+
+                @include media-query-medium {
+                    font-size: $font-size-200;
+                }
+            }
+
+            input {
+                font-size: $font-size-50;
+
+                @include media-query-extra-small {
+                    font-size: $font-size-100;
+                }
+
+                @include media-query-medium {
+                    font-size: $font-size-200;
+                }
+            }
+        }
+
+        .DateSwitcher-arrow-icon {
+            @include svg-icon-color($color-neutral-400);
+
+            height: 16px;
+
+            // Need to pull the icon a bit to align it better with the date inputs.
+            margin-top: -2px;
+
+            width: 16px;
+
+            @include media-query-medium {
+                height: 20px;
+                margin-top: 0;
+                width: 20px;
+            }
+
+            &.DateSwitcher-arrow-icon--disabled {
+                @include svg-icon-color($color-neutral-300);
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+{{- if .Values.__services}}
+{{- $dockerRegistry := .Values.__template_docker_registry | default "gcr.io"}}
+{{- $namespace := .Values.namespace | lower}}
+{{- $isProduction := eq $namespace .Values.__production_namespace}}
+
+{{- $serviceName := .Values.serviceName}}
+{{- $serviceMap := index .Values.__services $serviceName}}
+
+{{- $tag := not (index $serviceMap "fixed_tag") | ternary (.Values.tag | default "latest") (index $serviceMap "fixed_tag")}}
+{{- $serviceImage := index $serviceMap "image"}}
+{{- $projectImage := printf "%s/%s/%s-%s:%s" $dockerRegistry .Values.__gcp_project_id .Values.__project_name $serviceImage $tag}}
+{{- $image := (index $serviceMap "image_in_project") | ternary $projectImage $serviceImage}}
+
+{{- $env := index $serviceMap "env"}}
+{{- $schedule := index $serviceMap "schedule"}}
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+    name: {{$serviceName}}
+    namespace: {{$namespace}}
+spec:
+    schedule: {{$schedule | quote}}
+    successfulJobsHistoryLimit: 1
+    failedJobsHistoryLimit: 2
+    jobTemplate:
+        spec:
+            template:
+                spec:
+                    # Disable mounting the default service account's access token.
+                    # This way, the pods won't have any permissions to the Kubernetes API.
+                    automountServiceAccountToken: false
+                    restartPolicy: OnFailure
+                    containers:
+                    - name: {{$serviceName}}
+                      image: {{$image}}
+                      imagePullPolicy: Always
+                      env:
+                      - name: NAMESPACE
+                        value: {{$namespace}}
+
+                      {{- range $key, $value := .Values.__services}}
+                      - name: {{$key | upper | replace "-" "_"}}_PORT
+                        value: {{$value.external_port | quote}}
+                      - name: {{$key | upper | replace "-" "_"}}_HOST
+                        {{- if $isProduction}}
+                        value: {{$value.host | quote}}
+                        {{- else}}
+                        value: {{printf "%s.%s" $namespace $value.host | quote}}
+                        {{- end}}
+                      {{- end}}
+
+                      {{- range $env}}
+                      - name: {{.name}}
+                        value: {{.value | quote}}
+                      {{- end}}
+
+                      {{- if (index $serviceMap "secrets")}}
+                      {{- range (index $serviceMap "secrets" "variables")}}
+                      - name: {{.}}
+                        valueFrom:
+                            secretKeyRef:
+                                name: {{index $serviceMap "secrets" "name"}}
+                                key: {{.}}
+                      {{- end}}
+                      {{- end}}
+{{- end}}

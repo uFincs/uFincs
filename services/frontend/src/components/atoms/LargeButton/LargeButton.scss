@@ -1,0 +1,42 @@
+@import "styles/_shared.scss";
+
+.LargeButton {
+    @include double-shadow($color-primary-700);
+    @include keyboard-navigation-outline();
+    @include option-card-shadow();
+    @include micro-interactive-bounce();
+    @include micro-transition(background-color, transform);
+
+    // Note: This component isn't really mobile optimized yet, because we don't yet have a layout
+    // that uses more than one of these. In the interest of YAGNI and laziness, I will defer implementing it.
+
+    align-items: center;
+    border-radius: $border-radius-large;
+    display: flex;
+    flex-direction: column;
+    font-size: $font-size-400;
+    font-weight: $font-weight-bold;
+    height: 120px;
+    justify-content: center;
+
+    // Remove the tap color since we have our own hover/active styles.
+    -webkit-tap-highlight-color: transparent;
+
+    width: 180px;
+
+    @include non-sticky-interactions() {
+        %base {
+            @include svg-icon-color($color-light);
+
+            background-color: $color-background-dark;
+            color: $color-light;
+        }
+
+        %disabled {
+            background-color: $color-neutral-300;
+            box-shadow: none;
+            color: $color-text-disabled;
+            cursor: default;
+        }
+    }
+}

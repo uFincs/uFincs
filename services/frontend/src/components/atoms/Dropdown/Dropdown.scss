@@ -1,0 +1,161 @@
+@import "styles/_shared.scss";
+
+.Dropdown-container {
+    position: relative;
+    z-index: $z-index-dropdown;
+
+    .Dropdown {
+        @include dropdown-shadow();
+
+        background-color: $color-light;
+        border-radius: $border-radius-normal;
+
+        display: flex;
+        flex-direction: column;
+
+        // Want a little space between the Dropdown and the trigger button.
+        margin-top: $size-300;
+
+        // Hide the Dropdown by default and make sure pointer events are off
+        // so that users can't hover over it and click stuff.
+        opacity: 0;
+        pointer-events: none;
+
+        position: absolute;
+
+        // The animation for the Dropdown is just a simple 'slide up'. Nothing fancy.
+        transform: translateY(15px);
+
+        // Yes, this was experimentally determined.
+        // We want a sufficient amount of width so that the right side has a good bit more
+        // padding than the left side. This gives the classic dropdown menu look.
+        // Obviously, it'll need to be adjusted up or down depending on the actual item content.
+        width: 190px;
+
+        will-change: opacity, transform;
+
+        &.Dropdown--open {
+            // Transition the Dropdown in. Don't transition it out.
+            // Gives a more seamless UX.
+            @include micro-transition(opacity, transform);
+
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+
+            &.Dropdown--aligned-top-center {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        &.Dropdown--aligned-left {
+            left: 0;
+        }
+
+        &.Dropdown--aligned-right {
+            right: 0;
+        }
+
+        &.Dropdown--aligned-top-center {
+            // Aligns the bottom of the dropdown with the top of the trigger button.
+            bottom: 100%;
+
+            // Horizontal centering hack.
+            left: 50%;
+
+            // Need more spacing between the button and dropdown due to the dropdown's shadow.
+            margin-bottom: $size-400;
+
+            // Remove this from the default style.
+            margin-top: 0;
+
+            // Negate the Y translation so that the dropdown animates down instead of up.
+            transform: translateX(-50%) translateY(-15px);
+        }
+    }
+}
+
+.DropdownItem {
+    @include keyboard-navigation-outline();
+
+    background-color: inherit;
+    color: $color-text-primary;
+    cursor: pointer;
+    font-weight: $font-weight-semibold;
+    padding: $size-400 $size-500;
+    -webkit-tap-highlight-color: transparent;
+    text-align: left;
+    width: 100%;
+
+    @include keyboard-navigation {
+        &::after {
+            // Remove the micro transition so that the outline shows up instantly like the
+            // rest of the properties (background color, transform, etc).
+            transition: unset;
+
+            // Need to show the outline over top, because of the overlapping items.
+            // Otherwise, it shows underneath the next item.
+            z-index: 1;
+        }
+    }
+
+    &:first-child {
+        border-radius: $border-radius-normal $border-radius-normal 0 0;
+    }
+
+    &:last-child {
+        border-radius: 0 0 $border-radius-normal $border-radius-normal;
+    }
+
+    // It's fine to use the regular focus state here (as opposed to the keyboard-navigation
+    // only one) because the Dropdown will just close once the user picks an item,
+    // so there's no 'sticky' state to have to worry about.
+    &:focus,
+    &:hover {
+        background-color: $color-primary-light;
+
+        // We only want the content (text) of the item to bounce up and down; not the whole item.
+        .DropdownItem-content {
+            transform: translateY(-1px);
+        }
+    }
+
+    &:active {
+        .DropdownItem-content {
+            transform: translateY(1px);
+        }
+    }
+
+    &.DropdownItem--has-icon {
+        // Reduce the side padding when there's an icon so that it looks more balanced.
+        padding-left: $size-400;
+    }
+
+    &.DropdownItem--disabled {
+        color: $color-text-disabled;
+        pointer-events: none;
+
+        &:hover,
+        &:focus {
+            background-color: $color-background-light;
+
+            .DropdownItem-content {
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .DropdownItem-content {
+        align-items: center;
+        display: flex;
+
+        .DropdownItem-icon {
+            @include svg-icon-color($color-neutral-500);
+            margin-right: $size-200;
+        }
+    }
+}
+
+.Dropdown--story-container {
+    margin: auto;
+}

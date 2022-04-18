@@ -1,0 +1,30 @@
+@import "styles/_shared.scss";
+
+.BackupDataForm {
+    display: grid;
+    gap: $size-500;
+    width: 100%;
+
+    .BackupDataForm-header {
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    .BackupDataForm-TextField {
+        max-width: 700px;
+    }
+
+    .BackupDataForm-buttons {
+        display: grid;
+        gap: $size-500;
+
+        @include media-query-medium {
+            grid-template-columns: auto auto;
+            justify-content: flex-start;
+        }
+
+        .BackupDataForm-SubmitButton {
+            width: 100%;
+        }
+    }
+}

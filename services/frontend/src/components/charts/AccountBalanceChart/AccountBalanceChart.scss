@@ -1,0 +1,58 @@
+@import "styles/_shared.scss";
+
+.AccountStats {
+    display: grid;
+    grid-template-rows: auto auto;
+    padding: $size-400;
+    padding-bottom: 0;
+    width: 100%;
+
+    @include media-query-extra-small {
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+        justify-content: space-between;
+    }
+
+    @include media-query-small {
+        gap: $size-800;
+        justify-content: start;
+    }
+
+    @include media-query-navigation-change {
+        padding: $size-600;
+
+        // Because the chart has inherent padding, we don't need as much in the container.
+        padding-bottom: $size-300;
+    }
+
+    .AccountStats-interest-container {
+        // Align all the content to the top, so that the Interest amount isn't pushed too far down.
+        align-content: flex-start;
+
+        display: grid;
+        gap: $size-300;
+        grid-template-rows: auto auto;
+        margin-top: $size-400;
+
+        @include media-query-extra-small {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: $font-size-200;
+
+            @include media-query-navigation-change {
+                font-size: $font-size-400;
+            }
+        }
+
+        .AccountStats-interest {
+            color: $color-text-secondary;
+            font-size: $font-size-400;
+
+            @include media-query-navigation-change {
+                font-size: $font-size-700;
+            }
+        }
+    }
+}

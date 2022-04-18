@@ -1,0 +1,19 @@
+FROM node:15
+
+RUN apt update && apt install git
+
+ENV NPM_CONFIG_LOGLEVEL warn
+ARG app_env
+ENV NODE_ENV $app_env
+
+RUN mkdir -p /frontend && chown node /frontend
+USER node
+WORKDIR /frontend
+
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm install --production
+
+COPY --chown=node:node . .
+EXPOSE 3000
+
+CMD ["./scripts/run.sh"]

@@ -1,0 +1,75 @@
+@import "styles/_shared.scss";
+
+.TransactionTypeSummary {
+    @include card-shadow();
+
+    background-color: $color-light;
+    display: grid;
+    gap: $size-400;
+    padding: $size-400 $size-500;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        width: $size-transactions-summary-card;
+    }
+
+    .TransactionTypeSummary-header {
+        color: $color-text-secondary;
+        font-size: $font-size-300;
+        font-weight: $font-weight-semibold;
+    }
+
+    .TransactionTypeSummary-empty-message {
+        color: $color-text-tertiary;
+    }
+
+    svg {
+        line {
+            // Because of the SVG scaling, the height of the line grows as the width of the SVG grows.
+            // That is, on mobile, when the TransactionTypeSummary can be shown in 100% width,
+            // the line will grow in such length that its height is quite ridiculous.
+            //
+            // As such, instead of figuring out how to properly scale a friggin _line_ so that it only
+            // scales horizontally but not vertically, I decided to instead just manually figure out
+            // at which breakpoints we can tune down the stroke-width (i.e. the height) so that it doesn't
+            // look _completely_ ridiculous.
+            @include media-query-extra-small {
+                stroke-width: 2;
+            }
+
+            @media (min-width: 650px) {
+                stroke-width: 1;
+            }
+
+            // Once we're at the point where we have the fixed width, then we can use the default
+            // stroke width (as defined in the component).
+            @include media-query-navigation-change {
+                stroke-width: 3;
+            }
+        }
+    }
+}
+
+.SingleAccountSummary {
+    display: grid;
+    gap: $size-200;
+
+    .SingleAccountSummary-info {
+        display: flex;
+        justify-content: space-between;
+
+        .SingleAccountSummary-name {
+            @include clamp-lines(1);
+
+            color: $color-text-secondary;
+        }
+    }
+
+    .SingleAccountSummary-line--income {
+        stroke: $color-positive-300;
+    }
+
+    .SingleAccountSummary-line--expense {
+        stroke: $color-negative-300;
+    }
+}

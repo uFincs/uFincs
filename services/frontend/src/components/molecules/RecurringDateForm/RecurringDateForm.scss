@@ -1,0 +1,112 @@
+@import "styles/_shared.scss";
+
+.RecurringDateForm {
+    display: grid;
+    gap: $size-200;
+    width: 100%;
+
+    .RecurringDateForm-line {
+        align-items: center;
+        display: flex;
+
+        &.RecurringDateForm-line--error {
+            margin-top: $size-500;
+            position: relative;
+
+            .LabelledInput-Label--error {
+                position: absolute;
+                top: -($size-500);
+            }
+        }
+
+        &.RecurringDateForm-line--long-error {
+            margin-top: $size-600 + $size-100;
+            position: relative;
+
+            .LabelledInput-Label--error {
+                position: absolute;
+                top: -($size-600 + $size-100);
+            }
+        }
+
+        p {
+            flex-shrink: 0;
+        }
+    }
+
+    .RecurringDateForm-number-input {
+        margin: 0 $size-200;
+        width: 50px;
+
+        input {
+            padding: 0 $size-200;
+            text-align: center;
+        }
+    }
+
+    .RecurringDateForm-frequency-input {
+        width: 105px;
+    }
+
+    .RecurringDateForm-weekday-input {
+        margin-left: $size-200;
+        width: 140px;
+    }
+
+    .RecurringDateForm-monthday-input {
+        margin-left: $size-200;
+        width: 110px;
+    }
+
+    .RecurringDateForm-month-input {
+        margin-left: $size-200;
+        width: 130px;
+    }
+
+    .RecurringDateForm-day-input {
+        margin-left: $size-200;
+        width: 70px;
+    }
+
+    .RecurringDateForm-date-input {
+        @include open-date-calendar-hack();
+
+        margin-left: $size-200;
+
+        input {
+            // The date inputs, on mobile, are too squished by something invisible on the
+            // right side (I suspect some kind of icon that we've since hidden).
+            // So only apply the padding to the left side to give more room.
+            padding: 0;
+            padding-left: $size-200;
+        }
+    }
+
+    .RecurringDateForm-start-date-input {
+        // We're doing the width on this input a little differently than the others:
+        // we're making the container's width 100%, but constraining the contents of the LabelledInput
+        // (i.e. the inner Label container) to the usual width.
+        //
+        // This is so the input's error message can take up more room than the input does; aka, so that
+        // it doesn't wrap so egregiously. We can do this for this input since it's at the end
+        // of a but doesn't have a period after it.
+        width: 100%;
+
+        .Label {
+            width: 135px;
+        }
+    }
+
+    .RecurringDateForm-end-date-input {
+        width: 135px;
+    }
+
+    .RecurringDateForm-end-condition-input {
+        margin-left: $size-200;
+        width: 95px;
+    }
+
+    .RecurringDateForm-text {
+        margin-left: $size-100;
+    }
+}

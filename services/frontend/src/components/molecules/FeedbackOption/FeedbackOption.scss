@@ -1,0 +1,101 @@
+@import "styles/_shared.scss";
+
+@mixin styles-for-type($type, $background-color, $icon-color, $icon-dark-color) {
+    &.FeedbackOption--#{$type} {
+        @include non-sticky-interactions($key: "-#{$type}") {
+            %base-#{$type} {
+                .FeedbackOption-icon-container {
+                    @include svg-icon-color($icon-color);
+
+                    background-color: $background-color;
+                }
+            }
+
+            %hover-#{$type} {
+                background-color: $background-color;
+                border-color: $icon-color;
+
+                .FeedbackOption-icon-container {
+                    @include svg-icon-color($icon-dark-color);
+                }
+            }
+        }
+    }
+}
+
+.FeedbackOption {
+    @include input-border();
+    @include keyboard-navigation-outline();
+    @include micro-transition(background-color, border-color);
+
+    @include styles-for-type(
+        "issue",
+        $color-negative-100,
+        $color-negative-500,
+        $color-negative-600
+    );
+
+    @include styles-for-type("idea", $color-warning-100, $color-warning-500, $color-warning-600);
+    @include styles-for-type("other", $color-primary-100, $color-primary-500, $color-primary-600);
+
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: $size-400 0;
+
+    // Remove the tap color since we have our own hover/active styles.
+    -webkit-tap-highlight-color: transparent;
+
+    // Fix the width of the options so that they're all equal.
+    // Need a slightly smaller width on iPhone 5/320px widths so that all the options fit nicely.
+    width: 85px;
+
+    @include media-query-extra-small {
+        // Up it to the default width.
+        width: 90px;
+    }
+
+    @include non-sticky-interactions($key: "-shared") {
+        %base-shared {
+            background-color: $color-light;
+        }
+
+        %hover-shared {
+            .FeedbackOption-type {
+                color: $color-neutral-900;
+            }
+        }
+    }
+
+    &::after {
+        // Need the keyboard-navigation-outline above the Option so that the
+        // outline displays over the border.
+        z-index: 1;
+    }
+
+    .FeedbackOption-icon-container {
+        border-radius: 50%;
+        padding: $size-200;
+
+        svg {
+            height: 32px;
+            width: 32px;
+
+            path {
+                // styles-for-type includes a change in SVG color. Make sure it's transitioned.
+                @include micro-transition(stroke);
+            }
+        }
+    }
+
+    .FeedbackOption-type {
+        // styles-for-type includes a change in text color. Make sure it's transitioned.
+        @include micro-transition(color);
+
+        font-size: $font-size-400;
+        font-weight: $font-weight-semibold;
+        margin-top: $size-300;
+        text-transform: capitalize;
+    }
+}

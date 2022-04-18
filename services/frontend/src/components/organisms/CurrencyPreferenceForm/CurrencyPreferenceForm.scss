@@ -1,0 +1,24 @@
+@import "styles/_shared.scss";
+
+.CurrencyPreferenceForm {
+    display: grid;
+    gap: $size-500;
+    width: 100%;
+
+    .CurrencyPreferenceForm-header {
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    .CurrencyPreferenceForm-TextField {
+        max-width: 700px;
+    }
+
+    .CurrencyPreferenceForm-SelectInput {
+        width: 100%;
+
+        @include media-query-small {
+            max-width: 250px;
+        }
+    }
+}

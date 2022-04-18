@@ -1,0 +1,39 @@
+@import "styles/_shared.scss";
+
+.IntervalSwitcher {
+    @include input-height();
+    @include keyboard-navigation-outline($focus-within: false);
+
+    align-items: center;
+    background-color: $color-light;
+    border: $border-width-normal solid $color-neutral-400;
+    border-radius: $border-radius-normal;
+    display: grid;
+
+    // Want less space on small devices to try and squeeze the switcher into tight spaces.
+    gap: $size-300;
+
+    grid-template-columns: 24px auto 24px;
+    padding: $size-200;
+
+    // Note: z-index of 0 is the default z-index for this component, but it's noteworthy
+    // that it _should_ be 0. I initially tried to change it to $z-index-input, so that the
+    // custom outline wouldn't appear 'behind' it. However, this had the negative side effect
+    // of causing the switcher to render above a lot of other things (e.g. AppNavigation).
+    //
+    // So we're moving it back to 0 so that it renders at the right height, with the tradeoff
+    // that the custom outline looks a little funny if you look too closely at it.
+    z-index: 0;
+
+    @include media-query-small {
+        gap: $size-500;
+    }
+
+    .IntervalSwitcher-button {
+        @include svg-icon-color($color-neutral-500);
+
+        &:disabled {
+            @include svg-icon-color($color-neutral-300);
+        }
+    }
+}

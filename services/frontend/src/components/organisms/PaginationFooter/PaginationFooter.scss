@@ -1,0 +1,78 @@
+@import "styles/_shared.scss";
+
+.PaginationFooter {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .PaginationFooter-Divider {
+        margin-top: $size-400;
+    }
+
+    .PaginationFooter-wrapper {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        margin-top: $size-400;
+
+        @include media-query-medium {
+            align-items: center;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        // The existence of "first half" and "second half" is just so that we can display
+        // the Switcher nicely.
+        //
+        // On mobile, we want it center aligned with the Summary, but we want the PageSize below
+        // it. As such, we put the Switcher and Summary together in "first half" and center align
+        // them, and put the PageSize in "second half" positioned below "first half" (while hiding
+        // the Switcher in "second half").
+        //
+        // On desktop, we want everything on one row, all center aligned. But we want the PageSize
+        // between the Summary and Switcher. So we hide the Switcher from "first half" and
+        // display the one from "second half".
+        //
+        // Jank, but it looks the best.
+        .PaginationFooter-first-half {
+            align-items: center;
+            display: flex;
+            flex-shrink: 0;
+            justify-content: space-between;
+            margin-bottom: $size-300;
+            width: 100%;
+
+            @include media-query-medium {
+                margin-bottom: 0;
+                width: auto;
+
+                .PaginationSwitcher {
+                    display: none;
+                }
+            }
+        }
+
+        .PaginationFooter-second-half {
+            display: flex;
+            flex-shrink: 0;
+            justify-content: flex-end;
+            width: 100%;
+
+            @include media-query-medium {
+                align-items: center;
+                margin-left: $size-500;
+                width: auto;
+            }
+
+            .PaginationSwitcher {
+                display: none;
+
+                @include media-query-medium {
+                    display: grid;
+                    flex-shrink: 0;
+                    margin-left: $size-300;
+                }
+            }
+        }
+    }
+}

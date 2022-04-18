@@ -1,0 +1,33 @@
+@import "styles/_shared.scss";
+
+.ImportRulesListItem {
+    // Need !important to override the values from `ListItem`.
+    height: auto !important;
+    max-height: unset !important;
+    max-width: unset !important;
+
+    .ListItem-top-layer {
+        padding-bottom: $size-300;
+        padding-top: $size-300;
+    }
+
+    .ImportRulesListItem-actions-container {
+        display: flex;
+        margin-top: $size-200;
+
+        svg {
+            @include svg-icon-color($color-neutral-400);
+
+            margin-right: $size-200;
+        }
+    }
+}
+
+.FormattedRuleCondition,
+.FormattedRuleAction {
+    color: $color-text-secondary;
+
+    strong {
+        color: $color-text-primary;
+    }
+}

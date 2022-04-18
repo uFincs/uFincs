@@ -1,0 +1,33 @@
+@import "styles/_shared.scss";
+
+.ImportRulesList {
+    display: grid;
+    gap: $size-100;
+    grid-auto-flow: rows;
+    grid-auto-rows: min-content;
+    width: 100%;
+
+    .ImportRulesList-date-header {
+        @include trigger-animate-in-list-item();
+
+        // Provide more spacing above the header to further separate the groups of transactions.
+        margin-top: $size-300;
+
+        will-change: opacity, transform;
+
+        &:first-child {
+            // Remove the first's margin because it has no group to separate from.
+            margin-top: 0;
+        }
+    }
+
+    .ImportRulesListItem {
+        @include trigger-animate-in-list-item();
+
+        will-change: opacity, transform;
+    }
+
+    .EmptyTransactionsArea {
+        margin-top: $size-600;
+    }
+}

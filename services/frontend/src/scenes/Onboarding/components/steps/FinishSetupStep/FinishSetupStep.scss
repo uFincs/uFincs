@@ -1,0 +1,11 @@
+@import "styles/_shared.scss";
+
+.FinishSetupStep {
+    @include wizard-process-step-styles();
+
+    .FinishSetupStep-AccountsList {
+        // Remove the extra padding that the list adds for scrollability.
+        // Don't need it since extra padding is built into the scene.
+        padding-bottom: 0;
+    }
+}

@@ -1,0 +1,13 @@
+@import "styles/_shared.scss";
+
+.FromAmount {
+    color: $color-neutral-500;
+
+    &.FromAmount--light-shade {
+        color: $color-primary-200;
+    }
+
+    .FromAmount-amount {
+        font-weight: $font-weight-semibold;
+    }
+}

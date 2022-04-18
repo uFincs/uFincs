@@ -1,0 +1,34 @@
+@import "styles/_shared.scss";
+
+.PageNotFoundContent {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    .PageNotFoundContent-graphic {
+        height: auto;
+        max-width: 450px;
+        width: 100%;
+    }
+
+    .PageNotFoundContent-title {
+        font-size: $font-size-800;
+        font-weight: $font-weight-bold;
+        margin-bottom: $size-400;
+        margin-top: $size-700;
+        text-align: center;
+    }
+
+    .PageNotFoundContent-message {
+        font-size: $font-size-400;
+        text-align: center;
+    }
+
+    .PageNotFoundContent-link {
+        color: $color-primary;
+        font-weight: $font-weight-bold;
+        text-decoration: underline;
+    }
+}

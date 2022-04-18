@@ -1,0 +1,5 @@
+@import "styles/_shared.scss";
+
+.ChooseAccountStep {
+    @include wizard-process-step-styles();
+}

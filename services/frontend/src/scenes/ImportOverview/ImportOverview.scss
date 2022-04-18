@@ -1,0 +1,43 @@
+@import "styles/_shared.scss";
+
+.ImportOverview {
+    display: grid;
+    gap: $size-600;
+    grid-template-columns: 1fr;
+
+    // Provide lots of bottom padding so that users can scroll the screen
+    // past the list to see the bottom of the list better.
+    margin-bottom: 30vh;
+
+    width: 100%;
+
+    h2 {
+        font-size: $font-size-500;
+        font-weight: $font-weight-bold;
+    }
+
+    .ImportOverview-options,
+    .ImportOverview-rules {
+        display: grid;
+        gap: $size-500;
+    }
+
+    .ImportOverview-rules {
+        // Want to push the rules down even further than the grid gap of the whole scene,
+        // just for some more spacing.
+        margin-top: $size-500;
+
+        width: 100%;
+
+        .ImportOverview-rules-header {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .Button {
+                width: auto;
+            }
+        }
+    }
+}

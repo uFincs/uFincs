@@ -1,0 +1,22 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "chromeWebSecurity": false,
+    "defaultCommandTimeout": 10000,
+    "env": {
+        "BACKEND_HOST": "http://localhost",
+        "BACKEND_PORT": "5000",
+        "FRONTEND_PORT": "3000",
+        "PROJECT_NAME": "",
+        "email": "test@test.com",
+        "password": "test",
+        "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d",
+        "mailslurpInboxId": "1bbf8bfb-6f4e-420f-b8d2-c641c725e031",
+        "mailslurpEmail": "1bbf8bfb-6f4e-420f-b8d2-c641c725e031@mailslurp.com"
+    },
+    "modifyObstructiveCode": false,
+    "numTestsKeptInMemory": 10,
+    "retries": 2,
+    "supportFile": "cypress/support/index.ts",
+    "video": false,
+    "firstRun": true
+}

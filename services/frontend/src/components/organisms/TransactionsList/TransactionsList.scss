@@ -1,0 +1,54 @@
+@import "styles/_shared.scss";
+@import "components/atoms/TransactionTypeIcon/TransactionTypeIcon.scss";
+@import "components/molecules/TransactionsListItem/TransactionsListItem.scss";
+
+.TransactionsList {
+    display: grid;
+    gap: $size-100;
+    grid-auto-flow: rows;
+    grid-auto-rows: min-content;
+    width: 100%;
+
+    .TransactionsList-date-header {
+        @include trigger-animate-in-list-item();
+
+        // Provide more spacing above the header to further separate the groups of transactions.
+        margin-top: $size-300;
+
+        will-change: opacity, transform;
+
+        &:first-child {
+            // Remove the first's margin because it has no group to separate from.
+            margin-top: 0;
+        }
+    }
+
+    .TransactionsListItem {
+        @include trigger-animate-in-list-item();
+
+        will-change: opacity, transform;
+    }
+
+    .EmptyTransactionsArea {
+        margin-top: $size-600;
+    }
+}
+
+.EndOfDayBalance {
+    align-items: center;
+    display: flex;
+    font-size: $font-size-200;
+    justify-content: space-between;
+    margin-top: $size-100;
+
+    padding-left: $size-list-item-left-padding + $transactions-list-item-icon-margin-left +
+        $transaction-type-icon-size-small + $transactions-list-item-icon-margin-right;
+
+    padding-right: $size-list-item-right-padding;
+    width: 100%;
+
+    @include media-query-extra-small {
+        padding-left: $size-list-item-left-padding + $transactions-list-item-icon-margin-left +
+            $transaction-type-icon-size + $transactions-list-item-icon-margin-right;
+    }
+}

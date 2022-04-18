@@ -1,0 +1,57 @@
+@import "styles/_shared.scss";
+
+.OptionCard {
+    @include input-border();
+
+    align-items: center;
+    background-color: $color-light;
+    color: $color-text-secondary;
+    cursor: pointer;
+    display: flex;
+
+    // Need a smaller font size on really small screens to accommodate trying to squeeze
+    // as many options in a row as possible.
+    font-size: $font-size-200;
+
+    height: $size-touch-target;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+
+    // Disable text selection so that text doesn't accidentally get selected when users quickly
+    // click multiple times on the option. IDK, it just _feels_ better.
+    user-select: none;
+
+    @include media-query-extra-small {
+        // Now that we have some more room, can up the font size to normal.
+        font-size: $font-size-300;
+    }
+
+    &.OptionCard--disabled {
+        background-color: $color-neutral-300;
+        color: $color-text-tertiary;
+        cursor: default;
+        pointer-events: none;
+    }
+
+    // It is deliberate that the active state takes precedence over the disabled state.
+    // We want the active option to still look active; every other option can look disabled.
+    &.OptionCard--active {
+        @include option-card-shadow();
+
+        background-color: $color-primary-800;
+        border: $border-width-normal solid transparent;
+        color: $color-light;
+        font-weight: $font-weight-bold;
+    }
+}
+
+.OptionCard--story-container {
+    display: grid;
+    gap: $size-200;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+}
+
+.OptionCard--story-sample {
+    min-width: 64px;
+}

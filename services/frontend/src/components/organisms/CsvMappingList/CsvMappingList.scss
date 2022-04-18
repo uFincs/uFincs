@@ -1,0 +1,65 @@
+@import "styles/_shared.scss";
+
+.CsvMappingList {
+    display: grid;
+    gap: $size-400;
+    width: 100%;
+}
+
+.CsvListSection {
+    display: grid;
+    gap: $size-400;
+    grid-template-rows: auto auto;
+
+    @include media-query-small {
+        gap: $size-600;
+        grid-template-columns: 85px 1fr;
+        grid-template-rows: auto;
+    }
+
+    &.CsvListSection--editing {
+        // When editing, the input is stacked on top of the sample data,
+        // unlike when not editing, where the field is stacked to the left of the sample data.
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .CsvListSection-field-container {
+        .CsvListSection-column-number {
+            color: $color-text-secondary;
+            font-size: $font-size-200;
+            font-weight: $font-weight-semibold;
+        }
+
+        .CsvListSection-field {
+            font-weight: $font-weight-bold;
+            margin-top: $size-200;
+        }
+    }
+
+    .CsvListSection-sample-data {
+        background-color: $color-neutral-100;
+        border-radius: $border-radius-normal;
+        display: grid;
+        gap: $size-400;
+        padding: $size-400;
+
+        .CsvListSection-sample-data-header {
+            color: $color-text-secondary;
+            font-size: $font-size-200;
+            font-weight: $font-weight-semibold;
+        }
+
+        .CsvListSection-sample-data-row {
+            color: $color-text-secondary;
+            display: flex;
+            font-size: $font-size-200;
+
+            .CsvListSection-sample-data-row-data {
+                color: $color-text-primary;
+                font-weight: $font-weight-bold;
+                margin-left: $size-100;
+            }
+        }
+    }
+}

@@ -1,0 +1,328 @@
+@import "styles/_shared.scss";
+
+.ListItem {
+    background: transparent;
+    border-radius: $border-radius-normal;
+    cursor: pointer;
+    display: flex;
+
+    // This is just a default for displaying in the stories. Can be unset in actual usage.
+    max-width: 300px;
+
+    // Needed because the bottom layer of the double layer ListItem is absolutely positioned.
+    position: relative;
+
+    width: 100%;
+}
+
+.ListItem-double-layer {
+    @include list-item-shadow();
+
+    // This height setup allows the ListItem to be, at a minimum, a good touch target size,
+    // but also let it grow a bit in case there's a lot of content (like in TransactionsListItem).
+    height: 100%;
+    max-height: $size-touch-target + $size-200;
+    min-height: $size-touch-target;
+
+    // This is to hide the top layer as it slides off the left side of the ListItem.
+    overflow: hidden;
+
+    -webkit-tap-highlight-color: transparent;
+
+    &.ListItem--open {
+        .ListItem-top-layer {
+            @include show-transition-shadow();
+
+            // This is shifts the top layer to reveal the bottom layer.
+            // Value is experimentally derived to look good enough to show all the actions.
+            transform: translateX(-105px);
+        }
+
+        .ListItem-overflow-button-container {
+            transform: translate(-105px, -50%);
+        }
+    }
+
+    &.ListItem--no-actions {
+        cursor: default;
+        pointer-events: none;
+
+        .ListItem-top-layer {
+            padding-right: $size-list-item-left-padding;
+        }
+    }
+
+    .ListItem-top-layer {
+        // Because overflow: hidden is set on the parent, we need an inset nav outline
+        // for it to show up.
+        @include keyboard-navigation-outline($focus-within: false, $inset: true);
+
+        align-items: center;
+        background-color: $color-light;
+        border-radius: $border-radius-normal;
+        display: flex;
+        height: 100%;
+        justify-content: space-between;
+
+        padding-left: $size-list-item-left-padding;
+
+        // Need a lot of right padding to account for the space that the overflow button
+        // takes up, since it is located outside the top layer.
+        padding-right: $size-list-item-right-padding;
+
+        // Use a slightly longer transition than the usual micro-transition because this
+        // kind of movement is larger than the usual hovers and whatnot.
+        transition: background-color 0.15s ease-out, transform 0.3s ease-in-out;
+
+        // Disable text selection so that long pressing to open the actions doesn't select text.
+        user-select: none;
+
+        width: 100%;
+
+        // Need the top layer to be layered above the bottom layer.
+        z-index: 1;
+
+        // We're using a transition shadow here since we want it hidden to start, but want to
+        // show it later.
+        //
+        // The reason we want to hide the shadow initially is because there seems to be a rendering
+        // issue where the shadow leaks out at the corners of the ListItem when it's closed.
+        // If the shadow's hidden when it's closed, we can't have this problem.
+        @include transition-shadow {
+            box-shadow: 12px 0 20px transparentize($color: $color-neutral-900, $amount: 0.6);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        &:active {
+            background-color: $color-neutral-300;
+        }
+
+        .ListItem-content {
+            color: $color-text-primary;
+            flex: 1;
+        }
+    }
+
+    .ListItem-overflow-button-container {
+        align-items: center;
+        display: flex;
+        position: absolute;
+        right: $size-200;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1;
+
+        .ListItem-overflow-button {
+            // Change the interaction colors to account for the top layer's background.
+            @include non-sticky-interactions($key: "-overflow-button") {
+                %base-overflow-button {
+                    background-color: transparent;
+                }
+
+                %hover-overflow-button {
+                    background-color: $color-neutral-200;
+                }
+
+                %active-override-overflow-button {
+                    background-color: $color-neutral-300;
+                }
+            }
+
+            .ListItem-OverflowIcon {
+                @include svg-icon-color($color-text-tertiary);
+            }
+        }
+    }
+
+    .ListItem-bottom-layer {
+        align-content: center;
+        background-color: $color-neutral-700;
+
+        // Just like the shadow problem above, the background from the bottom layer seems
+        // to leak out from the corners of the ListItem when it's closed.
+        // Increasing the border-radius slightly prevents this by ever so slightly curving
+        // the borders underneath the top layer.
+        border-radius: $border-radius-normal + 1;
+
+        bottom: 0;
+
+        // These box shadows try to simulate an 'inset' element.
+        // The first shadow is the top dark shadow the second is the bottom/side light shadow.
+        // This simulates a light source somewhere above and to the left.
+        // This effect is made more pronounced by the shadow on the top layer.
+        //
+        // The 10px x-offset on the first shadow is to push it off the edge of the bottom layer,
+        // since the right edge is shadowed by the second, lighter shadow.
+        //
+        // The large spread and high transparency values on the second shadow helps to smooth out
+        // what would otherwise be a harsh white shadow.
+        box-shadow: inset 10px 2px 6px transparentize($color: $color-neutral-900, $amount: 0.55),
+            inset -1px -2px 12px transparentize($color: $color-light, $amount: 0.9);
+
+        display: flex;
+        justify-content: flex-end;
+        left: 0;
+        padding: 0 $size-300;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .ListItemActions-button {
+            // Change the interaction colors to account for the bottom layer's background.
+            @include non-sticky-interactions($key: "-double-layer-action-button") {
+                %base-double-layer-action-button {
+                    background-color: transparent;
+                }
+
+                %hover-double-layer-action-button {
+                    background-color: $color-neutral-600;
+                }
+
+                %active-override-double-layer-action-button {
+                    background-color: $color-neutral-500;
+                }
+            }
+        }
+    }
+}
+
+.ListItem-single-layer {
+    @include custom-navigation-outline($focus-within: false);
+    @include disable-custom-outline-transitions();
+
+    align-items: center;
+
+    // Want the single layer version shorter than the double layer since we can afford
+    // smaller click targets on desktop and we need to pack the list items tighter together.
+    height: 28px;
+
+    max-width: 400px;
+    padding: $size-100 $size-300;
+
+    &:focus,
+    &:focus-within,
+    &:hover {
+        background-color: $color-neutral-300;
+
+        .ListItemActions {
+            opacity: 1;
+        }
+    }
+
+    &.ListItem--active {
+        @include list-item-shadow($transparency: 0.8);
+
+        background-color: $color-primary-600;
+
+        .ListItem-content {
+            color: $color-light;
+            font-weight: $font-weight-bold;
+
+            // Need to change the text selection colors because it's basically impossible to
+            // see selected text using the normal colors against the active ListItem background.
+            // And yes, it _is_ making an assumption that content text uses paragraph tags.
+            p::selection {
+                background: $color-light;
+                color: $color-primary-800;
+            }
+        }
+    }
+
+    .ListItem-content {
+        color: $color-text-primary;
+        flex: 1;
+
+        .TextField {
+            // Shrink the font size of the content to fit the smaller height.
+            font-size: $font-size-200;
+        }
+    }
+
+    .ListItemActions {
+        @include svg-icon-color($color-text-secondary);
+
+        margin-left: $size-400;
+        opacity: 0;
+
+        .ListItemActions-button {
+            // Change the interaction colors to account for the hover bakground of the list item.
+            @include non-sticky-interactions($key: "-single-layer-action-button") {
+                %base-single-layer-action-button {
+                    background-color: transparent;
+                }
+
+                %hover-single-layer-action-button {
+                    background-color: $color-neutral-400;
+                }
+
+                %active-override-single-layer-action-button {
+                    background-color: $color-neutral-500;
+                }
+            }
+        }
+
+        &.ListItemActions--active {
+            @include svg-icon-color($color-light);
+
+            opacity: 1;
+
+            .ListItemActions-button {
+                // Change the interaction colors to account for the now dark(er) background.
+                @include non-sticky-interactions($key: "-single-layer-action-button-active") {
+                    %base-single-layer-action-button-active {
+                        background-color: transparent;
+                    }
+
+                    %hover-single-layer-action-button-active {
+                        background-color: $color-primary-500;
+                    }
+
+                    %active-override-single-layer-action-button-active {
+                        background-color: $color-primary-400;
+                    }
+                }
+            }
+        }
+
+        .ListItemActions-button {
+            // Shrink the padding to match with the smaller icon size, so that
+            // they fit inside the list item.
+            padding: 2px;
+
+            // Make the icons smaller to fit within the constrained height;
+            svg {
+                height: 16px;
+                width: 16px;
+            }
+        }
+    }
+}
+
+.ListItemActions {
+    align-items: center;
+    display: grid;
+    gap: $size-500;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    margin-right: $size-100;
+
+    svg {
+        @include svg-icon-color($color-neutral-300);
+    }
+}
+
+.ListItem--story-SingleLayer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    p:first-child {
+        @include clamp-lines(2);
+    }
+
+    p:last-child {
+        flex-shrink: 0;
+        margin-left: 8px;
+    }
+}

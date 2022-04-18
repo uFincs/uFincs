@@ -1,0 +1,43 @@
+@import "styles/_shared.scss";
+
+$form-spacing: $size-500;
+
+.AuthForm {
+    gap: $form-spacing;
+    max-width: $size-auth-form-max-width;
+    width: 100%;
+
+    .AuthForm-form {
+        // We're using display: grid here just to use grid gap between
+        // the Inputs and the SubmitButton, not because we actually need a grid.
+        // Grid gap is just a move convenient spacing mechanism than manually
+        // specifying margins.
+        display: grid;
+        gap: $form-spacing;
+        grid-template-columns: 1fr;
+        width: 100%;
+
+        .AuthForm-LabelledInput,
+        .AuthForm-SubmitButton {
+            max-width: unset;
+        }
+
+        .AuthForm-Checkbox {
+            align-self: flex-start;
+
+            // Why 3px? Because 2 is too few and 4 is too many.
+            margin-top: 3px;
+        }
+
+        .AuthForm-forgot-password {
+            color: $color-primary;
+            font-weight: bold;
+            justify-self: center;
+        }
+
+        .AuthForm-username-input {
+            position: absolute;
+            top: -5000px;
+        }
+    }
+}

@@ -1,0 +1,128 @@
+@import "styles/_shared.scss";
+
+@mixin disabled-primary() {
+    background-color: $color-primary-300;
+
+    // This is really more so the ShadowButton doesn't have to have its own
+    // non-sticky-interactions (at least, for the main variant...), since
+    // the regular Button doesn't have a shadow.
+    box-shadow: none;
+
+    cursor: default;
+}
+
+@mixin disabled-secondary() {
+    background-color: $color-neutral-300;
+    box-shadow: none;
+    color: $color-neutral-500;
+    cursor: default;
+}
+
+.Button {
+    @include button-height();
+    @include keyboard-navigation-outline();
+    @include micro-interactive-bounce();
+    @include micro-transition(background-color, transform);
+
+    // Give any child icons a default color in the button.
+    @include svg-icon-color($color-light);
+
+    align-items: center;
+    border-radius: $border-radius-normal;
+    color: $color-light;
+    display: flex;
+    justify-content: center;
+
+    // Even with a set (or dynamic) width, we still want some side padding
+    // for when the label is too large for the button width. Don't want
+    // text butting up on the edge of the button...
+    padding: 0 $size-400;
+
+    // Remove the tap color since we have our own hover/active styles.
+    -webkit-tap-highlight-color: transparent;
+
+    width: 100%;
+
+    // Note: Do _not_ use a `Button--primary` class around this.
+    // Otherwise, every downwind instance of the button that tries to override e.g. the colors
+    // will fail because the extra `Button--primary` class adds extra specificity.
+    @include non-sticky-interactions($key: "-primary") {
+        %base-primary {
+            background-color: $color-primary;
+            font-weight: $font-weight-bold;
+
+            // Just a design decision, but I think the buttons look better with this tiny
+            // bit of extra letter spacing.
+            //
+            // Don't want this on the 'secondary' variant because the secondary variant
+            // doesn't have bold text.
+            letter-spacing: 1px;
+        }
+
+        %hover-primary {
+            background-color: $color-primary-hover;
+        }
+
+        %disabled-primary {
+            @include disabled-primary();
+        }
+    }
+
+    &.Button--pseudo-disabled {
+        @include non-sticky-interactions($key: "-disabled") {
+            %base-disabled {
+                @include disabled-primary();
+            }
+        }
+    }
+
+    &.Button--secondary {
+        @include non-sticky-interactions($key: "-secondary") {
+            %base-secondary {
+                background-color: $color-neutral-300;
+                color: $color-neutral-700;
+                font-weight: $font-weight-normal;
+                letter-spacing: 0;
+            }
+
+            %hover-secondary {
+                background-color: $color-neutral-400;
+            }
+
+            %disabled-secondary {
+                @include disabled-secondary();
+            }
+        }
+
+        &.Button--pseudo-disabled {
+            @include non-sticky-interactions($key: "-disabled-secondary") {
+                %base-disabled-secondary {
+                    @include disabled-secondary();
+                }
+            }
+        }
+    }
+
+    /** Need to wrap the children in a span so that we can have the following: 
+     *
+     *  - Perfect centering from flexbox, but also
+     *  - Perfect text truncation
+     *
+     *  Without the wrapper, flexbox on the button prevents the text overflow
+     *  properties from working correctly (the ellipse isn't properly applied),
+     *  (for reference: https://css-tricks.com/flexbox-truncated-text/)
+     *  but without flexbox, the children aren't (easily) centered.
+     */
+    > .Button-child-wrapper {
+        align-items: center;
+        display: flex;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &::-moz-focus-inner {
+        // Remove the ugly dotted outline that Firefox puts around the text.
+        border: 0;
+    }
+}

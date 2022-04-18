@@ -1,0 +1,37 @@
+@import "styles/_shared.scss";
+
+.AlternativeAuthForm {
+    align-items: center;
+    background-color: $color-primary-800;
+    display: flex;
+
+    // Because Safari sucks...
+    flex-shrink: 0;
+
+    justify-content: space-between;
+    max-width: $size-auth-form-max-width;
+    padding: $size-300 $size-600;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // When there's enough space, change the layout so that text is stacked on top
+        // of the button, and the shape is a square instead of a rectangle.
+        flex-direction: column;
+        height: $size-alt-auth-form-square;
+        justify-content: center;
+        width: $size-alt-auth-form-square;
+    }
+
+    .AlternativeAuthForm-TextField {
+        color: $color-light;
+
+        @include media-query-navigation-change {
+            margin-bottom: $size-500;
+        }
+    }
+
+    .AlternativeAuthForm-OutlineButton {
+        // Yes, the width was chosen arbitrarily to look good.
+        width: 110px;
+    }
+}

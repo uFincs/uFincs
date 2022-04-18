@@ -1,0 +1,72 @@
+@import "styles/_shared.scss";
+
+.TransactionsTableColumnHeaders {
+    @include transactions-table-grid($is-header: true);
+
+    grid-template-areas: "type date description from to amount actions";
+
+    @include transactions-table-full {
+        grid-template-areas: "type date description amount from to actions";
+    }
+
+    @include transactions-table-with-running-balance {
+        grid-template-areas: "type date description from to amount balance actions";
+    }
+
+    @include transactions-table-with-running-balance-full {
+        grid-template-areas: "type date description amount from to balance actions";
+    }
+
+    .TransactionsTableColumnHeaders-amount,
+    .TransactionsTableColumnHeaders-date,
+    .TransactionsTableColumnHeaders-balance {
+        // Override the left-align to right-align for certain headers.
+        justify-content: flex-end;
+    }
+
+    .TransactionsTableColumnHeaders-type {
+        grid-area: type;
+    }
+
+    .TransactionsTableColumnHeaders-date {
+        grid-area: date;
+    }
+
+    .TransactionsTableColumnHeaders-description {
+        grid-area: description;
+
+        .ColumnHeader-comma {
+            // Show the comma when viewing the compressed layout.
+            display: inline;
+
+            @include transactions-table-full {
+                display: none;
+            }
+        }
+    }
+
+    .TransactionsTableColumnHeaders-amount {
+        grid-area: amount;
+    }
+
+    .TransactionsTableColumnHeaders-from {
+        grid-area: from;
+
+        .ColumnHeader-comma {
+            // Show the comma when viewing the compressed layout.
+            display: inline;
+
+            @include transactions-table-full {
+                display: none;
+            }
+        }
+    }
+
+    .TransactionsTableColumnHeaders-to {
+        grid-area: to;
+    }
+
+    .TransactionsTableColumnHeaders-balance {
+        grid-area: balance;
+    }
+}

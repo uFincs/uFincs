@@ -1,0 +1,16 @@
+@import "styles/_shared.scss";
+
+.ImportRulesTableColumnHeaders {
+    @include import-rules-table-grid();
+
+    grid-template-areas: "date rule";
+
+    .ImportRulesTableColumnHeaders-date {
+        grid-area: date;
+        justify-content: flex-end;
+    }
+
+    .ImportRulesTableColumnHeaders-rule {
+        grid-area: rule;
+    }
+}

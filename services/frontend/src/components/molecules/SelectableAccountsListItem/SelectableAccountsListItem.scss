@@ -1,0 +1,27 @@
+@import "styles/_shared.scss";
+
+.SelectableAccountsListItem {
+    @include list-item-shadow();
+    @include selectable-accounts-list-grid();
+
+    align-items: center;
+    background-color: $color-light;
+    border: 2px solid transparent;
+    border-radius: $border-radius-normal;
+    width: 100%;
+
+    &.SelectableAccountsListItem--selected {
+        background-color: $color-primary-200;
+        border: 2px solid $color-primary-400;
+
+        .Input {
+            color: $color-text-primary;
+        }
+    }
+
+    .Input {
+        // Use secondary instead of tertiary since tertiary is
+        // used by the placeholder text.
+        color: $color-text-secondary;
+    }
+}

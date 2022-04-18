@@ -1,0 +1,70 @@
+@import "styles/_shared.scss";
+
+.ChooseFileStep {
+    @include wizard-process-step-styles($flex-layout: true);
+
+    .ChooseFileStep-body {
+        .ChooseFileStep-file-picker {
+            align-items: center;
+            display: flex;
+
+            #transactions-import-file-input {
+                // Reference for styling inputs with type="file":
+                // https://benmarshall.me/styling-file-inputs/
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                width: 0.1px;
+                z-index: -1;
+            }
+
+            .ChooseFileStep-button-container {
+                width: auto;
+
+                .ChooseFileStep-button {
+                    // Need to remove all the height/width from the button itself so that we can
+                    // give it to the label. Why? Because only clicking on the label will cause the
+                    // file picker to open; not the rest of the button.
+                    height: auto;
+                    padding: 0;
+                    width: auto;
+
+                    &.SubmitButton--loading {
+                        // Need to give the button back its height so that the loading spinner doesn't
+                        // look completely stupid.
+                        @include button-height($include-width: true);
+                    }
+
+                    // This is the label that enables the file input styling hack.
+                    label {
+                        // Give the label the same dimensions as a normal button, to increase the clickable
+                        // surface area for opening the file picker.
+                        @include button-height();
+
+                        // Need to center the label (within itself...) once it has the extra height/width.
+                        align-items: center;
+
+                        cursor: pointer;
+                        display: flex;
+
+                        justify-content: center;
+
+                        // Give the label the same dimensions as a normal button, to increase the clickable
+                        // surface area for opening the file picker.
+                        width: 140px;
+                    }
+                }
+            }
+
+            .ChooseFileStep-file-name {
+                margin-left: $size-500;
+            }
+        }
+
+        .ChooseFileStep-status-message {
+            color: $color-positive-700;
+            margin-top: $size-500;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+@import "styles/_shared.scss";
+
+.TabBarWithSections {
+    width: 100%;
+
+    .TabBarWithSections-TabBar-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: $size-400;
+
+        .TabBarWithSections-TabBar {
+            align-self: flex-start;
+            margin-bottom: $size-100;
+
+            .TabBarWithSections-TabBar-underline {
+                // Need this to pull the underline up to overlay the Divider.
+                bottom: -($size-100) - 2px;
+            }
+        }
+    }
+
+    .TabBarWithSections-sections {
+        display: flex;
+        height: 100%;
+
+        // Need this because the tabs use position: absolute for the animations.
+        // Prevents the horizontal scrollbar from showing up during animations.
+        position: relative;
+
+        > * {
+            width: 100%;
+        }
+    }
+}

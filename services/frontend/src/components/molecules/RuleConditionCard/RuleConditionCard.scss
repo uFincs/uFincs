@@ -1,0 +1,15 @@
+@import "styles/_shared.scss";
+
+.RuleConditionCard {
+    .SelectInput {
+        padding: 0 $size-200;
+    }
+
+    .RuleConditionCard-TopRow,
+    .RuleConditionCard-BottomRow {
+        display: grid;
+        gap: $size-300;
+        grid-auto-flow: column;
+        width: 100%;
+    }
+}

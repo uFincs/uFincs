@@ -1,0 +1,233 @@
+{
+    "__alerting_email": "devin@ufincs.com",
+    "__domain": "ufincs.com",
+    "__domain_owner_email": "devin@devinsit.com",
+    "__gcp_project_id": "ufincs2",
+    "__gcp_project_region": "us-east1",
+    "__gcp_project_zone": "us-east1-d",
+    "__production_namespace": "master",
+    "__project_name": "ufincs",
+    "__project_short_code": "ufc",
+    "__project_title": "uFincs",
+    "__remote_repo_host": "github",
+    "__remote_repo_owner": "devinsit",
+    "__services": {
+        "backend": {
+            "container_port": "5000",
+            "env": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                },
+                {
+                    "name": "POSTGRES_PASSWORD",
+                    "value": "__POSTGRES_PASSWORD__"
+                },
+                {
+                    "name": "STRIPE_WEBHOOK_SECRET",
+                    "value": "__WEBHOOK_SECRET_VALUE__"
+                }
+            ],
+            "external_port": "80",
+            "folder": "backend",
+            "host": "backend.ufincs.com",
+            "image": "backend",
+            "image_in_project": true,
+            "image_stages": ["backend-build-env"],
+            "persistent_volume": {},
+            "pre_startup_command": null,
+            "production_replicas": 2,
+            "readiness_route": "/healthz",
+            "replicas": 1,
+            "secrets": {
+                "file": ".env.encrypted",
+                "name": "backend-secrets",
+                "variables": [
+                    "MAILGUN_API_KEY",
+                    "SLACK_WEBHOOK",
+                    "SLACK_WEBHOOK_TEST",
+                    "STRIPE_SECRET_KEY_TEST",
+                    "STRIPE_SECRET_KEY_PROD",
+                    "TOKEN_SECRET"
+                ]
+            },
+            "templates": [
+                "deployment",
+                "ingress",
+                "service"
+            ],
+            "type": "ClusterIP",
+            "wait_for_service": "backend-database"
+        },
+        "backend-migration-job": {
+            "command_args": ["scripts/db-migrate.js"],
+            "env": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                },
+                {
+                    "name": "POSTGRES_PASSWORD",
+                    "value": "__POSTGRES_PASSWORD__"
+                }
+            ],
+            "folder": "backend",
+            "image": "backend",
+            "image_in_project": true,
+            "templates": [
+                "job"
+            ],
+            "wait_for_service": "backend-database"
+        },
+        "backend-database": {
+            "container_port": "5432",
+            "env": [
+                {
+                    "name": "POSTGRES_DB",
+                    "value": "app-database"
+                },
+                {
+                    "name": "POSTGRES_PASSWORD",
+                    "value": "__POSTGRES_PASSWORD__"
+                },
+                {
+                    "name": "POSTGRES_USER",
+                    "value": "app-database-user"
+                }
+            ],
+            "external_port": "5432",
+            "folder": "backend-database",
+            "host": "backend-database",
+            "image": "backend-database",
+            "image_in_project": true,
+            "persistent_volume": {
+                "mount_path": "/var/lib/postgresql/data",
+                "size": "15Gi",
+                "storage_class": "standard",
+                "sub_path": "database"
+            },
+            "persistent_volume_production": {
+                "mount_path": "/var/lib/postgresql/data",
+                "size": "50Gi",
+                "storage_class": "ssd",
+                "sub_path": "database"
+            },
+            "pre_startup_command": null,
+            "production_replicas": 1,
+            "replicas": 1,
+            "secrets": {},
+            "templates": [
+                "service",
+                "statefulset"
+            ],
+            "type": "headless",
+            "wait_for_service": null
+        },
+        "backend-database-backup": {
+            "env": [
+                {
+                    "name": "PGHOST",
+                    "value": "backend-database"
+                },
+                {
+                    "name": "PGDATABASE",
+                    "value": "app-database"
+                },
+                {
+                    "name": "PGPASSWORD",
+                    "value": "__POSTGRES_PASSWORD__"
+                },
+                {
+                    "name": "PGUSER",
+                    "value": "app-database-user"
+                },
+                {
+                    "name": "BACKUP_BUCKET",
+                    "value": "ufincs2-cluster-database-backups"
+                },
+                {
+                    "name": "BACKUP_BUCKET_AWS",
+                    "value": "ufincs-cluster-database-backups"
+                }
+            ],
+            "fixed_tag": "latest",
+            "folder": "backend-database-backup",
+            "image": "backend-database-backup",
+            "image_in_project": true,
+            "schedule": "0 3 * * *",
+            "secrets": {
+                "file": ".env.encrypted",
+                "name": "backend-database-backup-secrets",
+                "variables": [
+                    "AWS_SECRET_ACCESS_KEY",
+                    "AWS_ACCESS_KEY_ID",
+                    "ENCRYPTION_KEY"
+                ]
+            },
+            "templates": [
+                "cronjob"
+            ]
+        },
+        "frontend": {
+            "container_port": "3000",
+            "enable_nginx_caching": true,
+            "env": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                }
+            ],
+            "external_port": "80",
+            "folder": "frontend",
+            "host": "app.ufincs.com",
+            "image": "frontend",
+            "image_in_project": true,
+            "image_stages": ["frontend-build-env"],
+            "persistent_volume": {},
+            "pre_startup_command": null,
+            "production_replicas": 2,
+            "readiness_route": "/healthz",
+            "replicas": 1,
+            "secrets": {},
+            "templates": [
+                "deployment",
+                "ingress",
+                "service"
+            ],
+            "type": "ClusterIP",
+            "wait_for_service": null
+        },
+        "marketing": {
+            "container_port": "3000",
+            "enable_nginx_caching": true,
+            "env": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                }
+            ],
+            "external_port": "80",
+            "folder": "marketing",
+            "host": "ufincs.com",
+            "image": "marketing",
+            "image_in_project": true,
+            "image_stages": ["marketing-build-env"],
+            "persistent_volume": {},
+            "pre_startup_command": null,
+            "production_replicas": 2,
+            "readiness_route": "/healthz",
+            "replicas": 1,
+            "secrets": {},
+            "templates": [
+                "deployment",
+                "ingress",
+                "service"
+            ],
+            "type": "ClusterIP",
+            "wait_for_service": null
+        }
+    },
+    "__template_docker_registry": "gcr.io",
+    "__terraform_bucket": "ufincs2-terraform",
+    "__wildcard_certificate_secret": "ufincs-tls"
+}

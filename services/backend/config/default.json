@@ -1,0 +1,68 @@
+{
+    "host": "localhost",
+    "port": 5000,
+    "paginate": {},
+    "featureFlags": {
+        "subscriptions": true
+    },
+    "authentication": {
+        "entity": "user",
+        "service": "users",
+        "secret": "19db1e0eeac5b29eff312b0f2ce8cdd1d83865763a40a14f4aea7869807f0d0",
+        "authStrategies": [
+            "jwt",
+            "local"
+        ],
+        "jwtOptions": {
+            "header": {
+                "typ": "access"
+            },
+            "audience": "https://ufincs.com",
+            "issuer": "feathers",
+            "algorithm": "HS256",
+            "expiresIn": "30d"
+        },
+        "local": {
+            "usernameField": "email",
+            "passwordField": "password"
+        }
+    },
+    "billing": {
+        "testKey": "",
+        "prodKey": "",
+        "webhookSecret": "",
+        "stripeConfig": {
+            "test": {
+                "products": {
+                    "standard": "prod_J25QFJNAO8PrLF",
+                    "lifetime": "prod_J25Q4jKq393tna"
+                },
+                "prices": {
+                    "monthly": "price_1IQ1G2HRrHYb3hYt6RbrUKHi",
+                    "annually": "price_1IQ1G3HRrHYb3hYtHJWZ2daM",
+                    "lifetime": "price_1IQ1G3HRrHYb3hYtj3w4j0vG"
+                }
+            },
+            "production": {
+                "products": {
+                    "standard": "prod_J25Qay6p943YjC",
+                    "lifetime": "prod_J25QI4kTABUN5U"
+                },
+                "prices": {
+                    "monthly": "price_1IQ1G4Ap2ZfinMgzffytt51X",
+                    "annually": "price_1IQ1G5Ap2ZfinMgzsiCC0och",
+                    "lifetime": "price_1IQ1G5Ap2ZfinMgzr6MOr769"
+                }
+            }
+        }
+    },
+    "internalNotifier": {
+        "slackWebhook": "",
+        "slackWebhookTest": ""
+    },
+    "mailer": {
+        "apiKey": "",
+        "domain": "mail.ufincs.com",
+        "from": "uFincs <app@mail.ufincs.com>"
+    }
+}

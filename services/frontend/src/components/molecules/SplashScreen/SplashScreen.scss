@@ -1,0 +1,19 @@
+@import "styles/_shared.scss";
+
+.SplashScreen {
+    align-items: center;
+    background-color: $color-background-light;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: $z-index-splash-screen;
+
+    .AnimatedLogo {
+        height: 80px;
+        width: 80px;
+    }
+}

@@ -1,0 +1,31 @@
+@import "styles/_shared.scss";
+
+.OverlineHeading {
+    .OverlineHeading-overline {
+        background-color: $color-primary;
+        border-radius: $border-radius-large;
+        height: $size-100;
+        margin-bottom: $size-100;
+        width: $size-500;
+    }
+
+    .OverlineHeading-text {
+        font-weight: $font-weight-bold;
+
+        &.OverlineHeading-text--small {
+            font-size: $font-size-500;
+        }
+
+        &.OverlineHeading-text--normal {
+            font-size: $font-size-500;
+
+            @include media-query-small {
+                font-size: $font-size-600;
+            }
+        }
+
+        &.OverlineHeading-text--large {
+            font-size: $font-size-700;
+        }
+    }
+}

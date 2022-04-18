@@ -1,0 +1,24 @@
+@import "styles/_shared.scss";
+
+.Billing {
+    display: grid;
+    gap: $size-500;
+    width: 100%;
+
+    .Billing-header {
+        font-size: $font-size-400;
+        font-weight: $font-weight-bold;
+    }
+
+    .Billing-TextField {
+        max-width: 700px;
+    }
+
+    .Billing-SubmitButton {
+        @include media-query-small {
+            // Increase the width so that the 'Network error - try again later' message
+            // can display on one line.
+            max-width: 250px;
+        }
+    }
+}

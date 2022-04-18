@@ -1,0 +1,27 @@
+@import "styles/_shared.scss";
+
+.LabelledInput-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .LabelledInput-Label {
+        cursor: pointer;
+        margin-bottom: $size-200;
+
+        @include media-query-small {
+            margin-bottom: $size-300;
+        }
+
+        &.LabelledInput-Label--error {
+            color: $color-negative-text;
+            font-weight: $font-weight-bold;
+        }
+
+        &.LabelledInput-Label--empty {
+            // When there isn't (visible) label (or error), we want to remove the bottom margin
+            // so that the 'label' isn't taking up any space.
+            margin-bottom: 0;
+        }
+    }
+}

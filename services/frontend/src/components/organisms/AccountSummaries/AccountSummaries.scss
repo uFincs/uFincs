@@ -1,0 +1,183 @@
+@import "styles/_shared.scss";
+
+.AccountSummaries {
+    background-color: $color-background-dark;
+
+    // Because this is a larger element, it needs the larger border radius to 'look' like it's
+    // rounded as much as the normal radius.
+    // Otherwise, it looks too square.
+    border-radius: $border-radius-large;
+
+    box-shadow: 0 2px 6px transparentize($color: $color-primary-700, $amount: 0.3);
+    display: grid;
+    gap: $size-600;
+    padding: $size-400 $size-500;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        // Need a smaller initial gap to squish everything in right after the navigation change.
+        gap: $size-400;
+
+        // Switch from the implicit rows on mobile to explicit columns on desktop.
+        // 1fr = AccountSummary, 1px = Divider
+        grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr;
+
+        // Need less padding to squish everything in right after the navigation change.
+        padding: $size-400 $size-400;
+    }
+
+    @media (min-width: 1100px) {
+        gap: $size-500;
+        padding: $size-500 $size-600;
+    }
+
+    .Divider {
+        background-color: $color-neutral-600;
+
+        // Don't show the dividers on mobile.
+        display: none;
+
+        @include media-query-navigation-change {
+            // Can show the dividers now.
+            display: block;
+        }
+    }
+}
+
+.AccountSummary {
+    // Make sure the type is vertical centered with the current amount and percentage.
+    align-items: center;
+
+    display: flex;
+
+    // Push the current amount and percentage to the right, away from the type.
+    justify-content: space-between;
+
+    .AccountSummary-header {
+        .AccountSummary-type {
+            // Set the color of the type to have lower precedence than the current amount,
+            // but higher than the from amount.
+            color: $color-primary-100;
+
+            // Increase its size to further emphasis the above precedence.
+            font-size: $font-size-400;
+        }
+
+        .AccountSummary-AmountChange-desktop {
+            // As the class states, this AmountChange is only used in the desktop layout.
+            // Because the layouts of the mobile and desktop versions are just different enough,
+            // we need to duplicate the AmountChange to have one in each of the right spots.
+            display: none;
+        }
+    }
+
+    // This wrapper just groups the current amount and percentage on mobile so that they can
+    // be aligned to the right side of the summary.
+    .AccountSummary-amount-percent-wrapper {
+        display: grid;
+        gap: $size-200;
+        justify-items: flex-end;
+
+        .AccountSummary-CurrentAmount {
+            // Pump up the amount's size to give it the highest precedence.
+            font-size: $font-size-600;
+        }
+
+        .AccountSummary-AmountChange-mobile {
+            // Shrink the percentage down to give it the lowest precedence.
+            font-size: $font-size-200;
+        }
+    }
+
+    .AccountSummary-FromAmount {
+        // We don't have room for this on mobile.
+        display: none;
+    }
+
+    // Need the media query after all of the above so that it gains a higher specificity.
+    /* stylelint-disable */
+    @include media-query-navigation-change {
+        /* stylelint-enable */
+        display: grid;
+        gap: $size-300;
+
+        // Reset the content justification so that the summary fills the whole cell.
+        justify-content: normal;
+
+        .AccountSummary-header {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+
+            // Want the spacing between the header and the current amount to be slightly greater
+            // than the spacing between the from amount and the current amount so that the
+            // amounts are emphasized more.
+            margin-bottom: $size-100;
+
+            .AccountSummary-type {
+                // Need a smaller font just after the navigation change to be able to squish
+                // everything in.
+                font-size: $font-size-300;
+
+                @media (min-width: 900px) {
+                    font-size: $font-size-400;
+                }
+            }
+
+            .AccountSummary-AmountChange-desktop {
+                // Can show the desktop AmountChange now.
+                display: block;
+
+                // Need a smaller font just after the navigation change to be able to squish
+                // everything in.
+                font-size: $font-size-200;
+
+                // Align right so that, if the text starts wrapping, it wraps on the right side
+                // instead of the left (right next to the type title).
+                text-align: right;
+
+                .AmountChange-difference {
+                    // Have to hide the difference just after the navigation change to be able to
+                    // squish everything in.
+                    display: none;
+
+                    @media (min-width: 1000px) {
+                        // There's enough room to show it now.
+                        display: inline;
+                    }
+                }
+            }
+        }
+
+        .AccountSummary-amount-percent-wrapper {
+            // Reset the item justification so that the current amount is aligned to the left.
+            justify-items: flex-start;
+
+            .AccountSummary-CurrentAmount {
+                // Need a smaller font just after the navigation change to be able to squish
+                // everything in.
+                font-size: $font-size-600;
+
+                @media (min-width: 900px) {
+                    font-size: $font-size-700;
+                }
+
+                @media (min-width: 1100px) {
+                    font-size: $font-size-800;
+                }
+            }
+        }
+
+        .AccountSummary-AmountChange-mobile {
+            // As the class suggests, we don't need this percentage on desktop.
+            display: none;
+        }
+
+        .AccountSummary-FromAmount {
+            // Can show the from amount now.
+            display: block;
+
+            font-size: $font-size-200;
+        }
+    }
+}

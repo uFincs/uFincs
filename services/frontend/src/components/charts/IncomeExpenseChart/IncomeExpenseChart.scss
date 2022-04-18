@@ -1,0 +1,57 @@
+@import "styles/_shared.scss";
+
+.IncomeExpenseStats {
+    display: grid;
+    gap: $size-500;
+
+    // When the screen is too small, we need to lay out the two stats sections one on top of
+    // each other.
+    grid-template-rows: auto auto;
+
+    padding: $size-400;
+    padding-bottom: 0;
+    width: 100%;
+
+    @include media-query-medium {
+        // Once we have enough room, we can put the two stats sections next to each other.
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+
+        // However, we don't have enough room to align both sections to the left;
+        // so we space them out.
+        justify-content: space-between;
+    }
+
+    @media (min-width: 600px) {
+        // We finally have enough room to align everything to the left.
+        gap: $size-800;
+        justify-content: start;
+    }
+
+    @include media-query-navigation-change {
+        padding: $size-600;
+
+        // Because the chart has inherent padding, we don't need as much in the container.
+        padding-bottom: $size-300;
+    }
+
+    .IncomeExpenseStats-income-stats {
+        .CurrentAmount-dollar-sign {
+            color: $color-positive-500 !important;
+        }
+
+        .CurrentAmount-amount {
+            color: $color-positive-600 !important;
+        }
+    }
+
+    .IncomeExpenseStats-expense-stats {
+        .CurrentAmount-dollar-sign {
+            color: $color-negative-500 !important;
+        }
+
+        .CurrentAmount-amount {
+            color: $color-negative-600 !important;
+        }
+    }
+}

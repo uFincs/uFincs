@@ -1,0 +1,14 @@
+@import "styles/_shared.scss";
+
+.RecentTransactionsList {
+    width: 100%;
+
+    .RecentTransactionsList-header {
+        font-size: $font-size-200;
+        margin-bottom: $size-400;
+
+        @include media-query-navigation-change {
+            font-size: $font-size-400;
+        }
+    }
+}

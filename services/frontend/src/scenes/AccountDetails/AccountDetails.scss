@@ -1,0 +1,162 @@
+@import "styles/_shared.scss";
+
+.AccountDetails {
+    display: grid;
+    gap: $size-500;
+
+    // Provide lots of bottom padding so that users can scroll the screen
+    // past the Transactions list to see the bottom of the list better.
+    padding-bottom: 30vh;
+
+    width: 100%;
+
+    .AccountDetails-DateRangePicker {
+        @include media-query-account-details-double-column {
+            display: none;
+        }
+    }
+}
+
+.AccountDetailsHeaderName {
+    align-items: center;
+    display: flex;
+
+    .AccountDetailsHeaderName-BackButton {
+        // Undo the IconButton's negative margin so that the button is pushed a bit more
+        // from the left edge of the screen. Particularly relevant on mobile.
+        margin-left: 0;
+
+        margin-right: $size-300;
+
+        @include media-query-account-details-double-column {
+            display: none;
+        }
+    }
+
+    .AccountDetailsHeaderName-container {
+        align-content: flex-start;
+        display: grid;
+        gap: $size-100;
+
+        // Just add some right margin so that the name doesn't butt up right against
+        // the action buttons, in case the name is really long.
+        margin-right: $size-200;
+
+        @include media-query-medium {
+            gap: $size-200;
+        }
+
+        .AccountDetailsHeaderName-type {
+            color: $color-text-secondary;
+            font-size: $font-size-200;
+
+            @include media-query-medium {
+                font-size: $font-size-300;
+            }
+        }
+
+        .AccountDetailsHeaderName-name {
+            @include clamp-lines(3);
+
+            font-size: $font-size-400;
+            font-weight: $font-weight-bold;
+
+            @include media-query-medium {
+                font-size: $font-size-600;
+            }
+        }
+    }
+}
+
+.AccountDetailsHeader {
+    display: flex;
+    justify-content: space-between;
+
+    .AccountDetailsHeader-actions-container {
+        display: grid;
+        gap: $size-400;
+        grid-auto-columns: column;
+
+        // Use 1fr for each button instead of auto so that they're the same width.
+        // Need the 3rd auto column for the ShowFutureToggle.
+        grid-template-columns: 1fr 1fr auto;
+
+        @include media-query-navigation-change {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .AccountDetailsHeader-action-button {
+            @include svg-icon-color($color-neutral-500);
+
+            // These action buttons, since they're secondary, can be de-emphasized by
+            // being smaller vertically.
+            height: $size-input-height-small;
+
+            // Reduce the side padding so that the buttons are smaller.
+            padding: 0 $size-300;
+
+            svg {
+                height: 20px;
+                width: 20px;
+            }
+
+            .AccountDetailsHeader-action-label {
+                // Hide the label on pretty small screens so that we have more room for the
+                // account name.
+                display: none;
+
+                @include media-query-navigation-change {
+                    display: inline;
+                    margin-left: $size-100;
+                }
+            }
+        }
+
+        .ShowFutureToggle {
+            width: 64px;
+
+            @include media-query-navigation-change {
+                display: none;
+            }
+        }
+    }
+}
+
+.AccountDetailsTransactions {
+    display: grid;
+    gap: $size-500;
+    margin-top: $size-500;
+
+    .AccountDetailsTransactions-title {
+        font-size: $font-size-500;
+        font-weight: $font-weight-bold;
+    }
+
+    .TransactionTypeFilters {
+        width: 100%;
+    }
+}
+
+.AccountDetails-InvalidAccount {
+    width: 100%;
+
+    .InvalidAccount-EmptyArea {
+        margin-top: $size-600;
+
+        .EmptyArea-graphic {
+            height: 200px;
+            width: 200px;
+        }
+
+        .EmptyArea-message,
+        .EmptyArea-sub-message {
+            @include media-query-navigation-change {
+                max-width: 400px;
+            }
+        }
+
+        button {
+            max-width: 220px;
+        }
+    }
+}

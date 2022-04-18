@@ -1,0 +1,76 @@
+@import "styles/_shared.scss";
+
+.NoAccountSignUp {
+    @include authentication-scene-styles();
+
+    .NoAccountSignUp-content {
+        align-items: center;
+        background-color: $color-background-dark;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        padding-bottom: 35vh;
+        width: 100%;
+
+        @include media-query-navigation-change {
+            // Transform the layout so that the content is side-by-side, instead stacked on top.
+            flex-direction: row;
+        }
+
+        .NoAccountSignUp-message {
+            background-color: $color-light;
+            border-radius: $border-radius-normal;
+            font-size: $font-size-300;
+            margin-top: $size-500;
+            max-width: 450px;
+            padding: $size-400;
+            width: 100%;
+
+            @include media-query-navigation-change {
+                margin-right: $size-600;
+                margin-top: 0;
+                padding: $size-500 $size-600 $size-500 $size-500;
+            }
+
+            @media (min-width: 1000px) {
+                // Want to pull the message left to better center the split between the message and
+                // the form under the logo.
+                margin-left: -($size-900);
+            }
+
+            .NoAccountSignUp-header {
+                display: flex;
+                font-size: $font-size-600;
+                font-weight: $font-weight-bold;
+                margin-bottom: $size-500;
+
+                .Logo {
+                    margin: 0 $size-200;
+                    margin-top: 2px;
+                }
+            }
+
+            .NoAccountSignUp-features-list {
+                display: grid;
+                gap: $size-400;
+
+                // Want to pull the list a bit left to make the list item icons look visually
+                // more aligned with the header.
+                margin-left: -($size-50);
+            }
+        }
+    }
+}
+
+.MessageListItem {
+    align-items: flex-start;
+    display: flex;
+    line-height: $font-line-height-300;
+
+    svg {
+        @include svg-icon-color($color-positive-600);
+
+        flex-shrink: 0;
+        margin-right: $size-300;
+    }
+}

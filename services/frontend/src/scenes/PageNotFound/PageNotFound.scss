@@ -1,0 +1,14 @@
+@import "styles/_shared.scss";
+
+.PageNotFound {
+    @include authentication-scene-styles();
+
+    .PageNotFound-content {
+        color: $color-light;
+        margin-top: $size-500;
+
+        a {
+            color: $color-light;
+        }
+    }
+}

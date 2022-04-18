@@ -1,0 +1,195 @@
+@import "styles/_shared.scss";
+
+.ProgressStepper {
+    width: 100%;
+
+    .DesktopProgressStepper {
+        display: none;
+
+        @include media-query-navigation-change {
+            display: flex;
+        }
+    }
+
+    .MobileProgressStepper {
+        @include media-query-navigation-change {
+            display: none;
+        }
+    }
+}
+
+.DesktopProgressStepper {
+    background-color: $color-light;
+    display: flex;
+    justify-content: center;
+    padding: $size-500 0;
+    width: 100%;
+
+    .ProgressStep {
+        // Want all of the ProgressSteps to have the same width so that the dividers are
+        // all evenly spaced between the steps.
+        width: 155px;
+    }
+
+    .DesktopProgressStepper-Divider {
+        // Want the divider a _little_ thicker.
+        height: 2px;
+
+        // Need to use negative side margins to pull the dividers closer to the circle
+        // of the ProgressStep.
+        margin-left: -($size-600 + $size-200);
+        margin-right: -($size-600 + $size-200);
+
+        // Need exactly this much margin to push the divider down to align it with the middle
+        // of the circles of the ProgressSteps.
+        margin-top: 19px;
+
+        width: 110px;
+
+        &.DesktopProgressStepper-Divider--highlighted {
+            background-color: $color-primary-600;
+        }
+    }
+}
+
+.MobileProgressStepper {
+    background-color: $color-light;
+    display: flex;
+    padding: $size-100;
+    width: 100%;
+
+    @include media-query-extra-small {
+        padding: $size-200;
+    }
+
+    @include media-query-medium {
+        padding: $size-300;
+    }
+
+    .MobileProgressStepper-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: $size-200;
+
+        @include media-query-medium {
+            margin-left: $size-400;
+        }
+
+        .MobileProgressStepper-current-step {
+            font-size: $font-size-200;
+            font-weight: $font-weight-bold;
+
+            @include media-query-extra-small {
+                font-size: $font-size-300;
+            }
+
+            @include media-query-medium {
+                font-size: $font-size-400;
+            }
+        }
+
+        .MobileProgressStepper-next-step {
+            color: $color-text-secondary;
+            font-size: $font-size-50;
+            font-weight: $font-weight-semibold;
+            margin-top: $size-200;
+
+            @include media-query-extra-small {
+                font-size: $font-size-100;
+            }
+
+            @include media-query-medium {
+                font-size: $font-size-200;
+            }
+        }
+    }
+
+    .StepNavigationButtons {
+        gap: $size-400;
+
+        // Auto top/bottom for vertical centering, auto left to push to right.
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-top: auto;
+
+        .StepNavigationButtons-back {
+            font-size: $font-size-100;
+
+            @include media-query-extra-small {
+                font-size: $font-size-200;
+            }
+
+            @include media-query-medium {
+                font-size: $font-size-300;
+            }
+        }
+
+        .StepNavigationButtons-next {
+            font-size: $font-size-100;
+
+            @include media-query-extra-small {
+                font-size: $font-size-200;
+            }
+
+            @include media-query-medium {
+                font-size: $font-size-300;
+            }
+        }
+    }
+}
+
+.MobileStepIndicator {
+    height: 50px;
+    position: relative;
+    width: 50px;
+
+    @include media-query-extra-small {
+        height: 60px;
+        width: 60px;
+    }
+
+    @include media-query-medium {
+        height: 70px;
+        width: 70px;
+    }
+
+    svg {
+        height: 100%;
+        width: 100%;
+
+        circle {
+            stroke-linecap: round;
+            stroke-width: $size-400;
+        }
+
+        .inner-circle {
+            stroke: $color-primary-200;
+        }
+
+        .progress-circle {
+            stroke: $color-primary-500;
+            transform: rotate(-90deg);
+            transform-origin: center;
+        }
+    }
+
+    .MobileStepIndicator-label {
+        font-size: $font-size-100;
+        font-weight: $font-weight-semibold;
+        left: 50%;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+
+        @include media-query-extra-small {
+            font-size: $font-size-200;
+        }
+
+        @include media-query-medium {
+            font-size: $font-size-300;
+        }
+    }
+}

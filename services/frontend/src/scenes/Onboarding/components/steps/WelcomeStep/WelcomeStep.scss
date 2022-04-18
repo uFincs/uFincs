@@ -1,0 +1,161 @@
+@import "styles/_shared.scss";
+
+.WelcomeStep {
+    background-color: $color-background-light;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+
+    // All these negative margins are just to cancel out the padding on the AppRouter.
+    margin: -($size-500) (-($size-app-padding-horizontal-small));
+
+    padding-bottom: 35vh;
+    width: calc(100% + 2 * #{$size-app-padding-horizontal-small});
+
+    @include media-query-medium {
+        margin: -($size-500) (-($size-app-padding-horizontal-medium));
+        width: calc(100% + 2 * #{$size-app-padding-horizontal-medium});
+    }
+
+    @include media-query-navigation-change {
+        margin: -($size-300) (-($size-app-padding-horizontal-large));
+        padding-bottom: 0;
+        width: calc(100% + 2 * #{$size-app-padding-horizontal-large});
+    }
+
+    .WelcomeStep-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        height: 100vh;
+        width: 100%;
+
+        @include media-query-navigation-change {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .WelcomeStep-left-half {
+            background-color: $color-background-dark;
+            display: none;
+            height: 100%;
+            justify-content: center;
+            width: 100%;
+
+            @include media-query-navigation-change {
+                align-items: center;
+                display: flex;
+            }
+
+            svg {
+                // Use some right margin because the image itself is off-center, with too much excess
+                // padding on the left side, so this pushes it out a bit to center it.
+                margin-right: $size-600;
+
+                width: 350px;
+
+                @media (min-width: 1000px) {
+                    width: 500px;
+                }
+            }
+        }
+
+        .WelcomeStep-right-half {
+            align-items: center;
+            background-color: $color-background-light;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            padding: 0 $size-400;
+
+            .WelcomeStep-right-half-content {
+                display: grid;
+                gap: $size-600;
+                grid-template-columns: 1fr;
+                justify-items: center;
+                width: 100%;
+
+                @include media-query-small {
+                    gap: $size-700;
+                }
+
+                @include media-query-medium {
+                    gap: $size-800;
+                }
+
+                .WelcomeStep-header {
+                    align-items: center;
+                    display: flex;
+                    font-size: $font-size-600;
+                    font-weight: $font-weight-bold;
+
+                    @include media-query-small {
+                        font-size: $font-size-700;
+                    }
+
+                    @include media-query-medium {
+                        font-size: $font-size-800;
+                    }
+
+                    .WelcomeStep-logo {
+                        height: 18px;
+                        margin-left: $size-200;
+                        margin-right: $size-100;
+
+                        // Needs to move up just a _smidge_ to get it perfectly bottom aligned with the text.
+                        margin-top: -4px;
+
+                        width: 70px;
+
+                        @include media-query-small {
+                            height: 24px;
+                            width: 92px;
+                        }
+
+                        @include media-query-medium {
+                            height: 28px;
+                            width: 108px;
+                        }
+                    }
+                }
+
+                .WelcomeStep-body {
+                    font-size: $font-size-300;
+
+                    // This is _just_ the right amount of width to get the text to wrap how I want it.
+                    max-width: 370px;
+
+                    text-align: center;
+
+                    @include media-query-small {
+                        font-size: $font-size-400;
+                    }
+
+                    @include media-query-medium {
+                        font-size: $font-size-500;
+                    }
+                }
+
+                .WelcomeStep-buttons-container {
+                    align-content: center;
+                    display: grid;
+                    gap: $size-400;
+                    width: 100%;
+
+                    .TextField {
+                        text-align: center;
+                    }
+                }
+
+                // Need this outside of the .WelcomeStep-buttons-container because the NoAccountLayout
+                // uses this class but not .WelcomeStep-buttons-container.
+                .WelcomeStep-submit {
+                    justify-self: center;
+                    max-width: 300px;
+
+                    @include media-query-medium {
+                        font-size: $font-size-400;
+                    }
+                }
+            }
+        }
+    }
+}

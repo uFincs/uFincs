@@ -1,0 +1,39 @@
+@import "styles/_shared.scss";
+
+.TransactionsSummary {
+    display: grid;
+    gap: $size-400;
+}
+
+.CashFlow {
+    @include card-shadow();
+
+    align-items: center;
+    background-color: $color-light;
+    display: flex;
+    justify-content: space-between;
+    padding: $size-400 $size-500;
+    width: 100%;
+
+    @include media-query-navigation-change {
+        width: $size-transactions-summary-card;
+    }
+
+    .CashFlow-header {
+        color: $color-text-secondary;
+        font-size: $font-size-300;
+        font-weight: $font-weight-bold;
+    }
+
+    .CashFlow-amount {
+        font-weight: $font-weight-bold;
+
+        &.CashFlow-amount--positive {
+            color: $color-positive-500;
+        }
+
+        &.CashFlow-amount--negative {
+            color: $color-negative-500;
+        }
+    }
+}

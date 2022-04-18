@@ -1,0 +1,68 @@
+@import "styles/_shared.scss";
+
+$sidebar-width: 400px;
+
+.Sidebar {
+    background-color: $color-background-neutral;
+    bottom: 0;
+
+    height: 100%;
+
+    // Apply left and right values to stretch the sidebar across the whole screen.
+    left: 0;
+
+    // Honestly, not too sure why overflow-y was explicitly set to auto... but there must have been
+    // a reason.
+    overflow-y: auto;
+
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    width: 100%;
+    will-change: transform;
+    z-index: $z-index-modal;
+
+    @include supports-safe-area-insets {
+        // Need padding to account for notched devices.
+        bottom: env(safe-area-inset-bottom);
+        left: env(safe-area-inset-left);
+        right: env(safe-area-inset-right);
+        top: env(safe-area-inset-top);
+    }
+
+    @media (min-width: #{$sidebar-width}) {
+        // This is a left drop shadow to give the sidebar some depth.
+        box-shadow: -6px 0 4px transparentize($color: $color-neutral-900, $amount: 0.85);
+
+        // Unstretch the sidebar from the left side of the screen so that it sticks to the right.
+        left: unset;
+
+        // Give the sidebar a set width instead of taking the whole screen.
+        width: $sidebar-width;
+    }
+
+    /* React Transitions */
+
+    &-enter {
+        transform: translateX($sidebar-width);
+    }
+
+    &-enter-active {
+        @include short-transition(transform);
+
+        transform: translateX(0);
+    }
+
+    &-exit {
+        transform: translateX(0);
+    }
+
+    &-exit-active {
+        @include short-transition(transform);
+
+        transform: translateX($sidebar-width);
+    }
+
+    /* End React Transitions */
+}

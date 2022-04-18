@@ -1,0 +1,15 @@
+@import "styles/_shared.scss";
+
+.EmptyTransactionsArea {
+    &.EmptyTransactionsArea--recurring {
+        .EmptyArea-button {
+            // Need some more width to accommodate the longer label of the recurring transactions.
+            max-width: 260px;
+        }
+    }
+
+    .EmptyArea-message {
+        // Increase the width to fit the whole message in two lines.
+        max-width: 260px;
+    }
+}

@@ -1,0 +1,217 @@
+@import "styles/_shared.scss";
+
+$error-icon-starting-position: 35px;
+
+@include generate-bounce-animation(
+    $name: "bounce-in-from-right",
+    $final-translation: $error-icon-starting-position,
+    $first-bounce-offset: 10px,
+    $second-bounce-offset: 0,
+    $reverse: true,
+    $other-transform: translateY(-50%)
+);
+
+.Input-container {
+    // Inputs should always have a focus outline, regardless of keyboard navigation.
+    @include custom-navigation-outline();
+
+    // Disable the navigation outline transition, because I feel that form inputs
+    // feel snappier when they don't have transitions.
+    @include disable-custom-outline-transitions();
+
+    // Need inline-block so that the container conforms to the size of the input.
+    // Otherwise, the out of view Error icon will cause the container to be 'too' big,
+    // potentially causing horizontal scrolling in things like Sidebar forms.
+    display: inline-block;
+
+    position: relative;
+
+    width: 100%;
+
+    // Need this so that inputs, when put on other surfaces, are explicitly above the surface,
+    // and thus their rounded-outline (and error outline) still appear at the level of the input,
+    // and not behind the input on the surface.
+    z-index: $z-index-input;
+
+    &::before {
+        // Setup the error outline.
+        @include rounded-outline($color-negative);
+    }
+
+    &.Input--error {
+        &::before {
+            // Show the error outline.
+            opacity: 1;
+        }
+
+        .Input {
+            // 'Remove' our custom input border so that it doesn't clash
+            // with the error outline.
+            border-color: $color-light;
+        }
+    }
+
+    &.Input--error-with-icon {
+        .Input {
+            // Increase the right padding so that the error icon isn't on top of text.
+            padding-right: 40px;
+        }
+    }
+
+    &.Input--has-right-icon {
+        .Input {
+            // Increase the right padding so that the error icon isn't on top of text.
+            padding-right: 40px;
+        }
+    }
+
+    &.Input--has-right-icon.Input--has-status-icon {
+        .Input {
+            // Need enough padding to cover both the RightIcon _and_ the ErrorIcon/SuccessIcon.
+            padding-right: 75px;
+        }
+
+        .Input-RightIcon {
+            right: 40px;
+        }
+    }
+
+    .Input-prefix {
+        color: $color-text-secondary;
+        cursor: text;
+        left: $size-300;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        // Need to match the container's z-index.
+        z-index: $z-index-input;
+    }
+
+    .Input {
+        @include input-border();
+        @include input-height();
+        @include micro-transition(background-color, padding-right);
+
+        background-color: $color-light;
+        color: $color-text-primary;
+        font-size: $font-size-300;
+        outline: none; // Remove the default browser outline.
+        padding: 0 $size-300;
+        position: relative;
+        width: 100%;
+
+        @include media-query-small {
+            // Give the input more breathing room on larger screens.
+            padding: 0 $size-400;
+        }
+
+        &::placeholder {
+            // Change the placeholder color.
+            color: $color-input-placeholder;
+        }
+
+        &:disabled {
+            // Darken the background the and change the text color to the
+            // placeholder color to reduce contrast and indicate 'disabled'.
+            background-color: $color-neutral-300;
+            color: $color-input-placeholder;
+        }
+    }
+
+    .Input-RightIcon {
+        // Need a transition for 'right' since it gets changed when the ErrorIcon is shown
+        // alongside the RightIcon.
+        @include micro-transition(right);
+        @include svg-icon-color($color-neutral-500);
+
+        position: absolute;
+        right: $size-200;
+        top: 50%;
+        transform: translateY(-50%);
+
+        &.Input-RightIconButton {
+            // Need background-color and transform since IconButton has transitions for them.
+            @include micro-transition(background-color, right, transform);
+
+            // Remove the negative margins from the IconButton, since they mess up the
+            // absolute vertical centering.
+            margin-bottom: 0;
+            margin-top: 0;
+
+            // Need to override the micro-interactive-bounce's transforms since we need translateY
+            // for the absolute vertical centering trick.
+            @include non-sticky-interactions {
+                %base {
+                    // Need this transform to get absolute vertical centering.
+                    transform: translateY(-50%);
+                }
+
+                %hover {
+                    // Bounce up.
+                    transform: translateY(-51%);
+                }
+
+                %focus-regular {
+                    transform: translateY(-50%);
+                }
+
+                %active-override {
+                    // Bounce down.
+                    transform: translateY(-49%);
+                }
+            }
+        }
+    }
+}
+
+// Tech Debt: These styles are being shared for the status icon of Input and SelectInput.
+// This is also why we need all of the `!important` below — so that we can override any
+// component specific styles.
+
+.Input-ErrorIcon {
+    @include svg-icon-color($color-negative);
+}
+
+.Input-status-icon {
+    // Transitioning opacity makes the icon appear more smoothly.
+    // Transitioning transform is more relevant for when the icon fades out,
+    // since the fade in is controlled more by the animation.
+    @include micro-transition(opacity, transform);
+
+    // Setup the animation.
+    animation-duration: 0.8s;
+    animation-timing-function: $transition-custom-ease-out-curve;
+
+    cursor: default !important;
+
+    // Keep the icon hidden until there's an error.
+    opacity: 0 !important;
+
+    // Need to position the icon over the text in the input.
+    position: absolute !important;
+
+    // Gives it slightly less right padding than the input normally has,
+    // because of how much space the icon is taking up.
+    right: $size-200 !important;
+
+    // Half of the hack to get the icon perfectly centered vertically.
+    top: 50% !important;
+
+    // The X portion positions the icon outside the input, so that it has
+    // a distance to travel when animating in.
+    // The Y Portion is the other hack for perfect vertical centering.
+    transform: translate($error-icon-starting-position, -50%) !important;
+
+    &.Input-status-icon--visible {
+        // Activate the animation.
+        animation-name: bounce-in-from-right;
+
+        // Show the icon, on a transition.
+        opacity: 1 !important;
+
+        // Set the final position after the animation is done.
+        // (i.e. remove the initial X translation)
+        transform: translate(0, -50%) !important;
+    }
+}

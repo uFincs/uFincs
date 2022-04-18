@@ -1,0 +1,42 @@
+@import "styles/_shared.scss";
+
+.ToastMessages {
+    // Need this much to be above the small AppNavigation.
+    bottom: 110px;
+
+    display: grid;
+    gap: $size-200;
+    left: $size-app-padding-horizontal-small;
+    position: fixed;
+    right: $size-app-padding-horizontal-small;
+    z-index: $z-index-toasts;
+
+    @include supports-safe-area-insets {
+        // Need extra spacing to account for notched devices.
+        bottom: calc(110px + env(safe-area-inset-bottom));
+    }
+
+    @include media-query-medium {
+        // This left/right matches the padding of AppRouter.
+        left: $size-app-padding-horizontal-medium;
+        max-width: 400px;
+        right: $size-app-padding-horizontal-medium;
+    }
+
+    @include media-query-navigation-change {
+        bottom: $size-app-padding-horizontal-large;
+        left: $size-app-padding-horizontal-large;
+        right: unset;
+        width: 100%;
+    }
+}
+
+.ToastMessages--story-Connected {
+    // Just want to give the toast creation buttons some spacing.
+    display: grid;
+    gap: $size-400;
+
+    .Button {
+        max-width: unset;
+    }
+}

@@ -1,0 +1,31 @@
+@import "styles/_shared.scss";
+
+.Authentication {
+    @include authentication-scene-styles();
+
+    .Authentication-no-account {
+        // Because Safari sucks...
+        flex-shrink: 0;
+
+        margin-top: $size-500;
+        text-decoration: underline;
+
+        @include media-query-navigation-change {
+            margin-top: $size-700;
+        }
+
+        @include non-sticky-interactions {
+            %base {
+                color: $color-neutral-300;
+            }
+
+            %hover {
+                color: $color-neutral-100;
+            }
+
+            %disabled {
+                color: $color-neutral-500;
+            }
+        }
+    }
+}

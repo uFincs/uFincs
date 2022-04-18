@@ -1,0 +1,77 @@
+@import "styles/_shared.scss";
+
+$spin-delay: 0.2s;
+
+@keyframes loading-spinner {
+    0% {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+}
+
+.LoadingSpinner {
+    @include button-height($include-width: true);
+
+    // Hide the spinner by default.
+    opacity: 0;
+
+    position: absolute;
+    top: 0;
+
+    // Turn off transitions as a base case, so that when loading stops,
+    // the spinner immediately disappears.
+    transition: none;
+
+    // Hide the spinner beneath whatever element it'll be shown on, so that it
+    // doesn't get in the way of clicks.
+    z-index: -1;
+
+    &.LoadingSpinner--visible {
+        // Make the spinner visible after a delay, to allow time for after the user initiates
+        // the load. Specifically, this is currently relevant for the SubmitButton,
+        // since it has to transition into a circle.
+        opacity: 1;
+        transition: opacity $transition-micro-length $transition-micro-easing
+            $transition-micro-length + 0.05s;
+
+        // Bring the spinner forward to show it.
+        z-index: 0;
+
+        &::before {
+            animation: 1s ease-in-out infinite loading-spinner;
+
+            // Match the opacity transition delay so that the animation doesn't start preemptively.
+            animation-delay: $spin-delay;
+        }
+    }
+
+    &::before {
+        // The actual spinning part is made up of the top and bottom pieces of the border.
+        // The rest of the border is just made to look like an underlying track that
+        // the spinner spins on.
+        border: solid $border-loading-spinner-width $color-neutral-400;
+        border-bottom-color: $color-primary;
+        border-radius: 50%;
+        border-top-color: $color-primary;
+
+        content: "";
+
+        // Inherit height so that the component consumer can just put a class on the main
+        // component and change the height there.
+        height: inherit;
+
+        left: 50%;
+        opacity: inherit;
+        position: absolute;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        transform-origin: center;
+
+        // Inherit width so that the component consumer can just put a class on the main
+        // component and change the width there.
+        width: inherit;
+    }
+}

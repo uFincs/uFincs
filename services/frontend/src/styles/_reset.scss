@@ -1,0 +1,163 @@
+@import "styles/_fonts.module.scss";
+
+// Our custom CSS reset.
+
+html,
+body,
+div,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+button,
+input,
+textarea,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    border: 0;
+    color: inherit;
+    font-family: $font-family-default;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+/* stylelint-disable */
+// This removes the inner shadow that Safari adds on iOS. Cause it's ugly.
+// Need to use type selectors because of Safari applies the shadow...
+// See: https://stackoverflow.com/a/23211766.
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"],
+input[type="password"] {
+    appearance: none;
+}
+
+// This rule removes the spinner buttons from number inputs on Chrome/Safari.
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+// This rule removes the spinner buttons from number inputs on Firefox.
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* stylelint-enable */
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: $font-weight-normal;
+}
+
+button {
+    cursor: pointer;
+}
+
+// Apparently svg elements are inline by default. This causes some wonkiness
+// when you're expecting them to be block (e.g. wrapper elements not conforming
+// to the size of the SVG), so now _all_ SVGs are block display.
+svg {
+    display: block;
+}

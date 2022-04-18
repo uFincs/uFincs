@@ -1,0 +1,11 @@
+# Files we don't want in the container
+.dockerignore
+.env
+.env.encrypted
+.gitignore
+.git
+.vscode
+Dockerfile
+Dockerfile.development
+Makefile
+README.md

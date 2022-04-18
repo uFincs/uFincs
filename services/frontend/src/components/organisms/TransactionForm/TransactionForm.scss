@@ -1,0 +1,36 @@
+@import "styles/_shared.scss";
+
+.TransactionForm {
+    .TransactionForm-first-inputs {
+        display: grid;
+        gap: $size-400;
+
+        .TransactionForm-date-options {
+            // The date options needs _just_ a bit more separation from everything else
+            // than the grid gap provides.
+            margin-bottom: $size-400;
+            margin-top: $size-300;
+        }
+    }
+
+    .TransactionForm-account-inputs {
+        display: grid;
+        gap: $size-400;
+    }
+
+    .TransactionForm-target-account-placeholder {
+        &::placeholder {
+            // Change the target account placeholder to a warning color to match how target accounts
+            // are colored elsewhere (table, list, help message).
+            color: $color-warning-600;
+
+            font-style: italic;
+        }
+    }
+
+    // We explicitly need this inside .TransactionForm (even though it would normally be outside)
+    // just for the specificity boost to override the RadioGroup's class.
+    .TransactionForm-TypePickerLabel {
+        margin-bottom: $size-400;
+    }
+}

@@ -1,0 +1,114 @@
+@import "styles/_shared.scss";
+
+// These two mixins are the classes for the `CSSTransition` that wraps the dialog.
+//
+// The small transition only differs from the large transition in that the small dialog
+// doesn't require transformX(-50%) for horizontal centering -- since the dialog spans the entire
+// screen width on small devices, it has no need for horizontal centering.
+//
+// Other than that, both transition are similar in that they both fade in/slide up the dialog
+// on enter and fade out/slide right the dialog on exit.
+@mixin dialog-small-transition() {
+    &-enter {
+        opacity: 0;
+
+        // Since translateY is -40% here, that means we're doing a 10% translation as the
+        // animation (since -50% is used for centering).
+        transform: translateY(-40%);
+    }
+
+    &-enter-active {
+        @include short-transition(opacity, transform);
+
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+
+    &-exit {
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+
+    &-exit-active {
+        @include short-transition(opacity, transform);
+
+        opacity: 0;
+        transform: translateX(30%) translateY(-50%);
+    }
+}
+
+@mixin dialog-large-transition() {
+    &-enter {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-40%);
+    }
+
+    &-enter-active {
+        @include short-transition(opacity, transform);
+
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    &-exit {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    &-exit-active {
+        @include short-transition(opacity, transform);
+
+        opacity: 0;
+
+        // We're using a -30% translateX here to give the slide right a more pronounced
+        // effect than the slide up when animating in.
+        transform: translateX(-30%) translateY(-50%);
+    }
+}
+
+.DialogContainer {
+    @include dialog-small-transition();
+
+    background-color: $color-light;
+    border-radius: $border-radius-normal;
+
+    // Need a pretty aggressive shadow so that it stands out against the BackgroundBlur.
+    // Note that we're using a neutral color here instead of primary so that nothing is
+    // taken away from the emphasis of the variant accents on the dialog
+    // (i.e. the primary button, border, and icon).
+    box-shadow: 0 6px 20px transparentize($color: $color-neutral-600, $amount: 0.2);
+
+    display: flex;
+    flex-direction: column;
+
+    // These left and right attributes are so the dialog respects the padding on small screens.
+    left: $size-app-padding-horizontal-small;
+
+    // Use the viewport height as the max-height, so that the dialog responds well to landscape phones.
+    // However, we don't want to use 100vh since we still want some margin around the dialog.
+    max-height: 95vh;
+
+    // Need scrolling for when the dialog becomes taller than the height of the screen.
+    overflow: auto;
+
+    position: fixed;
+    right: $size-app-padding-horizontal-small;
+
+    // I like having the dialog just slightly above center; looks better IMO.
+    top: 40%;
+    transform: translateY(-50%);
+
+    will-change: opacity, transform;
+    z-index: $z-index-modal;
+
+    @include media-query-dialog {
+        @include dialog-large-transition();
+
+        // Center the dialog to the middle of the screen with a max width.
+        left: 50%;
+        max-width: $size-dialog-max-width;
+        right: unset;
+        transform: translateX(-50%) translateY(-50%);
+        width: 100%;
+    }
+}

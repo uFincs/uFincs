@@ -1,0 +1,23 @@
+@import "styles/_shared.scss";
+
+.TransactionsTable {
+    width: 100%;
+
+    .TransactionsTable-head {
+        // IDK, need this for making the head take 100% width.
+        display: grid;
+    }
+
+    .TransactionsTable-body {
+        display: grid;
+        gap: $size-100;
+
+        .TransactionsTableRow {
+            @include trigger-animate-in-list-item();
+        }
+    }
+
+    .EmptyTransactionsArea {
+        margin-top: $size-600;
+    }
+}
