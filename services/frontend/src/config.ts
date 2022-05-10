@@ -104,7 +104,7 @@ if (window.MARKETING_PORT !== "80" && window.MARKETING_PORT !== "443") {
     MARKETING_URL = `${MARKETING_URL}:${window.MARKETING_PORT}`;
 }
 
-const BACKEND_HEALTHCHECK_ROUTE = `${BACKEND_URL}/healthz`;
+const BACKEND_HEALTHCHECK_ROUTE = `${BACKEND_URL}/healthcheck`;
 const BACKEND_DATABASE_SERVICE = "backend-database";
 
 const SOFTWARE_TAG = window.SOFTWARE_TAG;

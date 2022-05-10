@@ -4,7 +4,7 @@ locals {
   frontend_check         = "${var.project_name}-frontend"
   marketing_check        = "${var.project_name}-marketing"
 
-  healthcheck_endpoint    = "healthz"
+  healthcheck_endpoint    = "healthcheck"
   ingress_nginx_namespace = "ingress-nginx"
   ingress_nginx_container = "controller"
   stackdriver_user_agent  = "GoogleStackdriverMonitoring-UptimeChecks(https://cloud.google.com/monitoring)"

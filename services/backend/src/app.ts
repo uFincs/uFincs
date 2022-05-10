@@ -61,7 +61,7 @@ app.set("trust proxy", true);
 // Register a healthcheck route for the frontend to check for connectivity.
 // Note that rate limiting the healthcheck endpoint effectively means that users can only use
 // the frontend client so much before they get kicked 'offline'. This is good to prevent abusive users.
-app.get("/healthz", rateLimiter("lenient"), (req, res) => res.send("1"));
+app.get("/healthcheck", rateLimiter("lenient"), (req, res) => res.send("1"));
 
 // Set up Plugins and providers
 app.configure(express.rest());

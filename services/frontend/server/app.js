@@ -155,7 +155,7 @@ app.use(successLogger);
 app.get("/", removeCaching, renderApp);
 
 // Setup a healthcheck endpoint for the monitoring.
-app.get("/healthz", (req, res) => res.send("1"));
+app.get("/healthcheck", (req, res) => res.send("1"));
 
 // Need to explicitly render the app when hitting `/index.html` so that it doesn't
 // use the static middleware and return the raw index.html file.

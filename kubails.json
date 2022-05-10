@@ -37,7 +37,7 @@
             "persistent_volume": {},
             "pre_startup_command": null,
             "production_replicas": 2,
-            "readiness_route": "/healthz",
+            "readiness_route": "/healthcheck",
             "replicas": 1,
             "secrets": {
                 "file": ".env.encrypted",
@@ -186,7 +186,7 @@
             "persistent_volume": {},
             "pre_startup_command": null,
             "production_replicas": 2,
-            "readiness_route": "/healthz",
+            "readiness_route": "/healthcheck",
             "replicas": 1,
             "secrets": {},
             "templates": [
@@ -215,7 +215,7 @@
             "persistent_volume": {},
             "pre_startup_command": null,
             "production_replicas": 2,
-            "readiness_route": "/healthz",
+            "readiness_route": "/healthcheck",
             "replicas": 1,
             "secrets": {},
             "templates": [

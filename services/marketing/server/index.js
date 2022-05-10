@@ -24,7 +24,7 @@ app.prepare().then(() => {
     app.use(errorLogger);
     app.use(successLogger);
 
-    app.get("/healthz", (req, res) => {
+    app.get("/healthcheck", (req, res) => {
         res.send("1");
     });
 
