@@ -62,3 +62,46 @@ variable "cluster_preemptible" {
   default = "true"
 }
 
+# Secret variables for the Cheap infrastructure (specifically, the Backend Cloud Run instance).
+# Can be set in a `secret.auto.tfvars` file, which can be done by unencrypting the
+# `secret.auto.tfvars.encrypted` file.
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "mailgun_api_key" {
+  type      = string
+  sensitive = true
+}
+
+variable "slack_webhook" {
+  type      = string
+  sensitive = true
+}
+
+variable "slack_webhook_test" {
+  type      = string
+  sensitive = true
+}
+
+variable "stripe_secret_key_test" {
+  type      = string
+  sensitive = true
+}
+
+variable "stripe_secret_key_prod" {
+  type      = string
+  sensitive = true
+}
+
+variable "stripe_webhook_secret" {
+  type      = string
+  sensitive = true
+}
+
+variable "token_secret" {
+  type      = string
+  sensitive = true
+}

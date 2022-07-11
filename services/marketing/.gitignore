@@ -8,6 +8,7 @@
 
 # production
 /build
+out/
 
 # misc
 .DS_Store
@@ -28,3 +29,5 @@ src/**/*.css
 
 .eslintcache
 .next
+
+.firebase/

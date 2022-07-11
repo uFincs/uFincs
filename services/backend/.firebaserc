@@ -1,0 +1,17 @@
+{
+    "projects": {
+        "default": "ufincs2"
+    },
+    "targets": {
+        "ufincs2": {
+            "hosting": {
+                "backend": [
+                    "ufincs2-backend"
+                ],
+                "backend-staging": [
+                    "ufincs2-backend-staging"
+                ]
+            }
+        }
+    }
+}

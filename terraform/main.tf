@@ -96,3 +96,23 @@ module "logging" {
   logging_base_name = var.__gcp_project_id
 }
 
+module "cheap" {
+  source = "./modules/cheap"
+
+  __gcp_project_id             = var.__gcp_project_id
+  __project_name               = var.__project_name
+  __gcp_project_region         = var.__gcp_project_region
+  cloud_source_repo_name       = module.cicd.full_repo_name
+  database_backups_bucket_name = module.cluster.cluster_database_backups_bucket_name
+  dns_domain                   = var.__domain
+  dns_zone_name                = module.dns.dns_zone_name
+  db_password                  = var.db_password
+  mailgun_api_key              = var.mailgun_api_key
+  slack_webhook                = var.slack_webhook
+  slack_webhook_test           = var.slack_webhook_test
+  stripe_secret_key_test       = var.stripe_secret_key_test
+  stripe_secret_key_prod       = var.stripe_secret_key_prod
+  stripe_webhook_secret        = var.stripe_webhook_secret
+  token_secret                 = var.token_secret
+}
+

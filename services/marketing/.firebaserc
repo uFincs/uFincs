@@ -1,0 +1,17 @@
+{
+    "projects": {
+        "default": "ufincs2"
+    },
+    "targets": {
+        "ufincs2": {
+            "hosting": {
+                "marketing": [
+                    "ufincs2-marketing"
+                ],
+                "marketing-staging": [
+                    "ufincs2-marketing-staging"
+                ]
+            }
+        }
+    }
+}

@@ -20,7 +20,6 @@ resource "google_cloudbuild_trigger" "primary" {
 
   lifecycle {
     # 'substitutions' includes the Slack webhook that is added manually (since it's a secret)
-    ignore_changes = [substitutions]
+    ignore_changes = [disabled, substitutions]
   }
 }
-

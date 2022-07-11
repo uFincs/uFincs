@@ -1,0 +1,14 @@
+{
+    "hosting": [
+        {
+            "target": "marketing",
+            "public": "out",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+        },
+        {
+            "target": "marketing-staging",
+            "public": "out",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+        }
+    ]
+}

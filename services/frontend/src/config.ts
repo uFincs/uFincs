@@ -2,6 +2,7 @@ declare global {
     interface Window {
         Cypress: object;
 
+        BRANCH: string;
         BACKEND_HOST: string;
         BACKEND_PORT: string;
         BACKEND_PROTOCOL: string;
@@ -9,7 +10,6 @@ declare global {
         MARKETING_PORT: string;
         MARKETING_PROTOCOL: string;
         SOFTWARE_TAG: string;
-        STRIPE_KEY: string;
 
         trustedTypes?: {
             createPolicy: (
@@ -109,11 +109,21 @@ const BACKEND_DATABASE_SERVICE = "backend-database";
 
 const SOFTWARE_TAG = window.SOFTWARE_TAG;
 
-const STRIPE_KEY =
-    window.STRIPE_KEY !== "__STRIPE_KEY__"
-        ? window.STRIPE_KEY
-        : // This is the Stripe key for the test account. It should only fall back to this default in dev.
-          "pk_test_51IPdzoHRrHYb3hYtytBQE6svreY0cPiNHxEizAAE7hOVIWIIlUK5eTgsfnsC5X4OyGQhZ5GFYY3BC9UWc5J6yfXa00I7uJx230";
+const STRIPE_KEY = (() => {
+    if (window.BRANCH === undefined || window.BRANCH === "__BRANCH__" || window.BRANCH === "") {
+        window.BRANCH = process.env.REACT_APP_BRANCH || "localhost";
+    }
+
+    if (window.BRANCH === "master") {
+        // This is the prod Stripe key. It should only be used in prod (i.e. the master branch).
+        // eslint-disable-next-line
+        return "pk_live_51IPd3fAp2ZfinMgzTa2EQZ4YqG08s0kB8k6zLsMwfFven1L9qpfNFtGOxD5B4StH6W48Al1UX9g8ypixF7IN1rKJ00d61hQMGS";
+    } else {
+        // This is the Stripe key for the test account. It should be used in dev and all staging environments.
+        // eslint-disable-next-line
+        return "pk_test_51IPdzoHRrHYb3hYtytBQE6svreY0cPiNHxEizAAE7hOVIWIIlUK5eTgsfnsC5X4OyGQhZ5GFYY3BC9UWc5J6yfXa00I7uJx230";
+    }
+})();
 
 export {
     BACKEND_URL,

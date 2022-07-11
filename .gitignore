@@ -113,3 +113,5 @@ ufincs2-account.json
 manifests/generated/**/*.yaml
 
 .DS_Store
+
+*.tfvars

@@ -70,6 +70,9 @@ run-frontend-cypress-parallel:
 inspect-database:
 	docker-compose -f ./services/docker-compose.yaml exec backend-database psql app-database app-database-user
 
+connect-cloud-sql:
+	gcloud sql connect --database app-database --user app-database-user $(shell gcloud sql instances list --format="get(name)")
+
 #################################################################################
 # SELF DOCUMENTING COMMANDS
 #################################################################################

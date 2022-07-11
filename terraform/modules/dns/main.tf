@@ -101,7 +101,12 @@ resource "google_dns_record_set" "workspace_root_txt" {
   type = "TXT"
   ttl  = 300
 
-  rrdatas = ["\"v=spf1 include:_spf.google.com ~all\""]
+  rrdatas = [
+    # For Google Workspace.
+    "\"v=spf1 include:_spf.google.com ~all\"",
+    # For Firebase Hosting (Cheap Infrastructure) verification.
+    "google-site-verification=ohbc6XUZ9lwJ-IuI0qLrqiERtDkHYgKcO4LKVRDWjyw"
+  ]
 }
 
 resource "google_dns_record_set" "workspace_root_dkim" {
@@ -142,4 +147,53 @@ resource "google_dns_record_set" "substack_domain" {
   ttl  = 300
 
   rrdatas = ["target.substack-custom-domains.com."]
+}
+
+################################################################################
+# Temp Cheap Infrastructure Records
+################################################################################
+
+resource "google_dns_record_set" "frontend" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "app.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 60
+  rrdatas = [google_compute_address.primary.address]
+}
+
+resource "google_dns_record_set" "frontend_wildcard" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "*.app.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 60
+  rrdatas = [google_compute_address.primary.address]
+}
+
+resource "google_dns_record_set" "backend" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "backend.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 60
+  rrdatas = [google_compute_address.primary.address]
+}
+
+resource "google_dns_record_set" "backend_wildcard" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "*.backend.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 60
+  rrdatas = [google_compute_address.primary.address]
+}
+
+resource "google_dns_record_set" "marketing_www" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "www.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 60
+  rrdatas = [google_compute_address.primary.address]
 }

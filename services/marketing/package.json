@@ -38,6 +38,7 @@
         "start:prod:local": "next start -p 4000",
         "start:prod": "next start -p 80",
         "build": "next build",
+        "export": "next build && next export",
         "analyze": "ANALYZE=true next build",
         "lint": "eslint 'src/**/*.[j|t]s*'",
         "prettier": "prettier --write src",

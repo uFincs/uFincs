@@ -1,0 +1,9 @@
+{
+    "name": "cheap-database-backup-function",
+    "version": "0.0.1",
+    "main": "index.js",
+    "dependencies": {
+        "googleapis": "^105.0.0",
+        "google-auth-library": "^8.1.0"
+    }
+}

@@ -1,0 +1,45 @@
+steps:
+  - id: "Install deps"
+    name: node:14-alpine
+    entrypoint: npm
+    args: ["ci", "--production"]
+    dir: "services/frontend"
+
+  - id: "Run tests and linters"
+    name: node:14-alpine
+    entrypoint: npm
+    args: ["run", "ci"]
+    dir: "services/frontend"
+
+  - id: "Build static assets"
+    name: node:14-alpine
+    entrypoint: npm
+    args: ["run", "build"]
+    env:
+      - "REACT_APP_BACKEND_HOST=${_BACKEND_HOST}"
+      - "REACT_APP_BACKEND_PORT=${_BACKEND_PORT}"
+      - "REACT_APP_BACKEND_PROTOCOL=${_BACKEND_PROTOCOL}"
+      - "REACT_APP_MARKETING_HOST=${_MARKETING_HOST}"
+      - "REACT_APP_MARKETING_PORT=${_MARKETING_PORT}"
+      - "REACT_APP_MARKETING_PROTOCOL=${_MARKETING_PROTOCOL}"
+      - "REACT_APP_BRANCH=${BRANCH_NAME}"
+    dir: "services/frontend"
+
+  - id: "Deploy to Firebase"
+    name: gcr.io/$PROJECT_ID/firebase
+    args: ["deploy", "--project=$PROJECT_ID", "--only=hosting:${_FIREBASE_TARGET}"]
+    dir: "services/frontend"
+
+options:
+    machineType: "E2_HIGHCPU_8"
+
+substitutions:
+  _BACKEND_HOST: "cheap-backend.ufincs.com"
+  _BACKEND_PORT: "443"
+  _BACKEND_PROTOCOL: "https"
+  _MARKETING_HOST: "cheap-marketing.ufincs.com"
+  _MARKETING_PORT: "443"
+  _MARKETING_PROTOCOL: "https"
+  _FIREBASE_TARGET: "frontend"
+
+timeout: 3600s

@@ -1,0 +1,28 @@
+{
+    "hosting": [
+        {
+            "target": "backend",
+            "rewrites": [
+                {
+                    "source": "**",
+                    "run": {
+                        "serviceId": "ufincs2-backend",
+                        "region": "us-east1"
+                    }
+                }
+            ]
+        },
+        {
+            "target": "backend-staging",
+            "rewrites": [
+                {
+                    "source": "**",
+                    "run": {
+                        "serviceId": "ufincs2-backend-staging",
+                        "region": "us-east1"
+                    }
+                }
+            ]
+        }
+    ]
+}

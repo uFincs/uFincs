@@ -17,7 +17,7 @@ const allConfigs = {
         username: "app-database-user",
         password: process.env.POSTGRES_PASSWORD,
         database: "app-database",
-        host: "backend-database",
+        host: process.env.POSTGRES_HOST || "backend-database",
         dialect,
         define: {
             freezeTableName: true

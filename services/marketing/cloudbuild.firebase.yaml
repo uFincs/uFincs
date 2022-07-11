@@ -1,0 +1,38 @@
+steps:
+  - id: "Install deps"
+    name: node:14-alpine
+    entrypoint: npm
+    args: ["ci"]
+    dir: "services/marketing"
+
+  - id: "Run tests and linters"
+    name: node:14-alpine
+    entrypoint: npm
+    args: ["run", "ci"]
+    dir: "services/marketing"
+
+  - id: "Build static assets"
+    name: node:14-alpine
+    entrypoint: npm
+    args: ["run", "export"]
+    env:
+      - "NEXT_PUBLIC_FRONTEND_URL=${_FRONTEND_URL}"
+      - "NEXT_PUBLIC_MARKETING_URL=${_MARKETING_URL}"
+      - "NEXT_PUBLIC_BRANCH=${_BRANCH}"
+    dir: "services/marketing"
+
+  - id: "Deploy to Firebase"
+    name: gcr.io/$PROJECT_ID/firebase
+    args: ["deploy", "--project=$PROJECT_ID", "--only=hosting:${_FIREBASE_TARGET}"]
+    dir: "services/marketing"
+
+options:
+    machineType: "E2_HIGHCPU_8"
+
+substitutions:
+  _FRONTEND_URL: "https://cheap-frontend.ufincs.com"
+  _MARKETING_URL: "https://cheap-marketing.ufincs.com"
+  _BRANCH: "master"
+  _FIREBASE_TARGET: "marketing"
+
+timeout: 3600s

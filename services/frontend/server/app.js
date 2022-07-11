@@ -7,7 +7,6 @@ const cheerio = require("cheerio");
 const express = require("express");
 const helmet = require("helmet");
 const {errorLogger, successLogger} = require("./requestLogger");
-const {STRIPE_PROD_KEY, STRIPE_TEST_KEY} = require("./stripeKeys");
 
 /* Helper Functions */
 
@@ -24,8 +23,6 @@ const escapeString = (unsafe) => {
         .replace(/'/g, "&#039;");
 };
 
-const getStripeKey = () => (process.env.NAMESPACE === "master" ? STRIPE_PROD_KEY : STRIPE_TEST_KEY);
-
 // Want to escape the environment variables just to hedge against a server takeover where an attacker
 // specifically tries to do an XSS attack through the environment variables.
 //
@@ -38,8 +35,8 @@ const MARKETING_HOST = escapeString(process.env.MARKETING_HOST);
 const MARKETING_PORT = escapeString(process.env.MARKETING_PORT);
 const MARKETING_PROTOCOL = MARKETING_HOST ? "https" : "http";
 
+const BRANCH = escapeString(process.env.NAMESPACE);
 const SOFTWARE_TAG = escapeString(process.env.SOFTWARE_TAG);
-const STRIPE_KEY = escapeString(getStripeKey());
 
 // This is a really basic cache for the rendered index file. It contains the replacements for the Backend
 // configuration. A hash is also calculated on the script source so that we can put the hash in the CSP
@@ -60,8 +57,8 @@ const {renderedApp, scriptHash} = (() => {
             .replace("__MARKETING_HOST__", `${MARKETING_HOST}`)
             .replace("__MARKETING_PORT__", `${MARKETING_PORT}`)
             .replace("__MARKETING_PROTOCOL__", `${MARKETING_PROTOCOL}`)
-            .replace("__SOFTWARE_TAG__", `${SOFTWARE_TAG}`)
-            .replace("__STRIPE_KEY__", `${STRIPE_KEY}`);
+            .replace("__BRANCH__", `${BRANCH}`)
+            .replace("__SOFTWARE_TAG__", `${SOFTWARE_TAG}`);
 
         const $ = cheerio.load(htmlData);
         const scriptSource = $("#script-backend-config").get()[0].children[0].data;

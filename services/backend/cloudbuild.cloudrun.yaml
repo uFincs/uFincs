@@ -1,0 +1,49 @@
+steps:
+  - id: "Pull cache image"
+    name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
+    args: ["-c", "docker pull gcr.io/$PROJECT_ID/ufincs-backend:$BRANCH_NAME || exit 0"]
+
+  - id: "Build image"
+    name: "gcr.io/cloud-builders/docker"
+    args: 
+      - "build"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/ufincs-backend:$BRANCH_NAME"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/ufincs-backend:$SHORT_SHA"
+      - "--cache-from"
+      - "gcr.io/$PROJECT_ID/ufincs-backend:$BRANCH_NAME"
+      - "."
+    dir: "services/backend"
+
+  - id: "Push branch image"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/ufincs-backend:$BRANCH_NAME"]
+
+  - id: "Push commit image"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/ufincs-backend:$SHORT_SHA"]
+
+  - id: "Deploy image"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args: 
+      - "run"
+      - "deploy"
+      - "${PROJECT_ID}-${_CLOUD_RUN_NAME}"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/ufincs-backend:$SHORT_SHA"
+      - "--region"
+      - "us-east1"
+      - "--update-env-vars"
+      - "FRONTEND_HOST=${_FRONTEND_HOST}"
+
+options:
+    machineType: "E2_HIGHCPU_8"
+
+substitutions:
+  _FRONTEND_HOST: "cheap-frontend.ufincs.com"
+  _CLOUD_RUN_NAME: "backend"
+
+timeout: 3600s
