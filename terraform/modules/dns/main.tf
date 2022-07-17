@@ -1,14 +1,27 @@
-resource "google_compute_address" "primary" {
-  name = var.ip_name
+locals {
+  firebase_ip       = "199.36.158.100"
+  staging_subdomain = "staging"
 }
 
+################################################################################
+# DNS Zone
+################################################################################
+
+# resource "google_compute_address" "primary" {
+#   name = var.ip_name
+# }
+
 resource "google_dns_managed_zone" "prod" {
-  depends_on = [google_compute_address.primary]
+  # depends_on = [google_compute_address.primary]
 
   name        = var.dns_zone_name
   dns_name    = "${var.domain}."
   description = "Production DNS Zone"
 }
+
+################################################################################
+# Service DNS Records
+################################################################################
 
 resource "google_dns_record_set" "base" {
   managed_zone = google_dns_managed_zone.prod.name
@@ -16,17 +29,69 @@ resource "google_dns_record_set" "base" {
   name    = google_dns_managed_zone.prod.dns_name
   type    = "A"
   ttl     = 300
-  rrdatas = [google_compute_address.primary.address]
+  rrdatas = [local.firebase_ip]
 }
 
-resource "google_dns_record_set" "wildcard" {
+resource "google_dns_record_set" "marketing_www" {
   managed_zone = google_dns_managed_zone.prod.name
 
-  name    = "*.${google_dns_managed_zone.prod.dns_name}"
+  name    = "www.${google_dns_managed_zone.prod.dns_name}"
   type    = "A"
   ttl     = 300
-  rrdatas = [google_compute_address.primary.address]
+  rrdatas = [local.firebase_ip]
 }
+
+resource "google_dns_record_set" "marketing_staging" {
+  managed_zone = var.dns_zone_name
+
+  name = "${local.staging_subdomain}.${google_dns_managed_zone.prod.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  rrdatas = [local.firebase_ip]
+}
+
+resource "google_dns_record_set" "frontend" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "app.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 300
+  rrdatas = [local.firebase_ip]
+}
+
+resource "google_dns_record_set" "frontend_staging" {
+  managed_zone = var.dns_zone_name
+
+  name = "${local.staging_subdomain}.app.${google_dns_managed_zone.prod.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  rrdatas = [local.firebase_ip]
+}
+
+resource "google_dns_record_set" "backend" {
+  managed_zone = google_dns_managed_zone.prod.name
+
+  name    = "backend.${google_dns_managed_zone.prod.dns_name}"
+  type    = "A"
+  ttl     = 300
+  rrdatas = [local.firebase_ip]
+}
+
+resource "google_dns_record_set" "backend_staging" {
+  managed_zone = var.dns_zone_name
+
+  name = "${local.staging_subdomain}.backend.${google_dns_managed_zone.prod.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  rrdatas = [local.firebase_ip]
+}
+
+################################################################################
+# Other DNS Records
+################################################################################
 
 # Mailgun Records
 
@@ -147,53 +212,4 @@ resource "google_dns_record_set" "substack_domain" {
   ttl  = 300
 
   rrdatas = ["target.substack-custom-domains.com."]
-}
-
-################################################################################
-# Temp Cheap Infrastructure Records
-################################################################################
-
-resource "google_dns_record_set" "frontend" {
-  managed_zone = google_dns_managed_zone.prod.name
-
-  name    = "app.${google_dns_managed_zone.prod.dns_name}"
-  type    = "A"
-  ttl     = 60
-  rrdatas = [google_compute_address.primary.address]
-}
-
-resource "google_dns_record_set" "frontend_wildcard" {
-  managed_zone = google_dns_managed_zone.prod.name
-
-  name    = "*.app.${google_dns_managed_zone.prod.dns_name}"
-  type    = "A"
-  ttl     = 60
-  rrdatas = [google_compute_address.primary.address]
-}
-
-resource "google_dns_record_set" "backend" {
-  managed_zone = google_dns_managed_zone.prod.name
-
-  name    = "backend.${google_dns_managed_zone.prod.dns_name}"
-  type    = "A"
-  ttl     = 60
-  rrdatas = [google_compute_address.primary.address]
-}
-
-resource "google_dns_record_set" "backend_wildcard" {
-  managed_zone = google_dns_managed_zone.prod.name
-
-  name    = "*.backend.${google_dns_managed_zone.prod.dns_name}"
-  type    = "A"
-  ttl     = 60
-  rrdatas = [google_compute_address.primary.address]
-}
-
-resource "google_dns_record_set" "marketing_www" {
-  managed_zone = google_dns_managed_zone.prod.name
-
-  name    = "www.${google_dns_managed_zone.prod.dns_name}"
-  type    = "A"
-  ttl     = 60
-  rrdatas = [google_compute_address.primary.address]
 }

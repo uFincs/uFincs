@@ -40,7 +40,7 @@ resource "google_monitoring_uptime_check_config" "frontend_check" {
   period       = var.uptime_check_period
 
   http_check {
-    path         = "/${local.healthcheck_endpoint}"
+    path         = "/"
     port         = "443"
     use_ssl      = true
     validate_ssl = true
@@ -68,7 +68,7 @@ resource "google_monitoring_uptime_check_config" "marketing_check" {
   period       = var.uptime_check_period
 
   http_check {
-    path         = "/${local.healthcheck_endpoint}"
+    path         = "/"
     port         = "443"
     use_ssl      = true
     validate_ssl = true

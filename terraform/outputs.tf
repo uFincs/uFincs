@@ -3,7 +3,10 @@ output "cluster_name" {
 }
 
 output "ingress_ip" {
-  value = module.dns.ip_address
+  # value = module.dns.ip_address
+
+  # This is now just a placeholder of old times. RIP uFincs on Kubernetes.
+  value = "35.231.161.51"
 }
 
 output "dns_name_servers" {

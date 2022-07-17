@@ -30,8 +30,8 @@ options:
     machineType: "E2_HIGHCPU_8"
 
 substitutions:
-  _FRONTEND_URL: "https://cheap-frontend.ufincs.com"
-  _MARKETING_URL: "https://cheap-marketing.ufincs.com"
+  _FRONTEND_URL: "https://app.ufincs.com"
+  _MARKETING_URL: "https://ufincs.com"
   _BRANCH: "master"
   _FIREBASE_TARGET: "marketing"
 

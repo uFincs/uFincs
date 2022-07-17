@@ -6,7 +6,7 @@ resource "google_storage_bucket" "cluster_logs_bucket" {
 
   lifecycle_rule {
     condition {
-      age = "180" # Days
+      age = "40" # Days
 
       # For some reason, not setting `with_state` causes GCP to set the state to "non-current".
       # This seems to prevent objects from actually being cleaned up, so manually set it to LIVE.

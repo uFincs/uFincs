@@ -1,8 +1,10 @@
 locals {
-  backend_host      = "cheap-backend.${var.dns_domain}"
-  frontend_host     = "cheap-frontend.${var.dns_domain}"
-  marketing_host    = "cheap-marketing.${var.dns_domain}"
+  backend_host_prod   = "backend.${var.dns_domain}"
+  frontend_host_prod  = "app.${var.dns_domain}"
+  marketing_host_prod = var.dns_domain
+
   staging_subdomain = "staging"
+  firebase_ip       = "199.36.158.100"
 }
 
 ################################################################################
@@ -150,7 +152,7 @@ resource "google_cloud_run_service" "backend" {
 
         env {
           name  = "FRONTEND_HOST"
-          value = count.index == 0 ? local.frontend_host : "${local.staging_subdomain}.${local.frontend_host}"
+          value = count.index == 0 ? local.frontend_host_prod : "${local.staging_subdomain}.${local.frontend_host_prod}"
         }
 
         env {
@@ -240,131 +242,6 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
 }
 
 ################################################################################
-# Cheap Infrastructure Records
-################################################################################
-
-resource "google_dns_record_set" "cheap_frontend" {
-  count        = 2
-  managed_zone = var.dns_zone_name
-
-  name = "${count.index == 1 ? "staging." : ""}${local.frontend_host}."
-  type = "A"
-  ttl  = 300
-
-  rrdatas = ["199.36.158.100"]
-}
-
-resource "google_dns_record_set" "cheap_backend" {
-  count        = 2
-  managed_zone = var.dns_zone_name
-
-  name = "${count.index == 1 ? "staging." : ""}${local.backend_host}."
-  type = "A"
-  ttl  = 300
-
-  rrdatas = ["199.36.158.100"]
-}
-
-resource "google_dns_record_set" "cheap_marketing" {
-  count        = 2
-  managed_zone = var.dns_zone_name
-
-  name = "${count.index == 1 ? "staging." : ""}${local.marketing_host}."
-  type = "A"
-  ttl  = 300
-
-  rrdatas = ["199.36.158.100"]
-}
-
-################################################################################
-# Temp Cheap Infrastructure Records
-################################################################################
-
-resource "google_dns_record_set" "cheap_frontend_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.app.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "UbKEo-gfZ8WzRzqx1bDz2LVpNSHQC7YjqLGgw31ktCM"
-  ]
-}
-
-resource "google_dns_record_set" "cheap_frontend_staging_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.staging.app.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "XWw2l3KLoHZcn9AReMBdK64jSDiVtkLrR2KdPpJ1qF8"
-  ]
-}
-
-resource "google_dns_record_set" "cheap_backend_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.backend.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "yPKfJneRwVRPmdhcQkdc7ouZZ-CTzWYaHRq0ibpMvFo"
-  ]
-}
-
-resource "google_dns_record_set" "cheap_backend_staging_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.staging.backend.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "IjxYco1oJQb4a9c3G6ewh5N59XDC5ZRZMiMhNTZiQY4"
-  ]
-}
-
-resource "google_dns_record_set" "cheap_marketing_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "V2Op81XSUtx8-YDJ7oDVumQtFYpsAba5EbiNww6rDA4"
-  ]
-}
-
-resource "google_dns_record_set" "cheap_marketing_www_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.www.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "xXv_ARBby2-ERTkLqnxs31tpuCWwKBvyToq516YVIQs"
-  ]
-}
-
-resource "google_dns_record_set" "cheap_marketing_staging_cert_verification" {
-  managed_zone = var.dns_zone_name
-
-  name = "_acme-challenge.staging.${var.dns_domain}."
-  type = "TXT"
-  ttl  = 60
-
-  rrdatas = [
-    "hk-280kXul7KdKINXef-cRjD7uL0l4eGFMES_Y8vn2w"
-  ]
-}
-
-################################################################################
 # Prod Cloud Build Pipelines
 ################################################################################
 
@@ -382,8 +259,8 @@ resource "google_cloudbuild_trigger" "frontend" {
   }
 
   substitutions = {
-    "_BACKEND_HOST"    = local.backend_host,
-    "_MARKETING_HOST"  = local.marketing_host,
+    "_BACKEND_HOST"    = local.backend_host_prod,
+    "_MARKETING_HOST"  = local.marketing_host_prod,
     "_FIREBASE_TARGET" = "frontend"
   }
 }
@@ -403,8 +280,8 @@ resource "google_cloudbuild_trigger" "marketing" {
   }
 
   substitutions = {
-    "_FRONTEND_URL"    = "https://${local.frontend_host}",
-    "_MARKETING_URL"   = "https://${local.marketing_host}",
+    "_FRONTEND_URL"    = "https://${local.frontend_host_prod}",
+    "_MARKETING_URL"   = "https://${local.marketing_host_prod}",
     "_FIREBASE_TARGET" = "marketing"
   }
 }
@@ -423,7 +300,7 @@ resource "google_cloudbuild_trigger" "backend" {
   }
 
   substitutions = {
-    "_FRONTEND_HOST"  = local.frontend_host,
+    "_FRONTEND_HOST"  = local.frontend_host_prod,
     "_CLOUD_RUN_NAME" = "backend"
   }
 }
@@ -447,8 +324,8 @@ resource "google_cloudbuild_trigger" "frontend_staging" {
   }
 
   substitutions = {
-    "_BACKEND_HOST"    = "${local.staging_subdomain}.${local.backend_host}",
-    "_MARKETING_HOST"  = "${local.staging_subdomain}.${local.marketing_host}",
+    "_BACKEND_HOST"    = "${local.staging_subdomain}.${local.backend_host_prod}",
+    "_MARKETING_HOST"  = "${local.staging_subdomain}.${local.marketing_host_prod}",
     "_FIREBASE_TARGET" = "frontend-staging"
   }
 }
@@ -468,8 +345,8 @@ resource "google_cloudbuild_trigger" "marketing_staging" {
   }
 
   substitutions = {
-    "_FRONTEND_URL"    = "https://${local.staging_subdomain}.${local.frontend_host}",
-    "_MARKETING_URL"   = "https://${local.staging_subdomain}.${local.marketing_host}",
+    "_FRONTEND_URL"    = "https://${local.staging_subdomain}.${local.frontend_host_prod}",
+    "_MARKETING_URL"   = "https://${local.staging_subdomain}.${local.marketing_host_prod}",
     "_FIREBASE_TARGET" = "marketing-staging"
   }
 }
@@ -489,7 +366,7 @@ resource "google_cloudbuild_trigger" "backend_staging" {
   }
 
   substitutions = {
-    "_FRONTEND_HOST"  = "${local.staging_subdomain}.${local.frontend_host}",
+    "_FRONTEND_HOST"  = "${local.staging_subdomain}.${local.frontend_host_prod}",
     "_CLOUD_RUN_NAME" = "backend-staging"
   }
 }

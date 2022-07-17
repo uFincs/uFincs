@@ -34,10 +34,10 @@ options:
     machineType: "E2_HIGHCPU_8"
 
 substitutions:
-  _BACKEND_HOST: "cheap-backend.ufincs.com"
+  _BACKEND_HOST: "backend.ufincs.com"
   _BACKEND_PORT: "443"
   _BACKEND_PROTOCOL: "https"
-  _MARKETING_HOST: "cheap-marketing.ufincs.com"
+  _MARKETING_HOST: "ufincs.com"
   _MARKETING_PORT: "443"
   _MARKETING_PROTOCOL: "https"
   _FIREBASE_TARGET: "frontend"

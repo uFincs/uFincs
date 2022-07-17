@@ -11,6 +11,7 @@ resource "google_cloudbuild_trigger" "primary" {
   description = "Push to any branch"
   filename    = "cloudbuild.yaml"
   project     = var.gcp_project
+  disabled    = true
 
   trigger_template {
     branch_name = ".*"
