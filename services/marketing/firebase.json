@@ -3,12 +3,14 @@
         {
             "target": "marketing",
             "public": "out",
-            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "cleanUrls": true
         },
         {
             "target": "marketing-staging",
             "public": "out",
-            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "cleanUrls": true
         }
     ]
 }
