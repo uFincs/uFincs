@@ -1,12 +1,12 @@
 import classNames from "classnames";
-import React from "react";
+import React, {useMemo} from "react";
 import {Card, TextField} from "components/atoms";
 import {TransactionTypeSummary} from "components/molecules";
 import {useCurrencySymbol} from "hooks/";
 import {AccountData, Transaction} from "models/";
 import {ValueFormatting} from "services/";
 import {Cents} from "utils/types";
-import {useTransactionsSummary} from "./hooks";
+import {useHiddenAccounts, useTransactionsSummary} from "./hooks";
 import "./TransactionsSummary.scss";
 
 interface TransactionsSummaryProps {
@@ -26,18 +26,50 @@ interface TransactionsSummaryProps {
 /** A summary view for a list of transactions that breaks down the amounts by each income/expense
  *  account, as well as showing the overall cash flow. */
 const TransactionsSummary = React.memo(
-    ({className, expenseAccounts, incomeAccounts, cashFlow}: TransactionsSummaryProps) => (
-        <div
-            className={classNames("TransactionsSummary", className)}
-            data-testid="transactions-summary"
-        >
-            <TransactionTypeSummary accounts={incomeAccounts} type={Transaction.INCOME} />
+    ({className, expenseAccounts, incomeAccounts, cashFlow}: TransactionsSummaryProps) => {
+        const {hiddenAccountsMap, toggleAccountVisibility} = useHiddenAccounts();
 
-            <TransactionTypeSummary accounts={expenseAccounts} type={Transaction.EXPENSE} />
+        const adjustedCashFlow = useMemo(() => {
+            let adjustedCashFlow = cashFlow;
 
-            <CashFlow cashFlow={cashFlow} />
-        </div>
-    )
+            for (const account of expenseAccounts) {
+                if (hiddenAccountsMap[account.id]) {
+                    adjustedCashFlow += account.balance || 0;
+                }
+            }
+
+            for (const account of incomeAccounts) {
+                if (hiddenAccountsMap[account.id]) {
+                    adjustedCashFlow -= account.balance || 0;
+                }
+            }
+
+            return adjustedCashFlow;
+        }, [cashFlow, expenseAccounts, incomeAccounts, hiddenAccountsMap]);
+
+        return (
+            <div
+                className={classNames("TransactionsSummary", className)}
+                data-testid="transactions-summary"
+            >
+                <TransactionTypeSummary
+                    accounts={incomeAccounts}
+                    hiddenAccountsMap={hiddenAccountsMap}
+                    type={Transaction.INCOME}
+                    toggleAccountVisibility={toggleAccountVisibility}
+                />
+
+                <TransactionTypeSummary
+                    accounts={expenseAccounts}
+                    hiddenAccountsMap={hiddenAccountsMap}
+                    type={Transaction.EXPENSE}
+                    toggleAccountVisibility={toggleAccountVisibility}
+                />
+
+                <CashFlow cashFlow={adjustedCashFlow} />
+            </div>
+        );
+    }
 );
 
 const WrappedTransactionsSummary = () => {

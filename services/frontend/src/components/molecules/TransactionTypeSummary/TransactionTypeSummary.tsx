@@ -1,12 +1,12 @@
 import classNames from "classnames";
-import React from "react";
+import React, {useMemo} from "react";
 import {animated, useSpring, useTransition} from "react-spring";
 import {Card, TextField} from "components/atoms";
 import {useCurrencySymbol} from "hooks/";
 import {AccountData, Transaction, TransactionType} from "models/";
 import {ValueConversion, ValueFormatting} from "services/";
 import {sizes} from "utils/parsedStyles";
-import {Cents} from "utils/types";
+import {Cents, Id} from "utils/types";
 import "./TransactionTypeSummary.scss";
 
 // The natural height of the SingleAccountSummary is, actually, exactly 40px (plus like 0.05 or something).
@@ -27,16 +27,38 @@ interface TransactionTypeSummaryProps {
     /** The set of accounts (with calculated balances) to display for the given type. */
     accounts: Array<AccountData>;
 
+    /** Map of which accounts are hidden. */
+    hiddenAccountsMap: Record<Id, boolean>;
+
     /** The type of transaction to be summarizing in this view.
      *  Realistically, it's only either Income or Expense. */
     type: TransactionType;
+
+    /** Callback for toggling the visibility of an account. */
+    toggleAccountVisibility: (id: Id) => () => void;
 }
 
 /** A summary of transactions for a given type that shows a visual breakdown of the amounts for
  *  each account (of the given type). */
-const TransactionTypeSummary = ({className, accounts = [], type}: TransactionTypeSummaryProps) => {
-    const maxBalance = Math.max(...accounts.map(({balance}) => balance || 0));
-    const totalAmount = accounts.reduce((acc, {balance}) => acc + (balance || 0), 0);
+const TransactionTypeSummary = ({
+    className,
+    accounts = [],
+    hiddenAccountsMap,
+    type,
+    toggleAccountVisibility
+}: TransactionTypeSummaryProps) => {
+    const visibleAccounts = useMemo(
+        () => accounts.filter(({id}) => !hiddenAccountsMap[id]),
+        [accounts, hiddenAccountsMap]
+    );
+
+    const hiddenAccounts = useMemo(
+        () => accounts.filter(({id}) => hiddenAccountsMap[id]),
+        [accounts, hiddenAccountsMap]
+    );
+
+    const maxBalance = Math.max(...visibleAccounts.map(({balance}) => balance || 0));
+    const totalAmount = visibleAccounts.reduce((acc, {balance}) => acc + (balance || 0), 0);
 
     // This list transition makes it so that items re-arrange themselves (up and down) when
     // the accounts change. It uses y translates to position all of the items, instead
@@ -45,7 +67,12 @@ const TransactionTypeSummary = ({className, accounts = [], type}: TransactionTyp
     // List transition methodology adapted from https://stackoverflow.com/a/56786194 and
     // https://codesandbox.io/embed/1wqpz5mzqj.
     const transitions = useTransition(
-        accounts.map((data, i) => ({...data, y: TOTAL_ITEM_HEIGHT * i})),
+        [...visibleAccounts, ...hiddenAccounts].map((data, i) => ({
+            ...data,
+            visible: !hiddenAccountsMap[data.id],
+            y: TOTAL_ITEM_HEIGHT * i,
+            onClick: toggleAccountVisibility(data.id)
+        })),
         {
             // Note: Use `any` here cause otherwise react-spring complains.
             keys: (account: any) => account.id,
@@ -61,7 +88,7 @@ const TransactionTypeSummary = ({className, accounts = [], type}: TransactionTyp
         height: TOTAL_ITEM_HEIGHT * accounts.length - sizes.size200
     });
 
-    const items = transitions((style, {id, balance, name}) => (
+    const items = transitions((style, {id, balance, name, visible, onClick}) => (
         <animated.div
             key={id}
             style={
@@ -79,6 +106,8 @@ const TransactionTypeSummary = ({className, accounts = [], type}: TransactionTyp
                 maxBalance={maxBalance}
                 totalAmount={totalAmount}
                 type={type}
+                visible={visible}
+                onClick={onClick}
             />
         </animated.div>
     ));
@@ -96,13 +125,15 @@ const TransactionTypeSummary = ({className, accounts = [], type}: TransactionTyp
                     {items}
                 </animated.div>
             )}
+
+            <SummaryTotal totalAmount={totalAmount} />
         </Card>
     );
 };
 
 export default TransactionTypeSummary;
 
-/* Other Components */
+/* SingleAccountSummary */
 
 // These are the properties of the SVG line that is used to show the account's amount relative to
 // each other account.
@@ -139,6 +170,12 @@ interface SingleAccountSummaryProps {
     /** The type of transactions being represented by this account.
      *  Used to color the balance line. */
     type: TransactionType;
+
+    /** Whether or not the account is visible or has been 'hidden' from the summary total. */
+    visible?: boolean;
+
+    /** Click handler for toggling visibility of the account. */
+    onClick: () => void;
 }
 
 /** A summary of a single account in a given transaction type. */
@@ -147,7 +184,9 @@ const SingleAccountSummary = ({
     name,
     maxBalance,
     totalAmount,
-    type
+    type,
+    visible = true,
+    onClick
 }: SingleAccountSummaryProps) => {
     const currencySymbol = useCurrencySymbol();
 
@@ -177,15 +216,21 @@ const SingleAccountSummary = ({
         ].toLowerCase()} (${formattedTotalAmount})`;
 
     return (
-        <div className="SingleAccountSummary" title={title}>
+        <div
+            className={classNames("SingleAccountSummary", {
+                "SingleAccountSummary--hidden": !visible
+            })}
+            title={title}
+            onClick={onClick}
+        >
             <div className="SingleAccountSummary-info">
                 <TextField className="SingleAccountSummary-name">{name}</TextField>
-                <TextField>{formattedBalance}</TextField>
+                <TextField className="SingleAccountSummary-balance">{formattedBalance}</TextField>
             </div>
 
             <svg viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}>
                 <animated.line
-                    className={classNames({
+                    className={classNames("SingleAccountSummary-line", {
                         "SingleAccountSummary-line--income": type === Transaction.INCOME,
                         "SingleAccountSummary-line--expense": type === Transaction.EXPENSE
                     })}
@@ -197,9 +242,27 @@ const SingleAccountSummary = ({
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeDasharray={LINE_LENGTH}
-                    strokeDashoffset={offset}
+                    strokeDashoffset={visible ? offset : 0}
                 />
             </svg>
+        </div>
+    );
+};
+
+/* SummaryTotal */
+
+interface SummaryTotalProps {
+    totalAmount: number;
+}
+
+const SummaryTotal = ({totalAmount}: SummaryTotalProps) => {
+    return (
+        <div className="SummaryTotal">
+            <h2 className="SummaryTotal-header">Total</h2>
+
+            <TextField className="SummaryTotal-amount">
+                {ValueFormatting.formatMoney(totalAmount)}
+            </TextField>
         </div>
     );
 };

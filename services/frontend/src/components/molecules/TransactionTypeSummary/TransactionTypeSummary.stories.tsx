@@ -30,7 +30,14 @@ const newAccounts = [
 ];
 
 /** The default view of `TransactionTypeSummary`. */
-export const Default = () => <TransactionTypeSummary accounts={accounts} type={type()} />;
+export const Default = () => (
+    <TransactionTypeSummary
+        accounts={accounts}
+        hiddenAccountsMap={{}}
+        type={type()}
+        toggleAccountVisibility={() => () => {}}
+    />
+);
 
 /** A test of the animation capabilities by shuffling account position and adding new accounts. */
 export const AnimationTest = () => {
@@ -54,5 +61,12 @@ export const AnimationTest = () => {
         };
     }, []);
 
-    return <TransactionTypeSummary accounts={sortedAccounts} type={type()} />;
+    return (
+        <TransactionTypeSummary
+            accounts={sortedAccounts}
+            hiddenAccountsMap={{}}
+            type={type()}
+            toggleAccountVisibility={() => () => {}}
+        />
+    );
 };

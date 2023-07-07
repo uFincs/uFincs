@@ -1,4 +1,4 @@
-FROM node:15
+FROM node:14.18.3-bullseye
 
 RUN mkdir -p /backend && chown node /backend
 USER node

@@ -1,8 +1,25 @@
-import {useMemo} from "react";
+import {useCallback, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
 import {useDateRangeTransactionsWithSearch, useFilterTransactionsByType} from "hooks/";
 import {Account} from "models/";
 import {accountsSlice} from "store/";
+import {Id} from "utils/types";
+
+export const useHiddenAccounts = () => {
+    const [hiddenAccountsMap, setHiddenAccountsMap] = useState<Record<Id, boolean>>({});
+
+    const toggleAccountVisibility = useCallback(
+        (id: Id) => () => {
+            setHiddenAccountsMap((oldState) => ({
+                ...oldState,
+                [id]: !oldState[id]
+            }));
+        },
+        [setHiddenAccountsMap]
+    );
+
+    return {hiddenAccountsMap, toggleAccountVisibility};
+};
 
 export const useTransactionsSummary = () => {
     const accounts = useSelector(accountsSlice.selectors.selectAccounts);

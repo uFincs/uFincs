@@ -54,6 +54,22 @@
     display: grid;
     gap: $size-200;
 
+    &.SingleAccountSummary--hidden {
+        .SingleAccountSummary-info {
+            .SingleAccountSummary-name {
+                color: $color-neutral-400;
+            }
+
+            .SingleAccountSummary-balance {
+                color: $color-neutral-400;
+            }
+        }
+
+        .SingleAccountSummary-line {
+            stroke: $color-neutral-200;
+        }
+    }
+
     .SingleAccountSummary-info {
         display: flex;
         justify-content: space-between;
@@ -71,5 +87,22 @@
 
     .SingleAccountSummary-line--expense {
         stroke: $color-negative-300;
+    }
+}
+
+.SummaryTotal {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .SummaryTotal-header {
+        color: $color-text-secondary;
+        font-size: $font-size-300;
+        font-weight: $font-weight-bold;
+    }
+
+    .SummaryTotal-amount {
+        font-weight: $font-weight-bold;
     }
 }
