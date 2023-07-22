@@ -10,6 +10,8 @@ Of course, it has that modern 'flair' that GnuCash is distinctly lacking (being 
 
 Try out the free "no-account" mode [here](https://ufincs.com/noaccount) to get a feel for the complete experience without having to sign up. Or, jump straight into the [user docs](docs/user/README.md) to learn how to host uFincs yourself (or how to build it as a [native app](docs/user/README.md#native-app-without-backend)).
 
+**Looking for the full git history?** It's over [here](docs/oldGitHistory.txt).
+
 ## Table of Contents
 
 - [About uFincs](#about-ufincs)
@@ -64,8 +66,8 @@ If you want to read more about the history of uFincs, I suggest starting with th
 
 ### Tech Stack
 
-- **Infrastructure Framework:** [Kubails](https://github.com/DevinSit/kubails)
-- **Production Infrastructure:** Kubernetes (GKE) on Google Cloud Platform (GCP), with Cloud Build for CI/CD
+- **Infrastructure Framework:** (formerly) [Kubails](https://github.com/DevinSit/kubails)
+- **Production Infrastructure:** (formerly) Kubernetes (GKE) on Google Cloud Platform (GCP), now Cloud Run (Backend) + Firebase Hosting (Frontend)
 - **Frontend:**
   - **Language:** TypeScript
   - **Framework:** React + Redux + redux-saga, create-react-app
