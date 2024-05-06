@@ -213,16 +213,14 @@ export default class VirtualTransactions {
         for (const recurringTransaction of recurringTransactions) {
             const {id} = recurringTransaction;
 
-            // There is a use case where only the endDate is specified -- this happens when calculating
-            // account balances for assets/liabilities, since their balances are accumulative.
-            //
-            // As such, we need to get all the virtual transactions since the recurring transaction
-            // started, until the specified endDate.
-            startDate = startDate ? startDate : recurringTransaction.startDate;
-
             const dates = RecurringTransaction.getFutureDatesBetween(
                 recurringTransaction,
-                startDate,
+                // There is a use case where only the endDate is specified — this happens when calculating
+                // account balances for assets/liabilities, since their balances are accumulative.
+                //
+                // As such, we need to get all the virtual transactions since the recurring transaction
+                // started, until the specified endDate.
+                startDate ? startDate : recurringTransaction.startDate,
                 endDate
             );
 
