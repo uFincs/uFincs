@@ -137,8 +137,8 @@ export const inputRules = {
     amount: {
         required: "Amount is missing",
         min: {
-            value: 0.01,
-            message: "Amount can't be 0"
+            value: 0.0,
+            message: "Amount can't be negative"
         },
         max: {
             value: InputValidation.maxNumber,

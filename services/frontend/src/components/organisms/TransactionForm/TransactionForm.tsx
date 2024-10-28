@@ -134,7 +134,7 @@ const TransactionForm = React.memo(
                         <LabelledInput
                             name="amount"
                             type="number"
-                            min="0.01"
+                            min="0.00"
                             step="0.01"
                             label="Amount"
                             placeholder="3.50"
