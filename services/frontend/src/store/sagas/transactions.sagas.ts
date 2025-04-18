@@ -73,9 +73,16 @@ export function* updateCommit({payload}: PayloadAction<TransactionData>) {
     const transaction = new Transaction(payload);
     transaction.validate();
 
-    const oldTransaction = yield select(
+    const oldTransaction: Transaction | undefined = yield select(
         transactionsSlice.selectors.selectTransaction(transaction.id)
     );
+
+    // If the accounts of the transaction have changed, need to update the list of transactions
+    // associated with both the old and new accounts.
+    if (oldTransaction && Transaction.accountsChanged(oldTransaction, transaction)) {
+        yield put(accountsSlice.actions.removeTransactionFromAccounts(oldTransaction));
+        yield put(accountsSlice.actions.addTransactionToAccounts(transaction));
+    }
 
     yield put(transactionsSlice.actions.update(transaction));
 
@@ -88,9 +95,15 @@ export function* updateEffect({payload}: PayloadAction<TransactionData>) {
 }
 
 export const updateRollback = rollbackWrapper<TransactionData>(function* ({payload}) {
-    const {rollbackData: oldTransaction} = payload;
+    const {originalPayload: transaction, rollbackData: oldTransaction} = payload;
 
     yield put(transactionsSlice.actions.update(oldTransaction));
+
+    // If the accounts of the transaction have changed, need to rollback the changes to the accounts.
+    if (oldTransaction && transaction && Transaction.accountsChanged(oldTransaction, transaction)) {
+        yield put(accountsSlice.actions.removeTransactionFromAccounts(transaction));
+        yield put(accountsSlice.actions.addTransactionToAccounts(oldTransaction));
+    }
 
     return `Failed to save changes to transaction "${oldTransaction.description}". Rolled back changes.`;
 });

@@ -309,6 +309,17 @@ export default class Transaction {
         return true;
     }
 
+    /** Checks if the accounts for a new transaction have changed vs the old version of the transaction. */
+    static accountsChanged(
+        oldTransaction: TransactionData,
+        newTransaction: TransactionData
+    ): boolean {
+        return (
+            oldTransaction.creditAccountId !== newTransaction.creditAccountId ||
+            oldTransaction.debitAccountId !== newTransaction.debitAccountId
+        );
+    }
+
     static extractDataFields(object: any): Omit<TransactionData, "creditAccount" | "debitAccount"> {
         try {
             const {

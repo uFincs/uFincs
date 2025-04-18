@@ -209,10 +209,9 @@ describe("Transaction Form - Editing", () => {
                 transactionExists(newTransaction);
             });
 
+            // As identified in UFC-397, if you autofill a transaction while editing,
+            // it used to override the date with the current date. Now it shouldn't.
             it("can autofill a transaction while editing without it changing the date", () => {
-                // As identified in UFC-397, if you autofill a transaction while editing,
-                // it used to override the date with the current date. Now it shouldn't.
-
                 // Type in just part of the existing transaction's description.
                 const description = firstTransaction.description;
                 TransactionForm.descriptionInput()
@@ -225,6 +224,56 @@ describe("Transaction Form - Editing", () => {
 
                 // Expect that we find the transaction's original date.
                 cy.contains(ValueFormatting.formatDate(firstTransaction.date)).should("exist");
+            });
+
+            // UFC-431 Original Bug: When moving a transaction between accounts, the `transactionIds`
+            // for the accounts were not updated. As a result, deleting an account after updating a
+            // transaction to no longer have said account would incorrectly cause the transaction to
+            // be deleted.
+            //
+            // This normally wasn't a problem since `transactionIds` would get updated correctly once
+            // the page was refreshed and all the data re-fetched, but this bug would happen if the
+            // user deletes the account after updating the transaction in the same page session.
+            it("can move a transaction between accounts", () => {
+                const newDescription = "New Test Transaction 123";
+
+                /// 1. Change one of the accounts on the transaction. Old expense account is "Food".
+                TransactionForm.debitAccountInput().clear();
+
+                TransactionForm.enterFormData({description: newDescription, debitAccount: "Tech"});
+                TransactionForm.updateTransaction();
+                cy.contains(newDescription).should("exist");
+
+                /// 2. Delete the old account.
+                cy.visit(DerivedAppScreenUrls.ACCOUNTS);
+
+                cy.get(sharedSelectors.accounts[viewport].accountsList).as("list");
+
+                // Make sure that the account exists.
+                cy.get("@list").contains("Food").should("exist");
+
+                if (viewport === "mobile") {
+                    // Need to open the actions on mobile.
+                    cy.get("@list")
+                        .find(sharedSelectors.accounts.list.actionOverflow)
+                        .eq(6)
+                        .click();
+                }
+
+                // Open the deletion dialog and delete teh account.
+                cy.get("@list").find(sharedSelectors.accounts.list.actionDelete).eq(6).click();
+                cy.get("[data-testid=account-deletion-dialog]").as("accountDeletionDialog");
+                cy.get("@accountDeletionDialog")
+                    .find(sharedSelectors.dialogs.primaryAction)
+                    .click();
+
+                // Account shouldn't be in list anymore.
+                cy.get("@list").contains("Food").should("not.exist");
+
+                /// 3. The transaction should still exist.
+                cy.visit(DerivedAppScreenUrls.TRANSACTIONS);
+                allTimeTransactions(viewport);
+                cy.contains(newDescription).should("exist");
             });
         });
 

@@ -125,8 +125,13 @@ export const TransactionForm = {
             this.debitAccountInput().clear({force: true});
         }
 
-        this.descriptionInput().type(transaction.description || "");
-        this.amountInput().type(transaction.amount || "");
+        if (transaction.description !== undefined) {
+            this.descriptionInput().type(transaction.description);
+        }
+
+        if (transaction.amount !== undefined) {
+            this.amountInput().type(transaction.amount);
+        }
 
         if (transaction.notes) {
             this.notesInput().type(transaction.notes);
@@ -164,13 +169,18 @@ export const TransactionForm = {
             }
         }
 
-        this.typePickerInput()
-            .contains(transaction.type || "")
-            .click();
+        if (transaction.type !== undefined) {
+            this.typePickerInput().contains(transaction.type).click();
+        }
 
         // Need to force type because the suggestions from one input can obscure the other.
-        this.creditAccountInput().type(transaction.creditAccount || "", {force: true});
-        this.debitAccountInput().type(transaction.debitAccount || "", {force: true});
+        if (transaction.creditAccount !== undefined) {
+            this.creditAccountInput().type(transaction.creditAccount, {force: true});
+        }
+
+        if (transaction.debitAccount !== undefined) {
+            this.debitAccountInput().type(transaction.debitAccount, {force: true});
+        }
     },
     checkFormData(transaction: Partial<TransactionFormData>, openOptionalDetails: boolean = true) {
         this.descriptionInput().should("have.value", transaction.description);
