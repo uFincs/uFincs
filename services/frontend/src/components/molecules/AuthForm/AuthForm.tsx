@@ -1,10 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import {useForm} from "react-hook-form";
-
-// Note: As part of v6 of react-hook-form, somehow it was decided to remove the top-level
-// exports for all of the types. So now we have to get them directly.
-import {FieldErrors} from "react-hook-form/dist/types/form";
+import {FieldErrors} from "react-hook-form";
 
 import {Card, Link, OverlineHeading} from "components/atoms";
 import {LabelledInput, SubmitButton} from "components/molecules";

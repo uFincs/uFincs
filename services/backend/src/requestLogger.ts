@@ -63,9 +63,9 @@ const successFormat = JSON.stringify({severity: "INFO", ...baseFormat});
 const errorFormat = JSON.stringify({severity: "ERROR", ...baseFormat});
 
 export const successLogger = morgan(successFormat, {
-    skip: (req, res) => res.statusCode >= 400
+    skip: (req, res) => req.url === "/healthcheck" || res.statusCode >= 400
 });
 
 export const errorLogger = morgan(errorFormat, {
-    skip: (req, res) => res.statusCode < 400
+    skip: (_req, res) => res.statusCode < 400
 });

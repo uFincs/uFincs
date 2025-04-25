@@ -2,12 +2,7 @@ import classNames from "classnames";
 import React, {useCallback} from "react";
 import {animated, useSpring} from "react-spring";
 import {useOnActiveKey} from "hooks/";
-import {
-    colorLight,
-    colorNeutral400,
-    colorPositive600,
-    colorPrimary600
-} from "styles/_colors.module.scss";
+import {colors} from "utils/styles";
 import "./ListItemCheckbox.scss";
 
 type CheckboxVariant = "primary" | "positive";
@@ -29,18 +24,18 @@ const useAnimatedCheckbox = (checked?: boolean, variant?: CheckboxVariant) => {
     const mainColor = (() => {
         switch (variant) {
             case "positive":
-                return colorPositive600;
+                return colors.colorPositive600;
             case "primary":
             // Falls through.
             default:
-                return colorPrimary600;
+                return colors.colorPrimary600;
         }
     })();
 
     const {background, border} = useSpring({
         // Animate in the background color and border color.
         background: checked ? mainColor : "rgba(255, 255, 255, 0)",
-        border: checked ? mainColor : colorNeutral400,
+        border: checked ? mainColor : colors.colorNeutral400,
         config
     });
 
@@ -61,7 +56,7 @@ const useAnimatedCheckbox = (checked?: boolean, variant?: CheckboxVariant) => {
     };
 
     const pathProps = {
-        stroke: checked ? colorLight : mainColor,
+        stroke: checked ? colors.colorLight : mainColor,
         strokeDasharray: CHECK_PATH_LENGTH,
         strokeDashoffset: path
     };

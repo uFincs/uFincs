@@ -10,17 +10,19 @@
 //
 // The goal of Trusted Types is to prevent DOM-based XSS attacks. This is good for us since mitigating as
 // many avenues for XSS attacks is important for the security model of uFincs; if an XSS attack is
-// successful against uFincs, then we're/the user is basically screwed.
+// successful against uFincs, then we/the user is basically screwed.
 
 const registerTrustedTypes = () => {
     if (window?.trustedTypes?.createPolicy) {
         // The `default` policy is invoked when no other policy has been invoked and a raw string
         // is being called on one of the injection sinks.
         //
-        // In our case, we only need to sanitize for Script URLs, since we use them for the Web Workers
+        // ~In our case, we only need to sanitize for Script URLs, since we use them for the Web Workers
         // that power the redux-e2e-encryption middleware. And since we don't have direct access to the
         // code that calls `new Worker(url)` (since it is encapsulated by `workerize-loader`), we have
-        // to use the default policy as opposed to a named policy.
+        // to use the default policy as opposed to a named policy.~
+        //
+        // Note: The above is no longer true/needed since we stopped using web workers.
         //
         // Note that by specifying only the `createScriptURL` function (and not the `createHTML`
         // or `createScript` functions), the other two functions will automatically generate errors.

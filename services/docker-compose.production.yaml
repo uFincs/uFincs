@@ -1,13 +1,13 @@
 services:
     backend:
         depends_on:
-        - backend-database-migrate
-        - backend-database
+            backend-database:
+                condition: service_healthy
+            backend-database-migrate:
+                condition: service_completed_successfully
         image: backend
-        links:
-        - backend-database
         ports:
-        - 5000:5000
+            - 5000:5000
     backend-database:
         build:
             context: ./backend-database
@@ -17,16 +17,20 @@ services:
             POSTGRES_USER: app-database-user
         image: database
         volumes:
-        - backend-database-data:/var/lib/postgresql/data
+            - backend-database-data:/var/lib/postgresql/data
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U app-database-user -d app-database" ]
+            interval: 3s
+            timeout: 10s
+            retries: 5
     backend-database-migrate:
         build:
             context: ./backend
         command: scripts/db-migrate.js
         depends_on:
-        - backend-database
+            backend-database:
+                condition: service_healthy
         image: backend
-        links:
-        - backend-database
     frontend:
         build:
             args:
@@ -34,7 +38,7 @@ services:
             context: ./frontend
         image: frontend
         ports:
-        - 3000:3000
+            - 3000:3000
     marketing:
         build:
             args:
@@ -42,8 +46,7 @@ services:
             context: ./marketing
         image: marketing
         ports:
-        - 3002:3000
-version: '2'
+            - 3002:3000
 volumes:
     backend-database-data:
         driver: local

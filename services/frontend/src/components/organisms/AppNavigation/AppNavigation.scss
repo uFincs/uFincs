@@ -152,7 +152,7 @@ $fab-cutout-height: 34px;
         right: 0;
 
         // The -2px is an offset to get the plus icon lined up with the top of the nav bar.
-        top: -($size-fab-diameter / 2 - 2px);
+        top: calc(-1 * ($size-fab-diameter / 2 - 2px));
 
         width: $size-fab-diameter;
     }

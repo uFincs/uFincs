@@ -1,20 +1,19 @@
-FROM node:14-alpine as backend-build-env
+FROM node:22.14.0-alpine AS backend-build-env
 
 RUN mkdir -p /backend
 WORKDIR /backend
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --production && \
+RUN npm ci --omit=dev && \
     mv node_modules /production_node_modules && \
     npm ci
 
 COPY . .
 
-RUN npm run ci && \
-    npm run compile
+RUN npm run compile
 
-FROM gcr.io/distroless/nodejs:14
+FROM gcr.io/distroless/nodejs22-debian12
 
 COPY --from=backend-build-env /backend/.sequelizerc /backend/.sequelizerc
 COPY --from=backend-build-env /backend/config /backend/config

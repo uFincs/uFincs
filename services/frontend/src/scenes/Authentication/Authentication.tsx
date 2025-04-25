@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {useHistory, useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router";
 import {LinkButton} from "components/atoms";
 import {LogoLink} from "components/molecules";
 import {AuthType} from "components/molecules/AuthForm";

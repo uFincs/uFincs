@@ -26,7 +26,7 @@
 
 import "cypress-file-upload";
 import "@testing-library/cypress/add-commands";
-import {MailSlurp} from "mailslurp-client";
+// import {MailSlurp} from "mailslurp-client";
 
 import {AUTH_STORAGE_KEY} from "../../src/api/auth";
 import localForage from "../../src/store/localForage";
@@ -77,16 +77,28 @@ const backendUrl = `${Cypress.env("BACKEND_HOST")}:${backendPort}`;
 const frontendPort = Cypress.env("FRONTEND_PORT");
 const dockerComposeProjectName = Cypress.env("PROJECT_NAME");
 
-// If you try to run Cypress on a fresh machine and run into the following error:
+// Tech Debt: Mailslurp is no longer viable now that inboxes are no longer permanent,
+// so any tests relying on it are now skipped.
 //
-// ```
-// Error: The following error originated from your test code, not from Cypress.
-// > undefined
-// ```
-//
-// It's because the MAILSLURP_API_KEY env var is missing. It can be provided in the form of a cypress.env.json
-// file to shut the error up. Worst error message ever...
-const mailslurp = new MailSlurp({apiKey: Cypress.env("MAILSLURP_API_KEY")});
+// let mailslurp: MailSlurp;
+
+// try {
+//     // If you try to run Cypress on a fresh machine and run into the following error:
+//     //
+//     // ```
+//     // Error: The following error originated from your test code, not from Cypress.
+//     // > undefined
+//     // ```
+//     //
+//     // It's because the MAILSLURP_API_KEY env var is missing. It can be provided in the form of a cypress.env.json
+//     // file to shut the error up. Worst error message ever... so we throw a better one.
+//     const mailslurpApiKey = Cypress.env("MAILSLURP_API_KEY");
+//     mailslurp = new MailSlurp({apiKey: mailslurpApiKey});
+// } catch (e) {
+//     throw new Error(
+//         "MAILSLURP_API_KEY is not defined; please add a cypress.env.json to `services/frontend` with it"
+//     );
+// }
 
 const crypto = new E2ECrypto();
 
@@ -271,21 +283,21 @@ Cypress.Commands.add(
     }
 );
 
-Cypress.Commands.add("waitForLatestEmail", (inboxId = Cypress.env("mailslurpInboxId")) => {
-    return mailslurp.waitForLatestEmail(inboxId);
-});
+// Cypress.Commands.add("waitForLatestEmail", (inboxId = Cypress.env("mailslurpInboxId")) => {
+//     return mailslurp.waitForLatestEmail(inboxId);
+// });
 
-Cypress.Commands.add("deleteAllEmails", async () => {
-    return mailslurp.getAllEmails().then((emails) => {
-        if (emails?.content?.length) {
-            const promises = emails.content?.map(({id}) => {
-                return mailslurp.deleteEmail(id);
-            });
+// Cypress.Commands.add("deleteAllEmails", async () => {
+//     return mailslurp.getAllEmails().then((emails) => {
+//         if (emails?.content?.length) {
+//             const promises = emails.content?.map(({id}) => {
+//                 return mailslurp.deleteEmail(id);
+//             });
 
-            return Promise.all(promises);
-        }
-    });
-});
+//             return Promise.all(promises);
+//         }
+//     });
+// });
 
 /** Helper Functions */
 

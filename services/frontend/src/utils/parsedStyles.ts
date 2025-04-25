@@ -1,9 +1,5 @@
 import {ValueConversion} from "services/";
-import * as animations from "styles/_animations.module.scss";
-import * as rawBorders from "styles/_borders.module.scss";
-import * as fonts from "styles/_fonts.module.scss";
-import * as rawSizes from "styles/_sizes.module.scss";
-import * as tables from "styles/_tables.module.scss";
+import {animations, borders as rawBorders, fonts, sizes as rawSizes, tables} from "./styles";
 
 export const borders = {
     radiusNormal: ValueConversion.parsePixels(rawBorders.borderRadiusNormal),

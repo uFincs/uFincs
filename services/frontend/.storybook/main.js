@@ -36,5 +36,13 @@ module.exports = {
         });
 
         return config;
+    },
+    core: {
+        builder: "@storybook/builder-webpack5"
+    },
+    typescript: {
+        // Hack: https://github.com/hipstersmoothie/react-docgen-typescript-plugin/issues/78#issuecomment-1409224863
+        // From: https://github.com/storybookjs/storybook/issues/21642
+        reactDocgen: "react-docgen-typescript-plugin"
     }
 };

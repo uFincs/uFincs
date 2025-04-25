@@ -1,6 +1,6 @@
-FROM node:14-alpine as frontend-build-env
+FROM node:22.14.0-alpine AS frontend-build-env
 
-ENV NPM_CONFIG_LOGLEVEL warn
+ENV NPM_CONFIG_LOGLEVEL="warn"
 
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git openssh
@@ -10,17 +10,16 @@ WORKDIR /frontend
 
 COPY package.json package-lock.json ./
 
-# Note: Because of how we have our dev/production deps setup (with only Cypress stuff in dev),
+# Note: Because of how we have our dev/production deps set up (with only Cypress stuff in dev),
 # we can't take advantage of caching 'production only' deps, cause we don't actually have a list
 # of 'production only' deps.
-RUN npm ci --production
+RUN npm ci --omit=dev
 
 COPY . .
 
-RUN npm run ci && \
-    npm run build
+RUN npm run build
 
-FROM gcr.io/distroless/nodejs:14
+FROM gcr.io/distroless/nodejs22-debian12
 
 COPY --from=frontend-build-env /frontend/build /frontend/build
 COPY --from=frontend-build-env /frontend/node_modules /frontend/node_modules

@@ -4,7 +4,7 @@
 # Globals
 #################################################################################
 
-START_COMMAND = docker-compose -f ./services/docker-compose.yaml up --build
+START_COMMAND = docker compose -f ./services/docker-compose.yaml up --build
 
 #################################################################################
 # COMMANDS
@@ -20,7 +20,7 @@ start-all:
 	$(START_COMMAND)
 
 start-prod:
-	docker-compose -f ./services/docker-compose.production.yaml up --build
+	docker compose -f ./services/docker-compose.production.yaml up --build
 
 start-cypress-parallel:
 	bash ./scripts/cypress_start_parallel_services.sh yes
@@ -29,34 +29,34 @@ down-cypress-parallel:
 	bash ./scripts/cypress_down_parallel_services.sh
 
 down:
-	docker-compose -f ./services/docker-compose.yaml down -v
+	docker compose -f ./services/docker-compose.yaml down -v
 
 lint-backend-locally:
-	docker-compose -f ./services/docker-compose.yaml exec backend npm run lint
+	docker compose -f ./services/docker-compose.yaml exec backend npm run lint
 
 lint-frontend-locally:
-	docker-compose -f ./services/docker-compose.yaml exec frontend npm run lint:all
+	docker compose -f ./services/docker-compose.yaml exec frontend npm run lint:all
 
 test-backend-locally:
-	docker-compose -f ./services/docker-compose.yaml exec backend npm run lint
+	docker compose -f ./services/docker-compose.yaml exec backend npm run lint
 
 test-frontend-locally:
-	docker-compose -f ./services/docker-compose.yaml exec frontend npm run test
+	docker compose -f ./services/docker-compose.yaml exec frontend npm run test
 
 ci-backend-locally:
-	docker-compose -f ./services/docker-compose.yaml exec backend npm run ci
+	docker compose -f ./services/docker-compose.yaml exec backend npm run ci
 
 ci-marketing-locally:
-	docker-compose -f ./services/docker-compose.yaml exec marketing npm run ci
+	docker compose -f ./services/docker-compose.yaml exec marketing npm run ci
 
 ci-frontend-locally:
-	docker-compose -f ./services/docker-compose.yaml exec frontend npm run ci
+	docker compose -f ./services/docker-compose.yaml exec frontend npm run ci
 
 watch-frontend-tests:
-	docker-compose -f ./services/docker-compose.yaml exec frontend npm run test:watch
+	docker compose -f ./services/docker-compose.yaml exec frontend npm run test:watch
 
 watch-frontend-tsc:
-	docker-compose -f ./services/docker-compose.yaml exec frontend npm run tsc:watch
+	docker compose -f ./services/docker-compose.yaml exec frontend npm run tsc:watch
 
 open-frontend-cypress:
 	cd services/frontend && npm run cypress:open
@@ -68,7 +68,7 @@ run-frontend-cypress-parallel:
 	bash ./scripts/cypress_run_parallel.sh yes
 
 inspect-database:
-	docker-compose -f ./services/docker-compose.yaml exec backend-database psql app-database app-database-user
+	docker compose -f ./services/docker-compose.yaml exec backend-database psql app-database app-database-user
 
 connect-cloud-sql:
 	gcloud sql connect --database app-database --user app-database-user $(shell gcloud sql instances list --format="get(name)")

@@ -1,8 +1,7 @@
 import React from "react";
 import {VictoryLabel, VictoryTooltip} from "victory";
-import * as colors from "styles/_colors.module.scss";
-import * as fonts from "styles/_fonts.module.scss";
 import {borders, fontWeights, sizes} from "utils/parsedStyles";
+import {colors, fonts} from "utils/styles";
 
 export default class Tooltip extends React.Component {
     // I don't know why defaultEvents isn't registered on the type, but according to:

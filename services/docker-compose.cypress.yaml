@@ -7,13 +7,13 @@ services:
             FRONTEND_PORT: ${FRONTEND_PORT}
         command: npm start
         depends_on:
-        - backend-database-migrate
-        - backend-database
+            backend-database:
+                condition: service_healthy
+            backend-database-migrate:
+                condition: service_completed_successfully
         image: backend
-        links:
-        - backend-database
         ports:
-        - ${BACKEND_PORT}:5000
+            - ${BACKEND_PORT}:5000
     backend-database:
         build:
             context: ./backend-database
@@ -23,17 +23,21 @@ services:
             POSTGRES_USER: app-database-user
         image: database
         volumes:
-        - backend-database-data:/var/lib/postgresql/data
+            - backend-database-data:/var/lib/postgresql/data
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U app-database-user -d app-database" ]
+            interval: 3s
+            timeout: 10s
+            retries: 5
     backend-database-migrate:
         build:
             context: ./backend
             dockerfile: Dockerfile.development
         command: sh -c "npm run db:retryable-migrate && npm run db:seed"
         depends_on:
-        - backend-database
+            backend-database:
+                condition: service_healthy
         image: backend
-        links:
-        - backend-database
     frontend:
         build:
             args:
@@ -44,8 +48,7 @@ services:
             REACT_APP_BACKEND_PORT: ${BACKEND_PORT}
         image: frontend
         ports:
-        - ${FRONTEND_PORT}:3000
-version: '2'
+            - ${FRONTEND_PORT}:3000
 volumes:
     backend-database-data:
         driver: local

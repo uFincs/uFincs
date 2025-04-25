@@ -1,6 +1,6 @@
-FROM node:14-alpine as marketing-build-env
+FROM node:22.14.0-alpine AS marketing-build-env
 
-ENV NPM_CONFIG_LOGLEVEL warn
+ENV NPM_CONFIG_LOGLEVEL="warn"
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN mkdir -p /marketing
@@ -8,20 +8,18 @@ WORKDIR /marketing
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --production && \
+RUN npm ci --omit=dev && \
     mv node_modules /production_node_modules && \
     npm ci
 
 COPY . .
 
-RUN npm run ci
-
 ARG branch
-ENV BRANCH $branch
+ENV BRANCH="$branch"
 
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs:14
+FROM gcr.io/distroless/nodejs22-debian12
 
 ENV NEXT_TELEMETRY_DISABLED=1
 

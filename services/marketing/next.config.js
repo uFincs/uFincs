@@ -1,11 +1,10 @@
-const composePlugins = require("next-compose-plugins");
-const withPreact = require("next-plugin-preact");
-
 const withAnalyze = require("@next/bundle-analyzer")({
     enabled: process.env.ANALYZE === "true"
 });
 
-module.exports = composePlugins([withAnalyze, withPreact], {
+const composePlugins = require("next-compose-plugins");
+
+module.exports = composePlugins([withAnalyze], {
     async headers() {
         // Note: JS and CSS files automatically have Cache-Control headers added.
         return [

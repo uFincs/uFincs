@@ -1,25 +1,23 @@
 import {Base64String, E2ECrypto, RawString} from "./crypto";
 import {parsePayloadFormat, FieldsSchema, PAYLOAD_SHAPE} from "./schema";
-import {Workerized} from "./types";
-import createWorker from "workerize-loader!./worker"; // eslint-disable-line
-import * as CryptoWorker from "./worker";
+import {createWorker, CryptoWorker} from "./worker";
+
+// TECH DEBT: WorkerPool no longer relies on web workers since they never really worked how
+// I wanted with the WebCrypto API, so the pool size is now only ever 1.
+// Should rewrite it so that a pool is no longer the abstraction.
 
 /** Manages a pool of workers to enable parallel processing of encryption/decryption
  *  operations. While this does speed up processing of large payloads by 2-3 times,
  *  it also introduces a (practically negligible) overhead for very small payloads. */
 export class WorkerPool {
     currentWorkerIndex: number;
-    pool: Array<Workerized<typeof CryptoWorker>>;
+    pool: Array<CryptoWorker>;
     size: number;
 
     constructor() {
         this.currentWorkerIndex = 0;
         this.pool = [];
-
-        // If hardwareConcurrency isn't defined, then (undefined - 2) results in NaN.
-        // APPARENTLY, `Math.max` takes the NaN over the number.
-        // WHYYYYYYYY!?!?!?!
-        this.size = Math.max(navigator?.hardwareConcurrency - 2 || 0, 2);
+        this.size = 1;
 
         this.fillPool();
     }
@@ -27,7 +25,7 @@ export class WorkerPool {
     /** Fills the pool with workers based. */
     private fillPool() {
         for (let i = 0; i < this.size; i++) {
-            const worker = createWorker<typeof CryptoWorker>();
+            const worker = createWorker();
             this.pool.push(worker);
         }
     }

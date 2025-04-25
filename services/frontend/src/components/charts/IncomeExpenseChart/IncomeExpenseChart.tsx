@@ -9,7 +9,7 @@ import {
 } from "victory";
 import {ChartTheme} from "components/charts";
 import {ChartContainer, ChartStats, Tooltip} from "components/charts/components";
-import * as colors from "styles/_colors.module.scss";
+import {colors} from "utils/styles";
 import {Cents, ChartDateInterval, DateAmountDataPoint} from "utils/types";
 import {useIncomeExpenseChartData, useIncomeExpenseChartStyles} from "./hooks";
 import "./IncomeExpenseChart.scss";

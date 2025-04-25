@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import {animated, to as interpolate, useSpring} from "react-spring";
-import {colorNeutral200, colorNeutral700, colorPrimary500} from "styles/_colors.module.scss";
+import {colors} from "utils/styles";
 import "./AnimatedLogo.scss";
 
 const BAR_X_INITIAL = 3;
@@ -19,8 +19,8 @@ const AnimatedLogo = ({className}: AnimatedLogoProps) => {
     // calm pulsating effect.
     const {fill} = useSpring({
         loop: {reverse: true},
-        from: {fill: colorNeutral200},
-        to: {fill: colorNeutral700},
+        from: {fill: colors.colorNeutral200},
+        to: {fill: colors.colorNeutral700},
         config: {
             // We want the 'U' to pulse at a different rate than the speed of the bar.
             // Why? Because it looks cooler that way.
@@ -60,7 +60,7 @@ const AnimatedLogo = ({className}: AnimatedLogoProps) => {
                     width={width}
                     height="5"
                     rx="2.5"
-                    fill={colorPrimary500}
+                    fill={colors.colorPrimary500}
                 />
 
                 <animated.path

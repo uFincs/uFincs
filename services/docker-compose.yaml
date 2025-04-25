@@ -5,17 +5,17 @@ services:
             dockerfile: Dockerfile.development
         command: npm start
         depends_on:
-        - backend-database-migrate
-        - backend-database
+            backend-database:
+                condition: service_healthy
+            backend-database-migrate:
+                condition: service_completed_successfully
         image: backend
-        links:
-        - backend-database
         ports:
-        - 5000:5000
+            - 5000:5000
         volumes:
-        - ./backend/:/backend
-        - backend-deps:/backend/node_modules
-        - backend-lib:/backend/lib
+            - ./backend/:/backend
+            - backend-deps:/backend/node_modules
+            - backend-lib:/backend/lib
     backend-database:
         build:
             context: ./backend-database
@@ -25,17 +25,21 @@ services:
             POSTGRES_USER: app-database-user
         image: database
         volumes:
-        - backend-database-data:/var/lib/postgresql/data
+            - backend-database-data:/var/lib/postgresql/data
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U app-database-user -d app-database" ]
+            interval: 3s
+            timeout: 10s
+            retries: 5
     backend-database-migrate:
         build:
             context: ./backend
             dockerfile: Dockerfile.development
         command: sh -c "npm run db:retryable-migrate && npm run db:seed"
         depends_on:
-        - backend-database
+            backend-database:
+                condition: service_healthy
         image: backend
-        links:
-        - backend-database
     frontend:
         build:
             args:
@@ -44,18 +48,18 @@ services:
             dockerfile: Dockerfile.development
         image: frontend
         ports:
-        - 3000:3000
+            - 3000:3000
         volumes:
-        - ./frontend/:/frontend
-        - frontend-deps:/frontend/node_modules
+            - ./frontend/:/frontend
+            - frontend-deps:/frontend/node_modules
     frontend-storybook:
         command: npm run storybook
         image: frontend
         ports:
-        - 9009:9009
+            - 9009:9009
         volumes:
-        - ./frontend/:/frontend
-        - frontend-storybook-deps:/frontend/node_modules
+            - ./frontend/:/frontend
+            - frontend-storybook-deps:/frontend/node_modules
     marketing:
         build:
             args:
@@ -64,11 +68,10 @@ services:
             dockerfile: Dockerfile.development
         image: marketing
         ports:
-        - 3002:3000
+            - 3002:3000
         volumes:
-        - ./marketing/:/marketing
-        - marketing-deps:/marketing/node_modules
-version: '2'
+            - ./marketing/:/marketing
+            - marketing-deps:/marketing/node_modules
 volumes:
     backend-database-data:
         driver: local

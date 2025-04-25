@@ -411,7 +411,8 @@ describe("Change Password", () => {
     });
 });
 
-describe("Password Reset", () => {
+// Tech Debt: Mailslurp is no longer viable, so any tests relying on it are now skipped.
+describe.skip("Password Reset", () => {
     // 'test' prefix to differentiate these credentials from the email/password defined above for
     // the test@test.com account.
     const testEmail = Cypress.env("mailslurpEmail");

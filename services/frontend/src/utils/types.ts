@@ -1,4 +1,4 @@
-import {ValidationRules} from "react-hook-form";
+import {RegisterOptions} from "react-hook-form";
 import {
     ImportRuleActionProperty,
     ImportRuleConditionCondition,
@@ -132,7 +132,7 @@ export type ReactHookFormHandleSubmitFunction<FormData> = (
 
 export type ReactHookFormRegisterFunction = (
     e: HTMLInputElement,
-    validateOptions: ValidationRules
+    validateOptions: RegisterOptions
 ) => void;
 
 export type ReactHookFormResetFunction<FormData> = (values?: FormData) => void;

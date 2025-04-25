@@ -1,9 +1,11 @@
-import {
+import {mediaQueries} from "utils/styles";
+
+const {
+    breakpointAccountDetailsDoubleColumn,
     breakpointMedium,
     breakpointNavigationChange,
-    breakpointAccountDetailsDoubleColumn,
     mediaQueryProperty
-} from "styles/_media_queries.module.scss";
+} = mediaQueries;
 
 export const mediumBreakpointMatches = () =>
     window.matchMedia(`(${mediaQueryProperty}: ${breakpointMedium})`).matches;

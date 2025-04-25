@@ -9,10 +9,10 @@ if [ "$PROJECT_NAME" != "ufincs" ]; then
     FRONTEND_PORT=${3:-3000}
 
     BASE_COMMAND="BACKEND_PORT=$BACKEND_PORT FRONTEND_PORT=$FRONTEND_PORT \
-        docker-compose --project-name $PROJECT_NAME -f $COMPOSE_FILE"
+        docker compose --project-name $PROJECT_NAME -f $COMPOSE_FILE"
 else
     COMPOSE_FILE=./services/docker-compose.yaml
-    BASE_COMMAND="docker-compose --project-name $PROJECT_NAME -f $COMPOSE_FILE"
+    BASE_COMMAND="docker compose --project-name $PROJECT_NAME -f $COMPOSE_FILE"
 fi
 
 # Use -T because running the script barfs without it when running in a GCP instance.

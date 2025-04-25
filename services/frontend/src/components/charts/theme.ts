@@ -1,9 +1,7 @@
-import * as colors from "styles/_colors.module.scss";
-import * as fonts from "styles/_fonts.module.scss";
-
 // Need to use the parsed sizes (i.e. sizes as numbers instead of px strings) because
 // the chart styles won't accept px strings, only numbers.
 import {sizes} from "utils/parsedStyles";
+import {colors, fonts} from "utils/styles";
 
 // Need the scatter plot dots to be slighter larger than the width of the line chart,
 // since they display on top of the line chart for the tooltips.

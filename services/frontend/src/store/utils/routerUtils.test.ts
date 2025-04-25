@@ -6,7 +6,8 @@ const generateLocationPayload = (route: Route): RouteChangePayload => ({
         pathname: route,
         search: "",
         state: "",
-        hash: ""
+        hash: "",
+        query: {}
     }
 });
 const generateArgsPayload = (route: Route): RouteChangePayload => ({args: [route]});

@@ -156,7 +156,7 @@ type SinglePayload = ModelInstance;
 type ArrayPayload = Array<ModelInstance>;
 type MapPayload = Record<string, ModelInstance>;
 
-type Payload = SinglePayload | ArrayPayload | MapPayload;
+export type Payload = SinglePayload | ArrayPayload | MapPayload;
 type FieldMapper = (fieldValue: string, field: string) => Promise<RawFieldValue>;
 
 /** Class that uses the schema provided to the middleware to apply transformations to an

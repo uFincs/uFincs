@@ -240,9 +240,12 @@ describe("Transaction Form - Editing", () => {
                 /// 1. Change one of the accounts on the transaction. Old expense account is "Food".
                 TransactionForm.debitAccountInput().clear();
 
+                TransactionForm.descriptionInput().clear({force: true});
                 TransactionForm.enterFormData({description: newDescription, debitAccount: "Tech"});
                 TransactionForm.updateTransaction();
                 cy.contains(newDescription).should("exist");
+
+                cy.wait(3000);
 
                 /// 2. Delete the old account.
                 cy.visit(DerivedAppScreenUrls.ACCOUNTS);
