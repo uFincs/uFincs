@@ -1,5 +1,5 @@
 import {PayloadAction} from "@reduxjs/toolkit";
-import {all, call, fork, put, takeEvery} from "redux-saga/effects";
+import {all, call, fork, put, take, takeEvery} from "redux-saga/effects";
 import api, {apiErrors} from "api/";
 import {ImportProfile, ImportProfileData, ImportProfileMappingData} from "models/";
 import {
@@ -49,6 +49,14 @@ export function* fetchAllEffect() {
             EncryptionSchema.mapOf("importProfileMapping")
         )
     );
+
+    // Wait until the decryption is done before continuing on.
+    //
+    // Refer to the `fetchAllEffect` in `accounts.sagas` for more details.
+    yield all([
+        take(importProfilesSlice.actions.set),
+        take(importProfileMappingsSlice.actions.set)
+    ]);
 }
 
 export function* createCommit({payload}: PayloadAction<ImportProfileData>) {

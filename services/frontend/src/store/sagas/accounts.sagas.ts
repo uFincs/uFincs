@@ -66,6 +66,32 @@ export function* fetchAllEffect() {
             EncryptionSchema.mapOf("transaction")
         )
     );
+
+    // UFC-435: OK, this might seem like it shouldn't do anything, but it's actually kinda clutch.
+    //
+    // Basically, we want to ensure that the state update actions have actually been dispatched before
+    // we finish out of this saga, since `appBoot` relies on the freshly fetched state being fully
+    // populated for ordering purposes. In particular, for ensuring recurring transaction realization
+    // happens only once everything has been fetched.
+    //
+    // However, there is a very interesting race condition that can occur where the `set` actions above
+    // don't actually hit the store state before realization happens. This is because the actions will
+    // be caught by the decryption middleware and held there while we wait for decryption to happen.
+    //
+    // Therefore, for a sufficiently large amount of data that is waiting to be decrypted, the `set`
+    // actions can actually end up hitting the store state _after_ the recurring transaction realization
+    // has already occurred, causing the realized transactions to disappear from the UI from the user's POV.
+    //
+    // On top of that, the problem can be compounded even worse since this race condition can cause recurring
+    // transactions to be realized multiple times when the user refreshes the page to fetch again.
+    //
+    // Therefore, what we need to do is throw up a "take all" here to ensure we block the completion
+    // of the `fetchAllEffect` saga until the decryption middleware has finished and passed the `set`
+    // actions along for store state updates.
+    //
+    // Note that this only works because the decryption middleware is before the saga middleware in the
+    // store config.
+    yield all([take(accountsSlice.actions.set), take(transactionsSlice.actions.set)]);
 }
 
 export function* createCommit({payload}: PayloadAction<AccountData>) {

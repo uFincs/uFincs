@@ -1,5 +1,5 @@
 import {PayloadAction} from "@reduxjs/toolkit";
-import {all, call, fork, put, select, takeEvery} from "redux-saga/effects";
+import {all, call, fork, put, select, take, takeEvery} from "redux-saga/effects";
 import api from "api/";
 import {Preference, PreferenceData, PreferencePersistentFields} from "models/";
 import {preferencesSlice, preferencesRequestsSlice, userSlice} from "store/";
@@ -21,6 +21,11 @@ function* fetchAllEffect() {
                 EncryptionSchema.single("preference")
             )
         );
+
+        // Wait until the decryption is done before continuing on.
+        //
+        // Refer to the `fetchAllEffect` in `accounts.sagas` for more details.
+        yield all([take(preferencesSlice.actions.patch)]);
     }
 }
 

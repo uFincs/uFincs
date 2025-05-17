@@ -82,6 +82,15 @@ export function* fetchAllEffect() {
             EncryptionSchema.mapOf("importRuleCondition")
         )
     );
+
+    // Wait until the decryption is done before continuing on.
+    //
+    // Refer to the `fetchAllEffect` in `accounts.sagas` for more details.
+    yield all([
+        take(importRulesSlice.actions.set),
+        take(importRuleActionsSlice.actions.set),
+        take(importRuleConditionsSlice.actions.set)
+    ]);
 }
 
 export function* createCommit({payload}: PayloadAction<ImportRuleData>) {

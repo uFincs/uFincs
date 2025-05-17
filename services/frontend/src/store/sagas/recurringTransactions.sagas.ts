@@ -34,6 +34,11 @@ export function* fetchAllEffect() {
             EncryptionSchema.mapOf("recurringTransaction")
         )
     );
+
+    // Wait until the decryption is done before continuing on.
+    //
+    // Refer to the `fetchAllEffect` in `accounts.sagas` for more details.
+    yield take(recurringTransactionsSlice.actions.set);
 }
 
 export function* createCommit({payload}: PayloadAction<RecurringTransactionData>) {
