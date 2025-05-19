@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {useHistory, useLocation} from "react-router";
 import {CalendarIcon, ChatIcon, LogoutIcon, RefreshIcon} from "assets/icons";
 import {Divider} from "components/atoms";
 import {SettingsListItem} from "components/molecules";
 import {useLifetimeSubscription, useNoAccount} from "hooks/";
-import {MathUtils, NativePlatformsService} from "services/";
+import {MathUtils} from "services/";
 import {DerivedAppScreenUrls} from "values/screenUrls";
 import "./SettingsNavigation.scss";
 
@@ -144,7 +144,7 @@ const SettingsNavigation = ({
 
     return (
         <div className={classNames("SettingsNavigation", className)} {...otherProps}>
-            {noAccount && !NativePlatformsService.isMobilePlatform() && (
+            {noAccount && (
                 <SettingsListItem
                     className="SettingsNavigation-no-account-signup"
                     data-testid="settings-navigation-signup"
@@ -188,7 +188,7 @@ const SettingsNavigation = ({
                         />
                     )}
 
-                    {onCheckForUpdates && !NativePlatformsService.isMobilePlatform() && (
+                    {onCheckForUpdates && (
                         <SettingsListItem
                             data-testid="settings-check-for-updates-mobile"
                             description=""

@@ -1,6 +1,4 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {useSelector} from "react-redux";
 import {DateRangeProvider} from "hooks/";
 import {Account} from "models/";
@@ -13,13 +11,23 @@ import {
 } from "utils/stories";
 import AccountsList, {PureComponent as PureAccountsList} from "./AccountsList";
 
-export default {
+const meta: Meta<typeof AccountsList> = {
     title: "Organisms/Accounts List",
-    component: AccountsList
+    decorators: [
+        (Story) => (
+            <DateRangeProvider>
+                <Story />
+            </DateRangeProvider>
+        )
+    ],
+    component: AccountsList,
+    args: {
+        singleLayer: false
+    }
 };
 
-const listActions = actions("onAddAccount", "navigateToAccount");
-const singleLayerKnob = () => boolean("Single Layer", false);
+export default meta;
+type Story = StoryObj<typeof AccountsList>;
 
 const assetLiabilityAccounts = [
     new Account({id: "1", name: "Chequing", type: Account.ASSET, openingBalance: 22000}),
@@ -46,116 +54,80 @@ const useMakeFunctional = (accounts: Array<Account>) => {
 };
 
 /** The default view of the `AccountsList`. */
-export const Default = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional(accounts);
+export const Default: Story = {
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional(accounts);
 
-    return (
-        <DateRangeProvider>
-            <PureAccountsList
-                accountsByType={accountsByType}
-                singleLayer={singleLayerKnob()}
-                {...listActions}
-            />
-        </DateRangeProvider>
-    );
-});
+        return <PureAccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** The `AccountsList` when some of the sections (but not all) are empty. */
-export const EmptySections = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional(assetLiabilityAccounts);
+export const EmptySections: Story = {
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional(assetLiabilityAccounts);
 
-    return (
-        <DateRangeProvider>
-            <PureAccountsList
-                accountsByType={accountsByType}
-                singleLayer={singleLayerKnob()}
-                {...listActions}
-            />
-        </DateRangeProvider>
-    );
-});
+        return <PureAccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** The `AccountsList` when there are no accounts at all. */
-export const EmptyList = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional([]);
+export const EmptyList: Story = {
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional([]);
 
-    return (
-        <DateRangeProvider>
-            <PureAccountsList
-                accountsByType={accountsByType}
-                singleLayer={singleLayerKnob()}
-                {...listActions}
-            />
-        </DateRangeProvider>
-    );
-});
+        return <PureAccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** The `AccountsList` with no-actions, effectively read-only. */
-export const NoActions = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional(accounts);
+export const NoActions: Story = {
+    args: {
+        actionsToShow: []
+    },
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional(accounts);
 
-    return (
-        <DateRangeProvider>
-            <PureAccountsList
-                accountsByType={accountsByType}
-                actionsToShow={[]}
-                singleLayer={singleLayerKnob()}
-                {...listActions}
-            />
-        </DateRangeProvider>
-    );
-});
+        return <PureAccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** The small view of the `AccountsList`. */
-export const Small = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional(accounts);
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    },
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional(accounts);
 
-    return (
-        <DateRangeProvider>
-            <PureAccountsList
-                accountsByType={accountsByType}
-                singleLayer={singleLayerKnob()}
-                {...listActions}
-            />
-        </DateRangeProvider>
-    );
-});
-
-Small.parameters = smallViewport;
+        return <PureAccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** The small landscape view of the `AccountsList`. */
-export const SmallLandscape = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional(accounts);
+export const SmallLandscape: Story = {
+    parameters: {
+        ...smallLandscapeViewport
+    },
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional(accounts);
 
-    return (
-        <DateRangeProvider>
-            <PureAccountsList
-                accountsByType={accountsByType}
-                singleLayer={singleLayerKnob()}
-                {...listActions}
-            />
-        </DateRangeProvider>
-    );
-});
-
-SmallLandscape.parameters = smallLandscapeViewport;
+        return <PureAccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** A test of the fully connected `AccountsList`. */
-export const Connected = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional(accounts);
-    return (
-        <DateRangeProvider>
-            <AccountsList accountsByType={accountsByType} singleLayer={singleLayerKnob()} />
-        </DateRangeProvider>
-    );
-});
+export const Connected: Story = {
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional(accounts);
+        return <AccountsList {...args} accountsByType={accountsByType} />;
+    })
+};
 
 /** A test of the fully connected `AccountsList` with no accounts. */
-export const ConnectedEmpty = storyUsingRedux(() => {
-    const accountsByType = useMakeFunctional([]);
-    return (
-        <DateRangeProvider>
-            <AccountsList accountsByType={accountsByType} singleLayer={singleLayerKnob()} />
-        </DateRangeProvider>
-    );
-});
+export const ConnectedEmpty: Story = {
+    render: storyUsingRedux((args) => {
+        const accountsByType = useMakeFunctional([]);
+        return <AccountsList {...args} accountsByType={accountsByType} />;
+    })
+};

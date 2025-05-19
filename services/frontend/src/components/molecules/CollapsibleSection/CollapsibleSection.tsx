@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useState} from "react";
+import {useState} from "react";
+import * as React from "react";
 import {ChevronDownIcon} from "assets/icons";
 import {LinkButton} from "components/atoms";
 import "./CollapsibleSection.scss";

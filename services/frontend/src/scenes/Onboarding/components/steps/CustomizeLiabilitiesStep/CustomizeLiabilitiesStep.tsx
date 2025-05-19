@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {Account} from "models/";
 import {BaseStep} from "../..";

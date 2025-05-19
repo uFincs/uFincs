@@ -6,7 +6,8 @@ import {
     Id,
     NonFunctionPropertyNames,
     NonFunctionProperties,
-    TableSortDirection
+    TableSortDirection,
+    UTCDateString
 } from "utils/types";
 import InputValidation from "values/inputValidation";
 import Account, {AccountType, AccountData} from "./Account";
@@ -207,8 +208,8 @@ export default class Transaction {
                 this.date = date
                     ? DateService.convertToTimestamp(DateService.stripTime(date))
                     : date === undefined || date === null
-                    ? ""
-                    : date;
+                      ? ""
+                      : date;
             } catch (e) {
                 console.error(e);
                 console.log({date});
@@ -538,7 +539,7 @@ export default class Transaction {
      *
      *  @returns {Object} An object of the form `{leftAccount: string, rightAccount: string}`. */
     static determineAccountFlow<T = string>(
-        type: TransactionType,
+        _type: TransactionType,
         creditAccount: T,
         debitAccount: T
     ): {
@@ -643,8 +644,8 @@ export default class Transaction {
     static indexByDate(
         transactions: Array<TransactionData>,
         accountId: Id = ""
-    ): Record<string, Array<TransactionData>> {
-        const result: Record<string, Array<TransactionData>> = {};
+    ): Record<UTCDateString, Array<TransactionData>> {
+        const result: Record<UTCDateString, Array<TransactionData>> = {};
 
         for (const transaction of transactions) {
             if (
@@ -708,8 +709,8 @@ export default class Transaction {
         income: Array<TransactionData>;
         expenses: Array<TransactionData>;
     } {
-        const income = [];
-        const expenses = [];
+        const income: Array<TransactionData> = [];
+        const expenses: Array<TransactionData> = [];
 
         for (const transaction of transactions) {
             if (transaction.type === Transaction.INCOME) {

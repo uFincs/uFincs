@@ -206,7 +206,7 @@ describe("generateBigram", () => {
     it("returns an empty string given an empty/nonexistent string", () => {
         expect(SearchService.generateBigram("")).toBe("");
 
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(SearchService.generateBigram(null)).toBe("");
 
         expect(SearchService.generateBigram(undefined)).toBe("");
@@ -249,7 +249,7 @@ describe("generateWords", () => {
     it("returns an empty array given an empty string", () => {
         expect(SearchService.generateWords("")).toEqual([]);
 
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(SearchService.generateWords(null)).toEqual([]);
 
         expect(SearchService.generateWords(undefined)).toEqual([]);
@@ -314,10 +314,9 @@ describe("cleanString", () => {
     });
 
     it("returns an empty string when given null or undefined", () => {
-        // @ts-ignore Allow testing null.
+        // @ts-expect-error Allow testing null.
         expect(SearchService.cleanString(null)).toEqual("");
 
-        // @ts-ignore Allow testing undefined.
         expect(SearchService.cleanString(undefined)).toEqual("");
     });
 });

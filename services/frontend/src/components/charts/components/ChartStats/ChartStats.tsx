@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {AmountChange, CurrentAmount, FromAmount} from "components/atoms";
 import {Cents} from "utils/types";
 import "./ChartStats.scss";

@@ -180,7 +180,7 @@ const mergeProps = (
     // Remove the transactionSelector from the OwnProps so that it doesn't get passed in
     // and treated as an 'otherProp' (which'll throw an error since it gets passed down
     // to a DOM element).
-    const {transactionSelector, ...otherOwnProps} = ownProps;
+    const {transactionSelector: _transactionSelector, ...otherOwnProps} = ownProps;
 
     return {
         ...stateProps,

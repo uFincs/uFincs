@@ -1,24 +1,26 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {useForm, FormProvider} from "react-hook-form";
 import {storyUsingRedux, storyData, useCreateAccounts} from "utils/stories";
 import RuleConditionCard from "./RuleConditionCard";
 
-export default {
+const meta: Meta<typeof RuleConditionCard> = {
     title: "Molecules/Rule Condition Card",
     component: RuleConditionCard
 };
 
-const cardActions = actions("onRemove");
+export default meta;
+type Story = StoryObj<typeof RuleConditionCard>;
 
 /** The default view of `RuleConditionCard`. */
-export const Default = storyUsingRedux(() => {
-    useCreateAccounts(storyData.accounts);
-    const formMethods = useForm();
+export const Default: Story = {
+    render: storyUsingRedux((args) => {
+        useCreateAccounts(storyData.accounts);
+        const formMethods = useForm();
 
-    return (
-        <FormProvider {...formMethods}>
-            <RuleConditionCard {...cardActions} />
-        </FormProvider>
-    );
-});
+        return (
+            <FormProvider {...formMethods}>
+                <RuleConditionCard {...args} />
+            </FormProvider>
+        );
+    })
+};

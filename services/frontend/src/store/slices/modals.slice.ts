@@ -114,7 +114,7 @@ export const modalsSlice = createSliceWithSelectors({
             state: ModalsSliceState,
             // The action takes a string payload for the password.
             // This is used in the sagas, but needs to be declared here for typing purposes.
-            action: PayloadAction<string>
+            _action: PayloadAction<string>
         ) => {
             state.userAccountDeletionModalVisibility = false;
         },

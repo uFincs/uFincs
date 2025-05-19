@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import {createSlice, PayloadAction, AnyAction} from "@reduxjs/toolkit";
-import React, {useCallback, useContext, useEffect, useMemo, useReducer} from "react";
+import {useCallback, useContext, useEffect, useMemo, useReducer} from "react";
+import * as React from "react";
 import {useHistory, useLocation} from "react-router";
 import {MathUtils} from "services/";
 
@@ -94,10 +96,10 @@ const paginationSlice = createSlice({
         setCurrentPage: (state: PaginationState, action: PayloadAction<number>) => {
             state.currentPage = validatePage(action.payload, state.totalPages);
         },
-        incrementPage: (state: PaginationState, action: AnyAction) => {
+        incrementPage: (state: PaginationState, _action: AnyAction) => {
             state.currentPage = MathUtils.incrementWithBound(state.currentPage, state.totalPages);
         },
-        decrementPage: (state: PaginationState, action: AnyAction) => {
+        decrementPage: (state: PaginationState, _action: AnyAction) => {
             state.currentPage = MathUtils.decrementWithBound(state.currentPage, 0);
         },
         setPageSize: (state: PaginationState, action: PayloadAction<number>) => {

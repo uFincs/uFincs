@@ -2,7 +2,7 @@ import * as rawSeedData from "../../../backend/src/db/seedData";
 
 /* Seed Data */
 
-type Account = typeof rawSeedData.ACCOUNTS[0];
+type Account = (typeof rawSeedData.ACCOUNTS)[0];
 
 const accountsByType = rawSeedData.ACCOUNTS.reduce<Record<string, Array<Account>>>(
     (acc, account) => {

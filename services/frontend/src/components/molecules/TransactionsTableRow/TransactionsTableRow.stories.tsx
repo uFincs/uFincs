@@ -1,144 +1,135 @@
-import {actions} from "@storybook/addon-actions";
-import {number, select, text} from "@storybook/addon-knobs";
-import React from "react";
+import {Decorator, Meta, StoryObj} from "@storybook/react";
+import classNames from "classnames";
 import {SelectableListProvider} from "hooks/";
 import {Transaction} from "models/";
-import TransactionsTableRow, {
-    PureComponent as PureTransactionsTableRow
-} from "./TransactionsTableRow";
+import {PureComponent as PureTransactionsTableRow} from "./TransactionsTableRow";
 
-export default {
+const meta: Meta<typeof PureTransactionsTableRow> = {
     title: "Molecules/Transactions Table Row",
-    component: TransactionsTableRow
+    component: PureTransactionsTableRow,
+    args: {
+        id: "123",
+        amount: 12345,
+        date: "2020-07-11",
+        description: "Bought a whole metric ton of food.",
+        type: Transaction.EXPENSE,
+        creditAccountName: "Cash",
+        debitAccountName: "Food"
+    }
 };
 
-const transactionData = () => ({
-    id: "123",
-    amount: number("Amount", 12345),
-    date: text("Date", "2020-07-11"),
-    description: text("Description", "Bought a whole metric ton of food."),
-    type: select("Type", Transaction.TRANSACTION_TYPES, Transaction.EXPENSE),
-    creditAccountName: text("From", "Cash"),
-    debitAccountName: text("To", "Food")
-});
+export default meta;
+type Story = StoryObj<typeof PureTransactionsTableRow>;
 
-const runningBalanceKnob = () => number("Running Balance", 67890);
+const TransactionsTableDecorator =
+    ({full = false, runningBalance = false} = {}): Decorator =>
+    (Story) => (
+        <div
+            className={classNames({
+                "TransactionsTable--full": full,
+                "TransactionsTable--running-balance": runningBalance
+            })}
+            style={{width: "100%"}}
+        >
+            <Story />
+        </div>
+    );
 
-const rowActions = actions("onClick", "onEdit", "onDelete");
-
-/** The compressed (default) view of the `TransactionsTableRow  where the From and To accounts
+/** The compressed (default) view of the `TransactionsTableRow` where the From and To accounts
  *  are compressed into one column underneath Description. */
-export const Compressed = () => <PureTransactionsTableRow {...transactionData()} {...rowActions} />;
+export const Compressed: Story = {};
 
 /** The compressed view of the `TransactionsTableRow` with the running balance enabled. */
-export const CompressedWithRunningBalance = () => (
+export const CompressedWithRunningBalance: Story = {
     // This uses `TransactionsTable--running-balance` class to force the running balance view.
     // Also, need to force 100% width on the container for story purposes, so that it looks nice.
-    <div className="TransactionsTable--running-balance" style={{width: "100%"}}>
-        <PureTransactionsTableRow
-            runningBalance={runningBalanceKnob()}
-            {...transactionData()}
-            {...rowActions}
-        />
-    </div>
-);
+    decorators: [TransactionsTableDecorator({runningBalance: true})],
+    args: {
+        runningBalance: 67890
+    }
+};
 
 /** The full view of the `TransactionsTableRow` where each piece of data gets its own column, */
-export const Full = () => (
+export const Full: Story = {
     // This uses the `TransactionsTable--full` class to force the full view.
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow {...transactionData()} {...rowActions} />
-    </div>
-);
+    decorators: [TransactionsTableDecorator({full: true})]
+};
 
 /** The full view of the `TransactionsTableRow` with the running balance enabled. */
-export const FullWithRunningBalance = () => (
-    <div
-        className="TransactionsTable--full TransactionsTable--running-balance"
-        style={{width: "100%"}}
-    >
-        <PureTransactionsTableRow
-            runningBalance={runningBalanceKnob()}
-            {...transactionData()}
-            {...rowActions}
-        />
-    </div>
-);
+export const FullWithRunningBalance: Story = {
+    decorators: [TransactionsTableDecorator({full: true, runningBalance: true})],
+    args: {
+        runningBalance: 67890
+    }
+};
 
 /** The disabled view of the `TransactionsTableRow`. */
-export const Disabled = () => (
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow {...transactionData()} disabled={true} {...rowActions} />
-    </div>
-);
+export const Disabled: Story = {
+    decorators: [TransactionsTableDecorator({full: true})],
+    args: {
+        disabled: true
+    }
+};
 
 /** The 'error' view of the `TransactionsTableRow`. */
-export const HasError = () => (
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow {...transactionData()} hasError={true} {...rowActions} />
-    </div>
-);
+export const HasError: Story = {
+    decorators: [TransactionsTableDecorator({full: true})],
+    args: {
+        hasError: true
+    }
+};
 
 /** Enabling the selectable view of the `TransactionsTableRow`. */
-export const Selectable = () => (
-    <SelectableListProvider>
-        <div className="TransactionsTable--full" style={{width: "100%"}}>
-            <PureTransactionsTableRow {...transactionData()} {...rowActions} />
-        </div>
-    </SelectableListProvider>
-);
+export const Selectable: Story = {
+    decorators: [
+        (Story) => (
+            <SelectableListProvider>
+                <Story />
+            </SelectableListProvider>
+        ),
+        TransactionsTableDecorator({full: true})
+    ]
+};
 
 /** An example of an 'importable' `TransactionsTableRow`.
  *
  *  The target account name should be displayed differently than a regular account name. */
-export const Importable = () => (
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow
-            {...transactionData()}
-            debitAccountName=""
-            placeholderDebitAccountName="CANADA"
-            {...rowActions}
-        />
-    </div>
-);
+export const Importable: Story = {
+    decorators: [TransactionsTableDecorator({full: true})],
+    args: {
+        debitAccountName: "",
+        placeholderDebitAccountName: "CANADA"
+    }
+};
 
 /** An example of a 'recurring' `TransactionsTableRow`.
  *
  *  The only change should be that the Delete action has a different tooltip, emphasizing how deleting
  *  a recurring transaction won't delete its realized transactions. */
-export const Recurring = () => (
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow
-            {...transactionData()}
-            isRecurringTransaction={true}
-            {...rowActions}
-        />
-    </div>
-);
+export const Recurring: Story = {
+    decorators: [TransactionsTableDecorator({full: true})],
+    args: {
+        isRecurringTransaction: true
+    }
+};
 
 /** An example of a 'virtual' `TransactionsTableRow` (i.e. a future transaction that was derived from
  *  a recurring transaction).
  *
  *  It should have the date italicized and de-emphasized, to show how this isn't a 'real' transaction. */
-export const Virtual = () => (
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow
-            {...transactionData()}
-            isVirtualTransaction={true}
-            {...rowActions}
-        />
-    </div>
-);
+export const Virtual: Story = {
+    decorators: [TransactionsTableDecorator({full: true})],
+    args: {
+        isVirtualTransaction: true
+    }
+};
 
 /** An example of a 'future' `TransactionsTableRow` (i.e. a transaction that happens in the future).
  *
  *  It should have a pink accent bar on the left side to indicate that it is a 'future' transaction. */
-export const Future = () => (
-    <div className="TransactionsTable--full" style={{width: "100%"}}>
-        <PureTransactionsTableRow
-            {...transactionData()}
-            isFutureTransaction={true}
-            {...rowActions}
-        />
-    </div>
-);
+export const Future: Story = {
+    decorators: [TransactionsTableDecorator({full: true})],
+    args: {
+        isFutureTransaction: true
+    }
+};

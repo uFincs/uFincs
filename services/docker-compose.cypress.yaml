@@ -2,7 +2,7 @@ services:
     backend:
         build:
             context: ./backend
-            dockerfile: Dockerfile.development
+            dockerfile: Dockerfile.dev
         environment:
             FRONTEND_PORT: ${FRONTEND_PORT}
         command: npm start
@@ -32,7 +32,7 @@ services:
     backend-database-migrate:
         build:
             context: ./backend
-            dockerfile: Dockerfile.development
+            dockerfile: Dockerfile.dev
         command: sh -c "npm run db:retryable-migrate && npm run db:seed"
         depends_on:
             backend-database:
@@ -43,7 +43,7 @@ services:
             args:
                 app_env: development
             context: ./frontend
-            dockerfile: Dockerfile.development
+            dockerfile: Dockerfile.dev
         environment:
             REACT_APP_BACKEND_PORT: ${BACKEND_PORT}
         image: frontend

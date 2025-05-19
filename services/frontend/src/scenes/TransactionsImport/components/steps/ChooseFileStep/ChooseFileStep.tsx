@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
+import * as React from "react";
 import {TextField} from "components/atoms";
 import {StepDescription, SubmitButton} from "components/molecules";
 import {useOnActiveKey} from "hooks/";
@@ -107,4 +108,5 @@ const ChooseFileStep = ({
     );
 };
 
-export default connect(ChooseFileStep);
+const ConnectedChooseFileStep = connect(ChooseFileStep);
+export default ConnectedChooseFileStep;

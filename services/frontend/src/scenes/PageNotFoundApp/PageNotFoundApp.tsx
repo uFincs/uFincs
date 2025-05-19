@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {PageNotFoundContent} from "components/organisms";
 import {DerivedAppScreenUrls} from "values/screenUrls";
 import "./PageNotFoundApp.scss";

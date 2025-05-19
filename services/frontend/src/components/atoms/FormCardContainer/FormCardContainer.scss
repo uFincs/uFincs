@@ -1,9 +1,10 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .FormCardContainer {
     background-color: $color-background-dark;
     border-radius: $border-radius-large;
-    box-shadow: 0 4px 6px transparentize($color: $color-primary-600, $amount: 0.7);
+    box-shadow: 0 4px 6px color.adjust($color: $color-primary-600, $alpha: -0.7);
     display: flex;
     flex-direction: column;
     padding: $size-300;

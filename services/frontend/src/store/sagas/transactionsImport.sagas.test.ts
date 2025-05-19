@@ -1,8 +1,8 @@
 import {push} from "connected-react-router";
+import {select} from "redux-saga/effects";
 import {expectSaga} from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers";
 import {Matcher} from "redux-saga-test-plan/matchers";
-import {select} from "redux-saga/effects";
 import {Account, ImportProfile, ImportableTransaction, Transaction, ImportRule} from "models/";
 import {
     accountsSlice,

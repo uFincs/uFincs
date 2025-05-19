@@ -1,13 +1,20 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import StepNavigationFooter from "./StepNavigationFooter";
 
-export default {
+const meta: Meta<typeof StepNavigationFooter> = {
     title: "Organisms/Step Navigation Footer",
     component: StepNavigationFooter
 };
 
+export default meta;
+type Story = StoryObj<typeof StepNavigationFooter>;
+
 const footerActions = actions("onNextStep", "onPreviousStep");
 
 /** The default view of `StepNavigationFooter`. */
-export const Default = () => <StepNavigationFooter {...footerActions} />;
+export const Default: Story = {
+    args: {
+        ...footerActions
+    }
+};

@@ -1,4 +1,4 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {DateRangeProvider} from "hooks/";
 import {
     smallViewport,
@@ -9,10 +9,13 @@ import {
 } from "utils/stories";
 import AccountSummaries from "./AccountSummaries";
 
-export default {
+const meta: Meta<typeof AccountSummaries> = {
     title: "Organisms/Account Summaries",
     component: AccountSummaries
 };
+
+export default meta;
+type Story = StoryObj<typeof AccountSummaries>;
 
 const WrappedAccountSummaries = () => (
     <DateRangeProvider>
@@ -26,17 +29,21 @@ const useMakeFunctional = () => {
 };
 
 /** The large view of the `AccountSummaries`. */
-export const Large = storyUsingRedux(() => {
-    useMakeFunctional();
+export const Large: Story = {
+    render: storyUsingRedux((args) => {
+        useMakeFunctional();
 
-    return <WrappedAccountSummaries />;
-});
+        return <WrappedAccountSummaries {...args} />;
+    })
+};
 
 /** The small view of the `AccountSummaries`. */
-export const Small = storyUsingRedux(() => {
-    useMakeFunctional();
+export const Small: Story = {
+    render: storyUsingRedux((args) => {
+        useMakeFunctional();
 
-    return <WrappedAccountSummaries />;
-});
+        return <WrappedAccountSummaries {...args} />;
+    })
+};
 
 Small.parameters = smallViewport;

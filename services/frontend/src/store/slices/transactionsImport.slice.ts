@@ -105,7 +105,7 @@ export const canGotoNextStep = (
             return !!state.accountId;
         case STEP_INDICES.CHOOSE_FILE:
             return !!state.fileName && !!state.fileContents.length;
-        case STEP_INDICES.MAP_FIELDS:
+        case STEP_INDICES.MAP_FIELDS: {
             const isNewProfileSection = selectIsNewProfileSection(storeState);
 
             if (isNewProfileSection) {
@@ -113,12 +113,14 @@ export const canGotoNextStep = (
             } else {
                 return !!state.importProfileId;
             }
-        case STEP_INDICES.ADJUST_TRANSACTIONS:
+        }
+        case STEP_INDICES.ADJUST_TRANSACTIONS: {
             // Use the selector here so that we correctly choose between `transactions` and
             // `transactionsFromRules`.
             const transactions = selectAllTransactions(storeState);
 
             return transactionsAreValid(transactions, accountsById);
+        }
         case STEP_INDICES.COMPLETE_IMPORT:
             return true;
         default:
@@ -137,7 +139,7 @@ export const nextStepDisabledReason = (
             return "You must choose an account";
         case STEP_INDICES.CHOOSE_FILE:
             return "You must choose a valid CSV file";
-        case STEP_INDICES.MAP_FIELDS:
+        case STEP_INDICES.MAP_FIELDS: {
             const isNewProfileSection = selectIsNewProfileSection(storeState);
 
             if (isNewProfileSection) {
@@ -145,12 +147,14 @@ export const nextStepDisabledReason = (
             } else {
                 return "You must choose an existing format";
             }
-        case STEP_INDICES.ADJUST_TRANSACTIONS:
+        }
+        case STEP_INDICES.ADJUST_TRANSACTIONS: {
             // Use the selector here so that we correctly choose between `transactions` and
             // `transactionsFromRules`.
             const transactions = selectAllTransactions(storeState);
 
             return whyTransactionsArentValid(transactions, accountsById).message;
+        }
         case STEP_INDICES.COMPLETE_IMPORT:
             return "";
         default:
@@ -169,7 +173,7 @@ const transactionsAreValid = (
         return false;
     }
 
-    const duplicateTransactions = [];
+    const duplicateTransactions: Array<ImportableTransactionData> = [];
 
     for (const transaction of Object.values(transactions)) {
         const {
@@ -220,7 +224,7 @@ const whyTransactionsArentValid = (
         };
     }
 
-    const duplicateTransactions = [];
+    const duplicateTransactions: Array<ImportableTransactionData> = [];
 
     for (let i = 0; i < transactionsList.length; i++) {
         const transaction = transactionsList[i];
@@ -388,12 +392,12 @@ const selectCleanTransaction = (id: Id) =>
 // Yes, this is terrible as far as encapsulation and existing paradigms go. Yes, I am too lazy to refactor
 // everything to accommodate this change. So... TECH DEBT.
 const selectCanGotoNextStep = createSelector(
-    [(state) => state, selectState, accountsSlice.selectors.selectAccounts],
+    [(state: any) => state, selectState, accountsSlice.selectors.selectAccounts],
     canGotoNextStep
 );
 
 const selectNextStepDisabledReason = createSelector(
-    [(state) => state, selectState, accountsSlice.selectors.selectAccounts],
+    [(state: any) => state, selectState, accountsSlice.selectors.selectAccounts],
     nextStepDisabledReason
 );
 
@@ -445,7 +449,7 @@ export const transactionsImportSlice = createSliceWithSelectors({
             // Expects a Step index as payload.
             const nextStepState = action.payload;
 
-            // Only allow travelling backwards when manually setting the step.
+            // Only allow traveling backwards when manually setting the step.
             // Used by, e.g., the ImportStepper.
             if (nextStepState < state.currentStep) {
                 // Prevent setting a step index greater than the number of steps and less than 0.
@@ -668,7 +672,7 @@ export const transactionsImportSlice = createSliceWithSelectors({
         },
 
         /* Saga Only Actions */
-        parseFile: (state: TransactionsImportSliceState, action: PayloadAction<File>) => state
+        parseFile: (state: TransactionsImportSliceState, _action: PayloadAction<File>) => state
     },
     // Need to _not_ reset the state when navigating away to any other `/import` URL.
     // In particular, this means not resetting state when using the `TransactionsImportEditForm`.

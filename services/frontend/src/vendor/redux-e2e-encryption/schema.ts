@@ -61,7 +61,7 @@ const mapOf = (model: string): string => {
 // The following two functions handle adding the actual meta tags to an action.
 // This way, consumers don't need to deal with wrapping the object themselves.
 
-const wrapActionForEncryption = <T extends Object & {meta?: any}>(
+const wrapActionForEncryption = <T extends object & {meta?: any}>(
     action: T,
     payloadFormat: string
 ): T & {meta: {encrypt: string}} => {
@@ -74,7 +74,7 @@ const wrapActionForEncryption = <T extends Object & {meta?: any}>(
     };
 };
 
-const wrapActionForDecryption = <T extends Object & {meta?: any}>(
+const wrapActionForDecryption = <T extends object & {meta?: any}>(
     action: T,
     payloadFormat: string
 ): T & {meta: {decrypt: string}} => {

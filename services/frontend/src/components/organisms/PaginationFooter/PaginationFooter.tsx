@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Divider} from "components/atoms";
 import {PaginationPageSize, PaginationSummary, PaginationSwitcher} from "components/molecules";
 import "./PaginationFooter.scss";

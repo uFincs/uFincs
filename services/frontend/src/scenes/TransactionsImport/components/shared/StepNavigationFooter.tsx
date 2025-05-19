@@ -1,4 +1,5 @@
 import {StepNavigationFooter} from "components/organisms";
-import {connect} from "./StepNavigationButtons";
+import {connect} from "./connect";
 
-export default connect(StepNavigationFooter);
+const ConnectedStepNavigationFooter = connect(StepNavigationFooter);
+export default ConnectedStepNavigationFooter;

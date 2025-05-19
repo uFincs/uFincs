@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Divider, LinkButton} from "components/atoms";
 import {StepNavigationButtons} from "components/molecules";
 import {StepNavigationButtonsProps} from "components/molecules/StepNavigationButtons/StepNavigationButtons";

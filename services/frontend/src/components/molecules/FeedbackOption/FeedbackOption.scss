@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 @mixin styles-for-type($type, $background-color, $icon-color, $icon-dark-color) {
     &.FeedbackOption--#{$type} {

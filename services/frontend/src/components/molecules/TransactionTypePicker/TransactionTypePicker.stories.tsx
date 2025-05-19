@@ -1,71 +1,41 @@
-import {text} from "@storybook/addon-knobs";
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {Transaction} from "models/";
 import {smallViewport} from "utils/stories";
 import TransactionTypePicker from "./TransactionTypePicker";
 
-export default {
+const meta: Meta<typeof TransactionTypePicker> = {
     title: "Molecules/Transaction Type Picker",
-    component: TransactionTypePicker
+    component: TransactionTypePicker,
+    args: {
+        value: "income",
+        label: "Type",
+        disabled: false
+    }
 };
 
-const labelKnob = () => text("Label", "Type");
+export default meta;
+type Story = StoryObj<typeof TransactionTypePicker>;
 
 /** The default view of the `TransactionTypePicker`. */
-export const Default = () => {
-    const [value, setValue] = useState<string>(Transaction.INCOME);
-
-    return (
-        <TransactionTypePicker
-            id="Story-TransactionTypePicker"
-            label={labelKnob()}
-            value={value}
-            onChange={setValue}
-        />
-    );
-};
+export const Default: Story = {};
 
 /** An example of the `TransactionTypePicker` with fewer types to pick from. */
-export const FewerTypes = () => {
-    const [value, setValue] = useState<string>(Transaction.INCOME);
-
-    return (
-        <TransactionTypePicker
-            id="Story-TransactionTypePicker"
-            label={labelKnob()}
-            typesToShow={[Transaction.INCOME, Transaction.EXPENSE]}
-            value={value}
-            onChange={setValue}
-        />
-    );
+export const FewerTypes: Story = {
+    args: {
+        typesToShow: [Transaction.INCOME, Transaction.EXPENSE]
+    }
 };
 
 /** The (more realistic) small view of the `TransactionTypePicker`. */
-export const Small = () => {
-    const [value, setValue] = useState<string>(Transaction.INCOME);
-
-    return (
-        <TransactionTypePicker
-            id="Story-TransactionTypePicker"
-            label={labelKnob()}
-            value={value}
-            onChange={setValue}
-        />
-    );
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
 };
-Small.parameters = smallViewport;
 
 /** The disabled view of the `TransactionTypePicker`. */
-export const Disabled = () => {
-    const [value, setValue] = useState<string>(Transaction.INCOME);
-
-    return (
-        <TransactionTypePicker
-            id="Story-TransactionTypePicker"
-            disabled={true}
-            label={labelKnob()}
-            value={value}
-            onChange={setValue}
-        />
-    );
+export const Disabled: Story = {
+    args: {
+        disabled: true
+    }
 };

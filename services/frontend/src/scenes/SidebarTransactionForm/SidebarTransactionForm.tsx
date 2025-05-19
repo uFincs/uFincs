@@ -1,4 +1,3 @@
-import React from "react";
 import {Sidebar} from "components/atoms";
 import {TransactionForm} from "components/organisms";
 import {TransactionsSearchProvider} from "hooks/";
@@ -26,4 +25,5 @@ const SidebarTransactionForm = ({isVisible, onClose}: SidebarTransactionFormProp
 );
 
 export const PureComponent = SidebarTransactionForm;
-export default connect(SidebarTransactionForm);
+const ConnectedSidebarTransactionForm = connect(SidebarTransactionForm);
+export default ConnectedSidebarTransactionForm;

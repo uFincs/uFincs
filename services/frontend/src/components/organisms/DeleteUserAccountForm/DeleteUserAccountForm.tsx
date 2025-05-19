@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {SubmitButton} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -42,4 +41,5 @@ const DeleteUserAccountForm = ({
 );
 
 export const PureComponent = DeleteUserAccountForm;
-export default connect(DeleteUserAccountForm);
+export const ConnectedDeleteUserAccountForm = connect(DeleteUserAccountForm);
+export default ConnectedDeleteUserAccountForm;

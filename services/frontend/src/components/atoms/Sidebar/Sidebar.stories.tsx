@@ -1,37 +1,27 @@
-import {action} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport, smallLandscapeViewport} from "utils/stories";
 import Sidebar from "./Sidebar";
 
-export default {
+const meta: Meta<typeof Sidebar> = {
     title: "Atoms/Sidebar",
-    component: Sidebar
+    component: Sidebar,
+    args: {
+        isVisible: true
+    }
 };
 
-const visibilityKnob = () => boolean("Visible", true);
+export default meta;
+type Story = StoryObj<typeof Sidebar>;
 
 /** The `Sidebar` as a basic container with some basic content. */
-export const Large = () => (
-    <Sidebar isVisible={visibilityKnob()} onClose={action("close")}>
-        <p>Some content</p>
-    </Sidebar>
-);
+export const Large: Story = {};
 
 /** The `Sidebar` takes up the whole screen on small devices. */
-export const Small = () => (
-    <Sidebar isVisible={visibilityKnob()} onClose={action("close")}>
-        <p>Some content</p>
-    </Sidebar>
-);
+export const Small: Story = {};
 
 Small.parameters = smallViewport;
 
 /** The `Sidebar` should still work in landscape. */
-export const SmallLandscape = () => (
-    <Sidebar isVisible={visibilityKnob()} onClose={action("close")}>
-        <p>Some content</p>
-    </Sidebar>
-);
+export const SmallLandscape: Story = {};
 
 SmallLandscape.parameters = smallLandscapeViewport;

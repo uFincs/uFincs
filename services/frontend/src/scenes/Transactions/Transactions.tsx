@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useState} from "react";
+import {useState} from "react";
 import {useSelector} from "react-redux";
 import {DelayedRender} from "components/atoms";
 import {TabBarWithSections, TransactionsSearchInput} from "components/molecules";

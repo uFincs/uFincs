@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 .ImportRulesTableColumnHeaders {
     @include import-rules-table-grid();

@@ -1,4 +1,4 @@
-import {renderHook} from "@testing-library/react-hooks";
+import {renderHook} from "@testing-library/react";
 import {Transaction} from "models/";
 import useIntersectTransactions from "./useIntersectTransactions";
 

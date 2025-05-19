@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {ChangeEmailForm, ChangePasswordForm, DeleteUserAccountForm} from "components/organisms";
 import "./UserAccount.scss";
 

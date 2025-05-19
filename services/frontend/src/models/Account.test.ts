@@ -165,14 +165,12 @@ const netWorth = -50;
 
 describe("Constructor", () => {
     it("converts string opening balances to integers", () => {
-        // @ts-ignore Allow testing string values for opening balance.
         const account = new Account({openingBalance: "123"});
 
         expect(account.openingBalance).toBe(123);
     });
 
     it("converts string interests to integers", () => {
-        // @ts-ignore Allow testing string values for interest.
         const account = new Account({interest: "123"});
 
         expect(account.interest).toBe(123);
@@ -203,13 +201,13 @@ describe("validate", () => {
     });
 
     it("checks for type existence", () => {
-        // @ts-ignore Allow testing for invalid types.
+        // @ts-expect-error Allow testing for invalid types.
         const invalidAccount = new Account({...validAccount, type: ""});
         expect(() => invalidAccount.validate()).toThrow("type");
     });
 
     it("checks for valid type", () => {
-        // @ts-ignore Allow testing for invalid types.
+        // @ts-expect-error Allow testing for invalid types.
         const invalidAccount = new Account({...validAccount, type: "test"});
         expect(() => invalidAccount.validate()).toThrow("type");
     });
@@ -218,7 +216,7 @@ describe("validate", () => {
         it("rejects opening balances that are null", () => {
             const invalidAccount = new Account({...validAccount});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidAccount.openingBalance = null;
 
             expect(() => invalidAccount.validate()).toThrow("opening balance");
@@ -227,7 +225,7 @@ describe("validate", () => {
         it("rejects opening balances that are undefined", () => {
             const invalidAccount = new Account({...validAccount});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidAccount.openingBalance = undefined;
 
             expect(() => invalidAccount.validate()).toThrow("opening balance");
@@ -236,7 +234,7 @@ describe("validate", () => {
         it("rejects opening balances that are not numbers", () => {
             const invalidAccount = new Account({...validAccount});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidAccount.openingBalance = "test";
 
             expect(() => invalidAccount.validate()).toThrow("opening balance");
@@ -261,7 +259,7 @@ describe("validate", () => {
         it("rejects interests that are null", () => {
             const invalidAccount = new Account({...validAccount});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidAccount.interest = null;
 
             expect(() => invalidAccount.validate()).toThrow("interest");
@@ -270,7 +268,7 @@ describe("validate", () => {
         it("rejects interests that are undefined", () => {
             const invalidAccount = new Account({...validAccount});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidAccount.interest = undefined;
 
             expect(() => invalidAccount.validate()).toThrow("interest");
@@ -279,7 +277,7 @@ describe("validate", () => {
         it("rejects interest that are not numbers", () => {
             const invalidAccount = new Account({...validAccount});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidAccount.interest = "test";
 
             expect(() => invalidAccount.validate()).toThrow("interest");
@@ -368,22 +366,22 @@ describe("calculateBalance", () => {
     });
 
     it("ignores undefined transactions", () => {
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(Account.calculateBalance(assetAccount, [undefined])).toBe(
             assetAccount.openingBalance
         );
 
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(Account.calculateBalance(liabilityAccount, [undefined])).toBe(
             liabilityAccount.openingBalance
         );
 
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(Account.calculateBalance(incomeAccount, [undefined])).toBe(
             incomeAccount.openingBalance
         );
 
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(Account.calculateBalance(expenseAccount, [undefined])).toBe(
             expenseAccount.openingBalance
         );
@@ -450,15 +448,18 @@ describe("calculateAccountsBalanceChanges", () => {
     });
 
     it("works even when the account objects don't start with a balance property", () => {
-        const accountsWithoutBalance = Object.keys(accountsById).reduce((acc, id) => {
-            const account = new Account({...accountsById[id]});
+        const accountsWithoutBalance = Object.keys(accountsById).reduce(
+            (acc, id) => {
+                const account = new Account({...accountsById[id]});
 
-            // @ts-ignore Allow removing balance.
-            delete account.balance;
+                // @ts-expect-error Allow removing balance.
+                delete account.balance;
 
-            acc[id] = account;
-            return acc;
-        }, {} as typeof accountsById);
+                acc[id] = account;
+                return acc;
+            },
+            {} as typeof accountsById
+        );
 
         const accountsWithBalanceChanges = Account.calculateAccountsBalanceChanges(
             accountsWithoutBalance,
@@ -580,7 +581,7 @@ describe("generateAccountOptions", () => {
     });
 
     it("throws an error if it isn't passed an array for 'types'", () => {
-        // @ts-ignore Allow testing invalid values.
+        // @ts-expect-error Allow testing invalid values.
         expect(() => Account.generateAccountOptions(Account.ASSET, accountsByType)).toThrow();
     });
 });

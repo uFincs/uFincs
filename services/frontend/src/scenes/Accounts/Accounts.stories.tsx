@@ -1,4 +1,4 @@
-import React from "react";
+import type {Meta} from "@storybook/react";
 import {DateRangeProvider} from "hooks/";
 import {
     smallViewport,
@@ -9,10 +9,14 @@ import {
 } from "utils/stories";
 import Accounts from "./Accounts";
 
-export default {
+// Tech Debt: These stories don't work for some reason.
+
+const meta: Meta<typeof Accounts> = {
     title: "Scenes/Accounts",
     component: Accounts
 };
+
+export default meta;
 
 const WrappedAccounts = () => (
     <DateRangeProvider>

@@ -1,6 +1,6 @@
 import {push} from "connected-react-router";
-import {expectSaga} from "redux-saga-test-plan";
 import {delay, select} from "redux-saga/effects";
+import {expectSaga} from "redux-saga-test-plan";
 import {
     accountsRequestsSlice,
     appSlice,
@@ -48,7 +48,7 @@ describe("watchAppBoot", () => {
                     [delay(LOGIN_SPLASH_SCREEN), null]
                 ])
                 .dispatch(authRequestsSlice.login.actions.success())
-                // @ts-ignore Allow an empty user, since it gets mocked by the provides anyways.
+                // @ts-expect-error Allow an empty user, since it gets mocked by the provides anyways.
                 .dispatch(userSlice.actions.setUser({}))
                 .dispatch(accountsRequestsSlice.fetchAll.actions.effectSuccess())
                 .dispatch(recurringTransactionsRequestsSlice.fetchAll.actions.effectSuccess())
@@ -155,7 +155,7 @@ describe("watchAppBoot", () => {
                     [delay(LOGIN_SPLASH_SCREEN), null]
                 ])
                 .dispatch(authRequestsSlice.login.actions.success())
-                // @ts-ignore Allow an empty user, since it gets mocked by the provides anyways.
+                // @ts-expect-error Allow an empty user, since it gets mocked by the provides anyways.
                 .dispatch(userSlice.actions.setUser({}))
                 .dispatch(accountsRequestsSlice.fetchAll.actions.effectSuccess())
                 .dispatch(recurringTransactionsRequestsSlice.fetchAll.actions.effectSuccess())
@@ -164,7 +164,7 @@ describe("watchAppBoot", () => {
                 .dispatch(preferencesRequestsSlice.fetchAll.actions.effectSuccess())
                 .dispatch(recurringTransactionsSlice.actions.triggerConcreteRealizations())
                 .dispatch(authRequestsSlice.login.actions.success())
-                // @ts-ignore Allow an empty user, since it gets mocked by the provides anyways.
+                // @ts-expect-error Allow an empty user, since it gets mocked by the provides anyways.
                 .dispatch(userSlice.actions.setUser({}))
                 .dispatch(accountsRequestsSlice.fetchAll.actions.effectSuccess())
                 .dispatch(recurringTransactionsRequestsSlice.fetchAll.actions.effectSuccess())

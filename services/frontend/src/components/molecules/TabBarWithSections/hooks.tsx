@@ -1,4 +1,5 @@
-import React, {useMemo, useState} from "react";
+import {useMemo, useState} from "react";
+import * as React from "react";
 import {animated, to as interpolate, useSpring} from "react-spring";
 import {useDrag} from "react-use-gesture";
 import {Tab} from "components/molecules/TabBar/TabBar";
@@ -128,6 +129,7 @@ export const useTabBarWithSections = (
                 });
 
                 return (
+                    // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
                     <animated.section
                         key={tabs[activeTab].label}
                         id={tabs[activeTab].controlsId}

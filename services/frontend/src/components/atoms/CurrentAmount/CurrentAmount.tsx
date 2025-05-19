@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {animated, to as interpolate, useSpring} from "react-spring";
 import {useCurrencySymbol} from "hooks/";
 import {ValueFormatting} from "services/";
@@ -60,6 +59,7 @@ const CurrentAmount = ({className, amount, lightShade}: CurrentAmountProps) => {
         >
             <span className="CurrentAmount-dollar-sign">{currencySymbol}</span>
 
+            {/* @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358 */}
             <animated.span className="CurrentAmount-amount">
                 {interpolate([cents], (cents) =>
                     // Need to floor the cents since react-spring will give it decimal places.

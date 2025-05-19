@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {silenceConsoleErrors} from "utils/testHelpers";
 import Account from "./Account";
 import ImportProfile from "./ImportProfile";
@@ -62,32 +63,32 @@ describe("convertCsvToTransactions", () => {
     });
 
     // Remove all these irrelevant properties for testing purposes
-    // @ts-ignore Ignore need for property to be optional.
+    // @ts-expect-error Ignore need for property to be optional.
     delete incomeTransaction.id;
-    // @ts-ignore
+    // @ts-expect-error
     delete incomeTransaction.createdAt;
-    // @ts-ignore
+    // @ts-expect-error
     delete incomeTransaction.updatedAt;
 
-    // @ts-ignore
+    // @ts-expect-error
     delete expenseTransaction.id;
-    // @ts-ignore
+    // @ts-expect-error
     delete expenseTransaction.createdAt;
-    // @ts-ignore
+    // @ts-expect-error
     delete expenseTransaction.updatedAt;
 
-    // @ts-ignore
+    // @ts-expect-error
     delete debtTransaction.id;
-    // @ts-ignore
+    // @ts-expect-error
     delete debtTransaction.createdAt;
-    // @ts-ignore
+    // @ts-expect-error
     delete debtTransaction.updatedAt;
 
-    // @ts-ignore
+    // @ts-expect-error
     delete transferTransaction.id;
-    // @ts-ignore
+    // @ts-expect-error
     delete transferTransaction.createdAt;
-    // @ts-ignore
+    // @ts-expect-error
     delete transferTransaction.updatedAt;
 
     const mappings = [
@@ -198,11 +199,11 @@ describe("convertCsvToTransactions", () => {
             description: "duplicate description"
         });
 
-        // @ts-ignore
+        // @ts-expect-error
         delete extendedTransaction.id;
-        // @ts-ignore
+        // @ts-expect-error
         delete extendedTransaction.createdAt;
-        // @ts-ignore
+        // @ts-expect-error
         delete extendedTransaction.updatedAt;
 
         const results = profileWithDuplicate.convertCsvToTransactions([extendedRow], assetAccount);

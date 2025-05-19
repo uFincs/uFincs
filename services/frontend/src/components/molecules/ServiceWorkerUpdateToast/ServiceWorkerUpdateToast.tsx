@@ -1,4 +1,3 @@
-import React from "react";
 import {SmallToast} from "components/molecules";
 import "./ServiceWorkerUpdateToast.scss";
 

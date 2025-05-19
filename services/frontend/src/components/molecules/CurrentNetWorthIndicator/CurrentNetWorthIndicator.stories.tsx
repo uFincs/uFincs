@@ -1,10 +1,16 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as CurrentNetWorthIndicator} from "./CurrentNetWorthIndicator";
 
-export default {
+const meta: Meta<typeof CurrentNetWorthIndicator> = {
     title: "Molecules/Current Net Worth Indicator",
-    component: CurrentNetWorthIndicator
+    component: CurrentNetWorthIndicator,
+    args: {
+        currentNetWorth: 123456789
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof CurrentNetWorthIndicator>;
+
 /** The default view of `CurrentNetWorthIndicator`. */
-export const Default = () => <CurrentNetWorthIndicator currentNetWorth={123456789} />;
+export const Default: Story = {};

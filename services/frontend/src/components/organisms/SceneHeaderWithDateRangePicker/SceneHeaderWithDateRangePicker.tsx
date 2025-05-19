@@ -1,7 +1,6 @@
 import classNames from "classnames";
-import React from "react";
 import {OverlineHeading} from "components/atoms";
-import {AppRefreshButton, ShowFutureToggle} from "components/molecules";
+import {ShowFutureToggle} from "components/molecules";
 import {DateRangePicker} from "components/organisms";
 import "./SceneHeaderWithDateRangePicker.scss";
 
@@ -24,7 +23,6 @@ const SceneHeaderWithDateRangePicker = ({
             <OverlineHeading>{title}</OverlineHeading>
 
             <div className="SceneHeaderWithDateRangePicker-heading-container-right-half">
-                <AppRefreshButton />
                 <ShowFutureToggle />
             </div>
         </div>

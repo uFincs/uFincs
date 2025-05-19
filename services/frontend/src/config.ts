@@ -24,15 +24,8 @@ declare global {
     }
 }
 
-// Note: The use of REACT_APP env vars here is so that the Frontend can be configured at build time,
-// rather than at runtime. This is currently relevant for building the static assets so that they can be
-// used by Capacitor for the Android/iOS/Electron apps, but might be even more relevant in the future
-// if we ever decide to host the Frontend on a static assets platform.
+const IS_PRODUCTION = import.meta.env.PROD;
 
-let IS_PRODUCTION = false;
-
-// If the BACKEND values aren't set, this means we are running in development mode locally.
-// Otherwise, they are substituted by the production Node server into the root index.html.
 if (
     window.BACKEND_HOST === undefined ||
     window.BACKEND_HOST === "__BACKEND_HOST__" ||
@@ -41,9 +34,7 @@ if (
     // Use window.location.hostname instead of just 'localhost' so that it still works
     // when running the server locally, but also when connecting to it from another device
     // (e.g. for mobile testing).
-    window.BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || window.location.hostname;
-} else {
-    IS_PRODUCTION = true;
+    window.BACKEND_HOST = import.meta.env.REACT_APP_BACKEND_HOST || window.location.hostname;
 }
 
 if (
@@ -51,11 +42,11 @@ if (
     window.BACKEND_PORT === "__BACKEND_PORT__" ||
     window.BACKEND_PORT === ""
 ) {
-    window.BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || "5000";
+    window.BACKEND_PORT = import.meta.env.REACT_APP_BACKEND_PORT || "5000";
 }
 
 if (window.BACKEND_PROTOCOL === undefined || window.BACKEND_PROTOCOL === "__BACKEND_PROTOCOL__") {
-    window.BACKEND_PROTOCOL = process.env.REACT_APP_BACKEND_PROTOCOL || "http";
+    window.BACKEND_PROTOCOL = import.meta.env.REACT_APP_BACKEND_PROTOCOL || "http";
 }
 
 if (
@@ -66,7 +57,7 @@ if (
     // Use window.location.hostname instead of just 'localhost' so that it still works
     // when running the server locally, but also when connecting to it from another device
     // (e.g. for mobile testing).
-    window.MARKETING_HOST = process.env.REACT_APP_MARKETING_HOST || window.location.hostname;
+    window.MARKETING_HOST = import.meta.env.REACT_APP_MARKETING_HOST || window.location.hostname;
 }
 
 if (
@@ -74,14 +65,14 @@ if (
     window.MARKETING_PORT === "__MARKETING_PORT__" ||
     window.MARKETING_PORT === ""
 ) {
-    window.MARKETING_PORT = process.env.REACT_APP_MARKETING_PORT || "3002";
+    window.MARKETING_PORT = import.meta.env.REACT_APP_MARKETING_PORT || "3002";
 }
 
 if (
     window.MARKETING_PROTOCOL === undefined ||
     window.MARKETING_PROTOCOL === "__MARKETING_PROTOCOL__"
 ) {
-    window.MARKETING_PROTOCOL = process.env.REACT_APP_MARKETING_PROTOCOL || "http";
+    window.MARKETING_PROTOCOL = import.meta.env.REACT_APP_MARKETING_PROTOCOL || "http";
 }
 
 if (
@@ -89,7 +80,7 @@ if (
     window.SOFTWARE_TAG === "__SOFTWARE_TAG__" ||
     window.SOFTWARE_TAG === ""
 ) {
-    window.SOFTWARE_TAG = "localhost";
+    window.SOFTWARE_TAG = import.meta.env.REACT_APP_SOFTWARE_TAG || "localhost";
 }
 
 let BACKEND_URL = `${window.BACKEND_PROTOCOL}://${window.BACKEND_HOST}`;
@@ -111,7 +102,7 @@ const SOFTWARE_TAG = window.SOFTWARE_TAG;
 
 const STRIPE_KEY = (() => {
     if (window.BRANCH === undefined || window.BRANCH === "__BRANCH__" || window.BRANCH === "") {
-        window.BRANCH = process.env.REACT_APP_BRANCH || "localhost";
+        window.BRANCH = import.meta.env.REACT_APP_BRANCH || "localhost";
     }
 
     if (window.BRANCH === "master") {

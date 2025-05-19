@@ -1,33 +1,30 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport, storyData} from "utils/stories";
 import {ChartDateInterval} from "utils/types";
 import {PureComponent as AccountBalanceChart} from "./AccountBalanceChart";
 
-export default {
+const meta: Meta<typeof AccountBalanceChart> = {
     title: "Charts/Account Balance",
-    component: AccountBalanceChart
+    component: AccountBalanceChart,
+    args: {
+        account: storyData.accounts[0],
+        data: storyData.chartData,
+        dateInterval: ChartDateInterval.days,
+        description: "A line chart",
+        fromBalance: 10000
+    }
 };
 
+export default meta;
+
+type Story = StoryObj<typeof AccountBalanceChart>;
+
 /** The default view of the `AccountBalanceChart`, with some arbitrary data. */
-export const Default = () => (
-    <AccountBalanceChart
-        account={storyData.accounts[0]}
-        data={storyData.chartData}
-        dateInterval={ChartDateInterval.days}
-        description="A line chart"
-        fromBalance={10000}
-    />
-);
+export const Default: Story = {};
 
 /** The small view of the `AccountBalanceChart`. */
-export const Small = () => (
-    <AccountBalanceChart
-        account={storyData.accounts[0]}
-        data={storyData.chartData}
-        dateInterval={ChartDateInterval.days}
-        description="A line chart"
-        fromBalance={10000}
-    />
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};

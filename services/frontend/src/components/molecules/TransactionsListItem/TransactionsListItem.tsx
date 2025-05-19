@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {forwardRef} from "react";
 import {ArrowNarrowRightIcon} from "assets/icons";
 import {TextField, TransactionTypeIcon} from "components/atoms";
 import {ListItem} from "components/molecules";
@@ -16,7 +16,7 @@ const nullCallback = () => {};
 interface TransactionsListItemProps extends ConnectedProps {}
 
 /** A list item for the Transactions list (mobile only). */
-const TransactionsListItem = React.forwardRef(
+const TransactionsListItem = forwardRef(
     (
         {
             className,
@@ -127,7 +127,8 @@ const TransactionsListItem = React.forwardRef(
 );
 
 export const PureComponent = TransactionsListItem;
-export default connect(TransactionsListItem);
+export const ConnectedTransactionsListItem = connect(TransactionsListItem);
+export default ConnectedTransactionsListItem;
 
 /* Other Components */
 

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {useCurrencySymbol} from "hooks/";
 import {ValueFormatting} from "services/";
 import {Cents} from "utils/types";

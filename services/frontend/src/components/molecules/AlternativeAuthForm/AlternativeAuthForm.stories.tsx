@@ -1,41 +1,58 @@
-import {action} from "@storybook/addon-actions";
-import React from "react";
+import {type Meta, type StoryObj} from "@storybook/react";
 import {AuthType} from "components/molecules/AuthForm";
 import {smallViewport} from "utils/stories";
 import AlternativeAuthForm from "./AlternativeAuthForm";
 
-export default {
+const meta: Meta<typeof AlternativeAuthForm> = {
     title: "Molecules/Alternative Auth Form",
-    component: AlternativeAuthForm
+    component: AlternativeAuthForm,
+    args: {
+        type: AuthType.login
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof AlternativeAuthForm>;
+
 /** The `login` variant of the `AlternativeAuthForm` shows the user how to sign up. */
-export const Login = () => (
-    <AlternativeAuthForm type={AuthType.login} onClick={action("clicked")} />
-);
+export const Login: Story = {
+    args: {
+        type: AuthType.login
+    }
+};
 
 /** The small version of the `login` variant of `AlternativeAuthForm`. */
-export const LoginSmall = () => (
-    <AlternativeAuthForm type={AuthType.login} onClick={action("clicked")} />
-);
-
-LoginSmall.parameters = smallViewport;
+export const LoginSmall: Story = {
+    args: {
+        type: AuthType.login
+    },
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** The `signup` variant of the `AlternativeAuthForm` shows the user how to login. */
-export const SignUp = () => (
-    <AlternativeAuthForm type={AuthType.signup} onClick={action("clicked")} />
-);
+export const SignUp: Story = {
+    args: {
+        type: AuthType.signup
+    }
+};
 
 /** The small version of the `signup` variant of `AlternativeAuthForm`. */
-export const SignUpSmall = () => (
-    <AlternativeAuthForm type={AuthType.signup} onClick={action("clicked")} />
-);
-
-SignUpSmall.parameters = smallViewport;
+export const SignUpSmall: Story = {
+    args: {
+        type: AuthType.signup
+    },
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** The disabled state of the `AlternativeAuthForm`.
  *  The form's button should appear look disabled and be unclickable.
  */
-export const Disabled = () => (
-    <AlternativeAuthForm disabled={true} type={AuthType.login} onClick={action("clicked")} />
-);
+export const Disabled: Story = {
+    args: {
+        disabled: true
+    }
+};

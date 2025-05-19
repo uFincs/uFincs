@@ -1,5 +1,4 @@
-import {act} from "@testing-library/react-hooks";
-import React from "react";
+import {act} from "@testing-library/react";
 import {Transaction} from "models/";
 import {storyData, useCreateAccounts, useCreateTransactions} from "utils/stories";
 import {renderHooksWithRedux} from "utils/testHelpers";

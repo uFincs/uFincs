@@ -277,9 +277,8 @@ function* encryptOrDecryptData(method: "encrypt" | "decrypt", data: BackupDataFo
         )
     );
 
-    const {error: mappingError, payload: importProfileMappings} = yield take(
-        encryptOrDecryptAction
-    );
+    const {error: mappingError, payload: importProfileMappings} =
+        yield take(encryptOrDecryptAction);
 
     yield put(
         actionWrapper(
@@ -306,9 +305,8 @@ function* encryptOrDecryptData(method: "encrypt" | "decrypt", data: BackupDataFo
         )
     );
 
-    const {error: ruleConditionError, payload: importRuleConditions} = yield take(
-        encryptOrDecryptAction
-    );
+    const {error: ruleConditionError, payload: importRuleConditions} =
+        yield take(encryptOrDecryptAction);
 
     yield put(
         actionWrapper(
@@ -328,9 +326,8 @@ function* encryptOrDecryptData(method: "encrypt" | "decrypt", data: BackupDataFo
         )
     );
 
-    const {error: recurringTransactionError, payload: recurringTransactions} = yield take(
-        encryptOrDecryptAction
-    );
+    const {error: recurringTransactionError, payload: recurringTransactions} =
+        yield take(encryptOrDecryptAction);
 
     yield put(
         actionWrapper(

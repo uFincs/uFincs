@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 .ChooseFileStep {
     @include wizard-process-step-styles($flex-layout: true);

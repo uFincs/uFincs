@@ -1,16 +1,20 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as ShowFutureToggle} from "./ShowFutureToggle";
 
-export default {
+const meta: Meta<typeof ShowFutureToggle> = {
     title: "Molecules/Show Future Toggle",
-    component: ShowFutureToggle
+    component: ShowFutureToggle,
+    args: {
+        active: false
+    }
 };
 
-const buttonActions = () => actions("onToggle");
+export default meta;
+type Story = StoryObj<typeof ShowFutureToggle>;
 
 /** The default view of `ShowFutureToggle`. */
-export const Default = () => (
-    <ShowFutureToggle active={boolean("Active", false)} {...buttonActions()} />
-);
+export const Default: Story = {
+    args: {
+        active: true
+    }
+};

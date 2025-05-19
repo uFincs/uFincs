@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {
     AmountChange,
     CurrentAmount,
@@ -25,48 +24,42 @@ interface TransactionTypeOptionProps extends OptionCardProps {
 }
 
 /** A custom 'radio button' that can be used in a radio group for picking a Transaction's type. */
-const TransactionTypeOption = React.forwardRef(
-    (
-        {
-            className,
-            active,
-            currentAmount,
-            fromAmount,
-            type,
-            ...otherProps
-        }: TransactionTypeOptionProps,
-        ref: React.Ref<HTMLDivElement>
-    ) => {
-        const hasAmounts = currentAmount !== undefined && fromAmount !== undefined;
+const TransactionTypeOption = ({
+    className,
+    active,
+    currentAmount,
+    fromAmount,
+    type,
+    ...otherProps
+}: TransactionTypeOptionProps) => {
+    const hasAmounts = currentAmount !== undefined && fromAmount !== undefined;
 
-        return (
-            <OptionCard
-                className={classNames(
-                    "TransactionTypeOption",
-                    {
-                        "TransactionTypeOption--picker": !hasAmounts,
-                        "TransactionTypeOption--filtering": hasAmounts
-                    },
-                    className
-                )}
-                ref={ref}
-                active={active}
-                {...otherProps}
-            >
-                {hasAmounts ? (
-                    <FiltersLayout
-                        active={active}
-                        currentAmount={currentAmount}
-                        fromAmount={fromAmount}
-                        type={type}
-                    />
-                ) : (
-                    <TypePickerLayout active={active} type={type} />
-                )}
-            </OptionCard>
-        );
-    }
-);
+    return (
+        <OptionCard
+            className={classNames(
+                "TransactionTypeOption",
+                {
+                    "TransactionTypeOption--picker": !hasAmounts,
+                    "TransactionTypeOption--filtering": hasAmounts
+                },
+                className
+            )}
+            active={active}
+            {...otherProps}
+        >
+            {hasAmounts ? (
+                <FiltersLayout
+                    active={active}
+                    currentAmount={currentAmount}
+                    fromAmount={fromAmount}
+                    type={type}
+                />
+            ) : (
+                <TypePickerLayout active={active} type={type} />
+            )}
+        </OptionCard>
+    );
+};
 
 /** This is the simplified layout used when choosing a type for a Transaction. */
 const TypePickerLayout = ({active, type}: TransactionTypeOptionProps) => (
@@ -125,28 +118,20 @@ const FiltersLayout = ({active, currentAmount, fromAmount, type}: TransactionTyp
 
 /* Pre-bound versions for each Type */
 
-export const TransactionTypeOptionIncome = React.forwardRef(
-    (props: Omit<TransactionTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
-        <TransactionTypeOption type={Transaction.INCOME} ref={ref} {...props} />
-    )
+export const TransactionTypeOptionIncome = (props: Omit<TransactionTypeOptionProps, "type">) => (
+    <TransactionTypeOption type={Transaction.INCOME} {...props} />
 );
 
-export const TransactionTypeOptionExpense = React.forwardRef(
-    (props: Omit<TransactionTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
-        <TransactionTypeOption type={Transaction.EXPENSE} ref={ref} {...props} />
-    )
+export const TransactionTypeOptionExpense = (props: Omit<TransactionTypeOptionProps, "type">) => (
+    <TransactionTypeOption type={Transaction.EXPENSE} {...props} />
 );
 
-export const TransactionTypeOptionDebt = React.forwardRef(
-    (props: Omit<TransactionTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
-        <TransactionTypeOption type={Transaction.DEBT} ref={ref} {...props} />
-    )
+export const TransactionTypeOptionDebt = (props: Omit<TransactionTypeOptionProps, "type">) => (
+    <TransactionTypeOption type={Transaction.DEBT} {...props} />
 );
 
-export const TransactionTypeOptionTransfer = React.forwardRef(
-    (props: Omit<TransactionTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
-        <TransactionTypeOption type={Transaction.TRANSFER} ref={ref} {...props} />
-    )
+export const TransactionTypeOptionTransfer = (props: Omit<TransactionTypeOptionProps, "type">) => (
+    <TransactionTypeOption type={Transaction.TRANSFER} {...props} />
 );
 
 export default TransactionTypeOption;

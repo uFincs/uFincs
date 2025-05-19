@@ -32,6 +32,7 @@ const useHideOnScroll = ({translateAmount}: {translateAmount: number}) => {
 
     // Using useEffect to bind the handlers doesn't seem to be mentioned in the docs (anymore),
     // but it _is_ mentioned by https://stackoverflow.com/a/60558948.
+    // @ts-expect-error Seems like TypeScript doesn't like this.
     useEffect(bind, [bind]);
 
     return y;

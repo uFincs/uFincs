@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {ImportRuleAction} from "models/";
 import {ValueFormatting} from "services/";
@@ -47,4 +46,5 @@ const FormattedRuleAction = ({
     );
 };
 
-export default connect(FormattedRuleAction);
+export const ConnectedFormattedRuleAction = connect(FormattedRuleAction);
+export default ConnectedFormattedRuleAction;

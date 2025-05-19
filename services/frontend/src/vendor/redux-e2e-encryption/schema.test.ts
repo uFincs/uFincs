@@ -135,16 +135,16 @@ describe("validateSchema", () => {
 
         expect(() => EncryptionSchema.validateSchema(wrongFieldTypes)).toThrow();
 
-        // @ts-ignore Allow invalid schema.
+        // @ts-expect-error Allow invalid schema.
         expect(() => EncryptionSchema.validateSchema(wrongModelFormat)).toThrow();
 
-        // @ts-ignore Allow invalid schema.
+        // @ts-expect-error Allow invalid schema.
         expect(() => EncryptionSchema.validateSchema(wrongModelFormat2)).toThrow();
 
-        // @ts-ignore Allow invalid schema.
+        // @ts-expect-error Allow invalid schema.
         expect(() => EncryptionSchema.validateSchema(wrongSchemaFormat)).toThrow();
 
-        // @ts-ignore Allow invalid schema.
+        // @ts-expect-error Allow invalid schema.
         expect(() => EncryptionSchema.validateSchema(moreThanOneElementInArray)).toThrow();
     });
 });
@@ -377,7 +377,7 @@ describe("PayloadApplier", () => {
             it("throws an error when the payload is null", async () => {
                 await expect(
                     payloadApplier.applyToPayload(
-                        // @ts-ignore Allow passing null for payload.
+                        // @ts-expect-error Allow passing null for payload.
                         null,
                         EncryptionSchema.single("transaction"),
                         functionToApply
@@ -421,7 +421,7 @@ describe("PayloadApplier", () => {
                 for (const config of configs) {
                     await expect(
                         payloadApplier.applyToPayload(
-                            // @ts-ignore Allow invalid values.
+                            // @ts-expect-error Allow invalid values.
                             config[0],
                             config[1],
                             functionToApply

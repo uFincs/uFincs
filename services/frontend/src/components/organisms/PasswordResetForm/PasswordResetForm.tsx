@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {useForm} from "react-hook-form";
 import {Card, OverlineHeading} from "components/atoms";
 import {LabelledInput, SubmitButton} from "components/molecules";
@@ -58,4 +57,5 @@ const PasswordResetForm = ({className, error, loading, onSubmit}: PasswordResetF
 };
 
 export const PureComponent = PasswordResetForm;
-export default connect(PasswordResetForm);
+export const ConnectedPasswordResetForm = connect(PasswordResetForm);
+export default ConnectedPasswordResetForm;

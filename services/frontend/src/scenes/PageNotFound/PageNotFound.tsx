@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import React from "react";
 import {LogoLink} from "components/molecules";
 import {PageNotFoundContent} from "components/organisms";
-import ScreenUrls, {MarketingUrls} from "values/screenUrls";
+import {MarketingUrls} from "values/marketingUrls";
+import ScreenUrls from "values/screenUrls";
 import "./PageNotFound.scss";
 
 interface PageNotFoundProps {

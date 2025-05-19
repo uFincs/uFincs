@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 @mixin grid-gap() {
     gap: $size-100;

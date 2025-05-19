@@ -1,4 +1,3 @@
-import React from "react";
 import {CombinedTransactionsView} from "components/organisms";
 import connect, {ConnectedProps} from "./connect";
 
@@ -22,4 +21,7 @@ const CombinedRecurringTransactionsView = ({
     />
 );
 
-export default connect(CombinedRecurringTransactionsView);
+export const ConnectedCombinedRecurringTransactionsView = connect(
+    CombinedRecurringTransactionsView
+);
+export default ConnectedCombinedRecurringTransactionsView;

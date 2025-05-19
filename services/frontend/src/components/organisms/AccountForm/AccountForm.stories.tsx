@@ -1,13 +1,7 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {Account} from "models/";
 import {smallViewport} from "utils/stories";
 import AccountForm, {PureComponent as PureAccountForm} from "./AccountForm";
-
-export default {
-    title: "Organisms/Account Form",
-    component: PureAccountForm
-};
 
 const accountForEditing = new Account({
     name: "Test",
@@ -16,28 +10,44 @@ const accountForEditing = new Account({
     type: Account.ASSET
 });
 
-const formActions = actions("onClose", "onSubmit", "onNewAccount");
+const meta: Meta<typeof PureAccountForm> = {
+    title: "Organisms/Account Form",
+    component: PureAccountForm,
+    args: {
+        isEditing: false
+    }
+};
+
+export default meta;
+type Story = StoryObj<typeof PureAccountForm>;
 
 /** The default view of the `AccountForm`. */
-export const Default = () => <PureAccountForm isEditing={false} {...formActions} />;
+export const Default: Story = {};
 
 /** Small is the more realistic view of the `AccountForm`, since the form only takes up
  *  limited horizontal screen space when displayed in a `Sidebar`. */
-export const Small = () => <PureAccountForm isEditing={false} {...formActions} />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: smallViewport
+};
 
 /** The view of the `AccountForm` when editing an account. */
-export const Editing = () => (
-    <PureAccountForm accountForEditing={accountForEditing} isEditing={true} {...formActions} />
-);
-
-Editing.parameters = smallViewport;
+export const Editing: Story = {
+    args: {
+        accountForEditing: accountForEditing,
+        isEditing: true
+    },
+    parameters: smallViewport
+};
 
 /** The view of the `AccountForm` when editing an invalid account. */
-export const InvalidEditingAccount = () => <PureAccountForm isEditing={true} {...formActions} />;
-
-InvalidEditingAccount.parameters = smallViewport;
+export const InvalidEditingAccount: Story = {
+    args: {
+        isEditing: true
+    },
+    parameters: smallViewport
+};
 
 /** A story for testing that the connected `AccountForm` is working. */
-export const Connected = () => <AccountForm {...formActions} />;
+export const Connected: Story = {
+    render: (args) => <AccountForm {...args} />
+};

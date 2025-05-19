@@ -8,7 +8,6 @@ export {
 } from "./AccountTypeOption";
 export {default as AccountTypePicker} from "./AccountTypePicker";
 export {default as AlternativeAuthForm} from "./AlternativeAuthForm";
-export {default as AppRefreshButton} from "./AppRefreshButton";
 export {default as AuthForm} from "./AuthForm";
 export {default as AutocompleteInput} from "./AutocompleteInput";
 export {default as AutocompleteSelectInput} from "./AutocompleteSelectInput";

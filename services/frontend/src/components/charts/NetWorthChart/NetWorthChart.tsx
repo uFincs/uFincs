@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {ChartContainer, ChartStats, DateAmountLineChart} from "components/charts/components";
 import {Cents, ChartDateInterval, DateAmountDataPoint} from "utils/types";
 import {useNetWorthChart} from "./hooks";
@@ -26,7 +26,7 @@ interface NetWorthChartProps extends WrappedNetWorthChartProps {
 }
 
 /** The chart to display the user's complete net worth over time. */
-const NetWorthChart = React.memo(
+const NetWorthChart = memo(
     ({className, data, dateInterval, description, fromAmount}: NetWorthChartProps) => {
         const currentAmount = data?.[data.length - 1]?.amount || 0;
 

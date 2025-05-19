@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
+import * as React from "react";
 import {Divider} from "components/atoms";
 import {ProgressStep} from "components/molecules";
 import "./ProgressStepper.scss";

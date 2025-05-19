@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {CheckIcon} from "assets/icons";
 import {TextField} from "components/atoms";
 import {useOnActiveKey} from "hooks/";

@@ -1,10 +1,15 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import CustomizeExpensesStep from "./CustomizeExpensesStep";
 
-export default {
+const meta: Meta<typeof CustomizeExpensesStep> = {
     title: "Scenes/Onboarding/Step/Customize Expenses",
     component: CustomizeExpensesStep
 };
 
+export default meta;
+type Story = StoryObj<typeof CustomizeExpensesStep>;
+
 /** The default view of `CustomizeExpensesStep`. */
-export const Default = () => <CustomizeExpensesStep />;
+export const Default: Story = {
+    args: {}
+};

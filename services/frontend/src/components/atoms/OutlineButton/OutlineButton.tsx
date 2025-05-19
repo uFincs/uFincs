@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {Button} from "components/atoms";
 import {ButtonProps} from "../Button";
 import "./OutlineButton.scss";

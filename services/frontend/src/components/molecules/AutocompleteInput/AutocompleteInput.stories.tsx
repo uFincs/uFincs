@@ -1,14 +1,7 @@
-import {boolean} from "@storybook/addon-knobs";
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
+import {useState} from "react";
+import {storyUsingHooks} from "utils/stories";
 import AutocompleteInput from "./AutocompleteInput";
-
-export default {
-    title: "Molecules/Autocomplete Input",
-    component: AutocompleteInput
-};
-
-const filteringKnob = () => boolean("Enable Filtering", false);
-const toggleKnob = () => boolean("Enable Toggle Button", false);
 
 const suggestions = [
     {label: "Bought food", value: "1"},
@@ -31,90 +24,56 @@ const useMakeFunctional = () => {
     return {value, onChange: setValue};
 };
 
-/** The default view of the `AutocompleteInput`, with a handful of suggestions. */
-export const Default = () => {
-    const {value, onChange} = useMakeFunctional();
+const meta: Meta<typeof AutocompleteInput> = {
+    title: "Molecules/Autocomplete Input",
+    component: AutocompleteInput,
+    args: {
+        containerClassName: "AutocompleteInput-story",
+        enableFiltering: false,
+        showToggleButton: false,
+        label: "Search",
+        suggestions
+    },
+    render: storyUsingHooks((args) => {
+        const {value, onChange} = useMakeFunctional();
 
-    return (
-        <AutocompleteInput
-            containerClassName="AutocompleteInput-story"
-            showToggleButton={toggleKnob()}
-            enableFiltering={filteringKnob()}
-            label="Search"
-            value={value.label}
-            suggestions={suggestions}
-            onInputValueChange={onChange}
-        />
-    );
+        return <AutocompleteInput {...args} value={value.label} onInputValueChange={onChange} />;
+    })
 };
+
+export default meta;
+type Story = StoryObj<typeof AutocompleteInput>;
+
+/** The default view of the `AutocompleteInput`, with a handful of suggestions. */
+export const Default: Story = {};
 
 /** The `AutocompleteInput` when it has options that are too long for the width of the
  *  dropdown. These options should be clamped to 1 line with ellipses for excess text. */
-export const LongOptions = () => {
-    const {value, onChange} = useMakeFunctional();
-
-    return (
-        <AutocompleteInput
-            containerClassName="AutocompleteInput-story"
-            showToggleButton={toggleKnob()}
-            enableFiltering={filteringKnob()}
-            label="Search"
-            value={value.label}
-            suggestions={longSuggestions}
-            onInputValueChange={onChange}
-        />
-    );
+export const LongOptions: Story = {
+    args: {
+        suggestions: longSuggestions
+    }
 };
 
 /** The `AutocompleteInput` when it has too many options to display at once.
  *  The dropdown should then become scrollable so that the user can select more options. */
-export const ManyOptions = () => {
-    const {value, onChange} = useMakeFunctional();
-
-    return (
-        <AutocompleteInput
-            containerClassName="AutocompleteInput-story"
-            showToggleButton={toggleKnob()}
-            enableFiltering={filteringKnob()}
-            label="Search"
-            value={value.label}
-            suggestions={manySuggestions}
-            onInputValueChange={onChange}
-        />
-    );
+export const ManyOptions: Story = {
+    args: {
+        suggestions: manySuggestions
+    }
 };
 
 /** The `AutocompleteInput` with filtering enabled, so that it acts like a combobox. */
-export const WithFiltering = () => {
-    const {value, onChange} = useMakeFunctional();
-
-    return (
-        <AutocompleteInput
-            containerClassName="AutocompleteInput-story"
-            showToggleButton={toggleKnob()}
-            enableFiltering={true}
-            label="Search"
-            value={value.label}
-            suggestions={suggestions}
-            onInputValueChange={onChange}
-        />
-    );
+export const WithFiltering: Story = {
+    args: {
+        enableFiltering: true
+    }
 };
 
 /** The `AutocompleteInput` with the toggle button enabled, so that users can click
  *  to open the suggestions. */
-export const WithToggleButton = () => {
-    const {value, onChange} = useMakeFunctional();
-
-    return (
-        <AutocompleteInput
-            containerClassName="AutocompleteInput-story"
-            showToggleButton={true}
-            enableFiltering={filteringKnob()}
-            label="Search"
-            value={value.label}
-            suggestions={suggestions}
-            onInputValueChange={onChange}
-        />
-    );
+export const WithToggleButton: Story = {
+    args: {
+        showToggleButton: true
+    }
 };

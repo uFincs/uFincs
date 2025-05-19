@@ -1,24 +1,18 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import FormHeader from "./FormHeader";
 
-export default {
+const meta: Meta<typeof FormHeader> = {
     title: "Molecules/Form Header",
-    component: FormHeader
+    component: FormHeader,
+    args: {
+        closeButtonTestId: "test",
+        entityName: "Transaction",
+        isEditing: false
+    }
 };
 
-const formActions = actions("onClose");
-
-const nameKnob = () => text("Entity Name", "Transaction");
-const editingKnob = () => boolean("Is Editing", false);
+export default meta;
+type Story = StoryObj<typeof FormHeader>;
 
 /** The default view of `FormHeader`. */
-export const Default = () => (
-    <FormHeader
-        closeButtonTestId="test"
-        entityName={nameKnob()}
-        isEditing={editingKnob()}
-        {...formActions}
-    />
-);
+export const Default: Story = {};

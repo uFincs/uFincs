@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {Fragment} from "react";
 import {FormProvider} from "react-hook-form";
 import {Thinking} from "assets/graphics";
 import {OutlineButton} from "components/atoms";
@@ -71,7 +71,7 @@ const ImportRuleForm = ({
                         )}
 
                         {conditionsField.fields.map((condition, index) => (
-                            <React.Fragment key={condition.id}>
+                            <Fragment key={condition.id}>
                                 <RuleConditionCard
                                     defaultCondition={condition.condition}
                                     defaultProperty={condition.property}
@@ -81,7 +81,7 @@ const ImportRuleForm = ({
                                 />
 
                                 {index !== conditionsField.fields.length - 1 && <p>and</p>}
-                            </React.Fragment>
+                            </Fragment>
                         ))}
                     </div>
 
@@ -101,7 +101,7 @@ const ImportRuleForm = ({
                         {actionsField.fields.length === 0 && <p>You need at least 1 action</p>}
 
                         {actionsField.fields.map((action, index) => (
-                            <React.Fragment key={action.id}>
+                            <Fragment key={action.id}>
                                 <RuleActionCard
                                     defaultProperty={action.property}
                                     defaultValue={action.value}
@@ -110,7 +110,7 @@ const ImportRuleForm = ({
                                 />
 
                                 {index !== actionsField.fields.length - 1 && <p>and</p>}
-                            </React.Fragment>
+                            </Fragment>
                         ))}
                     </div>
 
@@ -128,7 +128,8 @@ const ImportRuleForm = ({
 };
 
 export const PureComponent = ImportRuleForm;
-export default connect(ImportRuleForm);
+export const ConnectedImportRuleForm = connect(ImportRuleForm);
+export default ConnectedImportRuleForm;
 
 /* Other Components */
 

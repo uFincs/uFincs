@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
+import * as React from "react";
 import {ArrowNarrowRightIcon} from "assets/icons";
 import {
     FormattedRuleAction,
@@ -106,4 +107,5 @@ const ImportRulesTableRow = ({
 };
 
 export const PureComponent = ImportRulesTableRow;
-export default connect(ImportRulesTableRow);
+export const ConnectedImportRulesTableRow = connect(ImportRulesTableRow);
+export default ConnectedImportRulesTableRow;

@@ -1,13 +1,13 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as NoAccountSignUp} from "./NoAccountSignUp";
 
-export default {
+const meta: Meta<typeof NoAccountSignUp> = {
     title: "Scenes/No Account Sign Up",
     component: NoAccountSignUp
 };
 
-const formActions = actions("onSignUp");
+export default meta;
+type Story = StoryObj<typeof NoAccountSignUp>;
 
 /** The default view of `NoAccountSignUp`. */
-export const Default = () => <NoAccountSignUp {...formActions} />;
+export const Default: Story = {};

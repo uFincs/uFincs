@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {Route, Switch} from "react-router";
 import {RouteComponentProps} from "react-router-dom";
 import {DelayedRender} from "components/atoms";
@@ -28,82 +28,80 @@ interface AccountsProps extends Partial<RouteComponentProps<{id: Id}>>, Connecte
 /** The Accounts scene. Pulls double duty for displaying the Accounts List and Account Details.
  *
  *  Although both are only shown on desktop, they get separate routes on mobile. */
-const PureAccounts = React.memo(
-    ({accountsByType, firstAccount, match, onAddAccount}: AccountsProps) => {
-        useRedirectToDetails(firstAccount);
+const PureAccounts = memo(({accountsByType, firstAccount, match, onAddAccount}: AccountsProps) => {
+    useRedirectToDetails(firstAccount);
 
-        const doubleColumnLayout = useWindowWidthBreakpoint(accountDetailsDoubleColumnMatches);
-        const id = match?.params?.id;
+    const doubleColumnLayout = useWindowWidthBreakpoint(accountDetailsDoubleColumnMatches);
+    const id = match?.params?.id;
 
-        return (
-            <main className="Accounts">
-                {/* On desktop, we always want to show the scene header. */}
-                {doubleColumnLayout && (
+    return (
+        <main className="Accounts">
+            {/* On desktop, we always want to show the scene header. */}
+            {doubleColumnLayout && (
+                <SceneHeaderWithDateRangePicker
+                    className={classNames("Accounts-header", "Accounts-header-desktop")}
+                    title="Accounts"
+                />
+            )}
+
+            {/* On mobile, we only want to show the scene header on the list view. */}
+            {!doubleColumnLayout && (
+                <Route path={DerivedAppScreenUrls.ACCOUNTS} exact={true}>
                     <SceneHeaderWithDateRangePicker
-                        className={classNames("Accounts-header", "Accounts-header-desktop")}
+                        className={classNames("Accounts-header", "Accounts-header-mobile")}
                         title="Accounts"
                     />
-                )}
+                </Route>
+            )}
 
-                {/* On mobile, we only want to show the scene header on the list view. */}
-                {!doubleColumnLayout && (
-                    <Route path={DerivedAppScreenUrls.ACCOUNTS} exact={true}>
-                        <SceneHeaderWithDateRangePicker
-                            className={classNames("Accounts-header", "Accounts-header-mobile")}
-                            title="Accounts"
+            <div className="Accounts-body">
+                {doubleColumnLayout &&
+                    (!firstAccount && !id ? (
+                        <EmptyAccountsList
+                            className="Accounts-EmptyAccountsList"
+                            onClick={onAddAccount}
                         />
-                    </Route>
-                )}
+                    ) : (
+                        <div className="Accounts-list-container-desktop">
+                            <AccountTypeFilters className="Accounts-AccountTypeFilters" />
 
-                <div className="Accounts-body">
-                    {doubleColumnLayout &&
-                        (!firstAccount && !id ? (
-                            <EmptyAccountsList
-                                className="Accounts-EmptyAccountsList"
-                                onClick={onAddAccount}
-                            />
-                        ) : (
-                            <div className="Accounts-list-container-desktop">
+                            <DelayedRender>
+                                <AccountsList
+                                    className="Accounts-desktop-list"
+                                    data-testid="accounts-list-desktop"
+                                    accountsByType={accountsByType}
+                                    singleLayer={true}
+                                />
+                            </DelayedRender>
+                        </div>
+                    ))}
+
+                <Switch>
+                    <Route path={DerivedAppScreenUrls.ACCOUNT_DETAILS}>
+                        <AccountDetails id={id} />
+                    </Route>
+
+                    {!doubleColumnLayout && (
+                        <Route path={DerivedAppScreenUrls.ACCOUNTS} exact={true}>
+                            <div className="Accounts-list-container-mobile">
                                 <AccountTypeFilters className="Accounts-AccountTypeFilters" />
 
                                 <DelayedRender>
                                     <AccountsList
-                                        className="Accounts-desktop-list"
-                                        data-testid="accounts-list-desktop"
+                                        className="Accounts-mobile-list"
+                                        data-testid="accounts-list-mobile"
                                         accountsByType={accountsByType}
-                                        singleLayer={true}
+                                        singleLayer={false}
                                     />
                                 </DelayedRender>
                             </div>
-                        ))}
-
-                    <Switch>
-                        <Route path={DerivedAppScreenUrls.ACCOUNT_DETAILS}>
-                            <AccountDetails id={id} />
                         </Route>
-
-                        {!doubleColumnLayout && (
-                            <Route path={DerivedAppScreenUrls.ACCOUNTS} exact={true}>
-                                <div className="Accounts-list-container-mobile">
-                                    <AccountTypeFilters className="Accounts-AccountTypeFilters" />
-
-                                    <DelayedRender>
-                                        <AccountsList
-                                            className="Accounts-mobile-list"
-                                            data-testid="accounts-list-mobile"
-                                            accountsByType={accountsByType}
-                                            singleLayer={false}
-                                        />
-                                    </DelayedRender>
-                                </div>
-                            </Route>
-                        )}
-                    </Switch>
-                </div>
-            </main>
-        );
-    }
-);
+                    )}
+                </Switch>
+            </div>
+        </main>
+    );
+});
 
 const Accounts = ({accountsByType, ...otherProps}: ConnectedProps) => {
     accountsByType = useFilterAccountsByType(accountsByType);
@@ -122,7 +120,8 @@ const WrappedAccounts = (props: ConnectedProps) => (
     </AccountTypesProvider>
 );
 
-export default connect(WrappedAccounts);
+export const ConnectedWrappedAccounts = connect(WrappedAccounts);
+export default ConnectedWrappedAccounts;
 
 /* Helper Functions */
 

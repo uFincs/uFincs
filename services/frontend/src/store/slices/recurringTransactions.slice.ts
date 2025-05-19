@@ -48,7 +48,7 @@ export const recurringTransactionsSlice = createSliceWithSelectors({
 
         undoableDestroyRecurringTransaction: (
             state: RecurringTransactionsSliceState,
-            action: PayloadAction<Id>
+            _action: PayloadAction<Id>
         ) => state
     },
     selectors

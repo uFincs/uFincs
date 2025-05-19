@@ -1,11 +1,12 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {JSX, useMemo} from "react";
 import {ListSectionHeader} from "components/atoms";
 import {EmptyImportRulesArea, ImportRulesListItem} from "components/molecules";
 import {useTransformImportRulesList} from "hooks/";
 import {ValueFormatting} from "services/";
 import {DefaultListItemActions, ImportRulesViewProps, ListItemActions} from "utils/componentTypes";
 import {
+    AnimationProps,
     generateAnimatedList,
     generateAnimationCalculator,
     IndexCalculator
@@ -25,13 +26,13 @@ const generateDateHeaderGenerator = (indexCalculator: IndexCalculator) => {
     let lastDate: string = "";
 
     return (date: string) => {
-        let dateHeader = null;
+        let dateHeader: JSX.Element | null = null;
 
         // Need to handle the animation calculations in this function so that we can
         // get the right animation styles onto the date header, as well as know the correct
         // offset for the list item.
         let animationIndex: number = 0;
-        let animationCalculator = null;
+        let animationCalculator: ((offset: number) => AnimationProps) | null = null;
 
         if (date !== lastDate) {
             lastDate = date;
@@ -146,4 +147,5 @@ const ImportRulesList = ({
 };
 
 export const PureComponent = ImportRulesList;
-export default connect(ImportRulesList);
+export const ConnectedImportRulesList = connect(ImportRulesList);
+export default ConnectedImportRulesList;

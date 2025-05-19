@@ -1,6 +1,6 @@
-@import "styles/_shared.scss";
-@import "components/atoms/TransactionTypeIcon/TransactionTypeIcon.scss";
-@import "components/molecules/TransactionsListItem/TransactionsListItem.scss";
+@import "@/styles/_shared";
+@import "@/components/atoms/TransactionTypeIcon/TransactionTypeIcon";
+@import "@/components/molecules/TransactionsListItem/TransactionsListItem";
 
 .TransactionsList {
     display: grid;

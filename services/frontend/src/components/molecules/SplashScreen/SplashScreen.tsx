@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {animated, config, useTransition} from "react-spring";
 import {AnimatedLogo} from "components/atoms";
 import {useForceRerender} from "hooks/";
@@ -39,6 +39,7 @@ const SplashScreen = ({className, isOpen = false}: SplashScreenProps) => {
     return transition(
         (styles, isOpen) =>
             isOpen && (
+                // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
                 <animated.div
                     className={classNames("SplashScreen", className)}
                     style={styles as any}
@@ -54,4 +55,5 @@ const SplashScreen = ({className, isOpen = false}: SplashScreenProps) => {
 };
 
 export const PureComponent = SplashScreen;
-export default connect(SplashScreen);
+export const ConnectedSplashScreen = connect(SplashScreen);
+export default ConnectedSplashScreen;

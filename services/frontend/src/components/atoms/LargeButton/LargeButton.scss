@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 .LargeButton {
     @include double-shadow($color-primary-700);

@@ -1,7 +1,7 @@
-import {renderHook} from "@testing-library/react-hooks";
-import React from "react";
+import {renderHook} from "@testing-library/react";
 import {Provider} from "react-redux";
 import {RunResult} from "redux-saga-test-plan";
+import {vi} from "vitest";
 import configureStore from "store/";
 
 /* Saga Related */
@@ -32,8 +32,8 @@ export const noOtherDispatches = (results: RunResult): RunResult => {
 
 // Silence the console error output if we know there should be an error.
 export const silenceConsoleErrors = (): void => {
-    console.error = jest.fn();
-    console.log = jest.fn();
+    console.error = vi.fn();
+    console.log = vi.fn();
 };
 
 export const expectSagaError = async (sagaTest: Promise<RunResult>): Promise<void> => {
@@ -57,6 +57,7 @@ export const expectSagaError = async (sagaTest: Promise<RunResult>): Promise<voi
     }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export const provideSelect = <T extends any>(value?: T): {select: () => T | undefined} => ({
     select: () => value
 });

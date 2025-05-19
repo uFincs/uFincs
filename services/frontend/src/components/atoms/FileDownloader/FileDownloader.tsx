@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import connect, {ConnectedProps} from "./connect";
 
 interface FileDownloaderProps extends ConnectedProps {}
@@ -32,7 +32,6 @@ const FileDownloader = ({fileContents, fileName, clearFileState}: FileDownloader
     }, [fileUrl, clearFileState]);
 
     return fileUrl ? (
-        // eslint-disable-next-line
         <a
             style={{display: "hidden"}}
             aria-hidden="true"
@@ -43,4 +42,5 @@ const FileDownloader = ({fileContents, fileName, clearFileState}: FileDownloader
     ) : null;
 };
 
-export default connect(FileDownloader);
+export const ConnectedFileDownloader = connect(FileDownloader);
+export default ConnectedFileDownloader;

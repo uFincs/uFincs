@@ -33,7 +33,7 @@ interface StateProps {
     transactionsSelector: TransactionsSelector;
 }
 
-export interface ConnectedProps extends StateProps {}
+export type ConnectedProps = StateProps;
 
 const mapStateToProps = (state: State): StateProps => ({
     accountName: crossSliceSelectors.transactionsImport.selectAccountName(state),

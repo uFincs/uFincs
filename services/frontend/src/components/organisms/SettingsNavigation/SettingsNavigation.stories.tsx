@@ -1,16 +1,28 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import SettingsNavigation from "./SettingsNavigation";
 
-export default {
+const meta: Meta<typeof SettingsNavigation> = {
     title: "Organisms/Settings Navigation",
-    component: SettingsNavigation
+    component: SettingsNavigation,
+    args: {
+        ...actions("onLogout", "onNoAccountSignUp")
+    }
 };
 
-const navigationActions = actions("onLogout", "onNoAccountSignUp");
+export default meta;
+type Story = StoryObj<typeof SettingsNavigation>;
 
 /** The desktop layout of the `SettingsNavigation`. */
-export const Desktop = () => <SettingsNavigation desktopLayout={true} {...navigationActions} />;
+export const Desktop: Story = {
+    args: {
+        desktopLayout: true
+    }
+};
 
 /** The mobile layout of the `SettingsNavigation`. */
-export const Mobile = () => <SettingsNavigation desktopLayout={false} {...navigationActions} />;
+export const Mobile: Story = {
+    args: {
+        desktopLayout: false
+    }
+};

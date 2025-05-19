@@ -1,9 +1,10 @@
+import {vi, Mock} from "vitest";
 import {actions, createEncryptionMiddleware} from "./middleware";
 import {EncryptionSchema} from "./schema";
 
 // Increase timeout since the crypto functions can take a while to run, which is further
 // worsened when running the CI pipeline in parallel.
-jest.setTimeout(60000);
+vi.setConfig({testTimeout: 60000});
 
 const edek = "ehspFv/vT4zJtdWpTr/2KmKmXJOdOL8UE9aNg/fV6M2A6wBDY/OxhA==";
 const kekSalt = "1nRqUy5TnOSGVsL5UO8hHQ==";
@@ -21,7 +22,7 @@ describe("Middleware", () => {
     } as const;
 
     const mockStore = {
-        dispatch: (value: any): any => {},
+        dispatch: (_value: any): any => {},
         getState: (): any => {}
     };
 
@@ -34,13 +35,13 @@ describe("Middleware", () => {
     // Anyways, super duper TECH DEBT hack: if we re-create the mock for every test and re-assign
     // it in `beforeEach`, seems to work fine. ¯\_(ツ)_/¯
     const createMiddleware = () => {
-        const next = jest.fn((x) => x);
+        const next = vi.fn((x) => x);
         const middleware = createEncryptionMiddleware(modelSchema)(mockStore)(next);
 
         return {next, middleware};
     };
 
-    let middleware: (action: any) => any, next: jest.Mock;
+    let middleware: (action: any) => any, next: Mock;
 
     beforeEach(() => {
         const result = createMiddleware();

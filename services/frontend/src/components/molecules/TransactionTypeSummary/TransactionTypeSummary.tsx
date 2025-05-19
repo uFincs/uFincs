@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {animated, useSpring, useTransition} from "react-spring";
 import {Card, TextField} from "components/atoms";
 import {useCurrencySymbol} from "hooks/";
@@ -89,6 +89,7 @@ const TransactionTypeSummary = ({
     });
 
     const items = transitions((style, {id, balance, name, visible, onClick}) => (
+        // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
         <animated.div
             key={id}
             style={
@@ -121,6 +122,7 @@ const TransactionTypeSummary = ({
             {accounts.length === 0 ? (
                 <p className="TransactionTypeSummary-empty-message">{EMPTY_MESSAGE_MAP[type]}</p>
             ) : (
+                // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
                 <animated.div style={{height: listHeight, position: "relative"}}>
                     {items}
                 </animated.div>
@@ -230,6 +232,8 @@ const SingleAccountSummary = ({
 
             <svg viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}>
                 <animated.line
+                    // @ts-expect-error Missing className prop,
+                    // probably https://github.com/pmndrs/react-spring/issues/2358
                     className={classNames("SingleAccountSummary-line", {
                         "SingleAccountSummary-line--income": type === Transaction.INCOME,
                         "SingleAccountSummary-line--expense": type === Transaction.EXPENSE

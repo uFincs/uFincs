@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import "./OptionCard.scss";
 
 export interface OptionCardProps extends React.HTMLAttributes<HTMLDivElement> {

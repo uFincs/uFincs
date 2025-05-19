@@ -1,25 +1,18 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean, select, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import TableColumnHeader from "./TableColumnHeader";
 
-export default {
+const meta: Meta<typeof TableColumnHeader> = {
     title: "Molecules/Table Column Header",
-    component: TableColumnHeader
+    component: TableColumnHeader,
+    args: {
+        isActiveSort: true,
+        sortDirection: "asc",
+        text: "Description"
+    }
 };
 
-const headerActions = actions("onClick");
-
-const activeSortKnob = () => boolean("Is Active Sort", true);
-const directionKnob = () => select("Sort Direction", ["asc", "desc"], "asc");
-const textKnob = () => text("Text", "Description");
+export default meta;
+type Story = StoryObj<typeof TableColumnHeader>;
 
 /** The default view of `TableColumnHeader`. */
-export const Default = () => (
-    <TableColumnHeader
-        isActiveSort={activeSortKnob()}
-        sortDirection={directionKnob()}
-        text={textKnob()}
-        {...headerActions}
-    />
-);
+export const Default: Story = {};

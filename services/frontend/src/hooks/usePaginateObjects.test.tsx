@@ -1,5 +1,4 @@
-import {act, renderHook} from "@testing-library/react-hooks";
-import React from "react";
+import {act, renderHook} from "@testing-library/react";
 import {Transaction} from "models/";
 import usePaginateObjects from "./usePaginateObjects";
 import {usePaginationDispatch, PaginationProvider, PAGINATION_PAGE_SIZE} from "./usePagination";
@@ -8,12 +7,11 @@ const mockObjects = [...Array(115)].map(() => new Transaction());
 
 const Wrapper =
     (totalItems = mockObjects.length) =>
-    ({children, ...otherProps}: any) =>
-        (
-            <PaginationProvider totalItems={totalItems} {...otherProps}>
-                {children}
-            </PaginationProvider>
-        );
+    ({children, ...otherProps}: any) => (
+        <PaginationProvider totalItems={totalItems} {...otherProps}>
+            {children}
+        </PaginationProvider>
+    );
 
 const renderHooks = (transactions = mockObjects, wrapper = Wrapper) =>
     renderHook(

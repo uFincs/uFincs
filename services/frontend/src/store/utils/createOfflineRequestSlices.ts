@@ -134,9 +134,11 @@ class OfflineRequestSlice extends RequestSlice {
                         }
 
                         // Reset the flag for the next request
-                        successCalled = false; // eslint-disable-line require-atomic-updates
+                        successCalled = false;
                     } catch (e) {
-                        yield put(actions.failure(objectifyError(e)));
+                        if (e instanceof Error) {
+                            yield put(actions.failure(objectifyError(e)));
+                        }
                     }
                 }
             };
@@ -162,7 +164,9 @@ class OfflineRequestSlice extends RequestSlice {
                     yield call(saga, action);
                     yield put(actions.effectSuccess());
                 } catch (e) {
-                    yield put(actions.effectFailure(objectifyError(e)));
+                    if (e instanceof Error) {
+                        yield put(actions.effectFailure(objectifyError(e)));
+                    }
                 }
             };
 
@@ -193,13 +197,16 @@ class OfflineRequestSlice extends RequestSlice {
                     yield call(saga, action);
                     yield put(actions.rollbackSuccess());
                 } catch (e) {
-                    yield put(actions.rollbackFailure(objectifyError(e)));
+                    if (e instanceof Error) {
+                        yield put(actions.rollbackFailure(objectifyError(e)));
+                    }
                 }
             };
 
         return this._generateWatchSagaWrapper(actions.rollbackStart.type, rollbackSagaWrapper);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     _generateWatchSagaWrapper(actionToWatch: string, sagaWrapper: Function): WatchSaga {
         return (
             saga: OfflineRequestSaga | undefined = undefined,
@@ -228,7 +235,7 @@ export interface SerializedOfflineRequestSliceActions {
 
 export class OfflineRequestSliceActions extends RequestSliceActions {
     effectStart: ActionCreatorWithPreparedPayload<any, any, string, boolean, any>;
-    effectSuccess: ActionCreatorWithPreparedPayload<never, void, string, boolean, any>;
+    effectSuccess: ActionCreatorWithPreparedPayload<any, void, string, boolean, any>;
     effectFailure: ActionCreatorWithPreparedPayload<
         any,
         ApiError | RequestError,
@@ -238,7 +245,7 @@ export class OfflineRequestSliceActions extends RequestSliceActions {
     >;
 
     rollbackStart: ActionCreatorWithPreparedPayload<any, RollbackPayload, string, boolean, any>;
-    rollbackSuccess: ActionCreatorWithPreparedPayload<never, void, string, boolean, any>;
+    rollbackSuccess: ActionCreatorWithPreparedPayload<any, void, string, boolean, any>;
     rollbackFailure: ActionCreatorWithPreparedPayload<
         any,
         ApiError | RequestError,

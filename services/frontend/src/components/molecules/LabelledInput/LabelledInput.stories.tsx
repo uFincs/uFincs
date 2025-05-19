@@ -1,57 +1,66 @@
-import {boolean, text} from "@storybook/addon-knobs";
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
+import {useState} from "react";
+import * as React from "react";
 import {useForm} from "react-hook-form";
-import {smallViewport} from "utils/stories";
+import {smallViewport, storyUsingHooks} from "utils/stories";
 import LabelledInput from "./LabelledInput";
 
-export default {
+const meta: Meta<typeof LabelledInput> = {
     title: "Molecules/Labelled Input",
-    component: LabelledInput
+    component: LabelledInput,
+    args: {
+        label: "Email"
+    }
 };
 
-/** An example of how to use the `LabelledInput` uncontrolled (e.g. with react-hook-form). */
-export const Uncontrolled = () => {
-    const {register} = useForm();
+export default meta;
 
-    return (
-        <LabelledInput
-            label="Email"
-            name="uncontrolled"
-            defaultValue={"test@test.com"}
-            ref={register()}
-        />
-    );
+type Story = StoryObj<typeof LabelledInput>;
+
+/** An example of how to use the `LabelledInput` uncontrolled (e.g. with react-hook-form). */
+export const Uncontrolled: Story = {
+    args: {
+        name: "uncontrolled",
+        defaultValue: "test@test.com"
+    },
+    render: storyUsingHooks((args) => {
+        const {register} = useForm();
+
+        return <LabelledInput {...args} {...register()} />;
+    })
 };
 
 /** An example of how to use the `LabelledInput` controlled. */
-export const Controlled = () => {
-    const [value, setValue] = useState("test@test.com");
+export const Controlled: Story = {
+    render: storyUsingHooks((args) => {
+        const [value, setValue] = useState("test@test.com");
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    };
+        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setValue(e.target.value);
+        };
 
-    return <LabelledInput label={text("Label", "Email")} value={value} onChange={onChange} />;
+        return <LabelledInput {...args} value={value} onChange={onChange} />;
+    })
 };
 
 /** What the `LabelledInput` looks like on small devices. */
-export const Small = () => <LabelledInput label="Email" />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** What the `LabelledInput` looks like with a placeholder. */
-export const Placeholder = () => (
-    <LabelledInput
-        label={text("Label", "Email")}
-        placeholder={text("Placeholder", "Enter your email")}
-    />
-);
+export const Placeholder: Story = {
+    args: {
+        placeholder: "Enter your email"
+    }
+};
 
 /** What the `LabelledInput`'s error state looks like. */
-export const Error = () => (
-    <LabelledInput
-        label={text("Label", "Password")}
-        placeholder={text("Placeholder", "Enter your password")}
-        error={boolean("Error", true) ? text("Error Message", "Password can't be empty") : ""}
-    />
-);
+export const Error: Story = {
+    args: {
+        placeholder: "Enter your email",
+        error: "Password can't be empty"
+    }
+};

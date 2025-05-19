@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {SubscriptionPlanForm} from "components/organisms";
 import "./Checkout.scss";
 

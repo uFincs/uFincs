@@ -1,4 +1,3 @@
-import React from "react";
 import {Sidebar} from "components/atoms";
 import {TransactionsImportEditForm} from "components/organisms";
 import {TransactionsSearchProvider} from "hooks/";
@@ -29,4 +28,5 @@ const SidebarTransactionsImportEditForm = ({
 );
 
 export const PureComponent = SidebarTransactionsImportEditForm;
-export default connect(SidebarTransactionsImportEditForm);
+const ConnectedSidebarTransactionsImportEditForm = connect(SidebarTransactionsImportEditForm);
+export default ConnectedSidebarTransactionsImportEditForm;

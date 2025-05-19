@@ -1,12 +1,12 @@
+import DOMPurify from "dompurify";
+
 // 'Trusted Types' is a CSP (Content Security Policy) introduced as part of Chrome 83.
 // Currently, it is _only_ supported by Chrome 83+; not any other browsers.
 //
 // However, that should be fine, since they'll just ignore this code. They'll just be slightly more
 // vulnerable than Chrome users till they implement the policy.
 //
-// Enabling the use of Trusted Types is handled by the `trusted-types` and `require-trusted-types-for`
-// CSP policies, which are specified (along with all the other CSP policies) as part of the Express
-// server that servers the frontend in production.
+// Enabling the use of Trusted Types is handled by the `trusted-types` and `require-trusted-types-for` CSP policies.
 //
 // The goal of Trusted Types is to prevent DOM-based XSS attacks. This is good for us since mitigating as
 // many avenues for XSS attacks is important for the security model of uFincs; if an XSS attack is
@@ -24,14 +24,15 @@ const registerTrustedTypes = () => {
         //
         // Note: The above is no longer true/needed since we stopped using web workers.
         //
-        // Note that by specifying only the `createScriptURL` function (and not the `createHTML`
-        // or `createScript` functions), the other two functions will automatically generate errors.
-        // This should be fine, since there aren't any other injection sinks that we use that we know of.
-        // As such, this should afford us a good amount of DOM-based XSS attack prevention.
+        // Note that we don't specify a `createScript` function since we don't expect any injection sinks
+        // there, so it will automatically generate errors. We cover `createHTML` with explicit sanitization
+        // and `createScriptUrl` with custom filtering to ensure a good amount of protection against DOM-based
+        // XSS attack prevention.
         //
         // See https://w3c.github.io/webappsec-trusted-types/dist/spec/#default-policy-hdr for more details
         // on the use of a default policy.
         window.trustedTypes.createPolicy("default", {
+            createHTML: (input) => DOMPurify.sanitize(input, {RETURN_TRUSTED_TYPE: false}),
             createScriptURL: (url: string) => {
                 const parsedUrl = new URL(url, document.baseURI);
 

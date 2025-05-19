@@ -1,28 +1,32 @@
-import {number} from "@storybook/addon-knobs";
-import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {PaginationProvider} from "hooks/";
 import {smallViewport} from "utils/stories";
 import PaginationFooter from "./PaginationFooter";
 
-export default {
+const meta: Meta<typeof PaginationFooter> = {
     title: "Organisms/Pagination Footer",
-    component: PaginationFooter
+    component: PaginationFooter,
+    decorators: [
+        (Story) => (
+            <PaginationProvider totalItems={100}>
+                <Story />
+            </PaginationProvider>
+        )
+    ],
+    args: {
+        itemName: "Item"
+    }
 };
 
-const totalItemsKnob = () => number("Total Items", 100);
+export default meta;
+type Story = StoryObj<typeof PaginationFooter>;
 
 /** The default view of the `PaginationFooter`. */
-export const Default = () => (
-    <PaginationProvider totalItems={totalItemsKnob()}>
-        <PaginationFooter />
-    </PaginationProvider>
-);
+export const Default: Story = {};
 
 /** The small view of the `PaginationFooter`. */
-export const Small = () => (
-    <PaginationProvider totalItems={totalItemsKnob()}>
-        <PaginationFooter />
-    </PaginationProvider>
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};

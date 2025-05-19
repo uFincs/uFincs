@@ -22,16 +22,14 @@ export const crudSliceReducerFactory = <
     S extends State,
     O extends PayloadObject
 >(): CrudCaseReducers<S, O> => ({
-    set: (state, action) => action.payload,
+    set: (_state, action) => action.payload,
     add: (state, action) => {
         // Expects an object with an ID as payload.
-        // @ts-ignore I don't know, I can't get the type right.
         state[action.payload.id] = action.payload;
     },
     addMany: (state, action) => {
         // Expects an array of objects with IDs as payload.
         action.payload.forEach((sliceObject) => {
-            // @ts-ignore I don't know, I can't get the type right.
             state[sliceObject.id] = sliceObject;
         });
     },
@@ -41,7 +39,6 @@ export const crudSliceReducerFactory = <
     },
     update: (state, action) => {
         // Expects an object with an ID as payload.
-        // @ts-ignore I don't know, I can't get the type right.
         state[action.payload.id] = action.payload;
     }
 });

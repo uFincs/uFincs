@@ -1,56 +1,41 @@
-import {boolean, number} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import AmountChange from "./AmountChange";
 
-export default {
+const meta: Meta<typeof AmountChange> = {
     title: "Atoms/Amount Change",
-    component: AmountChange
+    component: AmountChange,
+    args: {
+        oldAmount: 140000,
+        newAmount: 150000,
+        lightShade: false,
+        positiveIsBad: false,
+        showDifference: false
+    }
 };
 
-const lightShadeKnob = () => boolean("Light Shade", false);
-const positiveBadKnob = () => boolean("Positive is Bad", false);
-const showDifferenceKnob = () => boolean("Show Difference", false);
+export default meta;
+type Story = StoryObj<typeof AmountChange>;
 
 /** The default view of `AmountChange`. */
-export const Default = () => (
-    <AmountChange
-        oldAmount={number("Old Amount", 140000)}
-        newAmount={number("New Amount", 150000)}
-        lightShade={lightShadeKnob()}
-        positiveIsBad={positiveBadKnob()}
-        showDifference={showDifferenceKnob()}
-    />
-);
+export const Default: Story = {};
 
 /** `AmountChange` using light shades of colors; for use on a dark background.. */
-export const LightShade = () => (
-    <AmountChange
-        oldAmount={number("Old Amount", 140000)}
-        newAmount={number("New Amount", 150000)}
-        lightShade={true}
-        positiveIsBad={positiveBadKnob()}
-        showDifference={showDifferenceKnob()}
-    />
-);
+export const LightShade: Story = {
+    args: {
+        lightShade: true
+    }
+};
 
 /** `AmountChange` for values where positive changes are bad and negative are good. */
-export const PositiveIsBad = () => (
-    <AmountChange
-        oldAmount={number("Old Amount", 140000)}
-        newAmount={number("New Amount", 150000)}
-        lightShade={lightShadeKnob()}
-        positiveIsBad={true}
-        showDifference={showDifferenceKnob()}
-    />
-);
+export const PositiveIsBad: Story = {
+    args: {
+        positiveIsBad: true
+    }
+};
 
 /** `AmountChange` with showing the difference between the two amounts. */
-export const ShowDifference = () => (
-    <AmountChange
-        oldAmount={number("Old Amount", 140000)}
-        newAmount={number("New Amount", 150000)}
-        lightShade={lightShadeKnob()}
-        positiveIsBad={positiveBadKnob()}
-        showDifference={true}
-    />
-);
+export const ShowDifference: Story = {
+    args: {
+        showDifference: true
+    }
+};

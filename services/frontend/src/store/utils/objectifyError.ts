@@ -8,7 +8,6 @@ export const objectifyError = (err: Error): ObjectifiedError => {
     const plainObject: NonFunctionProperties<Error> = {} as NonFunctionProperties<Error>;
 
     Object.getOwnPropertyNames(err).forEach((key) => {
-        // @ts-ignore Allow indexing an object by its own keys.
         plainObject[key] = err[key];
     });
 

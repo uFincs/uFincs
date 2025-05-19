@@ -9,7 +9,7 @@ import {Id} from "utils/types";
 
 /* State */
 
-interface VirtualTransactionsSliceState extends VirtualTransactionsData {}
+type VirtualTransactionsSliceState = VirtualTransactionsData;
 
 const initialState: VirtualTransactionsSliceState = {
     byId: {},
@@ -81,7 +81,7 @@ export const virtualTransactionsSlice = createSliceWithSelectors({
             state: VirtualTransactionsSliceState,
             // Calling this action without a payload means that the initial start/end dates
             // should be used.
-            action: PayloadAction<DateState>
+            _action: PayloadAction<DateState>
         ) => state
     },
     selectors

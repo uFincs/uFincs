@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect, useRef} from "react";
+import {useEffect, useRef} from "react";
 import {WarningIcon} from "assets/icons";
 import {CloseButton, DialogContainer, LinkButton, ShadowButton} from "components/atoms";
 import {DialogContainerProps} from "components/atoms/DialogContainer";

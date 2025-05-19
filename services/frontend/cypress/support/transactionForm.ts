@@ -105,6 +105,8 @@ export const TransactionForm = {
         openOptionalDetails: boolean = true,
         clearInputs: boolean = false
     ) {
+        cy.wait(1000);
+
         // We only _don't_ want to 'open' the optional details when 'Making Another'
         // transaction, since it will already be open.
         if (openOptionalDetails) {
@@ -126,7 +128,7 @@ export const TransactionForm = {
         }
 
         if (transaction.description !== undefined) {
-            this.descriptionInput().type(transaction.description);
+            this.descriptionInput().type(transaction.description, {delay: 50});
         }
 
         if (transaction.amount !== undefined) {

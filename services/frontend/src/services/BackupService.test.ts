@@ -277,7 +277,7 @@ describe("parseBackupFile", () => {
     });
 
     it("can fail to parse when the data is invalid", async () => {
-        // @ts-ignore Allow invalid data.
+        // @ts-expect-error Allow invalid data.
         const {contents} = BackupService.createBackupFile({...validData, importProfiles: null});
         const invalidFile = new Blob([contents], {type: "application/json"});
 
@@ -340,7 +340,7 @@ describe("_validateFile", () => {
     });
 
     it("throws when the version is missing", () => {
-        // @ts-ignore Allow testing invalid files.
+        // @ts-expect-error Allow testing invalid files.
         expect(() => BackupService._validateFile({...validFile, version: undefined})).toThrow();
     });
 
@@ -349,17 +349,17 @@ describe("_validateFile", () => {
     });
 
     it("throws when the encrypted flag is missing", () => {
-        // @ts-ignore Allow testing invalid files.
+        // @ts-expect-error Allow testing invalid files.
         expect(() => BackupService._validateFile({...validFile, encrypted: undefined})).toThrow();
     });
 
     it("throws when the encrypted flag is wrong", () => {
-        // @ts-ignore Allow testing invalid files.
+        // @ts-expect-error Allow testing invalid files.
         expect(() => BackupService._validateFile({...validFile, encrypted: "acb123"})).toThrow();
     });
 
     it("throws when the data is missing", () => {
-        // @ts-ignore Allow testing invalid files.
+        // @ts-expect-error Allow testing invalid files.
         expect(() => BackupService._validateFile({...validFile, data: undefined})).toThrow();
     });
 
@@ -368,7 +368,6 @@ describe("_validateFile", () => {
             expect(() =>
                 BackupService._validateFile({
                     ...validFile,
-                    // @ts-ignore Allow testing invalid files.
                     data: {...validFile.data, [piece]: undefined}
                 })
             ).toThrow();
@@ -380,7 +379,6 @@ describe("_validateFile", () => {
             expect(() =>
                 BackupService._validateFile({
                     ...validFile,
-                    // @ts-ignore Allow testing invalid files.
                     data: {...validFile.data, [piece]: []}
                 })
             ).toThrow();
@@ -392,7 +390,6 @@ describe("_validateFile", () => {
             expect(() =>
                 BackupService._validateFile({
                     ...validFile,
-                    // @ts-ignore Allow testing invalid files.
                     data: {...validFile.data, [piece]: "123"}
                 })
             ).toThrow();

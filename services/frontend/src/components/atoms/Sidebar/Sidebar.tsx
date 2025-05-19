@@ -1,24 +1,27 @@
 import classNames from "classnames";
-import React, {useRef} from "react";
+import {useRef} from "react";
+import * as React from "react";
 import {CSSTransition} from "react-transition-group";
 import {useOutsideCloseable} from "hooks/";
 import {transitionShortLength as animationTime} from "utils/parsedStyles";
 import "./Sidebar.scss";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
+    /** Callback to close the sidebar. */
+    onClose: () => void;
+}
+
+interface TransitionedSidebarProps extends SidebarProps {
     /** Whether or not the `Sidebar` is visible. Is used by, for example, a Route to control
      *  visibility.
      *
      *  This prop is needed so that the CSSTransition can correctly control the transition. */
     isVisible: boolean;
-
-    /** Callback to close the sidebar. */
-    onClose: () => void;
 }
 
 /** A container for displaying things like forms as a modal sidebar. */
 const Sidebar = React.forwardRef(
-    ({className, children, onClose, ...otherProps}: Omit<SidebarProps, "isVisible">, ref) => {
+    ({className, children, onClose, ...otherProps}: SidebarProps, ref) => {
         const {
             // Because the Sidebar container isn't focusable, we don't want the `onBlur` callback
             // as it would cause `onClose` to fire whenever anything inside the Sidebar
@@ -48,7 +51,7 @@ const Sidebar = React.forwardRef(
     }
 );
 
-const TransitionedSidebar = ({isVisible, ...otherProps}: SidebarProps) => {
+const TransitionedSidebar = ({isVisible, ...otherProps}: TransitionedSidebarProps) => {
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 
     return (

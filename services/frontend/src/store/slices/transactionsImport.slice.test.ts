@@ -499,7 +499,7 @@ describe("nextStepDisabledReason", () => {
                 });
 
                 it("has a transaction without a type", () => {
-                    // @ts-ignore Allow empty type for testing purposes.
+                    // @ts-expect-error Allow empty type for testing purposes.
                     const state = generateInvalidState({...validTransactionData, type: ""});
 
                     expect(
@@ -1127,7 +1127,7 @@ describe("reducer", () => {
 
     describe("Saga only actions", () => {
         it("leaves the state as is", () => {
-            // @ts-ignore Allow passing no arguments for parseFile for testing purposes.
+            // @ts-expect-error Allow passing no arguments for parseFile for testing purposes.
             expect(reducer(initialState, actions.parseFile())).toEqual(initialState);
         });
     });

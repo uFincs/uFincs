@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {Input, ListItemCheckbox} from "components/atoms";
 import {useCurrencySymbol} from "hooks/";
 import {Account, AccountType, BulkEditableAccountProperty} from "models/";

@@ -44,7 +44,7 @@ export const featureFlagsSlice = createSliceWithSelectors({
     initialState,
     reducers: {
         setFeatureFlags: (
-            state: FeatureFlagsSliceState,
+            _state: FeatureFlagsSliceState,
             action: PayloadAction<FeatureFlagsSliceState>
         ) => action.payload
     },

@@ -8,7 +8,7 @@ The buzzwordy way to describe [uFincs](https://ufincs.com) is as a "privacy-firs
 
 Of course, it has that modern 'flair' that GnuCash is distinctly lacking (being a responsive web app with a nice UI that works offline-first) while still trying to retain some of what makes GnuCash great (double-entry accounting, ownership of data).
 
-Try out the free "no-account" mode [here](https://ufincs.com/noaccount) to get a feel for the complete experience without having to sign up. Or, jump straight into the [user docs](docs/user/README.md) to learn how to host uFincs yourself (or how to build it as a [native app](docs/user/README.md#native-app-without-backend)).
+Try out the free "no-account" mode [here](https://ufincs.com/noaccount) to get a feel for the complete experience without having to sign up. Or, jump straight into the [user docs](docs/user/README.md) to learn how to host uFincs yourself.
 
 **Looking for the full git history?** It's over [here](docs/oldGitHistory.txt).
 
@@ -36,8 +36,6 @@ For the more technically minded, uFincs is a personal finance app with the follo
 
 - **It's a web app**
   - Specifically, it's an offline-first PWA. That means that once you're logged-in, you can use the app without an internet connection. Heck, you can even use the app without an account!
-- **But also a 'native' app**
-  - We use [Capacitor](https://capacitorjs.com/) to wrap the uFincs PWA into Android, iOS, and Electron apps (but you have to compile them yourself). Combined with uFincs' no-account mode, that means you can run uFincs completely standalone, without having to deal with setting up the backend API or database.
 - **It encrypts your data**
   - All data is encrypted in-browser (or in-app) before it is sent off to be persisted in the backend database. This provides a layer of security that few other apps can boast.
 - **It forces you to enter transactions manually**
@@ -61,6 +59,8 @@ What does uFincs _not_ do (and likely will never do)?
   - Double-entry accounting or bust.
 - **Track stock prices**
   - ... or do any other kind of 'external' integration for that matter. uFincs is a self-contained system; if you want custom external integrations, you can build them yourself (using, for example, the [api-proxy-prototype](https://github.com/uFincs/api-proxy-prototype) as a base).
+- **Native App Support**
+  - uFincs is only a web app. There is no intention to have official Android/iOS/desktop apps.
 
 If you want to read more about the history of uFincs, I suggest starting with the [uFincs Update](https://www.onmattersconcerningmyexistence.com/p/ufincs-update-1) series of blog posts.
 
@@ -70,11 +70,10 @@ If you want to read more about the history of uFincs, I suggest starting with th
 - **Production Infrastructure:** (formerly) Kubernetes (GKE) on Google Cloud Platform (GCP), now Cloud Run (Backend) + Firebase Hosting (Frontend)
 - **Frontend:**
   - **Language:** TypeScript
-  - **Framework:** React + Redux + redux-saga, create-react-app
+  - **Framework:** React + Redux + redux-saga, Vite
   - **Styling:** Plain old Sass
   - **Testing:** Jest, Cypress, Storybook
   - **Linting:** ESLint, Prettier
-  - **Native Apps:** Capacitor
 - **Backend:**
   - **Language:** TypeScript/Node
   - **API Framework:** Feathers.js + Express

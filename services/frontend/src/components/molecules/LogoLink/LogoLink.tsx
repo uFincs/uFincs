@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Link, Logo} from "components/atoms";
 import {LinkProps} from "components/atoms/Link";
 import {LogoProps} from "components/atoms/Logo";

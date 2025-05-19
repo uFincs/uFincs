@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback} from "react";
+import {useCallback} from "react";
+import * as React from "react";
 import {Input, TextField} from "components/atoms";
 import {InputProps} from "components/atoms/Input";
 import {useOutsideCloseable} from "hooks/";

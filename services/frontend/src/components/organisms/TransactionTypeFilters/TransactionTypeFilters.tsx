@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useMemo} from "react";
+import {useCallback, useMemo} from "react";
+import * as React from "react";
 import {TransactionTypeOption} from "components/molecules";
 import {useDateRangeTransactionAmountsByType, useTransactionTypes} from "hooks/";
 import {Transaction, TransactionType} from "models/";
@@ -31,7 +32,7 @@ interface TransactionTypeFiltersProps extends WrappedTransactionTypeFiltersProps
 const TransactionTypeFilters = React.memo(
     ({
         className,
-        accountId,
+        accountId: _accountId,
         currentAmounts,
         fromAmounts,
         typesToShow = Transaction.TRANSACTION_TYPES,

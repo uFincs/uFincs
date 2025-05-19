@@ -1,14 +1,16 @@
-import React from "react";
+import type {Meta} from "@storybook/react";
 import {DateRangeProvider, TransactionTypesProvider} from "hooks/";
 import {Transaction} from "models/";
 import {DateService} from "services/";
 import {smallViewport, storyUsingRedux, useCreateTransactions} from "utils/stories";
 import TransactionTypeFilters from "./TransactionTypeFilters";
 
-export default {
+const meta: Meta<typeof TransactionTypeFilters> = {
     title: "Organisms/Transaction Type Filters",
     component: TransactionTypeFilters
 };
+
+export default meta;
 
 const WrappedTransactionTypeFilters = (props: any) => (
     <DateRangeProvider>

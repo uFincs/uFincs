@@ -2,8 +2,10 @@ steps:
   - id: "Install deps"
     name: node:22.14.0-alpine
     entrypoint: npm
-    args: ["ci", "--omit=dev"]
+    args: ["ci"]
     dir: "services/frontend"
+    env:
+      - "CYPRESS_INSTALL_BINARY=0"
 
   - id: "Run tests and linters"
     name: node:22.14.0-alpine

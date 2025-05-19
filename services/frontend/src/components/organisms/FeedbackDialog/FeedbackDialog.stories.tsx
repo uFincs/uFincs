@@ -1,24 +1,28 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as FeedbackDialog} from "./FeedbackDialog";
 
-export default {
+const meta: Meta<typeof FeedbackDialog> = {
     title: "Organisms/Feedback Dialog",
-    component: FeedbackDialog
+    component: FeedbackDialog,
+    args: {
+        isVisible: true
+    }
 };
 
-const dialogActions = actions("onClose");
-const visibilityKnob = () => boolean("isVisible", true);
+export default meta;
+type Story = StoryObj<typeof FeedbackDialog>;
 
 /** The default view of `FeedbackDialog`. */
-export const Default = () => <FeedbackDialog isVisible={visibilityKnob()} {...dialogActions} />;
+export const Default: Story = {
+    args: {
+        // isVisible is already defined in meta args
+    }
+};
 
 /** The Unhandled Error view of the `FeedbackDialog`. */
-export const UnhandledError = () => (
-    <FeedbackDialog
-        isVisible={visibilityKnob()}
-        unhandledError={new Error("oops")}
-        {...dialogActions}
-    />
-);
+export const UnhandledError: Story = {
+    args: {
+        isVisible: true,
+        unhandledError: new Error("oops")
+    }
+};

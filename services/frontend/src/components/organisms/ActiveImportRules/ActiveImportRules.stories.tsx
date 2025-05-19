@@ -1,40 +1,29 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
-import {smallViewport, storyUsingRedux, useCreateImportRules} from "utils/stories";
+import type {Meta, StoryObj} from "@storybook/react";
+import {smallViewport} from "utils/stories";
 import {PureComponent as ActiveImportRules} from "./ActiveImportRules";
 
-export default {
+const meta: Meta<typeof ActiveImportRules> = {
     title: "Organisms/Active Import Rules",
-    component: ActiveImportRules
+    component: ActiveImportRules,
+    args: {
+        areRulesEnabled: true
+    }
 };
 
-const ruleActions = actions("onAddRule", "onToggleRules");
-const enabledKnob = () => boolean("Are Rules Enabled", true);
+export default meta;
+type Story = StoryObj<typeof ActiveImportRules>;
 
 /** The default view of `ActiveImportRules`. */
-export const Default = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
-
-    return (
-        <ActiveImportRules areRulesEnabled={enabledKnob()} importRules={rules} {...ruleActions} />
-    );
-});
+export const Default: Story = {};
 
 /** The small view of `ActiveImportRules`. */
-export const Small = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
-
-    return (
-        <ActiveImportRules areRulesEnabled={enabledKnob()} importRules={rules} {...ruleActions} />
-    );
-});
+export const Small: Story = {
+    args: {
+        areRulesEnabled: true
+    }
+};
 
 Small.parameters = smallViewport;
 
 /** The empty view of `ActiveImportRules`. */
-export const Empty = storyUsingRedux(() => {
-    useCreateImportRules();
-
-    return <ActiveImportRules areRulesEnabled={enabledKnob()} importRules={[]} {...ruleActions} />;
-});
+export const Empty: Story = {};

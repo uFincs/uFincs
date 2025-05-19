@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useRef} from "react";
+import {useCallback, useRef} from "react";
+import * as React from "react";
 import {TextField} from "components/atoms";
 import {SubmitButton} from "components/molecules";
 import {useOnActiveKey} from "hooks/";
@@ -57,4 +58,5 @@ const RestoreDataForm = ({className, loading, onRestoreBackup}: RestoreDataFormP
 };
 
 export const PureComponent = RestoreDataForm;
-export default connect(RestoreDataForm);
+export const ConnectedRestoreDataForm = connect(RestoreDataForm);
+export default ConnectedRestoreDataForm;

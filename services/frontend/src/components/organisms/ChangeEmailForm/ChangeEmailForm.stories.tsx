@@ -1,15 +1,16 @@
-import {actions} from "@storybook/addon-actions";
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as ChangeEmailForm} from "./ChangeEmailForm";
 
-export default {
+const meta: Meta<typeof ChangeEmailForm> = {
     title: "Organisms/Change Email Form",
-    component: ChangeEmailForm
+    component: ChangeEmailForm,
+    args: {
+        currentEmail: "test@test.com"
+    }
 };
 
-const formActions = actions("onSubmit");
-const email = () => text("Email", "test@test.com");
+export default meta;
+type Story = StoryObj<typeof ChangeEmailForm>;
 
 /** The default view of `ChangeEmailForm`. */
-export const Default = () => <ChangeEmailForm currentEmail={email()} {...formActions} />;
+export const Default: Story = {};

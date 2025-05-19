@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useRef} from "react";
+import {useCallback, useEffect, useRef} from "react";
+import * as React from "react";
 import {useForm} from "react-hook-form";
 import {useLocation} from "react-router";
 import {useAccountOptions, useFormSubmissionErrorMessage} from "hooks/";
@@ -121,10 +122,8 @@ const useAccountLabelsAndOptions = (
     // and map the value of the input to the errors, such that is expects
     // `errors.creditAccount.label|value.message`, even though that's
     // wrong (accessing message like normal works).
-    // @ts-ignore
     const tempCreditError = errors?.creditAccount?.message;
 
-    // @ts-ignore
     const tempDebitError = errors?.debitAccount?.message;
 
     // We need to add the type label to the account error message _here_, as opposed to in
@@ -176,7 +175,7 @@ const useSubmissionHandlers = ({
     accountsByType: Record<AccountType, Array<Account>>;
     recurringTransactionForEditing: RecurringTransaction | undefined;
     transactionForEditing: Transaction | undefined;
-    descriptionRef: React.RefObject<HTMLInputElement>;
+    descriptionRef: React.RefObject<HTMLInputElement | null>;
     handleSubmit: ReactHookFormHandleSubmitFunction<TransactionFormData>;
     reset: ReactHookFormResetFunction<TransactionFormData>;
     trigger: ReactHookFormTriggerFunction;
@@ -298,8 +297,8 @@ export const useTransactionForm = (
         defaultValues: transactionForEditing
             ? convertTransactionToFormData(transactionForEditing, true)
             : recurringTransactionForEditing
-            ? convertRecurringTransactionToFormData(recurringTransactionForEditing, true)
-            : defaultFormValues,
+              ? convertRecurringTransactionToFormData(recurringTransactionForEditing, true)
+              : defaultFormValues,
 
         // Because we use so many Controller components (which require manual focusing),
         // it's a pain trying to get them to focus correctly on error (i.e. I couldn't get it

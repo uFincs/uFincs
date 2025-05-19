@@ -32,7 +32,7 @@ export class WorkerPool {
 
     /** Passes in a schema to all of the workers to initialize them. */
     public async initSchema(schema: FieldsSchema) {
-        const promises = [];
+        const promises: Array<Promise<void>> = [];
 
         for (let i = 0; i < this.size; i++) {
             const worker = this.pool[i];
@@ -70,7 +70,7 @@ export class WorkerPool {
             // Note that parallelizing these operations using `Promise.all` _does_ speed up the
             // common case where this happens (Firefox in Private Browsing), since Firefox
             // does have 4 threads to work with for its WebCrypto operations.
-            const promises = [];
+            const promises: Array<Promise<void>> = [];
 
             for (let i = 0; i < this.size; i++) {
                 const worker = this.pool[i];
@@ -83,7 +83,7 @@ export class WorkerPool {
 
     /** Instructs all of the workers to initialize their keys from storage. */
     public async initKeysFromStorage(userId: RawString) {
-        const promises = [];
+        const promises: Array<Promise<void>> = [];
 
         for (let i = 0; i < this.size; i++) {
             const worker = this.pool[i];
@@ -122,14 +122,14 @@ export class WorkerPool {
     /** Handles job processing -- that is chunking up the payload based on
      *  payload format and number of workers. */
     private async processJob(
-        payload: any,
+        payload: any, // Tech Debt: Should type this better.
         payloadFormat: string,
         cryptoFunction: (payload: any, payloadFormat: string) => Promise<any>
     ) {
         const {shape} = parsePayloadFormat(payloadFormat);
 
-        let chunkedPayload = [];
-        const promises = [];
+        let chunkedPayload: Array<Array<any> | Record<string, any>> = [];
+        const promises: Array<Promise<Array<any> | Record<string, any>>> = [];
 
         // Depending on the shape, we'll have different strategies for parallelizing the work.
         switch (shape) {
@@ -149,7 +149,7 @@ export class WorkerPool {
                 }
 
                 return (await Promise.all(promises)).flat();
-            case PAYLOAD_SHAPE.MAP:
+            case PAYLOAD_SHAPE.MAP: {
                 // Chunk the object into an array of sub-objects, and spread the chunks
                 // among the workers.
                 chunkedPayload = chunkObject(
@@ -163,6 +163,7 @@ export class WorkerPool {
 
                 const result = (await Promise.all(promises)) as Array<Record<string, any>>;
                 return flattenChunkedObject(result);
+            }
             default:
                 return;
         }
@@ -173,7 +174,7 @@ export class WorkerPool {
 
 /** Chunks an array into an array of multiple arrays for parallel processing. */
 const chunkArray = <T>(array: Array<T>, chunkSize = 10): Array<Array<T>> => {
-    const chunkedArray = [];
+    const chunkedArray: Array<Array<T>> = [];
 
     for (let i = 0; i < array.length; i += chunkSize) {
         const chunk = array.slice(i, i + chunkSize);
@@ -188,7 +189,7 @@ const chunkObject = <T>(obj: Record<string, T>, chunkSize = 10): Array<Record<st
     const keys = Object.keys(obj);
     const chunkedKeys = chunkArray(keys, chunkSize);
 
-    const chunkedObject = [];
+    const chunkedObject: Array<Record<string, T>> = [];
 
     for (const keyChunk of chunkedKeys) {
         const objectChunk = {} as Record<string, T>;

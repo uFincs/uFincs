@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "baseUrl": "./src",
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "lib": ["ES2020", "DOM", "DOM.Iterable", "WebWorker"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true,
+        // Tech Debt: As part of upgrading TypeScript, all the redux-saga generators need to be updated
+        // and that's just too much work right now, so allow implicit any for now.
+        "noImplicitAny": false,
+        // Tech Debt: As part of upgrading TypeScript, this is too many errors to deal with,
+        // so disable for now.
+        "useUnknownInCatchVariables": false
+    },
+    "include": ["src"]
+}

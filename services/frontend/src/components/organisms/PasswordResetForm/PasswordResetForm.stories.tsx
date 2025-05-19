@@ -1,8 +1,7 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as PasswordResetForm} from "./PasswordResetForm";
 
-export default {
+const meta: Meta<typeof PasswordResetForm> = {
     title: "Organisms/Password Reset Form",
     component: PasswordResetForm,
     parameters: {
@@ -12,7 +11,8 @@ export default {
     }
 };
 
-const formActions = actions("onSubmit");
+export default meta;
+type Story = StoryObj<typeof PasswordResetForm>;
 
 /** The default view of `PasswordResetForm`. */
-export const Default = () => <PasswordResetForm {...formActions} />;
+export const Default: Story = {};

@@ -12,8 +12,8 @@ import {ChartService, DateService} from "services/";
 import {Cents, UTCDateString, ChartDateInterval, DateAmountDataPoint} from "utils/types";
 
 const useSelectTransactions = (): {
-    incomeByDate: Record<UTCDateString, TransactionData>;
-    expensesByDate: Record<UTCDateString, TransactionData>;
+    incomeByDate: Record<UTCDateString, Array<TransactionData>>;
+    expensesByDate: Record<UTCDateString, Array<TransactionData>>;
 } => {
     // Get the transactions in the current interval.
     const transactions = useDateRangeTransactions();

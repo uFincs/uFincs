@@ -1,13 +1,13 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as RestoreDataForm} from "./RestoreDataForm";
 
-export default {
+const meta: Meta<typeof RestoreDataForm> = {
     title: "Organisms/Restore Data Form",
     component: RestoreDataForm
 };
 
-const formActions = actions("onRestoreBackup");
+export default meta;
+type Story = StoryObj<typeof RestoreDataForm>;
 
 /** The default view of `RestoreDataForm`. */
-export const Default = () => <RestoreDataForm {...formActions} />;
+export const Default: Story = {};

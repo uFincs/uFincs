@@ -28,7 +28,7 @@ describe("CsvParser", () => {
 
     it("can throw an error when parsing an invalid file object", async () => {
         try {
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             await CsvParser.parseFile(["test"]);
         } catch (e) {
             expect(e).toEqual(expect.anything());

@@ -1,10 +1,15 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import MyData from "./MyData";
 
-export default {
+const meta: Meta<typeof MyData> = {
     title: "Scenes/Settings/Sections/My Data",
     component: MyData
 };
 
+export default meta;
+type Story = StoryObj<typeof MyData>;
+
 /** The default view of `MyData`. */
-export const Default = () => <MyData />;
+export const Default: Story = {
+    args: {}
+};

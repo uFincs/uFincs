@@ -29,10 +29,13 @@ const intersectTransactions = (
     transactions1: Array<TransactionData>,
     transactions2: Array<TransactionData>
 ) => {
-    const ids2 = transactions2.reduce((acc, {id}) => {
-        acc[id] = id;
-        return acc;
-    }, {} as Record<string, string>);
+    const ids2 = transactions2.reduce(
+        (acc, {id}) => {
+            acc[id] = id;
+            return acc;
+        },
+        {} as Record<string, string>
+    );
 
     const result: Array<TransactionData> = [];
 

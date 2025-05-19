@@ -1,36 +1,24 @@
-import {select} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import Logo from "./Logo";
 
-export default {
+const meta: Meta<typeof Logo> = {
     title: "Atoms/Logo",
-    component: Logo
+    component: Logo,
+    args: {
+        colorTheme: "dark",
+        size: "large"
+    }
 };
 
-const selectColor = () =>
-    select(
-        "Color Theme",
-        {
-            Light: "light",
-            Dark: "dark"
-        },
-        "dark"
-    );
-
-const selectSize = () =>
-    select(
-        "Size",
-        {
-            Large: "large",
-            Small: "small"
-        },
-        "large"
-    );
+export default meta;
+type Story = StoryObj<typeof Logo>;
 
 /** The full `Logo` has the full name of the app. */
-export const Full = () => <Logo colorTheme={selectColor()} size={selectSize()} />;
+export const Full: Story = {};
 
 /** The standalone `Logo` has just the `u` in uFincs, which is our trademark symbol. */
-export const Standalone = () => (
-    <Logo variant="standalone" colorTheme={selectColor()} size={selectSize()} />
-);
+export const Standalone: Story = {
+    args: {
+        variant: "standalone"
+    }
+};

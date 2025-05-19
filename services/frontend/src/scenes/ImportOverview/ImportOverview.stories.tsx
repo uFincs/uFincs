@@ -1,18 +1,20 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {storyUsingRedux, useCreateImportRules} from "utils/stories";
 import {PureComponent as ImportOverview} from "./ImportOverview";
 
-export default {
+const meta: Meta<typeof ImportOverview> = {
     title: "Scenes/Import Overview",
     component: ImportOverview
 };
 
-const overviewActions = actions("onAddRule");
+export default meta;
+type Story = StoryObj<typeof ImportOverview>;
 
 /** The default view of `ImportOverview`. */
-export const Default = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
+export const Default: Story = {
+    render: storyUsingRedux((args) => {
+        const rules = useCreateImportRules();
 
-    return <ImportOverview importRules={rules} {...overviewActions} />;
-});
+        return <ImportOverview importRules={rules} {...args} />;
+    })
+};

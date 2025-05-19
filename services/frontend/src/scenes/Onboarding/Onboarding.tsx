@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {animated} from "react-spring";
 import {ProgressStepper} from "components/organisms";
 import {useStepTransition} from "hooks/";
@@ -75,6 +75,8 @@ const Onboarding = ({className, currentStep = 0, finishOnboarding, gotoStep}: On
                         const Step = STEP_COMPONENTS[currentStep];
 
                         return (
+                            // @ts-expect-error Missing children prop:
+                            // https://github.com/pmndrs/react-spring/issues/2358
                             <animated.div
                                 className="Onboarding-step-container"
                                 style={style as any}
@@ -91,4 +93,5 @@ const Onboarding = ({className, currentStep = 0, finishOnboarding, gotoStep}: On
     );
 };
 
-export default connect(Onboarding);
+const ConnectedOnboarding = connect(Onboarding);
+export default ConnectedOnboarding;

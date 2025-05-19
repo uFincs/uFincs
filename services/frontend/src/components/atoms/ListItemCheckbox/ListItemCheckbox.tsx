@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback} from "react";
+import {useCallback} from "react";
+import * as React from "react";
 import {animated, useSpring} from "react-spring";
 import {useOnActiveKey} from "hooks/";
 import {colors} from "utils/styles";
@@ -100,6 +101,7 @@ const ListItemCheckbox = ({
     const onKeyDown = useOnActiveKey(onClick);
 
     return (
+        // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
         <animated.div
             className={classNames("ListItemCheckbox", className)}
             aria-checked={checked}
@@ -113,6 +115,8 @@ const ListItemCheckbox = ({
             {/* This is the `CheckIcon` */}
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <animated.path
+                    // @ts-expect-error Missing d prop,
+                    // probably https://github.com/pmndrs/react-spring/issues/2358
                     d="M5 13L9 17L19 7"
                     strokeWidth="2"
                     strokeLinecap="round"

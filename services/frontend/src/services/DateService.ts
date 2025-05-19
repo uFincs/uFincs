@@ -26,10 +26,13 @@ const getDaysInMonth = (month: number | string): number => {
     return new Date(2021, month + 1, 0).getDate();
 };
 
-const MONTH_DAY_COUNTS = [...Array(12).keys()].reduce((acc, month) => {
-    acc[month] = getDaysInMonth(month);
-    return acc;
-}, {} as Record<number, number>);
+const MONTH_DAY_COUNTS = [...Array(12).keys()].reduce(
+    (acc, month) => {
+        acc[month] = getDaysInMonth(month);
+        return acc;
+    },
+    {} as Record<number, number>
+);
 
 // Note:
 //

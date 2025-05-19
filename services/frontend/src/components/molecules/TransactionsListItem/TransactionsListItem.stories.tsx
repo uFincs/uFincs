@@ -1,8 +1,6 @@
-import {actions} from "@storybook/addon-actions";
-import {number, select, text} from "@storybook/addon-knobs";
-import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {SelectableListProvider} from "hooks/";
-import {Transaction, TransactionType} from "models/";
+import {TransactionType} from "models/";
 import {
     smallViewport,
     storyData,
@@ -14,108 +12,126 @@ import TransactionsListItem, {
     PureComponent as PureTransactionsListItem
 } from "./TransactionsListItem";
 
-export default {
+const meta: Meta<typeof PureTransactionsListItem> = {
     title: "Molecules/Transactions List Item",
-    component: PureTransactionsListItem
+    component: PureTransactionsListItem,
+    args: {
+        id: "123",
+        amount: 12345,
+        description: "Bought some food",
+        type: TransactionType.expense,
+        creditAccountName: "Cash",
+        debitAccountName: "Food"
+    }
 };
 
-const itemActions = actions("onClick", "onDelete", "onEdit");
-
-const amountKnob = () => number("Amount", 12345);
-const descriptionKnob = () => text("Description", "Bought some food");
-const typeKnob = () => select("Type", Transaction.TRANSACTION_TYPES, Transaction.INCOME);
-const creditAccountKnob = () => text("Credit Account", "Cash");
-const debitAccountKnob = () => text("Debit Account", "Food");
-
-const transactionData = (type: TransactionType = typeKnob()) => ({
-    id: "123",
-    amount: amountKnob(),
-    description: descriptionKnob(),
-    type,
-    creditAccountName: creditAccountKnob(),
-    debitAccountName: debitAccountKnob()
-});
+export default meta;
+type Story = StoryObj<typeof PureTransactionsListItem>;
 
 /** The default view of a `TransactionsListItem` with all knobs. */
-export const Default = () => <PureTransactionsListItem {...transactionData()} {...itemActions} />;
+export const Default: Story = {};
 
 /** The more realistic view of a `TransactionsListItem`, since it's used on mobile. */
-export const Small = () => <PureTransactionsListItem {...transactionData()} {...itemActions} />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** A `TransactionsListItem` with the income type. */
-export const Income = () => (
-    <PureTransactionsListItem {...transactionData(Transaction.INCOME)} {...itemActions} />
-);
+export const Income: Story = {
+    args: {
+        type: TransactionType.income
+    }
+};
 
 /** A `TransactionsListItem` with the expense type. */
-export const Expense = () => (
-    <PureTransactionsListItem {...transactionData(Transaction.EXPENSE)} {...itemActions} />
-);
+export const Expense: Story = {
+    args: {
+        type: TransactionType.expense
+    }
+};
 
 /** A `TransactionsListItem` with the debt type. */
-export const Debt = () => (
-    <PureTransactionsListItem {...transactionData(Transaction.DEBT)} {...itemActions} />
-);
+export const Debt: Story = {
+    args: {
+        type: TransactionType.debt
+    }
+};
 
 /** A `TransactionsListItem` with the transfer type. */
-export const Transfer = () => (
-    <PureTransactionsListItem {...transactionData(Transaction.TRANSFER)} {...itemActions} />
-);
+export const Transfer: Story = {
+    args: {
+        type: TransactionType.transfer
+    }
+};
 
 /** The `TransactionsListItem` with no actions (i.e. a 'read-only' list item). */
-export const NoActions = () => (
-    <PureTransactionsListItem {...transactionData()} actionsToShow={[]} {...itemActions} />
-);
+export const NoActions: Story = {
+    args: {
+        actionsToShow: []
+    }
+};
 
 /** The disabled view of a `TransactionsListItem`. */
-export const Disabled = () => (
-    <PureTransactionsListItem {...transactionData()} disabled={true} {...itemActions} />
-);
+export const Disabled: Story = {
+    args: {
+        disabled: true
+    }
+};
 
 /** The 'error' view of a `TransactionsListItem`. */
-export const HasError = () => (
-    <PureTransactionsListItem {...transactionData()} hasError={true} {...itemActions} />
-);
+export const HasError: Story = {
+    args: {
+        hasError: true
+    }
+};
 
 /** The selectable view of a `TransactionsListItem`. */
-export const Selectable = () => (
-    <SelectableListProvider>
-        <PureTransactionsListItem {...transactionData()} {...itemActions} />
-    </SelectableListProvider>
-);
+export const Selectable: Story = {
+    decorators: [
+        (Story) => (
+            <SelectableListProvider>
+                <Story />
+            </SelectableListProvider>
+        )
+    ]
+};
 
 /** The importable view of a `TransactionsListItem`.
  *
  *  The target account name should be displayed differently than a regular account name. */
-export const Importable = () => (
-    <PureTransactionsListItem
-        {...transactionData()}
-        debitAccountName=""
-        placeholderDebitAccountName="CANADA"
-        {...itemActions}
-    />
-);
+export const Importable: Story = {
+    args: {
+        debitAccountName: "",
+        placeholderDebitAccountName: "CANADA"
+    }
+};
 
 /** An example of a 'virtual' `TransactionsListItem`.
  *
  *  It should have the date italicized and de-emphasized, to show how this isn't a 'real' transaction. */
-export const Virtual = () => (
-    <PureTransactionsListItem {...transactionData()} isVirtualTransaction={true} {...itemActions} />
-);
+export const Virtual: Story = {
+    args: {
+        isVirtualTransaction: true
+    }
+};
 
 /** An example of a 'future' `TransactionsListItem`.
  *
  *  It should have a pink accent bar on the left side to indicate that it is a 'future' transaction. */
-export const Future = () => (
-    <PureTransactionsListItem {...transactionData()} isFutureTransaction={true} {...itemActions} />
-);
+export const Future: Story = {
+    args: {
+        isFutureTransaction: true
+    }
+};
 
 /** A story that tests that the connected component is working as intended. */
-export const Connected = storyUsingRedux(() => {
-    useCreateAccounts(storyData.accounts);
-    useCreateTransactions(storyData.transactions);
+export const Connected: Story = {
+    render: storyUsingRedux(() => {
+        useCreateAccounts(storyData.accounts);
+        useCreateTransactions(storyData.transactions);
 
-    return <TransactionsListItem id="3" />;
-});
+        return <TransactionsListItem id="3" />;
+    })
+};

@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 $sidebar-width: 400px;
 
@@ -33,7 +34,7 @@ $sidebar-width: 400px;
 
     @media (min-width: #{$sidebar-width}) {
         // This is a left drop shadow to give the sidebar some depth.
-        box-shadow: -6px 0 4px transparentize($color: $color-neutral-900, $amount: 0.85);
+        box-shadow: -6px 0 4px color.adjust($color: $color-neutral-900, $alpha: -0.85);
 
         // Unstretch the sidebar from the left side of the screen so that it sticks to the right.
         left: unset;

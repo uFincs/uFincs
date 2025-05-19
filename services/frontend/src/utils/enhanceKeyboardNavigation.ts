@@ -25,7 +25,7 @@ const enhanceKeyboardNavigation = () => {
         }
     };
 
-    const onMouseDown = (e: MouseEvent) => {
+    const onMouseDown = (_e: MouseEvent) => {
         document.body.classList.remove("keyboard-navigation");
     };
 

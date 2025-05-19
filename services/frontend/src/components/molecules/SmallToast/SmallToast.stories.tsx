@@ -1,27 +1,39 @@
-import {actions} from "@storybook/addon-actions";
-import {text} from "@storybook/addon-knobs";
-import React from "react";
-import {smallViewport} from "utils/stories";
+import type {Meta, StoryObj} from "@storybook/react";
 import SmallToast from "./SmallToast";
 
-export default {
+const meta: Meta<typeof SmallToast> = {
     title: "Molecules/Small Toast",
-    component: SmallToast
+    component: SmallToast,
+    args: {
+        message: "Transaction deleted"
+    }
 };
 
-const toastActions = actions("onAction", "onClose");
-
-const messageKnob = () => text("Message", "Transaction deleted");
+export default meta;
+type Story = StoryObj<typeof SmallToast>;
 
 /** The default view of a `SmallToast`. */
-export const Default = () => <SmallToast message={messageKnob()} {...toastActions} />;
+export const Default: Story = {
+    args: {
+        actionLabel: undefined
+    }
+};
 
 /** The small (mobile) view of a `SmallToast`. */
-export const Small = () => <SmallToast message={messageKnob()} {...toastActions} />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    args: {
+        message: "Transaction deleted"
+    },
+    parameters: {
+        viewport: {
+            default: "mobile"
+        }
+    }
+};
 
 /** A `SmallToast` with an (undo) action. */
-export const WithAction = () => (
-    <SmallToast actionLabel="Undo" message={messageKnob()} {...toastActions} />
-);
+export const WithAction: Story = {
+    args: {
+        actionLabel: "Undo"
+    }
+};

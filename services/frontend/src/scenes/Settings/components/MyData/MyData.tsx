@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {BackupDataForm, RestoreDataForm} from "components/organisms";
 import "./MyData.scss";
 

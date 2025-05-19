@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-hook-form/package.json b/node_modules/react-hook-form/package.json
+index edfef9b..b507980 100644
+--- a/node_modules/react-hook-form/package.json
++++ b/node_modules/react-hook-form/package.json
+@@ -17,6 +17,7 @@
+   "exports": {
+     "./package.json": "./package.json",
+     ".": {
++      "types": "./dist/index.d.ts",
+       "import": "./dist/index.esm.js",
+       "require": "./dist/index.js"
+     },

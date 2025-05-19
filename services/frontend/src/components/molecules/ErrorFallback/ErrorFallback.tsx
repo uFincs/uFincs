@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback} from "react";
+import {useCallback} from "react";
 import {Error} from "assets/graphics";
 import {OutlineButton} from "components/atoms";
 import {EmptyArea} from "components/molecules";
@@ -46,7 +46,8 @@ const ErrorFallback = ({className, error, onSendFeedback}: ErrorFallbackProps) =
     );
 };
 
-export default connect(ErrorFallback);
+export const ConnectedErrorFallback = connect(ErrorFallback);
+export default ConnectedErrorFallback;
 
 /* Other Components */
 

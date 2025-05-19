@@ -1,9 +1,7 @@
 import classNames from "classnames";
-import React from "react";
 import {animated, to as interpolate} from "react-spring";
 import {Divider, OutlineButton} from "components/atoms";
 import {
-    AppRefreshButton,
     CurrentNetWorthIndicator,
     GlobalAddButton,
     LogoLink,
@@ -15,7 +13,6 @@ import {
     UserDropdown
 } from "components/molecules";
 import {useHideOnScroll, useNoAccount} from "hooks/";
-import {NativePlatformsService} from "services/";
 import {isSafariBrowser} from "utils/browserChecks";
 import ScreenUrls, {DerivedAppScreenUrls} from "values/screenUrls";
 import "./AppNavigation.scss";
@@ -50,7 +47,8 @@ const AppNavigation = (props: AppNavigationProps) => (
 );
 
 export const PureComponent = AppNavigation;
-export default connect(AppNavigation);
+export const ConnectedAppNavigation = connect(AppNavigation);
+export default ConnectedAppNavigation;
 
 /* Helper Functions */
 
@@ -105,7 +103,7 @@ const LargeAppNavigation = ({
                 </div>
 
                 <div className="AppNavigation-content-right">
-                    {noAccount && !NativePlatformsService.isMobilePlatform() && (
+                    {noAccount && (
                         <OutlineButton
                             className="AppNavigation-signup-button"
                             data-testid="app-navigation-signup"
@@ -115,8 +113,6 @@ const LargeAppNavigation = ({
                             Sign Up
                         </OutlineButton>
                     )}
-
-                    <AppRefreshButton />
 
                     <GlobalAddButton className="AppNavigation-add-button" variant="large" />
 
@@ -135,6 +131,7 @@ const SmallAppNavigation = ({className, active = 0}: AppNavigationProps) => {
     const translateY = useHideOnScroll({translateAmount: 120});
 
     return (
+        // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
         <animated.nav
             className={classNames(
                 "AppNavigation--small",

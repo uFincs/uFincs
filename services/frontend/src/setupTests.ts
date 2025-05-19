@@ -1,23 +1,26 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom/extend-expect";
+import {webcrypto} from "node:crypto";
+import {vi} from "vitest";
 
-import crypto from "isomorphic-webcrypto";
+// Need to polyfill WebCrypto in tests since JSDOM doesn't yet support it.
+Object.defineProperty(globalThis, "crypto", {
+    value: webcrypto
+});
 
-// Need to polyfill WebCrypto in Jest since JSDOM doesn't yet support it.
-// @ts-ignore
-global.crypto = crypto;
+// Mock localForage since we don't have access to IndexedDB/local storage in JSDOM.
+// Otherwise, we get lots of errors.
+vi.mock("localforage", () => {
+    const module = {
+        config: vi.fn(),
+        createInstance: vi.fn(),
+        setItem: vi.fn(),
+        getItem: vi.fn(),
+        clear: vi.fn(),
+        INDEXEDDB: "indexeddb",
+        LOCALSTORAGE: "localstorage"
+    };
 
-// Mock localForage since we don't have access to IndexedDB/local storage in JSDOM
-// (jest's testing environment). Otherwise, we get lots of errors.
-jest.mock("localforage", () => {
     return {
-        config: jest.fn(),
-        createInstance: jest.fn(),
-        setItem: jest.fn(),
-        getItem: jest.fn(),
-        clear: jest.fn()
+        default: module,
+        ...module
     };
 });

@@ -1,8 +1,8 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as SubscriptionPlanForm} from "./SubscriptionPlanForm";
 
-export default {
+const meta: Meta<typeof SubscriptionPlanForm> = {
     title: "Organisms/Subscription Plan Form",
     component: SubscriptionPlanForm,
     parameters: {
@@ -12,7 +12,13 @@ export default {
     }
 };
 
+export default meta;
+type Story = StoryObj<typeof SubscriptionPlanForm>;
+
 const formActions = actions("onCancel", "onCheckout");
 
 /** The default view of `SubscriptionPlanForm`. */
-export const Default = () => <SubscriptionPlanForm {...formActions} />;
+export const Default: Story = {
+    args: {},
+    render: () => <SubscriptionPlanForm {...formActions} />
+};

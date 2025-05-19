@@ -1,31 +1,25 @@
-import {actions} from "@storybook/addon-actions";
-import {number} from "@storybook/addon-knobs";
-import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {StepNavigationButtons} from "components/molecules";
 import ProgressStepper from "./ProgressStepper";
 
-export default {
+const meta: Meta<typeof ProgressStepper> = {
     title: "Organisms/Progress Stepper",
-    component: ProgressStepper
+    component: ProgressStepper,
+    args: {
+        currentStep: 0,
+        steps: [
+            "Choose Account",
+            "Choose CSV File",
+            "Match CSV Columns",
+            "Adjust Transactions",
+            "Finish Import"
+        ],
+        StepNavigationButtons: StepNavigationButtons
+    }
 };
 
-const STEP_TITLES = [
-    "Choose Account",
-    "Choose CSV File",
-    "Match CSV Columns",
-    "Adjust Transactions",
-    "Finish Import"
-];
-
-const stepperActions = actions("gotoStep");
-const currentStepKnob = () => number("Current Step", 0);
+export default meta;
+type Story = StoryObj<typeof ProgressStepper>;
 
 /** The default view of `ProgressStepper`. */
-export const Default = () => (
-    <ProgressStepper
-        currentStep={currentStepKnob()}
-        steps={STEP_TITLES}
-        {...stepperActions}
-        StepNavigationButtons={StepNavigationButtons}
-    />
-);
+export const Default: Story = {};

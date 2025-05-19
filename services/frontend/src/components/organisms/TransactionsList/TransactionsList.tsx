@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
+import * as React from "react";
 import {ListSectionHeader} from "components/atoms";
 import {EmptyTransactionsArea, TransactionsListItem} from "components/molecules";
 import {useCalculateRunningBalances, useCurrencySymbol, useTransformTransactionsList} from "hooks/";
@@ -7,6 +8,7 @@ import {ValueFormatting} from "services/";
 import {crossSliceSelectors, TransactionSelector} from "store/";
 import {DefaultListItemActions, ListItemActions, TransactionViewProps} from "utils/componentTypes";
 import {
+    AnimationProps,
     generateAnimatedList,
     generateAnimationCalculator,
     IndexCalculator
@@ -25,13 +27,13 @@ const generateDateHeaderGenerator = (indexCalculator: IndexCalculator) => {
     let lastDate: string = "";
 
     return (date: string) => {
-        let dateHeader = null;
+        let dateHeader: React.JSX.Element | null = null;
 
         // Need to handle the animation calculations in this function so that we can
         // get the right animation styles onto the date header, as well as know the correct
         // offset for the list item.
         let animationIndex: number = 0;
-        let animationCalculator = null;
+        let animationCalculator: ((offset: number) => AnimationProps) | null = null;
 
         if (date !== lastDate) {
             lastDate = date;
@@ -91,7 +93,7 @@ const generateListItems =
 
         // It might seem strange that we're generating a 2D array to get a flat list of items
         // for React to render, but _that is_ how React renders it.
-        const listItems: Array<Array<JSX.Element | null>> = [];
+        const listItems: Array<Array<React.JSX.Element | null>> = [];
 
         // OK, this is kinda confusing. So, the transactions (i.e. the IDs) are sorted date descending.
         // This means the latest transactions show up first in the list.
@@ -117,7 +119,7 @@ const generateListItems =
 
             const {dateHeader, transactionStyles} = generateDateHeader(date);
 
-            let endOfDayBalance = null;
+            let endOfDayBalance: React.JSX.Element | null = null;
 
             // Save the running balance of the visually first transaction so that we can display
             // it as the End of Day Balance after the visually last transaction of the date block.

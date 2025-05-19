@@ -35,7 +35,7 @@ export interface RequestSliceState {
     error: RequestError | null;
 }
 
-type RequestSaga<PayloadType extends any = any> = (
+type RequestSaga<PayloadType = any> = (
     action: PayloadAction<PayloadType>,
     success: Saga
 ) => Generator;
@@ -204,9 +204,11 @@ export class RequestSlice {
                     }
 
                     // Reset the flag for the next request
-                    successCalled = false; // eslint-disable-line require-atomic-updates
+                    successCalled = false;
                 } catch (e) {
-                    yield put(actions.failure(objectifyError(e)));
+                    if (e instanceof Error) {
+                        yield put(actions.failure(objectifyError(e)));
+                    }
                 }
             };
     }

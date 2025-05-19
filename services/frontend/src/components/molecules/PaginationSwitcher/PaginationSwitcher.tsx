@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {IntervalSwitcher, TextField} from "components/atoms";
 import {useKeyboardNavigation, usePagination} from "hooks/";
 import {MathUtils} from "services/";

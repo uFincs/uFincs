@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
+import * as React from "react";
 import useEscapeKeyCloseable from "./useEscapeKeyCloseable";
 
 export interface CloseableContainerProps<RefType extends HTMLElement> {

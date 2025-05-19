@@ -1,23 +1,30 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {DateRangeProvider} from "hooks/";
 import {smallViewport} from "utils/stories";
 import Dashboard from "./Dashboard";
 
-export default {
+const meta: Meta<typeof Dashboard> = {
     title: "Scenes/Dashboard",
+    decorators: [
+        (Story) => (
+            <DateRangeProvider>
+                <Story />
+            </DateRangeProvider>
+        )
+    ],
     component: Dashboard
 };
 
-const WrappedDashboard = () => (
-    <DateRangeProvider>
-        <Dashboard />
-    </DateRangeProvider>
-);
+export default meta;
+
+type Story = StoryObj<typeof Dashboard>;
 
 /** The large view of the `Dashboard` scene. */
-export const Large = () => <WrappedDashboard />;
+export const Large: Story = {};
 
 /** The small view of the `Dashboard` scene. */
-export const Small = () => <WrappedDashboard />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};

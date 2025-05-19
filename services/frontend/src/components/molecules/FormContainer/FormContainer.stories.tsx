@@ -1,29 +1,26 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {LabelledInput} from "components/molecules";
 import FormContainer from "./FormContainer";
 
-export default {
+const meta: Meta<typeof FormContainer> = {
     title: "Molecules/Form Container",
-    component: FormContainer
+    component: FormContainer,
+    args: {
+        closeButtonTestId: "test",
+        entityName: "Transaction",
+        isEditing: false,
+        submissionError: ""
+    }
 };
 
-const formActions = actions("onClose", "onMakeAnother", "onSubmit");
-
-const nameKnob = () => text("Entity Name", "Transaction");
-const editingKnob = () => boolean("Is Editing", false);
-const errorKnob = () => text("Submission Error", "");
+export default meta;
+type Story = StoryObj<typeof FormContainer>;
 
 /** The default view of `FormContainer`. */
-export const Default = () => (
-    <FormContainer
-        closeButtonTestId="test"
-        entityName={nameKnob()}
-        isEditing={editingKnob()}
-        submissionError={errorKnob()}
-        {...formActions}
-    >
-        <LabelledInput label="Description" />
-    </FormContainer>
-);
+export const Default: Story = {
+    render: (args) => (
+        <FormContainer {...args}>
+            <LabelledInput label="Description" />
+        </FormContainer>
+    )
+};

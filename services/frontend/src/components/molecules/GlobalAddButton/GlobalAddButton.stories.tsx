@@ -1,30 +1,29 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport} from "utils/stories";
 import GlobalAddButton, {PureComponent as PureGlobalAddButton} from "./GlobalAddButton";
 
-export default {
+const meta: Meta<typeof PureGlobalAddButton> = {
     title: "Molecules/Global Add Button",
-    component: PureGlobalAddButton
+    component: PureGlobalAddButton,
+    args: {
+        className: "GlobalAddButton--story-sample"
+    }
 };
 
-const buttonActions = actions("onAccount", "onImportTransactions", "onTransaction");
+export default meta;
+type Story = StoryObj<typeof PureGlobalAddButton>;
 
 /** The view of the `GlobalAddButton` in the large (desktop) navigation. */
-export const Large = () => (
-    <PureGlobalAddButton className="GlobalAddButton--story-sample" {...buttonActions} />
-);
+export const Large: Story = {};
 
 /** The view of the `GlobalAddButton` in the small (mobile) navigation. */
-export const Small = () => (
-    <PureGlobalAddButton
-        className="GlobalAddButton--story-sample"
-        variant="small"
-        {...buttonActions}
-    />
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** A story for testing that the connected `GlobalAddButton` is working. */
-export const Connected = () => <GlobalAddButton className="GlobalAddButton--story-sample" />;
+export const Connected: Story = {
+    render: (args) => <GlobalAddButton {...args} />
+};

@@ -1,13 +1,9 @@
-import React from "react";
+import {Component} from "react";
 import {VictoryLabel, VictoryTooltip} from "victory";
 import {borders, fontWeights, sizes} from "utils/parsedStyles";
 import {colors, fonts} from "utils/styles";
 
-export default class Tooltip extends React.Component {
-    // I don't know why defaultEvents isn't registered on the type, but according to:
-    // https://formidable.com/open-source/victory/guides/tooltips/#wrapping-victorytooltip
-    // it should be there.
-    // @ts-ignore
+export default class Tooltip extends Component {
     static defaultEvents = VictoryTooltip.defaultEvents;
 
     render() {

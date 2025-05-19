@@ -257,7 +257,7 @@ export const destroyRollback = rollbackWrapper<AccountData>(function* ({payload}
 export function* undoableDestroy({payload}: PayloadAction<Id>) {
     const accountId = payload;
     const account = yield select(crossSliceSelectors.accounts.selectAccount(accountId));
-    const transactions = [];
+    const transactions: Array<TransactionData> = [];
 
     for (const transactionId of account.transactionIds) {
         transactions.push(

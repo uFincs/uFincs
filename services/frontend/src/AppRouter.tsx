@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {Switch, Route} from "react-router";
 import {BackgroundBlur, DateRangeBridge, FileDownloader} from "components/atoms";
@@ -183,7 +183,8 @@ const AppRouter = ({isOnboarded = true, modalCompatibleLocation}: AppRouterProps
     );
 };
 
-export default connect(AppRouter);
+export const ConnectedAppRouter = connect(AppRouter);
+export default ConnectedAppRouter;
 
 /* Other Components */
 

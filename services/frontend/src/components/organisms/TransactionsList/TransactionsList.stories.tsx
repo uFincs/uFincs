@@ -1,5 +1,5 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import {Meta} from "@storybook/react";
 import {PaginationSwitcher} from "components/molecules";
 import {PaginationProvider} from "hooks/";
 import {Transaction} from "models/";
@@ -13,10 +13,12 @@ import {
 } from "utils/stories";
 import TransactionsList from "./TransactionsList";
 
-export default {
+const meta: Meta<typeof TransactionsList> = {
     title: "Organisms/Transactions List",
     component: TransactionsList
 };
+
+export default meta;
 
 const listActions = actions("onAddTransaction");
 

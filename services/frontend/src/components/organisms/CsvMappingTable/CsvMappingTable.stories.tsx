@@ -1,28 +1,34 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import CsvMappingTable from "./CsvMappingTable";
 
-export default {
+const meta: Meta<typeof CsvMappingTable> = {
     title: "Organisms/CSV Mapping Table",
-    component: CsvMappingTable
+    component: CsvMappingTable,
+    args: {
+        fields: ["Date", "Amount", "N/A", "Description", "Account"],
+        sampleData: [
+            ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
+            ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
+            ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
+            ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
+            ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"]
+        ]
+    }
 };
 
-const fields = ["Date", "Amount", "N/A", "Description", "Account"];
-
-const sampleData = [
-    ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
-    ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
-    ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
-    ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"],
-    ["7/21/2019", "1335.83", "-", "Payroll Deposit", "CANADA"]
-];
-
-const tableActions = actions("onFieldChange");
+export default meta;
+type Story = StoryObj<typeof CsvMappingTable>;
 
 /** The default view of `CsvMappingTable`. */
-export const Default = () => <CsvMappingTable fields={fields} sampleData={sampleData} />;
+export const Default: Story = {};
 
 /** The editing view of `CsvMappingTable`. */
-export const Editing = () => (
-    <CsvMappingTable editing={true} fields={fields} sampleData={sampleData} {...tableActions} />
-);
+export const Editing: Story = {
+    args: {
+        editing: true
+    },
+    parameters: {
+        ...actions("onFieldChange")
+    }
+};

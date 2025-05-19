@@ -1,14 +1,16 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta} from "@storybook/react";
 import {PaginationProvider, SelectableListProvider} from "hooks/";
 import {Transaction} from "models/";
 import {storyData, storyUsingRedux, useCreateAccounts, useCreateTransactions} from "utils/stories";
 import TransactionsTable from "./TransactionsTable";
 
-export default {
+const meta: Meta<typeof TransactionsTable> = {
     title: "Organisms/Transactions Table",
     component: TransactionsTable
 };
+
+export default meta;
 
 const {accounts, transactions} = storyData;
 

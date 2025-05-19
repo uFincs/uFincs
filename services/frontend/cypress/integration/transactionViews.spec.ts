@@ -306,7 +306,7 @@ describe("Transactions and Type Filtering", () => {
             return acc;
         },
         {income: [], expense: [], debt: [], transfer: []} as {
-            [key: string]: Array<typeof seedData.TRANSACTIONS[0]>;
+            [key: string]: Array<(typeof seedData.TRANSACTIONS)[0]>;
         }
     );
 

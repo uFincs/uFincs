@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {ImportRuleCondition} from "models/";
 import "./FormattedRuleCondition.scss";

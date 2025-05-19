@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {Fragment, useMemo} from "react";
 import {AmountChange, CurrentAmount, Divider, FromAmount} from "components/atoms";
 import {useDateRangeAccountSummaries} from "hooks/";
 import {Account, AccountType} from "models/";
@@ -19,14 +19,14 @@ const AccountSummaries = ({className}: AccountSummariesProps) => {
     const accountSummaries = useMemo(
         () =>
             Account.ACCOUNT_TYPES.map((type) => (
-                <React.Fragment key={type}>
+                <Fragment key={type}>
                     <AccountSummary
                         currentBalance={currentBalances[type]}
                         fromBalance={fromBalances[type]}
                         type={type}
                     />
                     {type !== Account.EXPENSE && <Divider orientation="vertical" />}
-                </React.Fragment>
+                </Fragment>
             )),
         [currentBalances, fromBalances]
     );

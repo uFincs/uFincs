@@ -1,13 +1,6 @@
-import {actions} from "@storybook/addon-actions";
-import {select} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {Account} from "models/";
 import SelectableAccountsList from "./SelectableAccountsList";
-
-export default {
-    title: "Organisms/Selectable Accounts List",
-    component: SelectableAccountsList
-};
 
 const accounts = [
     new Account({name: "Chequing Account", openingBalance: 0}),
@@ -21,21 +14,18 @@ const selectedAccounts = {
     [accounts[2].id]: true
 };
 
-const listActions = actions("onAddAccount", "onSelectAccount", "onValueChange");
+const meta: Meta<typeof SelectableAccountsList> = {
+    title: "Organisms/Selectable Accounts List",
+    component: SelectableAccountsList,
+    args: {
+        accounts: accounts,
+        selectedAccounts: selectedAccounts,
+        type: Account.ASSET
+    }
+};
 
-const type = () =>
-    select(
-        "Type",
-        [Account.ASSET, Account.LIABILITY, Account.INCOME, Account.EXPENSE],
-        Account.ASSET
-    );
+export default meta;
+type Story = StoryObj<typeof SelectableAccountsList>;
 
 /** The default view of `SelectableAccountsList`. */
-export const Default = () => (
-    <SelectableAccountsList
-        accounts={accounts}
-        selectedAccounts={selectedAccounts}
-        type={type()}
-        {...listActions}
-    />
-);
+export const Default: Story = {};

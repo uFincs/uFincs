@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {EmptyBox} from "assets/graphics";
 import {Link, TextField} from "components/atoms";
 import "./PageNotFoundContent.scss";

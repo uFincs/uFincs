@@ -1,5 +1,5 @@
 import {Dispatch} from "@reduxjs/toolkit";
-import React from "react";
+import * as React from "react";
 import {connect} from "react-redux";
 import {LabelledInput} from "components/molecules";
 import {CsvMappingList, CsvMappingTable} from "components/organisms";

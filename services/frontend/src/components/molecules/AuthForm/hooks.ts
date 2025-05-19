@@ -6,8 +6,8 @@ import InputValidation from "values/inputValidation";
  *  input and the password input is cleared when they fail to authenticate.
  */
 export const useClearPasswordOnError = (error: string) => {
-    const emailRef = useRef<HTMLInputElement>();
-    const passwordRef = useRef<HTMLInputElement>();
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         if (error) {
@@ -26,7 +26,7 @@ export const useClearPasswordOnError = (error: string) => {
 export const useRegisterEmailInput =
     (
         register: ReactHookFormRegisterFunction,
-        emailRef?: React.MutableRefObject<HTMLInputElement | undefined>
+        emailRef?: React.MutableRefObject<HTMLInputElement | null>
     ) =>
     (e: HTMLInputElement) => {
         if (emailRef) {
@@ -46,7 +46,7 @@ export const useRegisterEmailInput =
 export const useRegisterPasswordInput =
     (
         register: ReactHookFormRegisterFunction,
-        passwordRef: React.MutableRefObject<HTMLInputElement | undefined>
+        passwordRef: React.MutableRefObject<HTMLInputElement | null>
     ) =>
     (e: HTMLInputElement) => {
         passwordRef.current = e;

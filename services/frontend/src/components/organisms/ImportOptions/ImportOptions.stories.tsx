@@ -1,13 +1,13 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as ImportOptions} from "./ImportOptions";
 
-export default {
+const meta: Meta<typeof ImportOptions> = {
     title: "Organisms/Import Options",
     component: ImportOptions
 };
 
-const optionActions = actions("onImportCSV");
+export default meta;
+type Story = StoryObj<typeof ImportOptions>;
 
 /** The default view of `ImportOptions`. */
-export const Default = () => <ImportOptions {...optionActions} />;
+export const Default: Story = {};

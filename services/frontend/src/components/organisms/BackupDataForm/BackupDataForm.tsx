@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {SubmitButton} from "components/molecules";
 import {useNoAccount} from "hooks/";
@@ -60,4 +59,5 @@ const BackupDataForm = ({className, onBackup, onEncryptedBackup}: BackupDataForm
 };
 
 export const PureComponent = BackupDataForm;
-export default connect(BackupDataForm);
+export const ConnectedBackupDataForm = connect(BackupDataForm);
+export default ConnectedBackupDataForm;

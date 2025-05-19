@@ -1,42 +1,27 @@
-import {text} from "@storybook/addon-knobs";
-import React, {useState} from "react";
-import {DefaultCurrency} from "values/currencies";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as CurrencyPreferenceForm} from "./CurrencyPreferenceForm";
 
-export default {
+const meta: Meta<typeof CurrencyPreferenceForm> = {
     title: "Organisms/Currency Preference Form",
-    component: CurrencyPreferenceForm
+    component: CurrencyPreferenceForm,
+    args: {
+        currentCurrency: "USD",
+        error: "",
+        loading: false
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof CurrencyPreferenceForm>;
+
 /** The default view of `CurrencyPreferenceForm`. */
-export const Default = () => {
-    const [value, setValue] = useState(DefaultCurrency);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const onSave = (currency: string) => {
-        setLoading(true);
-        setValue(currency);
-
-        setLoading(false);
-        setError(null);
-    };
-
-    return (
-        <CurrencyPreferenceForm
-            currentCurrency={value}
-            error={error || ""}
-            loading={loading}
-            onSave={onSave}
-        />
-    );
+export const Default: Story = {
+    args: {}
 };
 
 /** The error view of `CurrencyPreferenceForm`. */
-export const Error = () => (
-    <CurrencyPreferenceForm
-        currentCurrency={DefaultCurrency}
-        error={text("Error", "You dun goofed")}
-        onSave={() => {}}
-    />
-);
+export const Error: Story = {
+    args: {
+        error: "You dun goofed"
+    }
+};

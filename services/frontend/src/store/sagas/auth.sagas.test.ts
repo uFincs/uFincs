@@ -1,7 +1,8 @@
 import {push} from "connected-react-router";
+import {call, delay, select} from "redux-saga/effects";
 import {expectSaga} from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers";
-import {call, delay, select} from "redux-saga/effects";
+import {vi} from "vitest";
 import api from "api/";
 import {appSlice, authRequestsSlice, crossSliceSelectors, userSlice} from "store/";
 import {silenceConsoleErrors} from "utils/testHelpers";
@@ -15,7 +16,7 @@ const provideHasSubscription = (result: boolean): [any, boolean] => {
 };
 
 describe("authSignUp", () => {
-    const successMock = jest.fn();
+    const successMock = vi.fn();
 
     beforeEach(() => {
         successMock.mockReset();
@@ -55,7 +56,7 @@ describe("authLogin", () => {
         user: {id, edek, kekSalt, isOnboarded, subscriptionIsLifetime, subscriptionStatus}
     };
 
-    const successMock = jest.fn();
+    const successMock = vi.fn();
 
     beforeEach(() => {
         successMock.mockReset();

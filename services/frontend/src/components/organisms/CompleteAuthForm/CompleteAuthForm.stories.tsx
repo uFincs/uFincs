@@ -1,11 +1,11 @@
 import {action} from "@storybook/addon-actions";
-import {boolean, text} from "@storybook/addon-knobs";
-import React, {useEffect, useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
+import {useEffect, useState} from "react";
 import {AuthType} from "components/molecules/AuthForm";
-import {smallViewport} from "utils/stories";
+import {smallViewport, storyUsingHooks} from "utils/stories";
 import CompleteAuthForm from "./CompleteAuthForm";
 
-export default {
+const meta: Meta<typeof CompleteAuthForm> = {
     title: "Organisms/Complete Auth Form",
     component: CompleteAuthForm,
     parameters: {
@@ -14,6 +14,9 @@ export default {
         }
     }
 };
+
+export default meta;
+type Story = StoryObj<typeof CompleteAuthForm>;
 
 const submitAction = () => action("submitted");
 
@@ -64,93 +67,67 @@ const useMakeFunctional = (defaultType: AuthType = AuthType.login) => {
 };
 
 /** The `CompleteAuthForm` when the default type is `login`. */
-export const Login = () => {
-    const {loading, type, onLogin, onSignUp, onAltClick} = useMakeFunctional(AuthType.login);
+export const Login: Story = {
+    render: storyUsingHooks((args) => {
+        const props = useMakeFunctional(AuthType.login);
 
-    return (
-        <CompleteAuthForm
-            loading={loading}
-            type={type}
-            onLogin={onLogin}
-            onSignUp={onSignUp}
-            onAltClick={onAltClick}
-        />
-    );
+        return <CompleteAuthForm {...args} {...props} />;
+    })
 };
 
 /** The `CompleteAuthForm` when the default type is `signup`. */
-export const SignUp = () => {
-    const {loading, type, onLogin, onSignUp, onAltClick} = useMakeFunctional(AuthType.signup);
+export const SignUp: Story = {
+    render: storyUsingHooks((args) => {
+        const props = useMakeFunctional(AuthType.signup);
 
-    return (
-        <CompleteAuthForm
-            loading={loading}
-            type={type}
-            onLogin={onLogin}
-            onSignUp={onSignUp}
-            onAltClick={onAltClick}
-        />
-    );
+        return <CompleteAuthForm {...args} {...props} />;
+    })
 };
 
 /** What the `CompleteAuthForm` looks like on small devices. */
-export const Small = () => {
-    const {loading, type, onLogin, onSignUp, onAltClick} = useMakeFunctional(AuthType.login);
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    },
+    render: storyUsingHooks((args) => {
+        const props = useMakeFunctional(AuthType.login);
 
-    return (
-        <CompleteAuthForm
-            loading={loading}
-            type={type}
-            onLogin={onLogin}
-            onSignUp={onSignUp}
-            onAltClick={onAltClick}
-        />
-    );
+        return <CompleteAuthForm {...args} {...props} />;
+    })
 };
 
-Small.parameters = smallViewport;
-
 /** The external error state of the `CompleteAuthForm`. */
-export const ExternalError = () => {
-    const {type, onAltClick} = useMakeFunctional();
+export const ExternalError: Story = {
+    args: {
+        error: "Wrong email or password"
+    },
+    render: storyUsingHooks((args) => {
+        const props = useMakeFunctional(AuthType.login);
 
-    return (
-        <CompleteAuthForm
-            error={text("Label", "Wrong email or password")}
-            type={type}
-            onLogin={action("login")}
-            onSignUp={action("signup")}
-            onAltClick={onAltClick}
-        />
-    );
+        return <CompleteAuthForm {...args} {...props} />;
+    })
 };
 
 /** The loading state of the `CompleteAuthForm`. */
-export const Loading = () => {
-    const {type, onAltClick} = useMakeFunctional();
+export const Loading: Story = {
+    args: {
+        loading: true
+    },
+    render: storyUsingHooks((args) => {
+        const props = useMakeFunctional(AuthType.login);
 
-    return (
-        <CompleteAuthForm
-            loading={boolean("Loading", true)}
-            type={type}
-            onLogin={action("login")}
-            onSignUp={action("signup")}
-            onAltClick={onAltClick}
-        />
-    );
+        return <CompleteAuthForm {...args} {...props} />;
+    })
 };
 
 /** The "Only Login Form" view of the `CompleteAuthForm`. */
-export const OnlyLogin = () => {
-    const {type, onAltClick} = useMakeFunctional();
+export const OnlyLogin: Story = {
+    args: {
+        onlyLoginForm: true
+    },
+    render: storyUsingHooks((args) => {
+        const props = useMakeFunctional(AuthType.login);
 
-    return (
-        <CompleteAuthForm
-            onlyLoginForm={boolean("Only Login", true)}
-            type={type}
-            onLogin={action("login")}
-            onSignUp={action("signup")}
-            onAltClick={onAltClick}
-        />
-    );
+        return <CompleteAuthForm {...args} {...props} />;
+    })
 };

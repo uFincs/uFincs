@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import React, {useCallback, useContext, useReducer, useMemo} from "react";
+import {useCallback, useContext, useReducer, useMemo} from "react";
+import * as React from "react";
 import {Account, AccountType} from "models/";
 
 // Hooks + Context state for enabling the AccountTypeFilters.

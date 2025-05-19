@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {TextField} from "components/atoms";
 import {ListItem} from "components/molecules";
 import {useCurrencySymbol, useDateRangeAccount, useKeyboardNavigation} from "hooks/";
@@ -41,7 +41,7 @@ interface PureAccountsListItemProps extends Omit<AccountsListItemProps, "id"> {
 }
 
 /** A list item for the Accounts list (mobile or desktop). */
-const PureAccountsListItem = React.memo(
+const PureAccountsListItem = memo(
     ({
         className,
         actionsToShow = DefaultListItemActions,
@@ -101,4 +101,5 @@ const AccountsListItem = ({balance, name, ...otherProps}: AccountsListItemProps)
 };
 
 export const PureComponent = PureAccountsListItem;
-export default connect(AccountsListItem);
+export const ConnectedAccountsListItem = connect(AccountsListItem);
+export default ConnectedAccountsListItem;

@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useMemo} from "react";
+import {useCallback, useMemo} from "react";
+import * as React from "react";
 import {AccountTypeOption} from "components/molecules";
 import {useAccountTypes, useDateRangeAccountSummaries} from "hooks/";
 import {Account, AccountType} from "models/";

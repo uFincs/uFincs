@@ -1,5 +1,4 @@
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {DashboardIcon} from "assets/icons";
 import {smallViewport} from "utils/stories";
 import NavItem, {
@@ -9,33 +8,54 @@ import NavItem, {
     NavItemTransactions
 } from "./NavItem";
 
-export default {
+const meta: Meta<typeof NavItemAccounts> = {
     title: "Molecules/Nav Item",
-    component: NavItem
+    component: NavItem,
+    args: {
+        active: false
+    }
 };
 
-const activeKnob = () => boolean("Active", false);
+export default meta;
+type Story = StoryObj<typeof NavItemAccounts>;
 
 /** The large view of the `NavItem`. */
-export const Large = () => (
-    <NavItem Icon={DashboardIcon} active={activeKnob()} label="Dashboard" to="/test" />
-);
+export const Large: Story = {
+    args: {
+        label: "Dashboard",
+        to: "/test",
+        Icon: DashboardIcon
+    }
+};
 
 /** The small view of the `NavItem`. */
-export const Small = () => (
-    <NavItem Icon={DashboardIcon} active={activeKnob()} label="Dashboard" to="/test" />
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    args: {
+        label: "Dashboard",
+        to: "/test",
+        Icon: DashboardIcon
+    },
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** The Dashboard variant of the `NavItem` */
-export const Dashboard = () => <NavItemDashboard active={activeKnob()} />;
+export const Dashboard: Story = {
+    render: (args) => <NavItemDashboard {...args} />
+};
 
 /** The Accounts variant of the `NavItem` */
-export const Accounts = () => <NavItemAccounts active={activeKnob()} />;
+export const Accounts: Story = {
+    render: (args) => <NavItemAccounts {...args} />
+};
 
 /** The Transactions variant of the `NavItem` */
-export const Transactions = () => <NavItemTransactions active={activeKnob()} />;
+export const Transactions: Story = {
+    render: (args) => <NavItemTransactions {...args} />
+};
 
 /** The Settings variant of the `NavItem` */
-export const Settings = () => <NavItemSettings active={activeKnob()} />;
+export const Settings: Story = {
+    render: (args) => <NavItemSettings {...args} />
+};

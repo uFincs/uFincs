@@ -1,9 +1,9 @@
 import {action} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {Input, OverlineHeading, ShadowButton} from "components/atoms";
 import Card from "./Card";
 
-export default {
+const meta: Meta<typeof Card> = {
     title: "Atoms/Card",
     component: Card,
     parameters: {
@@ -13,17 +13,26 @@ export default {
     }
 };
 
+export default meta;
+type Story = StoryObj<typeof Card>;
+
 /** Just a blank `Card`. Nothing special about it. */
-export const Blank = () => <Card />;
+export const Blank: Story = {
+    args: {}
+};
 
 /** Here's what the `Card` might look like with some elements filled in. */
-export const WithElements = () => (
-    <Card className="Card--story-WithElements">
-        <OverlineHeading>Login</OverlineHeading>
+export const WithElements: Story = {
+    args: {
+        children: (
+            <>
+                <OverlineHeading>Login</OverlineHeading>
 
-        <Input placeholder="Enter your email" />
-        <Input placeholder="Enter your password" />
+                <Input placeholder="Enter your email" />
+                <Input placeholder="Enter your password" />
 
-        <ShadowButton onClick={action("Login Click")}>Login</ShadowButton>
-    </Card>
-);
+                <ShadowButton onClick={action("Login Click")}>Login</ShadowButton>
+            </>
+        )
+    }
+};

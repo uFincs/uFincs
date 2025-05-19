@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {BackButton, CloseButton, DialogContainer} from "components/atoms";
 import {FeedbackForm, FeedbackOptions} from "components/molecules";
 import {Feedback, FeedbackType} from "models/";
@@ -90,7 +90,8 @@ const WrappedFeedbackDialog = ({isVisible, unhandledError, onClose}: FeedbackDia
 };
 
 export const PureComponent = WrappedFeedbackDialog;
-export default connect(WrappedFeedbackDialog);
+export const ConnectedWrappedFeedbackDialog = connect(WrappedFeedbackDialog);
+export default ConnectedWrappedFeedbackDialog;
 
 /* Other Components */
 

@@ -1,5 +1,5 @@
-import {expectSaga} from "redux-saga-test-plan";
 import {call, select} from "redux-saga/effects";
+import {expectSaga} from "redux-saga-test-plan";
 import {encryptionSlice, userSlice} from "store/";
 import {isFirefoxBrowser} from "utils/browserChecks";
 import {actions as encryptionActions, E2ECrypto} from "vendor/redux-e2e-encryption";

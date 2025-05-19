@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {PureTransactionForm} from "components/organisms/TransactionForm";
 import connect, {ConnectedProps} from "./connect";
 import "./TransactionsImportEditForm.scss";
@@ -25,4 +24,5 @@ const TransactionsImportEditForm = ({
     />
 );
 
-export default connect(TransactionsImportEditForm);
+export const ConnectedTransactionsImportEditForm = connect(TransactionsImportEditForm);
+export default ConnectedTransactionsImportEditForm;

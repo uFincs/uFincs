@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {memo, useMemo} from "react";
 import {ArrowNarrowRightIcon} from "assets/icons";
 import {FormattedRuleAction, FormattedRuleCondition, ListItem} from "components/molecules";
 import {ImportRuleAction, ImportRuleCondition} from "models/";
@@ -16,15 +16,15 @@ interface ImportRulesListItemProps extends ConnectedProps {
 }
 
 /** A list item for the Import Rules list (mobile only). */
-const ImportRulesListItem = React.memo(
-    // Need to destructure `updatedAt` so that it doesn't get passed along to the underlying div,
-    // causing React to yell at us.
+const ImportRulesListItem = memo(
     ({
         className,
         actionsToShow = DefaultListItemActions,
         actions,
         conditions,
-        updatedAt,
+        // Need to destructure `updatedAt` so that it doesn't get passed along to the underlying div,
+        // causing React to yell at us.
+        updatedAt: _updatedAt,
         ...otherProps
     }: ImportRulesListItemProps) => {
         const sortedActions = useMemo(() => ImportRuleAction.sortByProperty(actions), [actions]);
@@ -71,4 +71,5 @@ const ImportRulesListItem = React.memo(
 );
 
 export const PureComponent = ImportRulesListItem;
-export default connect(ImportRulesListItem);
+export const ConnectedImportRulesListItem = connect(ImportRulesListItem);
+export default ConnectedImportRulesListItem;

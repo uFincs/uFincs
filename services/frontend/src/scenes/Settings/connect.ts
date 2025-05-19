@@ -1,9 +1,9 @@
 import {push} from "connected-react-router";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {NativePlatformsService} from "services/";
 import {authRequestsSlice, modalsSlice, serviceWorkerSlice} from "store/";
-import {DerivedAppScreenUrls, MarketingUrls} from "values/screenUrls";
+import {MarketingUrls} from "values/marketingUrls";
+import {DerivedAppScreenUrls} from "values/screenUrls";
 
 interface DispatchProps {
     /** Callback for going back to the Settings navigation page (on mobile). */
@@ -29,7 +29,7 @@ export interface ConnectedProps extends DispatchProps {}
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
     onBack: () => dispatch(push(DerivedAppScreenUrls.SETTINGS)),
-    onChangelog: () => NativePlatformsService.navigateTo(MarketingUrls.CHANGELOG),
+    onChangelog: () => dispatch(push(MarketingUrls.CHANGELOG)),
     onCheckForUpdates: () => dispatch(serviceWorkerSlice.actions.checkForUpdates()),
     onLogout: () => dispatch(authRequestsSlice.logout.actions.request()),
     onNoAccountSignUp: () => dispatch(push(DerivedAppScreenUrls.NO_ACCOUNT_SIGN_UP)),

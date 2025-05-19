@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 $breakpoint-single-row-header: $breakpoint-navigation-change;
 $breakpoint-full-desktop-picker: 1200px;
@@ -45,16 +45,6 @@ $breakpoint-full-desktop-picker: 1200px;
                 .ShowFutureToggle {
                     display: none;
                 }
-
-                .AppRefreshButton {
-                    display: none;
-                }
-            }
-
-            .AppRefreshButton {
-                // The button needs some margin and not just grid gap for the case
-                // when the ShowFutureToggle isn't shown.
-                margin-right: $size-100;
             }
         }
     }

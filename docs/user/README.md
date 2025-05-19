@@ -1,6 +1,6 @@
 # uFincs User Guides
 
-OK, so you want to run or self-host uFincs yourself? You've come to the right place! Because uFincs uses Docker, there are a ton of different ways you can go about running: using docker-compose, using Kubernetes, using one of the many serverless container services (e.g. GCP Cloud Run), etc. And thanks to Capacitor, it can also run as a native app on Android, iOS, or any of the desktop platforms through Electron.
+OK, so you want to run or self-host uFincs yourself? You've come to the right place! Because uFincs uses Docker, there are a ton of different ways you can go about running: using docker-compose, using Kubernetes, using one of the many serverless container services (e.g. GCP Cloud Run), etc.
 
 However, if there's one thing you need to keep in mind, it's this: the uFincs services (i.e. the Frontend and Backend) **must be served over HTTPS**. The Service Worker and crypto libraries in the Frontend make it a pain/impossible to not use TLS (outside of `localhost`).
 
@@ -10,8 +10,6 @@ So let's walk through a couple different deployment options. Just note that thes
 
 - [Absolute Fastest Option: app.ufincs.com no-account mode](#absolute-fastest-option-appufincscom-no-account-mode)
 - [Fastest Option without ufincs.com: Local Docker Compose](#fastest-option-without-ufincscom-local-docker-compose)
-- [Native App (without Backend)](#native-app-without-backend)
-- [Native App (with Backend](#native-app-with-backend)
 - [Deploying to GCP/GKE (with Kubails)](#deploying-to-gcpgke-with-kubails)
 - [Deploying to Kubernetes](#deploy-to-kubernetes)
 - [GCP Cloud Run + Cloud SQL](#gcp-cloud-run--cloud-sql)
@@ -34,22 +32,6 @@ isomorphic_webcrypto__WEBPACK_IMPORTED_MODULE_1__.default.subtle is undefined
 ```
 
 tl;dr this is because Subtle Crypto can only be used in [secure contexts](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) (aka over HTTPS).
-
-## Native App (without Backend)
-
-Just want to use uFincs standalone and without the Backend or Database? Then how about running it as a native app!
-
-Depending on which platform you want to run on, you'll need to already have the required developer tools installed (i.e. Android Studio/Xcode). Electron is the simplest to get running, since it just requires installing deps through NPM.
-
-Then, just follow the instructions in the [Frontend README](../../services/frontend/README.md#running-the-native-apps) to get it running locally. Then, just choose "Use without an account" at the login page to enter no-account mode.
-
-This will only get things running locally on an emulator/simulator (for Android/iOS). If you instead want to have properly install uFincs on a device, then pull out the Android/iOS developer guides and the corresponding IDE: you're on your own for that. Just know that you need to re-build (`npm run build`) the Frontend and copy it (`npm run cap:copy`) everytime you make any code changes.
-
-Note: Native Apps aren't 'officially' supported by uFincs — Capacitor is used and the code is provided merely for convenience. If something breaks, have fun!
-
-## Native App (with Backend)
-
-Same thing as above, except you can use the `scripts/capBuildProd.sh` script in `services/frontend` as an example of passing all of the necessary environment variables to build the Frontend to point to wherever you have the Backend deployed.
 
 ## Deploying to GCP/GKE (with Kubails)
 

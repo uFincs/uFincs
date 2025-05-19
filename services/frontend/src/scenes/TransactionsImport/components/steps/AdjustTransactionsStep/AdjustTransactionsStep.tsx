@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {BulkTransactionActions, StepDescription, WarningMessage} from "components/molecules";
 import {ActiveImportRules, CombinedTransactionsView, PaginationFooter} from "components/organisms";
@@ -128,4 +127,5 @@ const AdjustTransactionsStep = ({
     </>
 );
 
-export default connect(AdjustTransactionsStep);
+const ConnectedAdjustTransactionsStep = connect(AdjustTransactionsStep);
+export default ConnectedAdjustTransactionsStep;

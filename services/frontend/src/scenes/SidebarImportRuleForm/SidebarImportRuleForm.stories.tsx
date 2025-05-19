@@ -1,37 +1,38 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
-import {smallViewport, smallLandscapeViewport} from "utils/stories";
+import type {Meta, StoryObj} from "@storybook/react";
+import {smallLandscapeViewport, smallViewport, storyUsingRedux} from "utils/stories";
 import SidebarImportRuleForm, {
     PureComponent as PureSidebarImportRuleForm
 } from "./SidebarImportRuleForm";
 
-export default {
+const meta: Meta<typeof PureSidebarImportRuleForm> = {
     title: "Scenes/Sidebar Import Rule Form",
-    component: PureSidebarImportRuleForm
+    component: PureSidebarImportRuleForm,
+    args: {
+        isVisible: true
+    }
 };
 
-const formActions = actions("onClose");
-const visibilityKnob = () => boolean("Visible", true);
+export default meta;
+type Story = StoryObj<typeof PureSidebarImportRuleForm>;
 
 /** The large view of `SidebarImportRuleForm`. */
-export const Large = () => (
-    <PureSidebarImportRuleForm isVisible={visibilityKnob()} {...formActions} />
-);
+export const Large: Story = {};
 
 /** The small view of `SidebarImportRuleForm`. */
-export const Small = () => (
-    <PureSidebarImportRuleForm isVisible={visibilityKnob()} {...formActions} />
-);
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
-Small.parameters = smallViewport;
-
-/** The small landscape view of the `SidebarAccountForm`. */
-export const SmallLandscape = () => (
-    <PureSidebarImportRuleForm isVisible={visibilityKnob()} {...formActions} />
-);
-
-SmallLandscape.parameters = smallLandscapeViewport;
+/** The small landscape view of the `SidebarImportRuleForm`. */
+export const SmallLandscape: Story = {
+    parameters: {
+        ...smallLandscapeViewport
+    }
+};
 
 /** A story for testing that the connected `SidebarImportRuleForm` is working. */
-export const Connected = () => <SidebarImportRuleForm isVisible={visibilityKnob()} />;
+export const Connected: Story = {
+    render: storyUsingRedux(SidebarImportRuleForm)
+};

@@ -7,7 +7,7 @@ describe("createSliceWithSelectors", () => {
         name: "test",
         initialState,
         reducers: {
-            set: (state, action) => action.payload
+            set: (_state, action) => action.payload
         },
         selectors: {
             get: (state: any) => state

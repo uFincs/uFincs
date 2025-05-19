@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {DashboardIcon, AccountsIcon, SettingsIcon, TransactionsIcon} from "assets/icons";
 import {Link, TextField} from "components/atoms";
 import {LinkProps} from "components/atoms/Link";

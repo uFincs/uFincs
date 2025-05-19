@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {shiftByOneInterval, DateRangeSize} from "hooks/useDateRange";
 import {Account} from "models/";
 import {DateService} from "services/";
-import {crossSliceSelectors} from "store/";
+import {crossSliceSelectors, State} from "store/";
 import {useDateRange} from "./useDateRange";
 
 /** Calculates the complete account balance summaries using the current date range. */
@@ -16,7 +16,7 @@ const useDateRangeAccountSummaries = () => {
     // The 'current changes' represent the sum of all transaction amounts in the current
     // date range. By adding these together with the 'from changes', we can get the accurate
     // balances for each type in the current date range.
-    const currentChanges = useSelector((storeState) =>
+    const currentChanges = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectBalanceChangesByTypeBetweenDates(
             storeState,
             state.startDate,
@@ -28,7 +28,7 @@ const useDateRangeAccountSummaries = () => {
     // range. In particular, these are only used for the Asset and Liability types,
     // since Income and Expense totals are calculated using the 'previous interval changes',
     // found below.
-    const fromChanges = useSelector((storeState) =>
+    const fromChanges = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectBalanceChangesByTypeBetweenDates(
             storeState,
             "",
@@ -42,7 +42,7 @@ const useDateRangeAccountSummaries = () => {
     // amounts in the date range interval before the current interval. These are used
     // for calculating the totals of the Income/Expense types, since they reset
     // interval-to-interval, unlike Assets and Liabilities, which accumulate over time.
-    const previousIntervalChanges = useSelector((storeState) =>
+    const previousIntervalChanges = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectBalanceChangesByTypeBetweenDates(
             storeState,
             previousIntervalState.startDate,
@@ -53,7 +53,7 @@ const useDateRangeAccountSummaries = () => {
     // The 'all time changes' are just that: the sum of all transaction amounts from the beginning
     // time up till the present time. These are used when the date is 'All Time', to show the
     // user all the Assets/Liabilities/Income/Expenses they've totalled.
-    const allTimeChanges = useSelector((storeState) =>
+    const allTimeChanges = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectBalanceChangesByTypeBetweenDates(storeState, "", "")
     );
 
@@ -74,7 +74,7 @@ const useDateRangeAccountSummaries = () => {
                 // Note: Income/Expense accounts don't have an opening balance.
                 [Account.INCOME]: previousIntervalChanges[Account.INCOME],
                 [Account.EXPENSE]: previousIntervalChanges[Account.EXPENSE]
-            } as typeof fromChanges),
+            }) as typeof fromChanges,
         [fromChanges, openingBalances, previousIntervalChanges]
     );
 
@@ -88,7 +88,7 @@ const useDateRangeAccountSummaries = () => {
                     fromBalances[Account.LIABILITY] + currentChanges[Account.LIABILITY],
                 [Account.INCOME]: currentChanges[Account.INCOME],
                 [Account.EXPENSE]: currentChanges[Account.EXPENSE]
-            } as typeof currentChanges),
+            }) as typeof currentChanges,
         [currentChanges, fromBalances]
     );
 
@@ -103,7 +103,7 @@ const useDateRangeAccountSummaries = () => {
                 // Note: Income/Expense accounts don't have an opening balance.
                 [Account.INCOME]: allTimeChanges[Account.INCOME],
                 [Account.EXPENSE]: allTimeChanges[Account.EXPENSE]
-            } as typeof allTimeChanges),
+            }) as typeof allTimeChanges,
         [allTimeChanges, openingBalances]
     );
 
@@ -116,7 +116,7 @@ const useDateRangeAccountSummaries = () => {
                 [Account.LIABILITY]: openingBalances[Account.LIABILITY],
                 [Account.INCOME]: 0,
                 [Account.EXPENSE]: 0
-            } as typeof allTimeBalances),
+            }) as typeof allTimeBalances,
         [openingBalances]
     );
 

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {
     AccountTypeOptionAsset,
     AccountTypeOptionExpense,
@@ -32,7 +32,7 @@ const ACCOUNT_OPTIONS_MAP = {
         value: Account.EXPENSE,
         Component: AccountTypeOptionExpense
     }
-};
+} as const;
 
 interface AccountTypePickerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
     /** Custom class name for the container. */

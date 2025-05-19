@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
+import * as React from "react";
 import {Button, LinkButton} from "components/atoms";
 import {AutocompleteSelectInput, LabelledInput, TransactionTypePicker} from "components/molecules";
 import {useCurrencySymbol, useOutsideCloseable} from "hooks/";

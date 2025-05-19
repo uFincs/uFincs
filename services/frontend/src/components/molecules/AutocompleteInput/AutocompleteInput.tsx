@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useMemo} from "react";
+import {useCallback, useMemo} from "react";
+import * as React from "react";
 import {ChevronDownIcon} from "assets/icons";
 import {LabelledInput} from "components/molecules";
 import {LabelledInputProps} from "components/molecules/LabelledInput";

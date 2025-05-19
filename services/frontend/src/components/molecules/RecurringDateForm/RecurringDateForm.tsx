@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {useFormContext} from "react-hook-form";
 import {SelectInput} from "components/atoms";
 import {LabelledInput} from "components/molecules";

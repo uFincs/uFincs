@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Checkbox, ShadowButton} from "components/atoms";
 import {CollapsibleSection} from "components/molecules";
 import {CombinedImportRulesView} from "components/organisms";
@@ -40,4 +39,5 @@ const ActiveImportRules = ({
 );
 
 export const PureComponent = ActiveImportRules;
-export default connect(ActiveImportRules);
+export const ConnectedActiveImportRules = connect(ActiveImportRules);
+export default ConnectedActiveImportRules;

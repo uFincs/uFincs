@@ -154,9 +154,10 @@ export default class ImportRulesApplier {
             switch (condition) {
                 case ImportRuleCondition.CONDITION_CONTAINS:
                     return acc && propertyValue.includes(value);
-                case ImportRuleCondition.CONDITION_MATCHES:
+                case ImportRuleCondition.CONDITION_MATCHES: {
                     const regex = new RegExp(value);
                     return acc && regex.test(propertyValue);
+                }
                 default:
                     return false;
             }

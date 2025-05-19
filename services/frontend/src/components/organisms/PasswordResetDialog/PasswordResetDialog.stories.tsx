@@ -1,15 +1,16 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as PasswordResetDialog} from "./PasswordResetDialog";
 
-export default {
+const meta: Meta<typeof PasswordResetDialog> = {
     title: "Organisms/Password Reset Dialog",
-    component: PasswordResetDialog
+    component: PasswordResetDialog,
+    args: {
+        isVisible: true
+    }
 };
 
-const dialogActions = actions("onClose", "onResetPassword");
-const isVisible = () => boolean("Is Visible", true);
+export default meta;
+type Story = StoryObj<typeof PasswordResetDialog>;
 
 /** The default view of `PasswordResetDialog`. */
-export const Default = () => <PasswordResetDialog isVisible={isVisible()} {...dialogActions} />;
+export const Default: Story = {};

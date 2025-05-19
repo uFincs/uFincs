@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 import {AutocompleteInput} from "components/molecules";
 import {LabelledInputProps} from "components/molecules/LabelledInput";
 import {SuggestionOption, SuggestionOptionValue} from "utils/types";

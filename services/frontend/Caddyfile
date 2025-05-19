@@ -1,0 +1,13 @@
+# This Caddyfile is used to configure the Caddy server that is included as part 
+# of the prod `Dockerfile` to serve the built static assets of the Frontend.
+
+:8080 {
+    root * /app/build
+    encode
+	try_files {path} /index.html
+    file_server
+
+    header {
+        Content-Security-Policy "default-src 'none';base-uri 'none';block-all-mixed-content;child-src 'self';connect-src 'self' {$BACKEND_HOST} https://api.stripe.com https://checkout.stripe.com;font-src 'self';form-action 'none';frame-ancestors 'none';frame-src https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com;img-src 'self' https://*.stripe.com;manifest-src 'self';media-src 'none';object-src 'none';require-trusted-types-for 'script';script-src 'self' 'sha256-GAl5nr8uxRAj6sxDAQ+0+lljB5xKrY5U2KLuTrfWuWc=' https://js.stripe.com https://checkout.stripe.com;style-src 'self';trusted-types default dompurify;upgrade-insecure-requests;worker-src 'self'"
+    }
+}

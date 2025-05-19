@@ -31,8 +31,7 @@ const selectIsModalRoute = createSelector([selectCurrentRoute], (path) => {
 const selectModalCompatibleLocation = createSelector(
     [routerExtensionSlice.selectors.selectPreviousLocation, selectLocation, selectIsModalRoute],
     (previousLocation, location, isModalRoute) => {
-        // previousLocation can be null on the very first first load
-        // before the onLocationChange saga fires.
+        // previousLocation can be null on the very first first load before the onLocationChange saga fires.
         if (!previousLocation) {
             return location;
         } else {
@@ -46,7 +45,11 @@ const selectModalCompatibleCurrentRoute = createSelector(
     (location) => `${location.pathname}${location.hash}`
 );
 
-const createModalCompatibleMatchSelector = <MatchParams>(url: string) => {
+const createModalCompatibleMatchSelector = <
+    MatchParams extends {[K in keyof MatchParams]?: string | undefined}
+>(
+    url: string
+) => {
     // Because the match objects are all dependent on the URL that they are matched against,
     // we can't really store the previous matches in the store like we do with the location.
     //
@@ -55,7 +58,7 @@ const createModalCompatibleMatchSelector = <MatchParams>(url: string) => {
     // As such, we kind of cheat here and bypass Redux to get at localStorage directly.
     // And we want to persist the previous matches so that, if the user refreshes the page,
     // it looks like nothing changed.
-    let previousMatch: Match | null = JSON.parse(localStorage.getItem(url) as string);
+    let previousMatch: Match<MatchParams> | null = JSON.parse(localStorage.getItem(url) as string);
 
     const selectMatch = createMatchSelector<any, MatchParams>(url);
 

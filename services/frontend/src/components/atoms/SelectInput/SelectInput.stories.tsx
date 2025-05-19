@@ -1,89 +1,86 @@
-import {boolean} from "@storybook/addon-knobs";
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
+import {useState} from "react";
 import {useForm} from "react-hook-form";
+import {storyUsingHooks} from "utils/stories";
 import SelectInput from "./SelectInput";
 
-export default {
+const meta: Meta<typeof SelectInput> = {
     title: "Atoms/Select Input",
-    component: SelectInput
+    component: SelectInput,
+    args: {
+        values: [
+            {label: "Daily", value: "daily"},
+            {label: "Weekly", value: "weekly"},
+            {label: "Monthly", value: "monthly"},
+            {label: "Yearly", value: "yearly"},
+            {label: "All Time", value: "allTime"},
+            {label: "Custom", value: "custom"}
+        ],
+        title: "Date Range",
+        defaultValue: "daily"
+    }
 };
 
-const values = [
-    {label: "Daily", value: "daily"},
-    {label: "Weekly", value: "weekly"},
-    {label: "Monthly", value: "monthly"},
-    {label: "Yearly", value: "yearly"},
-    {label: "All Time", value: "allTime"},
-    {label: "Custom", value: "custom"}
-];
-
-const valuesWithEmpty = [{label: "", value: ""}, ...values];
+export default meta;
+type Story = StoryObj<typeof SelectInput>;
 
 /** An example of how to use the `SelectInput` uncontrolled (e.g. with react-hook-form). */
-export const Uncontrolled = () => {
-    const {register} = useForm();
+export const Uncontrolled: Story = {
+    render: storyUsingHooks((args) => {
+        const {register} = useForm();
 
-    return (
-        <SelectInput
-            name="uncontrolled"
-            title="Date Range"
-            defaultValue="daily"
-            values={values}
-            ref={register()}
-        />
-    );
+        return <SelectInput {...args} name="uncontrolled" ref={register()} />;
+    })
 };
 
 /** An example of how to use the `SelectInput` controlled. */
-export const Controlled = () => {
-    const [value, setValue] = useState(values[0].value);
-    const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value);
+export const Controlled: Story = {
+    render: storyUsingHooks((args) => {
+        const [value, setValue] = useState(args.value || "daily");
+        const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value);
 
-    return <SelectInput title="Date Range" value={value} values={values} onChange={onChange} />;
+        return <SelectInput {...args} value={value} onChange={onChange} />;
+    })
 };
 
 /** An example of the `SelectInput` with a placeholder and empty first option. */
-export const Placeholder = () => {
-    const [value, setValue] = useState(valuesWithEmpty[0].value);
-    const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value);
+export const Placeholder: Story = {
+    args: {
+        placeholder: "Select a thing"
+    },
+    render: storyUsingHooks((args) => {
+        const [value, setValue] = useState(args.values[0].value);
+        const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value);
 
-    return (
-        <SelectInput
-            placeholder="Select a thing"
-            title="Date Range"
-            value={value}
-            values={valuesWithEmpty}
-            onChange={onChange}
-        />
-    );
+        return <SelectInput {...args} value={value} onChange={onChange} />;
+    })
 };
 
 /** What the `SelectInput`'s error state looks like. */
-export const Error = () => (
-    <SelectInput defaultValue="daily" values={values} error={boolean("Error", true)} />
-);
+export const Error: Story = {
+    args: {
+        error: true
+    }
+};
 
 /** What the `SelectInput`'s success state looks like. */
-export const Success = () => (
-    <SelectInput
-        defaultValue="daily"
-        values={values}
-        hasStatusState={true}
-        showSuccess={boolean("Success", true)}
-    />
-);
+export const Success: Story = {
+    args: {
+        hasStatusState: true,
+        showSuccess: true
+    }
+};
 
 /** What the `SelectInput` looks like when it's disabled. */
-export const Disabled = () => (
-    <SelectInput title="Date Range" defaultValue="daily" disabled={true} values={values} />
-);
+export const Disabled: Story = {
+    args: {
+        disabled: true
+    }
+};
 
 /** A `SelectInput` with the focus outline forcefully applied. */
-export const FocusOutline = () => (
-    <SelectInput
-        containerClassName="Element--story-FocusOutline"
-        title="Date Range"
-        defaultValue="daily"
-        values={values}
-    />
-);
+export const FocusOutline: Story = {
+    args: {
+        containerClassName: "Element--story-FocusOutline"
+    }
+};

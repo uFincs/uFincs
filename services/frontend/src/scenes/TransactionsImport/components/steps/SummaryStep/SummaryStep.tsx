@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {StepDescription} from "components/molecules";
 import {CombinedTransactionsView, PaginationFooter} from "components/organisms";
@@ -67,7 +66,8 @@ const SummaryStep = ({
     </>
 );
 
-export default connect(SummaryStep);
+const ConnectedSummaryStep = connect(SummaryStep);
+export default ConnectedSummaryStep;
 
 /* Other Components */
 

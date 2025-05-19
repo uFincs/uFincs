@@ -4,47 +4,38 @@ The Frontend service is where the bulk of application logic exists for uFincs. A
 
 ## Table of Contents
 
--   [Tech Stack](#tech-stack)
--   [File Structure](#file-structure)
--   [Running Locally for Development](#running-locally-for-development)
--   [Running Storybook](#running-storybook)
--   [Running the Native Apps](#running-the-native-apps)
--   [Other Useful Development Commands](#other-useful-development-commands)
--   [Environment Variables](#environment-variables)
--   [Important Data Flows](#important-data-flows)
--   [FAQ](#faq)
+- [Tech Stack](#tech-stack)
+- [File Structure](#file-structure)
+- [Running Locally for Development](#running-locally-for-development)
+- [Running Storybook](#running-storybook)
+- [Other Useful Development Commands](#other-useful-development-commands)
+- [Environment Variables](#environment-variables)
+- [Important Data Flows](#important-data-flows)
+- [FAQ](#faq)
 
 ## Tech Stack
 
--   Language: TypeScript
--   Framework: React + Redux + redux-saga, create-react-app
--   Styling: Plain old Sass
--   Testing: Jest, Cypress, Storybook
--   Linting: ESLint, Prettier
--   Native Apps: Capacitor
+- Language: TypeScript
+- Framework: React + Redux + redux-saga, Vite
+- Styling: Plain old Sass
+- Testing: Vitest, Cypress, Storybook
+- Linting: ESLint, Prettier
 
 ## File Structure
 
 The following is a high-level breakdown of the file structure. More detailed explanations of particulars folder can be found in most folders' README.
 
 ```
-├── android/                        # Capacitor code for Android app
-├── CAPACITOR_CHANGELOG.md          # Changelog for any manual tweaks that have been made to the Capacitor-generated code
-├── capacitor.config.ts             # Main Capacitor config
 ├── cypress/                        # All of the Frontend's Cypress tests (web only)
 ├── cypress.json                    # Cypress config
 ├── Dockerfile                      # Production Dockerfile
-├── Dockerfile.development          # Development Dockerfile
-├── electron/                       # Capacitor code for Electron app
-├── ios/                            # Capacitor code for iOS app
+├── Dockerfile.dev                  # Development Dockerfile
 ├── Makefile                        # Makefile for common developer commands; used by Kubails
 ├── package.json                    # You know what this is
 ├── package-lock.json               # ^ Ditto
-├── postinstall.js                  # A hack for a bug in react-spring
+├── patches/                        # Patches that are applied to NPM packages via patch-package
 ├── public/                         # Statically accessed public assets
-├── resources/                      # Some misc resources for building the Capacitor apps
 ├── scripts/                        # Misc scripts
-├── server/                         # The Express app that serves the Frontend in production
 ├── src/                            # The main source code for the Frontend
 |   ├── api/                        # Feathers API client
 |   ├── AppRouter.tsx               # The primary router for the logged-in portion of the app
@@ -82,7 +73,7 @@ There are multiple options for running the Frontend service locally.
 To run the Frontend service standalone using Docker:
 
 ```
-docker build -t ufincs-frontend -f Dockerfile.development .
+docker build -t ufincs-frontend -f Dockerfile.dev .
 docker run -it --rm -p 3000:3000 ufincs-frontend
 ```
 
@@ -108,7 +99,7 @@ The Frontend's Storybook can also be run standalone.
 To run the Frontend service standalone using Docker:
 
 ```
-docker build -t ufincs-frontend -f Dockerfile.development .
+docker build -t ufincs-frontend -f Dockerfile.dev .
 docker run -it --rm -p 9009:9009 ufincs-frontend npm run storybook
 ```
 
@@ -124,34 +115,6 @@ npm run storybook
 ```
 
 Storybook will then be accessible over [localhost:9009](http://localhost:9009).
-
-## Running the Native Apps
-
-Please note: The native apps are included for convenience only. They are not 'officially' supported and thus might not work correctly.
-
-The following are instructions for how to run the Frontend as an Android, iOS, or Electron app using Capacitor.
-
-First have the main deps installed using `npm ci`.
-
-### Running Android
-
-1. Run `npx cap update android` to update Android plugins.
-2. Run `npm run cap:build:local` to build the static assets.
-3. Run `npm run cap:run:android` to run uFincs in an Android emulator.
-4. Run `npm run cap:ports:android` to forward Backend ports to the emulator.
-
-### Running iOS
-
-1. Run `npx cap update ios` to update iOS plugins.
-2. Run `npm run cap:build:local` to build the static assets.
-3. Run `npm run cap:run:ios` to run uFincs in an iOS simulator.
-
-### Running Electron
-
-1. Run `npm ci` in the `electron/` folder.
-2. Run `npx cap update electron` to update Electron plugins.
-3. Run `npm run cap:build:local` to build the static assets.
-4. Run `npm run cap:run:electron` to run uFincs in Electron.
 
 ## Other Useful Development Commands
 
@@ -181,27 +144,16 @@ See the [Cypress README](./cypress/README.md) for detailed instructions on how t
 
 Note: There are no 'secret' values (i.e. there is no `.env.encrypted` file) for the Frontend for... obvious reasons.
 
-The following are the environment variables that should be passed in when running the Frontend in production mode (i.e. using the Express server in `server/`):
+The following are the environment variables that should be passed in when building the Frontend for production mode:
 
--   `BACKEND_HOST`: Just the hostname for the Backend service (e.g. `backend.ufincs.com`)
--   `BACKEND_PORT`: The port for the Backend service (e.g. `5000`)
--   `MARKETING_HOST`: Just the hostname for the Marketing service (e.g. `ufincs.com`)
--   `MARKETING_PORT`: The port for the Marketing service (e.g. `3002`)
+- `REACT_APP_BACKEND_HOST`
+- `REACT_APP_BACKEND_PORT`
+- `REACT_APP_BACKEND_PROTOCOL`
+- `REACT_APP_MARKETING_HOST`
+- `REACT_APP_MARKETING_PORT`
+- `REACT_APP_MARKETING_PROTOCOL`
 
-Alternatively, if you choose to serve the Frontend as a static bundle rather than through the Express server, you can provide the following environment variables at build to replicate the same behaviour:
-
--   `REACT_APP_BACKEND_HOST`
--   `REACT_APP_BACKEND_PORT`
--   `REACT_APP_BACKEND_PROTOCOL`
--   `REACT_APP_MARKETING_HOST`
--   `REACT_APP_MARKETING_PORT`
--   `REACT_APP_MARKETING_PROTOCOL`
-
-These bundle-time vars are particularly useful for the Native apps, since they do serve the Frontend as a static bundle.
-
-Note: You can specify the protocol when bundling but not when serving with Express. This is because it's assumed that anything that isn't `localhost` is served over HTTPS.
-
-Note 2: Due to service worker requirements, it is practically required that the Frontend service is served over HTTPS when running on anything that isn't `localhost`. Otherwise, you'll run into a host of issues.
+Note: Due to service worker requirements, it is practically required that the Frontend service is served over HTTPS when running on anything that isn't `localhost`. Otherwise, you'll run into a host of issues.
 
 ## Important Data Flows
 

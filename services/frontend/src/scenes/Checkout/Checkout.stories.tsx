@@ -1,7 +1,7 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import Checkout from "./Checkout";
 
-export default {
+const meta: Meta<typeof Checkout> = {
     title: "Scenes/Checkout",
     component: Checkout,
     parameters: {
@@ -11,5 +11,8 @@ export default {
     }
 };
 
+export default meta;
+type Story = StoryObj<typeof Checkout>;
+
 /** The default view of `Checkout`. */
-export const Default = () => <Checkout />;
+export const Default: Story = {};

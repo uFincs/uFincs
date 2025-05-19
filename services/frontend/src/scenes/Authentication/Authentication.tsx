@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useHistory, useLocation} from "react-router";
 import {LinkButton} from "components/atoms";
 import {LogoLink} from "components/molecules";
 import {AuthType} from "components/molecules/AuthForm";
 import {CompleteAuthForm} from "components/organisms";
-import {NativePlatformsService} from "services/";
-import ScreenUrls, {MarketingUrls} from "values/screenUrls";
+import {MarketingUrls} from "values/marketingUrls";
+import ScreenUrls from "values/screenUrls";
 import connect, {ConnectedProps} from "./connect";
 import "./Authentication.scss";
 
@@ -60,7 +60,6 @@ const Authentication = ({
             <CompleteAuthForm
                 error={error}
                 loading={loading}
-                onlyLoginForm={NativePlatformsService.isMobilePlatform()}
                 type={type}
                 onLogin={onLogin}
                 onSignUp={onSignUp}
@@ -79,4 +78,5 @@ const Authentication = ({
 };
 
 export const PureComponent = Authentication;
-export default connect(Authentication);
+export const ConnectedAuthentication = connect(Authentication);
+export default ConnectedAuthentication;

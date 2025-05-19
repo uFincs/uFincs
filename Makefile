@@ -16,6 +16,9 @@ start:
 start-no-storybook:
 	$(START_COMMAND) backend backend-database backend-database-migrate marketing frontend
 
+start-backend:
+	$(START_COMMAND) backend backend-database backend-database-migrate
+
 start-all:
 	$(START_COMMAND)
 

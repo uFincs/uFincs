@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import * as React from "react";
 import {ArrowNarrowRightIcon} from "assets/icons";
 import {IntervalSwitcher} from "components/atoms";
 import {CustomFormatDateInput} from "components/molecules";
@@ -143,7 +144,7 @@ const useFocusStartDateOnCustom = (rangeSize: DateRangeSize) => {
     const previousRangeSize = useRef<DateRangeSize | null>(null);
 
     // Need a ref to the start date input so that we can manually focus it.
-    const startDateInputRef = useRef<HTMLInputElement>();
+    const startDateInputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         // Focus the Start Date input when the user manually changes the range size to Custom.

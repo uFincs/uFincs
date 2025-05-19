@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {OptionCard} from "components/atoms";
 import {useOnActiveKey} from "hooks/";
 import connect, {ConnectedProps} from "./connect";
@@ -47,7 +47,8 @@ const ShowFutureToggle = ({
 };
 
 export const PureComponent = ShowFutureToggle;
-export default connect(ShowFutureToggle);
+export const ConnectedShowFutureToggle = connect(ShowFutureToggle);
+export default ConnectedShowFutureToggle;
 
 /* Helper Functions */
 

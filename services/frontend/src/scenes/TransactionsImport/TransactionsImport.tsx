@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {animated} from "react-spring";
 import {BackButton, OverlineHeading} from "components/atoms";
 import {ProgressStepper} from "components/organisms";
@@ -73,6 +73,7 @@ const TransactionsImport = ({
                 const Step = STEP_COMPONENTS[currentStep];
 
                 return (
+                    // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
                     <animated.div
                         className="TransactionsImport-step-container"
                         style={style as any}
@@ -86,4 +87,5 @@ const TransactionsImport = ({
 };
 
 export const PureComponent = TransactionsImport;
-export default connect(TransactionsImport);
+const ConnectedTransactionsImport = connect(TransactionsImport);
+export default ConnectedTransactionsImport;

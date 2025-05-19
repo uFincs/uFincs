@@ -1,4 +1,3 @@
-import React from "react";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {StepNavigationFooter} from "components/organisms";
@@ -8,7 +7,7 @@ import {
     mapStateToProps,
     DispatchProps as BaseDispatchProps,
     OwnProps
-} from "./StepNavigationButtons";
+} from "./connect";
 
 interface DispatchProps extends BaseDispatchProps {
     /** Handler for skipping the entire onboarding process. */

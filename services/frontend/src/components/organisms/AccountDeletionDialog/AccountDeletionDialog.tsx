@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {ConfirmationDialog} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -44,4 +43,5 @@ const AccountDeletionDialog = ({
 );
 
 export const PureComponent = AccountDeletionDialog;
-export default connect(AccountDeletionDialog);
+export const ConnectedAccountDeletionDialog = connect(AccountDeletionDialog);
+export default ConnectedAccountDeletionDialog;

@@ -177,8 +177,8 @@ const mergeProps = (
         stateProps.transactionForEditing
             ? [DateOption.oneOff]
             : stateProps.recurringTransactionForEditing
-            ? [DateOption.recurring]
-            : [DateOption.oneOff, DateOption.recurring]
+              ? [DateOption.recurring]
+              : [DateOption.oneOff, DateOption.recurring]
     );
 
     return {

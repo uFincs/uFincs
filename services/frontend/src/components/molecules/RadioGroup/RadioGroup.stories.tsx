@@ -1,45 +1,35 @@
-import {text} from "@storybook/addon-knobs";
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import RadioGroup from "./RadioGroup";
 
-export default {
+const meta: Meta<typeof RadioGroup> = {
     title: "Molecules/Radio Group",
-    component: RadioGroup
+    component: RadioGroup,
+    args: {
+        id: "Story-Default",
+        label: "Some Options",
+        options: [
+            {label: "option 1", value: "option1"},
+            {label: "option 2", value: "option2"},
+            {label: "option 3", value: "option3"}
+        ],
+        value: "option1",
+        disabled: false
+    }
 };
 
-const options = [
-    {label: "option 1", value: "option1"},
-    {label: "option 2", value: "option2"},
-    {label: "option 3", value: "option3"}
-];
+export default meta;
+type Story = StoryObj<typeof RadioGroup>;
 
 /** The view of the `RadioGroup` using the default option components. */
-export const DefaultOptions = () => {
-    const [value, setValue] = useState("option1");
-
-    return (
-        <RadioGroup
-            id="Story-Default"
-            label={text("Label", "Some Options")}
-            options={options}
-            value={value}
-            onChange={setValue}
-        />
-    );
+export const DefaultOptions: Story = {
+    args: {
+        label: "Some Options"
+    }
 };
 
 /** The disabled view of the `RadioGroup`; none of the options should be clickable. */
-export const Disabled = () => {
-    const [value, setValue] = useState("option1");
-
-    return (
-        <RadioGroup
-            id="Story-Default"
-            disabled={true}
-            label={text("Label", "Some Options")}
-            options={options}
-            value={value}
-            onChange={setValue}
-        />
-    );
+export const Disabled: Story = {
+    args: {
+        disabled: true
+    }
 };

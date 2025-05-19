@@ -5,11 +5,7 @@
 // the environment that Jest uses, doesn't yet support TextEncoder/Decoder.
 import "fast-text-encoding";
 
-// Need a polyfill for crypto not only to 'support' older browsers (as well as react-native),
-// but also because JSDOM under Jest doesn't support WebCrypto! Just like above!
-// import crypto from "isomorphic-webcrypto";
-
-import * as localForage from "localforage";
+import {createInstance, INDEXEDDB} from "localforage";
 
 const crypto = self.crypto;
 
@@ -134,10 +130,10 @@ const CRYPTO_PARAMS = {
         // 256 is the max key length for AES under WebCrypto, so that's what we're going with.
         keyLength: 256
     }
-};
+} as const;
 
-const localForageInstance = localForage.createInstance({
-    driver: localForage.INDEXEDDB,
+const localForageInstance = createInstance({
+    driver: INDEXEDDB,
     name: "redux-e2e-encryption",
     version: 1,
     storeName: "keys"
@@ -292,7 +288,7 @@ export class E2ECrypto {
             this.userId = userId;
 
             await E2ECrypto.fillStorage(this.dek, this.userId);
-        } catch (e) {
+        } catch (_e) {
             throw new Error("Invalid password");
         }
     }
@@ -528,8 +524,13 @@ export class CryptoPrimitives {
             );
 
             return StringEncoder.combineIVAndCiphertext(iv, ciphertext);
-        } catch (e) {
-            if (e.name === "OperationError" && plaintext === "" && !isChromeOrFirefox()) {
+        } catch (e: unknown) {
+            if (
+                e instanceof Error &&
+                e.name === "OperationError" &&
+                plaintext === "" &&
+                !isChromeOrFirefox()
+            ) {
                 // OK, so this is a pretty hacky workaround...
                 //
                 // In Safari, when encrypting an empty string, it'll throw an `OperationError`
@@ -578,8 +579,8 @@ export class CryptoPrimitives {
             );
 
             return StringEncoder.decodeBufferToRawString(plaintext);
-        } catch (e) {
-            if (e.name === "OperationError" && !isChromeOrFirefox()) {
+        } catch (e: unknown) {
+            if (e instanceof Error && e.name === "OperationError" && !isChromeOrFirefox()) {
                 // OK, so this is a pretty hacky workaround...
                 //
                 // In Safari, when decrypting an empty string, it'll throw an `OperationError`

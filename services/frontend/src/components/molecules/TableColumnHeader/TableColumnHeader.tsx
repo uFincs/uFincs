@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {ChevronDownIcon} from "assets/icons";
 import {useOnActiveKey} from "hooks/";
 import {TableSortDirection} from "utils/types";

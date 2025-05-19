@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import "./Card.scss";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}

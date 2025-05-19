@@ -116,6 +116,7 @@ export interface ImportRuleFormData {
 // Found from https://stackoverflow.com/a/55479659,
 // which references https://www.typescriptlang.org/v2/docs/handbook/advanced-types.html#example-1.
 export type NonFunctionPropertyNames<T> = {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     [K in keyof T]: T[K] extends Function ? never : K;
 }[keyof T];
 

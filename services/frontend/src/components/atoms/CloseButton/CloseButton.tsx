@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {CloseIcon} from "assets/icons";
 import {IconButton} from "components/atoms";
 import {IconButtonProps} from "components/atoms/IconButton";

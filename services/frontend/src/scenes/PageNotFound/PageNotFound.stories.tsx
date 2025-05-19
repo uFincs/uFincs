@@ -1,10 +1,13 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import PageNotFound from "./PageNotFound";
 
-export default {
+const meta: Meta<typeof PageNotFound> = {
     title: "Scenes/Page Not Found",
     component: PageNotFound
 };
 
+export default meta;
+type Story = StoryObj<typeof PageNotFound>;
+
 /** The default view of `PageNotFound`. */
-export const Default = () => <PageNotFound />;
+export const Default: Story = {};

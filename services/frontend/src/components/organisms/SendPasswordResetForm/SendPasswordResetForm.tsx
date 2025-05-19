@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {Card, OverlineHeading, ShadowButton, TextField} from "components/atoms";
 import {LabelledInput, SubmitButton} from "components/molecules";
@@ -85,4 +85,5 @@ const SendPasswordResetForm = ({
 };
 
 export const PureComponent = SendPasswordResetForm;
-export default connect(SendPasswordResetForm);
+export const ConnectedSendPasswordResetForm = connect(SendPasswordResetForm);
+export default ConnectedSendPasswordResetForm;

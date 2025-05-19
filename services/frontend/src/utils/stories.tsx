@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import {JSX, useEffect, useState} from "react";
+import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     Account,
@@ -28,16 +29,17 @@ export const smallViewport = {
     viewport: {
         defaultViewport: "iphone6"
     }
-};
+} as const;
 
 export const smallLandscapeViewport = {
     viewport: {
         defaultViewport: "iphone6L"
     }
-};
+} as const;
 
 /* Wrapper for enabling Redux in Stories */
 
+// eslint-disable-next-line react-refresh/only-export-components
 const StateResetWrapper = ({children}: {children: React.ReactNode}) => {
     const [mounted, setMounted] = useState(false);
     const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const StateResetWrapper = ({children}: {children: React.ReactNode}) => {
 };
 
 interface Story {
-    (): JSX.Element;
+    (args: any): JSX.Element;
 
     // Need this so that we can do things like assign `.parameters` to the function.
     [key: string]: any;
@@ -71,12 +73,17 @@ interface Story {
 // That is, `export const YourStory = storyUsingRedux(() => ...);`
 export const storyUsingRedux =
     (Component: React.ComponentType<any>): Story =>
-    () =>
-        (
-            <StateResetWrapper>
-                <Component />
-            </StateResetWrapper>
-        );
+    (args) => (
+        <StateResetWrapper>
+            <Component {...args} />
+        </StateResetWrapper>
+    );
+
+// Like the above, but just for enabling stories to use hooks.
+// Doesn't need the `StateResetWrapper`.
+export const storyUsingHooks =
+    (Component: React.ComponentType<any>): Story =>
+    (args) => <Component {...args} />;
 
 /* Some Premade Mock Data for using in Stories */
 

@@ -1,6 +1,3 @@
-/// <reference lib="webworker" />
-/* eslint-disable no-restricted-globals */
-
 // This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules
 // for the list of available Workbox modules, or add any other
@@ -23,6 +20,8 @@ clientsClaim();
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute(self.__WB_MANIFEST);
+
+const BASE_URL = import.meta.env.BASE_URL || "/";
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -50,7 +49,7 @@ registerRoute(
         // Return true to signal that we want to use the handler.
         return true;
     },
-    createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html")
+    createHandlerBoundToURL(`${BASE_URL}index.html`)
 );
 
 // An example runtime caching route for requests that aren't handled by the

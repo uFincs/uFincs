@@ -1,21 +1,22 @@
-import {actions} from "@storybook/addon-actions";
-import {select} from "@storybook/addon-knobs";
-import React from "react";
-import {Feedback} from "models/";
+import type {Meta, StoryObj} from "@storybook/react";
+import {Feedback} from "models";
 import FeedbackOption from "./FeedbackOption";
 
-export default {
+const meta: Meta<typeof FeedbackOption> = {
     title: "Molecules/Feedback Option",
     component: FeedbackOption,
     parameters: {
         backgrounds: {
             default: "Light"
         }
+    },
+    args: {
+        type: Feedback.ISSUE
     }
 };
 
-const optionActions = actions("onSelected");
-const typeKnob = () => select("Type", Feedback.FEEDBACK_TYPES, Feedback.ISSUE);
+export default meta;
+type Story = StoryObj<typeof FeedbackOption>;
 
 /** The default view of `FeedbackOption`. */
-export const Default = () => <FeedbackOption type={typeKnob()} {...optionActions} />;
+export const Default: Story = {};

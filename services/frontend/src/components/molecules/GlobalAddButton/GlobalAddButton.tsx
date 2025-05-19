@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
+import * as React from "react";
 import {AccountsIcon, DownloadIcon, PlusIcon, TransactionsIcon} from "assets/icons";
 import {Dropdown, ShadowButton} from "components/atoms";
 import connect, {ConnectedProps} from "./connect";
@@ -71,4 +72,5 @@ const GlobalAddButton = ({
 };
 
 export const PureComponent = GlobalAddButton;
-export default connect(GlobalAddButton);
+export const ConnectedGlobalAddButton = connect(GlobalAddButton);
+export default ConnectedGlobalAddButton;

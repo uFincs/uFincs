@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {AutocompleteInput} from "components/molecules";
 import {LabelledInputProps} from "components/molecules/LabelledInput";
 import {useTransactionsAutocompleteInput} from "./hooks";

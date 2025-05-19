@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {DeleteIcon, EditIcon} from "assets/icons";
 import {IconButton} from "components/atoms";
 import {DefaultListItemActions, ListItemActions} from "utils/componentTypes";

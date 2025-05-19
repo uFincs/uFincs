@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
+import {call} from "redux-saga/effects";
 import {expectSaga, RunResult} from "redux-saga-test-plan";
 import {EffectProviders} from "redux-saga-test-plan/providers";
-import {call} from "redux-saga/effects";
 import {noOtherDispatches, silenceConsoleErrors, SAGA_TIMEOUT} from "utils/testHelpers";
 import createOfflineRequestManager, {
     OfflineRequestManager,
@@ -588,6 +588,7 @@ const provideConnectivityChannelOnce = ({
     };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const provideCallError = (fn: Function): EffectProviders => ({
     call: (effect, next) => {
         if (effect.fn === fn) {

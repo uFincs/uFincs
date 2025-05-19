@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Button, OverlineHeading} from "components/atoms";
 import {CombinedImportRulesView, ImportOptions} from "components/organisms";
 import connect, {ConnectedProps} from "./connect";
@@ -33,4 +32,5 @@ const ImportOverview = ({className, importRules = [], onAddRule}: ImportOverview
 );
 
 export const PureComponent = ImportOverview;
-export default connect(ImportOverview);
+export const ConnectedImportOverview = connect(ImportOverview);
+export default ConnectedImportOverview;

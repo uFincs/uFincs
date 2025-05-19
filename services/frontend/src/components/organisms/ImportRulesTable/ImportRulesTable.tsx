@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {
     EmptyImportRulesArea,
     ImportRulesTableColumnHeaders,
@@ -76,4 +76,5 @@ const ImportRulesTable = ({
 };
 
 export const PureComponent = ImportRulesTable;
-export default connect(ImportRulesTable);
+export const ConnectedImportRulesTable = connect(ImportRulesTable);
+export default ConnectedImportRulesTable;

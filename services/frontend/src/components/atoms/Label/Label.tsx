@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import "./Label.scss";
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}

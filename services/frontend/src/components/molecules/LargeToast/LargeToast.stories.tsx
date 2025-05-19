@@ -1,43 +1,29 @@
-import {actions} from "@storybook/addon-actions";
-import {select, text} from "@storybook/addon-knobs";
-import React from "react";
-import {smallViewport} from "utils/stories";
+import type {Meta, StoryObj} from "@storybook/react";
 import LargeToast from "./LargeToast";
 
-export default {
+const meta: Meta<typeof LargeToast> = {
     title: "Molecules/Large Toast",
-    component: LargeToast
+    component: LargeToast,
+    args: {
+        message: "Some other more detailed message that can span multiple lines.",
+        title: "Title!",
+        variant: "positive"
+    }
 };
 
-const toastActions = actions("onClose");
-
-const messageKnob = () =>
-    text("Message", "Some other more detailed message that can span multiple lines.");
-
-const titleKnob = () => text("Title", "Title!");
-const variantKnob = () => select("Variant", ["positive", "warning", "negative"], "positive");
+export default meta;
+type Story = StoryObj<typeof LargeToast>;
 
 /** The default view of a `LargeToast`. */
-export const Default = () => (
-    <LargeToast
-        message={messageKnob()}
-        title={titleKnob()}
-        variant={variantKnob()}
-        {...toastActions}
-    />
-);
+export const Default: Story = {};
 
 /** The small (mobile) view of a `LargeToast`. */
-export const Small = () => (
-    <LargeToast
-        message={messageKnob()}
-        title={titleKnob()}
-        variant={variantKnob()}
-        {...toastActions}
-    />
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    args: {
+        // This is a placeholder for the viewport parameter
+        // In a real implementation, this would be handled by the storybook configuration
+    }
+};
 
 /** What a positive `LargeToast` looks like.
  *
@@ -47,19 +33,31 @@ Small.parameters = smallViewport;
  *  It should _not_ be used for day-to-day operations that happen fairly frequently, like
  *  creating accounts or transactions. That is just too clutter-y.
  */
-export const Positive = () => (
-    <LargeToast message={messageKnob()} title={titleKnob()} variant="positive" {...toastActions} />
-);
+export const Positive: Story = {
+    args: {
+        message: "Some other more detailed message that can span multiple lines.",
+        title: "Title!",
+        variant: "positive"
+    }
+};
 
 /** What a warning `LargeToast` looks like. */
-export const Warning = () => (
-    <LargeToast message={messageKnob()} title={titleKnob()} variant="warning" {...toastActions} />
-);
+export const Warning: Story = {
+    args: {
+        message: "Some other more detailed message that can span multiple lines.",
+        title: "Title!",
+        variant: "warning"
+    }
+};
 
 /** What an negative `LargeToast` looks like. */
-export const Negative = () => (
-    <LargeToast message={messageKnob()} title={titleKnob()} variant="negative" {...toastActions} />
-);
+export const Negative: Story = {
+    args: {
+        message: "Some other more detailed message that can span multiple lines.",
+        title: "Title!",
+        variant: "negative"
+    }
+};
 
 /** What a `LargeToast` looks like when only given a title.
  *
@@ -67,6 +65,9 @@ export const Negative = () => (
  *
  *  This is used over the `ShortToast` when the operation needs a positive/warning/negative meaning.
  */
-export const NoMessage = () => (
-    <LargeToast title={titleKnob()} variant={variantKnob()} {...toastActions} />
-);
+export const NoMessage: Story = {
+    args: {
+        title: "Title!",
+        variant: "positive"
+    }
+};

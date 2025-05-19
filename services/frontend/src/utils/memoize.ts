@@ -32,8 +32,10 @@ const areArgumentsShallowlyEqual = (
 
 // This memoizes only the last result and uses reference equality.
 const memoize = (
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     fn: Function,
     equalityCheck: EqualityCheckCallback = defaultEqualityCheck
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 ): Function => {
     let lastArgs: Array<any>;
     let lastResult: any;
@@ -42,7 +44,7 @@ const memoize = (
     return (...args: Array<any>) => {
         if (!areArgumentsShallowlyEqual(equalityCheck, lastArgs, args)) {
             // apply arguments instead of spreading for performance.
-            lastResult = fn.apply(null, args);
+            lastResult = fn(...args);
         }
 
         lastArgs = args;

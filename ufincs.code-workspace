@@ -1,0 +1,23 @@
+{
+    "folders": [
+        {
+            "name": "Backend",
+            "path": "services/backend"
+        },
+        {
+            "name": "Frontend",
+            "path": "services/frontend"
+        },
+        {
+            "name": "Marketing",
+            "path": "services/marketing"
+        },
+        {
+            "name": "uFincs",
+            "path": ".",
+        }
+    ],
+    "settings": {
+        "typescript.tsdk": "Frontend/node_modules/typescript/lib"
+    }
+}

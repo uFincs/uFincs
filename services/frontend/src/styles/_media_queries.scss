@@ -1,0 +1,70 @@
+/** Note that all media queries are mobile-first. 
+ *  That is, they use `min-width` to indicate that once the screen is _bigger_ than
+ *  a certain size, then the media query should trigger. */
+
+$breakpoint-extra-small: 350px;
+$breakpoint-small: 400px;
+$breakpoint-medium: 500px;
+
+$breakpoint-navigation-change: 800px;
+
+$breakpoint-small-vertical: 700px;
+$breakpoint-small-medium-vertical: 1000px;
+
+$breakpoint-account-details-double-column: 1300px;
+
+// Need to declare the size here (as opposed to in _sizes) so that we don't have to import
+// `_sizes` here and cause circular imports.
+$size-dialog-max-width: 450px;
+$breakpoint-dialog: $size-dialog-max-width;
+
+$media-query-property: min-width;
+$media-query-property-vertical: min-height;
+
+@mixin media-query-extra-small {
+    @media (#{$media-query-property}: #{$breakpoint-extra-small}) {
+        @content;
+    }
+}
+
+@mixin media-query-small {
+    @media (#{$media-query-property}: #{$breakpoint-small}) {
+        @content;
+    }
+}
+
+@mixin media-query-medium {
+    @media (#{$media-query-property}: #{$breakpoint-medium}) {
+        @content;
+    }
+}
+
+@mixin media-query-small-vertical {
+    @media (#{$media-query-property-vertical}: #{$breakpoint-small-vertical}) {
+        @content;
+    }
+}
+
+@mixin media-query-medium-vertical {
+    @media (#{$media-query-property-vertical}: #{$breakpoint-medium-vertical}) {
+        @content;
+    }
+}
+
+@mixin media-query-navigation-change {
+    @media (#{$media-query-property}: #{$breakpoint-navigation-change}) {
+        @content;
+    }
+}
+
+@mixin media-query-account-details-double-column {
+    @media (#{$media-query-property}: #{$breakpoint-account-details-double-column}) {
+        @content;
+    }
+}
+
+@mixin media-query-dialog() {
+    @media (min-width: #{$breakpoint-dialog}) {
+        @content;
+    }
+}

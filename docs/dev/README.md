@@ -4,7 +4,7 @@ The following guide will go through how to develop uFincs. It will cover things 
 
 ## Required Dependencies
 
-In order to do development for uFincs, you'll need the following depdenencies installed:
+In order to do development for uFincs, you'll need the following dependencies installed:
 
 - Docker
 - Docker Compose (note: we still use `docker-compose` rather than `docker compose`)

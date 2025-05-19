@@ -79,7 +79,7 @@ describe("formatDate", () => {
     it("returns an empty string when given an invalid date", () => {
         expect(formatDate("not a date")).toBe("");
 
-        // @ts-ignore Want to ensure invalid stuff still works.
+        // @ts-expect-error Want to ensure invalid stuff still works.
         expect(formatDate({not: "a date"})).toBe("");
     });
 });

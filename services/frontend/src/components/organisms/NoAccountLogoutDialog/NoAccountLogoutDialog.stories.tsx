@@ -1,18 +1,16 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as NoAccountLogoutDialog} from "./NoAccountLogoutDialog";
 
-export default {
+const meta: Meta<typeof NoAccountLogoutDialog> = {
     title: "Organisms/No Account Logout Dialog",
-    component: NoAccountLogoutDialog
+    component: NoAccountLogoutDialog,
+    args: {
+        isVisible: true
+    }
 };
 
-const dialogActions = actions("onClose", "onLogout");
-
-const visibilityKnob = () => boolean("Visible", true);
+export default meta;
+type Story = StoryObj<typeof NoAccountLogoutDialog>;
 
 /** The default view of `NoAccountLogoutDialog`. */
-export const Default = () => (
-    <NoAccountLogoutDialog isVisible={visibilityKnob()} {...dialogActions} />
-);
+export const Default: Story = {};

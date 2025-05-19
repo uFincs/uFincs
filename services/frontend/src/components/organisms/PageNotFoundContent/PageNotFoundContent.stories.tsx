@@ -1,16 +1,17 @@
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import PageNotFoundContent from "./PageNotFoundContent";
 
-export default {
+const meta: Meta<typeof PageNotFoundContent> = {
     title: "Organisms/Page Not Found Content",
-    component: PageNotFoundContent
+    component: PageNotFoundContent,
+    args: {
+        linkToPlaceThatDoesExist: "/",
+        placeThatDoesExist: "homepage"
+    }
 };
 
-const nameKnob = () => text("Name of Place to Return to", "homepage");
-const linkKnob = () => text("Link to Place to Return to", "/");
+export default meta;
+type Story = StoryObj<typeof PageNotFoundContent>;
 
 /** The default view of `PageNotFoundContent`. */
-export const Default = () => (
-    <PageNotFoundContent linkToPlaceThatDoesExist={linkKnob()} placeThatDoesExist={nameKnob()} />
-);
+export const Default: Story = {};

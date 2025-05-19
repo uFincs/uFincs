@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {ListItemCheckbox, TextField} from "components/atoms";
 import "./SubscriptionPlan.scss";
 

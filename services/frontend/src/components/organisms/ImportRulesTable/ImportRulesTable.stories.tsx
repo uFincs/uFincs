@@ -1,22 +1,29 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {storyUsingRedux, useCreateImportRules} from "utils/stories";
 import ImportRulesTable from "./ImportRulesTable";
 
-export default {
+const meta: Meta<typeof ImportRulesTable> = {
     title: "Organisms/Import Rules Table",
     component: ImportRulesTable
 };
 
-/** The default view of `ImportRulesTable`. */
-export const Default = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
+export default meta;
+type Story = StoryObj<typeof ImportRulesTable>;
 
-    return <ImportRulesTable importRules={rules} />;
-});
+/** The default view of `ImportRulesTable`. */
+export const Default: Story = {
+    render: storyUsingRedux(() => {
+        const rules = useCreateImportRules();
+
+        return <ImportRulesTable importRules={rules} />;
+    })
+};
 
 /** The empty view of the `ImportRulesTable`. */
-export const Empty = storyUsingRedux(() => {
-    useCreateImportRules([]);
+export const Empty: Story = {
+    render: storyUsingRedux(() => {
+        useCreateImportRules([]);
 
-    return <ImportRulesTable importRules={[]} />;
-});
+        return <ImportRulesTable importRules={[]} />;
+    })
+};

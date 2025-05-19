@@ -1,22 +1,24 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
-import {TableRowActions} from "components/molecules";
+import type {Meta, StoryObj} from "@storybook/react";
+import TableRowActions from "components/molecules/TableRowActions";
 import TableRowContainer from "./TableRowContainer";
 
-export default {
+const meta: Meta<typeof TableRowContainer> = {
     title: "Molecules/Table Row Container",
     component: TableRowContainer
 };
 
+export default meta;
+type Story = StoryObj<typeof TableRowContainer>;
+
 const rowActions = actions("onDelete", "onEdit");
 
 /** The default view of `TableRowContainer`. */
-export const Default = () => (
-    // Note: The container is supposed to look funny in this story because it doesn't have any
-    // column template defined. That is done at the consuming component level.
-    <TableRowContainer>
-        <td>January 1, 2021</td>
-
-        <TableRowActions {...rowActions} />
-    </TableRowContainer>
-);
+export const Default: Story = {
+    args: {
+        children: [
+            <td key="date">January 1, 2021</td>,
+            <TableRowActions key="actions" {...rowActions} />
+        ]
+    }
+};

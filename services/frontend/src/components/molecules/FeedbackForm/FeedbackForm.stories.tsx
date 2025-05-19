@@ -1,26 +1,30 @@
-import {actions} from "@storybook/addon-actions";
-import {select} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {Feedback} from "models/";
 import {PureComponent as FeedbackForm} from "./FeedbackForm";
 
-export default {
+const meta: Meta<typeof FeedbackForm> = {
     title: "Molecules/Feedback Form",
     component: FeedbackForm,
     parameters: {
         backgrounds: {
             default: "Light"
         }
+    },
+    args: {
+        feedbackType: Feedback.ISSUE,
+        unhandledError: undefined
     }
 };
 
-const formActions = actions("onSubmit");
-const typeKnob = () => select("Type", Feedback.FEEDBACK_TYPES, Feedback.ISSUE);
+export default meta;
+type Story = StoryObj<typeof FeedbackForm>;
 
 /** The default view of `FeedbackForm`. */
-export const Default = () => <FeedbackForm feedbackType={typeKnob()} {...formActions} />;
+export const Default: Story = {};
 
 /** The `FeedbackForm` with an unhandled error to submit. */
-export const UnhandledError = () => (
-    <FeedbackForm feedbackType={typeKnob()} unhandledError={new Error("oops")} {...formActions} />
-);
+export const UnhandledError: Story = {
+    args: {
+        unhandledError: new Error("oops")
+    }
+};

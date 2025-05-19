@@ -1,5 +1,4 @@
 import {ConnectedRouter} from "connected-react-router";
-import React from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {Provider} from "react-redux";
 import {Switch, Redirect, Route} from "react-router";
@@ -8,7 +7,7 @@ import {PersistGate} from "redux-persist/integration/react";
 import {BackgroundBlur} from "components/atoms";
 import {ErrorFallback, SplashScreen} from "components/molecules";
 import {FeedbackDialog, PasswordResetDialog} from "components/organisms";
-import {useEnhancedKeyboardNavigation, useEnhancedTouchSupport, useNativeBackButton} from "hooks/";
+import {useEnhancedKeyboardNavigation, useEnhancedTouchSupport} from "hooks/";
 import {
     Authentication,
     Checkout,
@@ -24,18 +23,13 @@ import ScreenUrls, {DerivedAppScreenUrls} from "values/screenUrls";
 import AppRouter from "./AppRouter";
 import "./App.scss";
 
-// Must register the trust type policies before creating the store, since the creation of the store
-// is what triggers Web Worker creation (which requires the trusted type policy to exempt them).
+// Must register the Trusted Type policies before creating the store, since the creation of the store
+// is what triggers Web Worker creation (which requires the Trusted Type policy to exempt them).
 registerTrustedTypes();
 
 const {store, persistor} = configureStore();
 
 const AppLayout = () => {
-    // Note: Because the internals of this hook make use of the `history` object from react-router,
-    // it must be in the App layout rather than the top-level App, cause it needs to be inside the
-    // router provider.
-    useNativeBackButton();
-
     return (
         <div id="app">
             {/* Need the FeedbackDialog (and BackgroundBlur) outside of any ErrorBoundary, otherwise... it won't

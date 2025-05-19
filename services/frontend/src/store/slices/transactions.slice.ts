@@ -42,7 +42,7 @@ export const transactionsSlice = createSliceWithSelectors({
         ...crudSliceReducerFactory<TransactionsSliceState, TransactionData>(),
 
         /* Saga Only Actions */
-        undoableDestroyTransaction: (state: TransactionsSliceState, action: PayloadAction<Id>) =>
+        undoableDestroyTransaction: (state: TransactionsSliceState, _action: PayloadAction<Id>) =>
             state
     },
     selectors

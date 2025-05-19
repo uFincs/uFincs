@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
+import * as React from "react";
 import {PersonalFinance} from "assets/graphics";
 import {ListSectionHeader, TextField} from "components/atoms";
 import {AccountsListItem, EmptyArea} from "components/molecules";
@@ -123,7 +124,8 @@ const AccountsList = React.memo(
 );
 
 export const PureComponent = AccountsList;
-export default connect(AccountsList);
+export const ConnectedAccountsList = connect(AccountsList);
+export default ConnectedAccountsList;
 
 /* Other Components */
 

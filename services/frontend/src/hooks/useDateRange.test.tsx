@@ -1,5 +1,4 @@
-import {act, renderHook} from "@testing-library/react-hooks";
-import React from "react";
+import {act, renderHook} from "@testing-library/react";
 import {DateService} from "services/";
 import {UTCDateString} from "utils/types";
 import {

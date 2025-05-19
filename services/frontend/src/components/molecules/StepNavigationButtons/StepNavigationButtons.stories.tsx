@@ -1,35 +1,33 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import StepNavigationButtons from "./StepNavigationButtons";
 
-export default {
+const meta: Meta<typeof StepNavigationButtons> = {
     title: "Molecules/Step Navigation Buttons",
-    component: StepNavigationButtons
+    component: StepNavigationButtons,
+    args: {
+        canMoveToNextStep: false,
+        nextDisabledReason: "Transaction is invalid",
+        loading: true,
+        nextText: "Next"
+    }
 };
 
-const buttonActions = actions("onNextStep", "onPreviousStep");
-
-const loadingKnob = () => boolean("Loading", true);
-const nextLabelKnob = () => text("Next Label", "Next");
-const nextDisabledReasonKnob = () => text("Next Disabled Reason", "Transaction is invalid");
-const nextStepKnob = () => boolean("Can Move to Next Step", false);
+export default meta;
+type Story = StoryObj<typeof StepNavigationButtons>;
 
 /** The default view of `StepNavigationButtons`. */
-export const Default = () => (
-    <StepNavigationButtons
-        canMoveToNextStep={nextStepKnob()}
-        nextDisabledReason={nextDisabledReasonKnob()}
-        {...buttonActions}
-    />
-);
+export const Default: Story = {
+    args: {
+        canMoveToNextStep: false,
+        nextDisabledReason: "Transaction is invalid"
+    }
+};
 
 /** The loading view of `StepNavigationButtons`. */
-export const Loading = () => (
-    <StepNavigationButtons
-        canMoveToNextStep={nextStepKnob()}
-        loading={loadingKnob()}
-        nextText={nextLabelKnob()}
-        {...buttonActions}
-    />
-);
+export const Loading: Story = {
+    args: {
+        canMoveToNextStep: false,
+        loading: true,
+        nextText: "Next"
+    }
+};

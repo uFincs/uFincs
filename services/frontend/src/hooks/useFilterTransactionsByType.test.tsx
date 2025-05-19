@@ -1,5 +1,4 @@
-import {act, renderHook} from "@testing-library/react-hooks";
-import React from "react";
+import {act, renderHook} from "@testing-library/react";
 import {Transaction} from "models/";
 import useFilterTransactionsByType from "./useFilterTransactionsByType";
 import {useTransactionTypes, TransactionTypesProvider} from "./useTransactionTypes";

@@ -1,17 +1,39 @@
-import {number, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import ChartStats from "./ChartStats";
 
-export default {
+const meta: Meta<typeof ChartStats> = {
     title: "Charts/Components/ChartStats",
-    component: ChartStats
+    component: ChartStats,
+    args: {
+        currentAmount: 10000,
+        fromAmount: 5000,
+        title: "Net Worth"
+    }
 };
 
-const currentKnob = () => number("Current Amount", 10000);
-const fromKnob = () => number("From Amount", 5000);
-const titleKnob = () => text("Title", "Net Worth");
+export default meta;
+type Story = StoryObj<typeof ChartStats>;
 
 /** The default view of the `ChartStats`. */
-export const Default = () => (
-    <ChartStats currentAmount={currentKnob()} fromAmount={fromKnob()} title={titleKnob()} />
-);
+export const Default: Story = {};
+
+/** `ChartStats` with custom current amount. */
+export const CustomCurrentAmount: Story = {
+    args: {
+        currentAmount: 15000
+    }
+};
+
+/** `ChartStats` with custom from amount. */
+export const CustomFromAmount: Story = {
+    args: {
+        fromAmount: 7500
+    }
+};
+
+/** `ChartStats` with custom title. */
+export const CustomTitle: Story = {
+    args: {
+        title: "Total Assets"
+    }
+};

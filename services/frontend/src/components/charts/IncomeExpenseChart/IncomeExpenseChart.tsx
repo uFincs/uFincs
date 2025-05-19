@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {
     VictoryAxis,
     VictoryBar,
@@ -47,7 +47,7 @@ interface IncomeExpenseChartProps extends WrappedIncomeExpenseChartProps {
 
 /** The Income/Expense chart is a stacked bar chart (with Income stacked on Expenses)
  *  with some extra stats on current/from amounts. */
-const IncomeExpenseChart = React.memo(
+const IncomeExpenseChart = memo(
     ({
         className,
         incomeData,
@@ -99,10 +99,6 @@ const IncomeExpenseChart = React.memo(
                         left: yAxisPadding
                     }}
                     scale={{x: "time"}}
-                    // Yeah, the types for the theme are wrong (makes sense considering they aren't
-                    // first party...). It specifies that padding should be a number when clearly
-                    // it can also be an object with padding values for each direction.
-                    // @ts-ignore
                     theme={ChartTheme}
                     height={350}
                     width={width}

@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .ListItem {
     background: transparent;
@@ -61,7 +62,6 @@
         background-color: $color-light;
         border-radius: $border-radius-normal;
         display: flex;
-        height: 100%;
         justify-content: space-between;
 
         padding-left: $size-list-item-left-padding;
@@ -72,7 +72,9 @@
 
         // Use a slightly longer transition than the usual micro-transition because this
         // kind of movement is larger than the usual hovers and whatnot.
-        transition: background-color 0.15s ease-out, transform 0.3s ease-in-out;
+        transition:
+            background-color 0.15s ease-out,
+            transform 0.3s ease-in-out;
 
         // Disable text selection so that long pressing to open the actions doesn't select text.
         user-select: none;
@@ -89,7 +91,7 @@
         // issue where the shadow leaks out at the corners of the ListItem when it's closed.
         // If the shadow's hidden when it's closed, we can't have this problem.
         @include transition-shadow {
-            box-shadow: 12px 0 20px transparentize($color: $color-neutral-900, $amount: 0.6);
+            box-shadow: 12px 0 20px color.adjust($color: $color-neutral-900, $alpha: -0.6);
             transition: opacity 0.3s ease-in-out;
         }
 
@@ -157,8 +159,9 @@
         //
         // The large spread and high transparency values on the second shadow helps to smooth out
         // what would otherwise be a harsh white shadow.
-        box-shadow: inset 10px 2px 6px transparentize($color: $color-neutral-900, $amount: 0.55),
-            inset -1px -2px 12px transparentize($color: $color-light, $amount: 0.9);
+        box-shadow:
+            inset 10px 2px 6px color.adjust($color: $color-neutral-900, $alpha: -0.55),
+            inset -1px -2px 12px color.adjust($color: $color-light, $alpha: -0.9);
 
         display: flex;
         justify-content: flex-end;

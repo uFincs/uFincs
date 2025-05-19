@@ -1,4 +1,7 @@
-import React, {useCallback, useContext, useMemo, useState} from "react";
+/* eslint-disable react-refresh/only-export-components */
+import {useCallback, useContext, useMemo, useState} from "react";
+
+import * as React from "react";
 import {useSelector} from "react-redux";
 import {Transaction, TransactionData} from "models/";
 import {crossSliceSelectors} from "store/";
@@ -52,7 +55,7 @@ const useSelectResults = (query: string, keepLatestDuplicateTransaction: boolean
     );
 
     const selector = useCallback(
-        (state) => searchTransactionsSelector(state, query),
+        (state: any) => searchTransactionsSelector(state, query),
         [query, searchTransactionsSelector]
     );
 

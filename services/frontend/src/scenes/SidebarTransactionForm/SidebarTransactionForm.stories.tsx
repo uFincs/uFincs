@@ -1,34 +1,38 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
-import {smallViewport, smallLandscapeViewport} from "utils/stories";
+import type {Meta, StoryObj} from "@storybook/react";
+import {smallLandscapeViewport, smallViewport, storyUsingRedux} from "utils/stories";
 import SidebarTransactionForm, {
     PureComponent as PureSidebarTransactionForm
 } from "./SidebarTransactionForm";
 
-export default {
+const meta: Meta<typeof PureSidebarTransactionForm> = {
     title: "Scenes/Sidebar Transaction Form",
-    component: PureSidebarTransactionForm
+    component: PureSidebarTransactionForm,
+    args: {
+        isVisible: true
+    }
 };
 
-const formActions = actions("onClose");
-
-const visibilityKnob = () => boolean("Visible", true);
+export default meta;
+type Story = StoryObj<typeof PureSidebarTransactionForm>;
 
 /** The large (desktop) view of the `SidebarTransactionForm`. */
-export const Large = () => <SidebarTransactionForm isVisible={visibilityKnob()} {...formActions} />;
+export const Large: Story = {};
 
 /** The small (mobile) view of the `SidebarTransactionForm`. */
-export const Small = () => <SidebarTransactionForm isVisible={visibilityKnob()} {...formActions} />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** The small (mobile) landscape view of the `SidebarTransactionForm`. */
-export const SmallLandscape = () => (
-    <SidebarTransactionForm isVisible={visibilityKnob()} {...formActions} />
-);
-
-SmallLandscape.parameters = smallLandscapeViewport;
+export const SmallLandscape: Story = {
+    parameters: {
+        ...smallLandscapeViewport
+    }
+};
 
 /** A story for testing that the connected `SidebarTransactionForm` is working. */
-export const Connected = () => <SidebarTransactionForm isVisible={visibilityKnob()} />;
+export const Connected: Story = {
+    render: storyUsingRedux(SidebarTransactionForm)
+};

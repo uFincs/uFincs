@@ -1,4 +1,5 @@
 import {RRule} from "rrule";
+import {vi} from "vitest";
 import {Transaction} from "models/";
 import {DateService} from "services/";
 import RecurringTransaction, {RecurringTransactionData, RRuleFreqMap} from "./RecurringTransaction";
@@ -443,7 +444,7 @@ describe("realizeMany", () => {
         };
 
         // Pretend that it's the 20th of the month and we missed realizing on the 15th.
-        const spy = jest
+        const spy = vi
             .spyOn(DateService, "getTodayAsUTCString")
             .mockImplementation(() => DateService.convertToUTCString("2022-01-20"));
 
@@ -518,7 +519,7 @@ describe("realizeMany", () => {
         };
 
         // Pretend that it's the 28th of the month.
-        const spy = jest
+        const spy = vi
             .spyOn(DateService, "getTodayAsUTCString")
             .mockImplementation(() => DateService.convertToUTCString("2022-01-28"));
 

@@ -1,34 +1,27 @@
-FROM node:22.14.0-alpine AS frontend-build-env
+# This Dockerfile can be used to build and serve the static assets of the Frontend.
+#
+# Note: This is included for illustrative purposes; it is not currently used for 
+# production uFincs infrastructure (since the Frontend is served via Firebase).
 
-ENV NPM_CONFIG_LOGLEVEL="warn"
+# Stage 1: Build the static app assets
+FROM node:22.14.0-alpine@sha256:9bef0ef1e268f60627da9ba7d7605e8831d5b56ad07487d24d1aa386336d1944 AS builder
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
+ENV CYPRESS_INSTALL_BINARY=0
 
-RUN mkdir -p /frontend
-WORKDIR /frontend
+WORKDIR /app
 
-COPY package.json package-lock.json ./
-
-# Note: Because of how we have our dev/production deps set up (with only Cypress stuff in dev),
-# we can't take advantage of caching 'production only' deps, cause we don't actually have a list
-# of 'production only' deps.
-RUN npm ci --omit=dev
+COPY package*.json ./
+RUN npm ci
 
 COPY . .
-
 RUN npm run build
 
-FROM gcr.io/distroless/nodejs22-debian12
+# Stage 2: Serve with Caddy
+FROM caddy:2.10.0-alpine@sha256:e2e3a089760c453bc51c4e718342bd7032d6714f15b437db7121bfc2de2654a6
 
-COPY --from=frontend-build-env /frontend/build /frontend/build
-COPY --from=frontend-build-env /frontend/node_modules /frontend/node_modules
-COPY --from=frontend-build-env /frontend/public /frontend/public
-COPY --from=frontend-build-env /frontend/server /frontend/server
+COPY --from=builder /app/build /app/build
 
-WORKDIR /frontend
-USER nonroot
+COPY Caddyfile /etc/caddy/Caddyfile
 
-EXPOSE 3000
-
-CMD ["server"]
+EXPOSE 8080
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]

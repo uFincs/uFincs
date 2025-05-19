@@ -1,53 +1,66 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean, text} from "@storybook/addon-knobs";
-import {linkTo} from "@storybook/addon-links";
-import React from "react";
+// import {linkTo} from "@storybook/addon-links";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport, smallLandscapeViewport} from "utils/stories";
 import ScreenUrls from "values/screenUrls";
-import StoryRouter from "../../../.storybook/storyRouterDecorator";
+// import StoryRouter from "../../../.storybook/storyRouterDecorator";
 import {PureComponent as Authentication} from "./Authentication";
 
-export default {
+const meta: Meta<typeof Authentication> = {
     title: "Scenes/Authentication",
     component: Authentication,
-    decorators: [
-        StoryRouter({
-            [ScreenUrls.LOGIN]: linkTo("Scenes/Authentication", "Login"),
-            [ScreenUrls.SIGN_UP]: linkTo("Scenes/Authentication", "Sign Up")
-        })
-    ]
+    // Tech Debt: Whatever this is supposed to do.
+    // decorators: [
+    //     StoryRouter({
+    //         [ScreenUrls.LOGIN]: linkTo("Scenes/Authentication", "Login"),
+    //         [ScreenUrls.SIGN_UP]: linkTo("Scenes/Authentication", "Sign Up")
+    //     })
+    // ],
+    args: {
+        error: "Wrong email or password",
+        loading: false
+    }
 };
 
-const authenticationActions = actions("onLogin", "onSignUp", "onLoginWithoutAccount");
+export default meta;
+type Story = StoryObj<typeof Authentication>;
 
 const loginRoute = {path: ScreenUrls.LOGIN, params: [], isExact: true, url: ScreenUrls.LOGIN};
 const signUpRoute = {path: ScreenUrls.SIGN_UP, params: [], isExact: true, url: ScreenUrls.SIGN_UP};
 
 /** The `login` type of the `Authentication` scene. */
-export const Login = () => <Authentication match={loginRoute} {...authenticationActions} />;
+export const Login: Story = {
+    args: {
+        match: loginRoute
+    }
+};
 
 /** The `signup` type of the `Authentication` scene. */
-export const SignUp = () => <Authentication match={signUpRoute} {...authenticationActions} />;
+export const SignUp: Story = {
+    args: {
+        match: signUpRoute
+    }
+};
 
 /** What the `Authentication` scene looks like on small devices. */
-export const Small = () => <Authentication {...authenticationActions} />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {...smallViewport}
+};
 
 /** What the `Authentication` scene looks like on small landscape devices. */
-export const SmallLandscape = () => <Authentication {...authenticationActions} />;
-
-SmallLandscape.parameters = smallLandscapeViewport;
+export const SmallLandscape: Story = {
+    parameters: {...smallLandscapeViewport}
+};
 
 /** The `Authentication` scene when it encounters an error while submitting. */
-export const Error = () => (
-    <Authentication
-        error={text("Error Message", "Wrong email or password")}
-        {...authenticationActions}
-    />
-);
+export const Error: Story = {
+    args: {
+        error: "Wrong email or password"
+    }
+};
 
 /** The `Authentication` scene while loading after the user submits. */
-export const Loading = () => (
-    <Authentication loading={boolean("Loading", true)} {...authenticationActions} />
-);
+export const Loading: Story = {
+    args: {
+        loading: true
+    }
+};

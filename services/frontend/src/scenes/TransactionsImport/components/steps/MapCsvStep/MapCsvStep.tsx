@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {StepDescription, TabBarWithSections} from "components/molecules";
 import ExistingProfileSection from "./ExistingProfileSection";
@@ -65,4 +64,5 @@ const MapCsvStep = ({
 );
 
 export const PureComponent = MapCsvStep;
-export default connect(MapCsvStep);
+const ConnectedMapCsvStep = connect(MapCsvStep);
+export default ConnectedMapCsvStep;

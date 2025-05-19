@@ -1,9 +1,9 @@
 import {push} from "connected-react-router";
+import {call} from "redux-saga/effects";
 import {expectSaga} from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers";
 import {Matcher} from "redux-saga-test-plan/matchers";
 import {EffectProviders} from "redux-saga-test-plan/providers";
-import {call} from "redux-saga/effects";
 import api from "api/";
 import {Account, Transaction} from "models/";
 import {
@@ -242,7 +242,7 @@ describe("undoableDestroy", () => {
         let counter = 0;
 
         return {
-            select: (effect, next) => {
+            select: (_effect, next) => {
                 // Return the account for the first select.
                 if (counter === 0) {
                     counter += 1;

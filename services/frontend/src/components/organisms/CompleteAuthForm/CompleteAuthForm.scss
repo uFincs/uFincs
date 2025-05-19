@@ -1,7 +1,8 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 @mixin auth-form-box-shadow($transparency: 0.5) {
-    box-shadow: 0 6px 24px transparentize($color: $color-neutral-900, $amount: $transparency);
+    box-shadow: 0 6px 24px color.adjust($color: $color-neutral-900, $alpha: -$transparency);
 }
 
 // The AuthForm needs to switch positions with the AlternativeAuthForm.

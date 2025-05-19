@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {memo, useMemo} from "react";
 import {Thinking} from "assets/graphics";
 import {DeleteIcon, EditIcon} from "assets/icons";
 import {BackButton, Button} from "components/atoms";
@@ -30,7 +30,7 @@ interface AccountDetailsProps extends ConnectedProps {
 
 /** The Account Details scene. Where are all the good account information is displayed,
  *  like current balance, balance over time, and transactions. */
-const AccountDetails = React.memo(
+const AccountDetails = memo(
     ({className, account, id, onBack, onDelete, onEdit}: AccountDetailsProps) =>
         !account ? (
             <InvalidAccount onGoBackToAccounts={onBack} />
@@ -56,7 +56,8 @@ const AccountDetails = React.memo(
         )
 );
 
-export default connect(AccountDetails);
+export const ConnectedAccountDetails = connect(AccountDetails);
+export default ConnectedAccountDetails;
 
 /* Other Components */
 
@@ -144,7 +145,7 @@ interface AccountDetailsTransactionsProps {
 
 /** The transactions section of the Account Details scene.
  *  Basically a mini Transactions scene. */
-const AccountDetailsTransactions = React.memo(({account}: AccountDetailsTransactionsProps) => {
+const AccountDetailsTransactions = memo(({account}: AccountDetailsTransactionsProps) => {
     const {startingBalance} = useDateRangeAccountStartingBalances(account.id);
 
     let transactions = useDateRangeTransactions();

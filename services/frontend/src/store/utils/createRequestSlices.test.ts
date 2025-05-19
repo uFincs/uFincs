@@ -1,7 +1,7 @@
 import {LOCATION_CHANGE} from "connected-react-router";
 import {Saga} from "redux-saga";
-import {expectSaga} from "redux-saga-test-plan";
 import {delay, put} from "redux-saga/effects";
+import {expectSaga} from "redux-saga-test-plan";
 import {SAGA_TIMEOUT} from "utils/testHelpers";
 import createRequestSlices, {
     MountPoint,
@@ -58,7 +58,7 @@ describe("RequestSlice", () => {
         const failureState = {loading: false, error};
 
         it("has an initial state for loading and error", () => {
-            // @ts-ignore Allow testing random actions.
+            // @ts-expect-error Allow testing random actions.
             expect(reducer(undefined, {})).toEqual(initialState);
         });
 
@@ -148,7 +148,7 @@ describe("RequestSlice", () => {
             throw dummyError;
         };
 
-        const dummySagaWithSuccess = function* (action: any, success: Saga) {
+        const dummySagaWithSuccess = function* (_action: any, success: Saga) {
             yield dummySaga();
             yield success();
         };
@@ -250,23 +250,16 @@ describe("RequestSliceActions", () => {
     });
 
     it("can test for invalid request slice actions", () => {
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions.isAction({type: "some other random type"})).toBe(false);
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions.isAction({type: "some/"})).toBe(false);
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions.isAction({type: "some/other"})).toBe(false);
 
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions._isTypeAction({type: "some other random type"}, "request")).toBe(
             false
         );
 
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions._isTypeAction({type: "some/"}, "success")).toBe(false);
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions._isTypeAction({type: "some/other"}, "failure")).toBe(false);
-        // @ts-ignore Allow invalid types for testing.
         expect(RequestSliceActions._isTypeAction({type: "some/other/request"}, "clear")).toBe(
             false
         );
@@ -312,7 +305,7 @@ describe("createRequestSlices (RequestSliceSet)", () => {
         const {reducer} = requestSliceSet;
 
         it("creates nested state slices for each request type", () => {
-            // @ts-ignore Allow testing random actions.
+            // @ts-expect-error Allow testing random actions.
             expect(reducer(undefined, {})).toEqual({
                 [requestTypes[0]]: requestSliceSet[requestTypes[0]].initialState,
                 [requestTypes[1]]: requestSliceSet[requestTypes[1]].initialState

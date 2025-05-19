@@ -1,6 +1,8 @@
-@import "styles/_animations.module.scss";
-@import "styles/_borders.module.scss";
-@import "styles/_device_support.scss";
+@use "sass:color";
+@use "sass:map";
+@import "@/styles/_animations";
+@import "@/styles/_borders";
+@import "@/styles/_device_support";
 
 // "Safe Area Insets" are a concept introduced by Apple so that web apps can properly adjust their
 // layout for their notched iPhones. This is done through the use of variables injected with
@@ -172,24 +174,25 @@
 }
 
 @mixin card-shadow() {
-    box-shadow: 0 2px 6px transparentize($color: $color-primary-600, $amount: 0.9);
+    box-shadow: 0 2px 6px color.adjust($color: $color-primary-600, $alpha: -0.9);
 }
 
 @mixin option-card-shadow() {
-    box-shadow: 0 7px 7px -4px transparentize($color: $color-primary-700, $amount: 0.5);
+    box-shadow: 0 7px 7px -4px color.adjust($color: $color-primary-700, $alpha: -0.5);
 }
 
 @mixin dropdown-shadow() {
     // Use dual drop shadows for a better effect.
     // The first is the inset/underneath kind that the ShadowButton uses.
     // The second applies a tighter, darker shadow around the edges.
-    box-shadow: 0 16px 14px -6px transparentize($color: $color-primary, $amount: 0.8),
-        0 4px 10px transparentize($color: $color-primary, $amount: 0.7);
+    box-shadow:
+        0 16px 14px -6px color.adjust($color: $color-primary, $alpha: -0.8),
+        0 4px 10px color.adjust($color: $color-primary, $alpha: -0.7);
 }
 
 @mixin list-item-shadow($transparency: 0.9) {
     // Just a small, subtle shadow to give the list item a tiny bit of depth.
-    box-shadow: 0 1px 2px transparentize($color: $color-neutral-700, $amount: $transparency);
+    box-shadow: 0 1px 2px color.adjust($color: $color-neutral-700, $alpha: -$transparency);
 }
 
 // This is the 'double' shadow that is used by e.g. the `ShadowButton`.
@@ -197,12 +200,12 @@
 @mixin double-shadow($shadow-color: $color-primary-700) {
     @include animate-transition-shadow();
 
-    box-shadow: 0 8px 6px -4px transparentize($color: $shadow-color, $amount: 0.5);
+    box-shadow: 0 8px 6px -4px color.adjust($color: $shadow-color, $alpha: -0.5);
 
     @include transition-shadow {
         // This is a bigger shadow that simulates the button being further from the
         // 'ground' of the screen (i.e. closer to the user).
-        box-shadow: 0 9px 7px -4px transparentize($color: $shadow-color, $amount: 0.5);
+        box-shadow: 0 9px 7px -4px color.adjust($color: $shadow-color, $alpha: -0.5);
     }
 }
 
@@ -236,19 +239,19 @@
 
 @mixin transactions-type-colors($base-selector, $color-suffix: "-dark", $property: "color") {
     &.#{$base-selector}--income {
-        #{$property}: map-get($color-positives, color-positive#{$color-suffix});
+        #{$property}: map.get($color-positives, color-positive#{$color-suffix});
     }
 
     &.#{$base-selector}--expense {
-        #{$property}: map-get($color-negatives, color-negative#{$color-suffix});
+        #{$property}: map.get($color-negatives, color-negative#{$color-suffix});
     }
 
     &.#{$base-selector}--debt {
-        #{$property}: map-get($color-warnings, color-warning#{$color-suffix});
+        #{$property}: map.get($color-warnings, color-warning#{$color-suffix});
     }
 
     &.#{$base-selector}--transfer {
-        #{$property}: map-get($color-supports, color-support#{$color-suffix});
+        #{$property}: map.get($color-supports, color-support#{$color-suffix});
     }
 }
 

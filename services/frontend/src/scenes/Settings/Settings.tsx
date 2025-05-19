@@ -1,4 +1,3 @@
-import React from "react";
 import {Route, Switch, RouteComponentProps} from "react-router-dom";
 import {BackButton, OverlineHeading} from "components/atoms";
 import {SettingsNavigation} from "components/organisms";
@@ -131,4 +130,5 @@ const Settings = ({
 };
 
 export const PureComponent = Settings;
-export default connect(Settings);
+const ConnectedSettings = connect(Settings);
+export default ConnectedSettings;

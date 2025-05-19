@@ -16,10 +16,13 @@ const useFilterAccountsByType = (
         } else {
             return (Object.keys(accountsByType) as Array<AccountType>)
                 .filter((type) => state[type])
-                .reduce((acc, type) => {
-                    acc[type] = accountsByType[type];
-                    return acc;
-                }, {} as Record<AccountType, Array<AccountData>>);
+                .reduce(
+                    (acc, type) => {
+                        acc[type] = accountsByType[type];
+                        return acc;
+                    },
+                    {} as Record<AccountType, Array<AccountData>>
+                );
         }
     }, [accountsByType, state]);
 };

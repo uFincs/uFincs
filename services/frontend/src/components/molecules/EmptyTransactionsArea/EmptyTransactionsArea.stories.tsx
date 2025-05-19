@@ -1,13 +1,20 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as EmptyTransactionsArea} from "./EmptyTransactionsArea";
 
-export default {
+const meta: Meta<typeof EmptyTransactionsArea> = {
     title: "Molecules/Empty Transactions Area",
     component: EmptyTransactionsArea
 };
 
+export default meta;
+type Story = StoryObj<typeof EmptyTransactionsArea>;
+
 const areaActions = actions("onAddTransaction");
 
 /** The default view of the `EmptyTransactionsArea`. */
-export const Default = () => <EmptyTransactionsArea {...areaActions} />;
+export const Default: Story = {
+    args: {
+        ...areaActions
+    }
+};

@@ -1,11 +1,16 @@
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import Label from "./Label";
 
-export default {
+const meta: Meta<typeof Label> = {
     title: "Atoms/Label",
-    component: Label
+    component: Label,
+    args: {
+        children: "Email"
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof Label>;
+
 /** It's a `Label`, what more do you want? */
-export const Default = () => <Label>{text("Label", "Email")}</Label>;
+export const Default: Story = {};

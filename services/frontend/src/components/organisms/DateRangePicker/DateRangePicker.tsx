@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Divider} from "components/atoms";
 import {DateRangeSizePicker, DateSwitcher, ShowFutureToggle} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -25,4 +24,5 @@ const DateRangePicker = ({className, hasFutureTransactions = false}: DateRangePi
     </div>
 );
 
-export default connect(DateRangePicker);
+export const ConnectedDateRangePicker = connect(DateRangePicker);
+export default ConnectedDateRangePicker;

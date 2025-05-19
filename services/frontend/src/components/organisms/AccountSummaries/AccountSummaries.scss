@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .AccountSummaries {
     background-color: $color-background-dark;
@@ -8,7 +9,7 @@
     // Otherwise, it looks too square.
     border-radius: $border-radius-large;
 
-    box-shadow: 0 2px 6px transparentize($color: $color-primary-700, $amount: 0.3);
+    box-shadow: 0 2px 6px color.adjust($color: $color-primary-700, $alpha: -0.3);
     display: grid;
     gap: $size-600;
     padding: $size-400 $size-500;

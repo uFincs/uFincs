@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import "./ChartContainer.scss";
 
 interface ChartContainerProps extends React.HTMLAttributes<HTMLDivElement> {}

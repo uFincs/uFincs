@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .LargeToast {
     @include animate-transition-shadow();
@@ -8,7 +9,7 @@
     background-color: $color-light;
     border-left: 4px solid;
     border-radius: $border-radius-normal;
-    box-shadow: 0 4px 8px transparentize($color: $color-primary, $amount: 0.5);
+    box-shadow: 0 4px 8px color.adjust($color: $color-primary, $alpha: -0.5);
     cursor: pointer;
     display: flex;
     padding: $size-400;
@@ -17,7 +18,7 @@
 
     @include transition-shadow {
         // Setup a bigger shadow for hovering.
-        box-shadow: 0 6px 12px transparentize($color: $color-primary, $amount: 0.5);
+        box-shadow: 0 6px 12px color.adjust($color: $color-primary, $alpha: -0.5);
     }
 
     @include media-query-medium {

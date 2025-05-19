@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import * as React from "react";
 import {circularCountDownInterval} from "utils/parsedStyles";
 import "./CircularCountdown.scss";
 
@@ -30,7 +31,7 @@ interface CircularCountdownProps {
     timeLimit?: number;
 
     /** Handler for when time runs out. */
-    onTimesUp: () => void;
+    onTimesUp?: () => void;
 
     /** Anything to show inside the countdown (e.g. an icon). */
     children?: React.ReactNode;
@@ -85,7 +86,7 @@ const CircularCountdown = ({
                 // disappear once the time limit is reached.
                 finalTimeout = window.setTimeout(() => {
                     setTimesUp(true);
-                    onTimesUp();
+                    onTimesUp?.();
                 }, circularCountDownInterval);
             }
         };

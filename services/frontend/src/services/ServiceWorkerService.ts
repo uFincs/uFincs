@@ -6,10 +6,10 @@ const IS_LOCALHOST = Boolean(
         window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
 );
 
-const NODE_ENV = process.env.NODE_ENV;
-const PUBLIC_URL = process.env.PUBLIC_URL;
+const IS_PROD = import.meta.env.PROD;
+const BASE_URL = import.meta.env.BASE_URL || "/";
 
-const SERVICE_WORKER_URL = `${PUBLIC_URL}/service-worker.js`;
+const SERVICE_WORKER_URL = `${BASE_URL}service-worker.js`;
 
 interface Config {
     onSuccess?: (registration: ServiceWorkerRegistration) => void;
@@ -20,14 +20,14 @@ export default class ServiceWorkerService {
     /** Registers the service worker and sets up the onSuccess/onUpdate handlers that can be used
      *  for toast notifications. */
     public static async register(config?: Config) {
-        if (NODE_ENV !== "production" || !("serviceWorker" in navigator)) {
+        if (!IS_PROD || !("serviceWorker" in navigator)) {
             return;
         }
 
-        const publicUrl = new URL(PUBLIC_URL, window.location.href);
+        const publicUrl = new URL(BASE_URL, window.location.href);
 
         if (publicUrl.origin !== window.location.origin) {
-            // Our service worker won't work if PUBLIC_URL is on a different origin
+            // Our service worker won't work if BASE_URL is on a different origin
             // from what our page is served on. This might happen if a CDN is used to
             // serve assets; see https://github.com/facebook/create-react-app/issues/2374
             return;
@@ -41,10 +41,7 @@ export default class ServiceWorkerService {
             // service worker/PWA documentation.
             await navigator.serviceWorker.ready;
 
-            console.log(
-                "This web app is being served cache-first by a service " +
-                    "worker. To learn more, visit https://cra.link/PWA"
-            );
+            console.log("This web app is being served cache-first by a service worker.");
         } else {
             // Is not localhost. Just register service worker.
             await ServiceWorkerService._registerValidSW(SERVICE_WORKER_URL, config);
@@ -139,8 +136,7 @@ export default class ServiceWorkerService {
                         // but the previous service worker (i.e. controller) will still serve the older
                         // content until all client tabs are closed.
                         console.log(
-                            "New content is available and will be used when all " +
-                                "tabs for this page are closed. See https://cra.link/PWA."
+                            "New content is available and will be used when all tabs for this page are closed."
                         );
 
                         config?.onUpdate?.(registration);

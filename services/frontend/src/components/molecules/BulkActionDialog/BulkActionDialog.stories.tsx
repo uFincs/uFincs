@@ -1,13 +1,17 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import BulkActionDialog from "./BulkActionDialog";
 
-export default {
+const meta: Meta<typeof BulkActionDialog> = {
     title: "Molecules/Bulk Action Dialog",
-    component: BulkActionDialog
+    component: BulkActionDialog,
+    args: {
+        ...actions("onClose", "onSubmit")
+    }
 };
 
-const dialogActions = actions("onClose", "onSubmit");
+export default meta;
+type Story = StoryObj<typeof BulkActionDialog>;
 
 const suggestions = [
     {label: "Chequing", value: "1"},
@@ -16,33 +20,42 @@ const suggestions = [
 ];
 
 /** The text input version of `BulkActionDialog`. */
-export const Text = () => {
-    return <BulkActionDialog inputType="text" label="Description" {...dialogActions} />;
+export const Text: Story = {
+    args: {
+        inputType: "text",
+        label: "Description"
+    }
 };
 
 /** The date input version of `BulkActionDialog`. */
-export const Date = () => {
-    return <BulkActionDialog inputType="date" label="Date" {...dialogActions} />;
+export const Date: Story = {
+    args: {
+        inputType: "date",
+        label: "Date"
+    }
 };
 
 /** The money input version of `BulkActionDialog`. */
-export const Money = () => {
-    return <BulkActionDialog inputType="money" label="Amount" {...dialogActions} />;
+export const Money: Story = {
+    args: {
+        inputType: "money",
+        label: "Amount"
+    }
 };
 
 /** The select input version of `BulkActionDialog`. */
-export const Select = () => {
-    return (
-        <BulkActionDialog
-            inputType="select"
-            label="Account"
-            suggestions={suggestions}
-            {...dialogActions}
-        />
-    );
+export const Select: Story = {
+    args: {
+        inputType: "select",
+        label: "Account",
+        suggestions: suggestions
+    }
 };
 
 /** The transaction type input version of `BulkActionDialog`. */
-export const TransactionType = () => {
-    return <BulkActionDialog inputType="transactionType" label="Type" {...dialogActions} />;
+export const TransactionType: Story = {
+    args: {
+        inputType: "transactionType",
+        label: "Type"
+    }
 };

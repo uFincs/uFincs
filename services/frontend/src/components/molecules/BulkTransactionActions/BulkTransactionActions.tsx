@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useEffect, useMemo, useRef} from "react";
+import {useEffect, useMemo, useRef} from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import {ChevronDownIcon} from "assets/icons";
 import {Button, Divider, Dropdown} from "components/atoms";
@@ -228,7 +229,8 @@ const BulkTransactionActions = ({className, ...otherProps}: BulkTransactionActio
     }
 };
 
-export default connect(BulkTransactionActions);
+export const ConnectedBulkTransactionActions = connect(BulkTransactionActions);
+export default ConnectedBulkTransactionActions;
 
 /* Desktop Components */
 

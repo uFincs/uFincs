@@ -1,11 +1,10 @@
 import classNames from "classnames";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Investing} from "assets/graphics";
 import {LogoFull} from "assets/icons";
 import {OutlineButton, ShadowButton, TextField} from "components/atoms";
 import {WarningMessage} from "components/molecules";
 import {useNoAccount} from "hooks/";
-import {NativePlatformsService} from "services/";
 import connect, {ConnectedProps} from "./connect";
 import "./WelcomeStep.scss";
 
@@ -52,7 +51,8 @@ const WelcomeStep = ({className, onSubmit, onUseDemoData}: WelcomeStepProps) => 
     );
 };
 
-export default connect(WelcomeStep);
+const ConnectedWelcomeStep = connect(WelcomeStep);
+export default ConnectedWelcomeStep;
 
 /** Other Components */
 
@@ -111,36 +111,22 @@ interface NoAccountLayoutProps {
 const NoAccountLayout = ({onNext}: NoAccountLayoutProps) => (
     <>
         <WarningMessage>
-            {NativePlatformsService.isMobilePlatform() ? (
-                // We want to remove all references to signing up on native mobile platforms,
-                // so that we don't piss off any app store reviewers.
-                <>
-                    <strong>You are using uFincs without an account.</strong>
-                    <br /> <br />
-                    All of your data will be stored <strong>locally</strong>, on your device. If you
-                    logout, your data will be <strong>cleared</strong>.
-                    <br /> <br />
-                    You can make a <strong>backup</strong> of your data in the Settings that can be{" "}
-                    <strong>restored</strong> when you use uFincs in the future.
-                    <br /> <br />
-                    May your dollars compound and may you <strong>enjoy using uFincs!</strong> :)
-                </>
-            ) : (
-                <>
-                    <strong>You are using uFincs without an account.</strong>
-                    <br /> <br />
-                    All of your data will be stored <strong>locally</strong>, in your browser. If
-                    you logout, your data will be <strong>cleared</strong>.
-                    <br /> <br />
-                    When you decide to <strong>sign up</strong> for an account, all of your data
-                    will be <strong>migrated</strong> over. Or you can make a{" "}
-                    <strong>backup</strong> of your data in the Settings that can be{" "}
-                    <strong>restored</strong> when you use uFincs in the future.
-                    <br /> <br />
-                    May your dollars compound and may you{" "}
-                    <strong>sign up for a full account!</strong> :)
-                </>
-            )}
+            <>
+                <strong>You are using uFincs without an account.</strong>
+                <br /> <br />
+                All of your data will be stored <strong>locally</strong>, in your browser. If you
+                logout, your data will be <strong>cleared</strong>.
+                <br /> <br />
+                When you decide to <strong>sign up</strong> for an account, all of your data will be{" "}
+                <strong>migrated</strong> over. Or you can make a <strong>backup</strong> of your
+                data in the Settings that can be <strong>restored</strong> when you use uFincs in
+                the future.
+                <br /> <br />
+                May your dollars compound and may you <strong>
+                    sign up for a full account!
+                </strong>{" "}
+                :)
+            </>
         </WarningMessage>
 
         <ShadowButton className="WelcomeStep-submit" onClick={onNext}>

@@ -1,13 +1,20 @@
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as SplashScreen} from "./SplashScreen";
 
-export default {
+const meta: Meta<typeof SplashScreen> = {
     title: "Molecules/Splash Screen",
-    component: SplashScreen
+    component: SplashScreen,
+    args: {
+        isOpen: false
+    }
 };
 
-const isOpen = () => boolean("Is Open", false);
+export default meta;
+type Story = StoryObj<typeof SplashScreen>;
 
 /** The default view of `SplashScreen`. */
-export const Default = () => <SplashScreen isOpen={isOpen()} />;
+export const Default: Story = {
+    args: {
+        isOpen: true
+    }
+};

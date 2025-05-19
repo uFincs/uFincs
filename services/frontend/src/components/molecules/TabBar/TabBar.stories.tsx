@@ -1,11 +1,17 @@
-import React, {useState} from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {NavItemAccounts, NavItemDashboard, NavItemTransactions} from "components/molecules";
 import TabBar from "./TabBar";
 
-export default {
+const meta: Meta<typeof TabBar> = {
     title: "Molecules/Tab Bar",
-    component: TabBar
+    component: TabBar,
+    args: {
+        activeTab: 0
+    }
 };
+
+export default meta;
+type Story = StoryObj<typeof TabBar>;
 
 const tabs = [{label: "Item 1"}, {label: "2"}, {label: "A longer item 3"}];
 
@@ -25,29 +31,23 @@ const navTabs = [
 ];
 
 /** The default view of a `TabBar`, using simple labels for the tabs. */
-export const Default = () => {
-    const [active, setActive] = useState(0);
-
-    return <TabBar activeTab={active} tabs={tabs} onTabChange={(index) => setActive(index)} />;
+export const Default: Story = {
+    args: {
+        tabs
+    }
 };
 
 /** What a `TabBar` looks like while using `NavItem`s for the tabs. */
-export const NavBar = () => {
-    const [active, setActive] = useState(0);
-
-    return <TabBar activeTab={active} tabs={navTabs} onTabChange={(index) => setActive(index)} />;
+export const NavBar: Story = {
+    args: {
+        tabs: navTabs
+    }
 };
 
 /** An example of how to change the style of the underline to be farther from the tabs. */
-export const FartherUnderline = () => {
-    const [active, setActive] = useState(0);
-
-    return (
-        <TabBar
-            underlineClassName="TabBar--story-FartherUnderline"
-            activeTab={active}
-            tabs={tabs}
-            onTabChange={(index) => setActive(index)}
-        />
-    );
+export const FartherUnderline: Story = {
+    args: {
+        underlineClassName: "TabBar--story-FartherUnderline",
+        tabs
+    }
 };

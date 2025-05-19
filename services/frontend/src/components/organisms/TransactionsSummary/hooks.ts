@@ -1,7 +1,7 @@
 import {useCallback, useMemo, useState} from "react";
 import {useSelector} from "react-redux";
 import {useDateRangeTransactionsWithSearch, useFilterTransactionsByType} from "hooks/";
-import {Account} from "models/";
+import {Account, AccountData} from "models/";
 import {accountsSlice} from "store/";
 import {Id} from "utils/types";
 
@@ -31,8 +31,8 @@ export const useTransactionsSummary = () => {
     );
 
     return useMemo(() => {
-        const incomeAccounts = [];
-        const expenseAccounts = [];
+        const incomeAccounts: Array<AccountData> = [];
+        const expenseAccounts: Array<AccountData> = [];
 
         let incomeTotal = 0;
         let expenseTotal = 0;

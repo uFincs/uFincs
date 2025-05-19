@@ -1,11 +1,12 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .SubscriptionPlan {
     align-items: center;
     background-color: $color-background-light;
     border: 2px solid transparent;
     border-radius: $border-radius-normal;
-    box-shadow: 0 2px 6px transparentize($color: $color-neutral-600, $amount: 0.9);
+    box-shadow: 0 2px 6px color.adjust($color: $color-neutral-600, $alpha: -0.9);
     cursor: pointer;
     display: flex;
     height: 76px;
@@ -19,7 +20,7 @@
 
     &.SubscriptionPlan--selected {
         border: 2px solid $color-primary;
-        box-shadow: 0 4px 6px transparentize($color: $color-primary-600, $amount: 0.6);
+        box-shadow: 0 4px 6px color.adjust($color: $color-primary-600, $alpha: -0.6);
     }
 
     .SubscriptionPlan-left-section {

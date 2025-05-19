@@ -43,7 +43,7 @@ export const AccountForm = {
     optionalDetails() {
         return this.form().contains("Optional details");
     },
-    enterFormData(account: AccountFormData, openOptionalDetails: boolean = true) {
+    enterFormData(account: AccountFormData, _openOptionalDetails: boolean = true) {
         if (account.type !== undefined) {
             this.typePickerInput().contains(account.type).click();
         }

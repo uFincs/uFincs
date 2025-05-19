@@ -65,7 +65,7 @@ export const transactionsDateIndexSlice = createSliceWithSelectors({
         addTransaction,
         addTransactions,
         setTransactions: (
-            state: TransactionsDateIndexSliceState,
+            _state: TransactionsDateIndexSliceState,
             action: PayloadAction<Record<Id, TransactionData>>
         ): TransactionsDateIndexSliceState => {
             const {payload: transactionsById} = action;

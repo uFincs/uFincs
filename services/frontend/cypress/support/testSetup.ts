@@ -6,9 +6,9 @@ export const testSetup = () => {
         // Cypress seems to import/execute the support files twice.
         // As such, we need a less ephemeral state than a regular variable to make sure it only runs once.
         // For reference: https://github.com/cypress-io/cypress/issues/2777#issuecomment-580778536
-        // @ts-ignore Need to ts-ignore since `firstRun` is a custom config property.
+        // @ts-expect-error Need to ts-ignore since `firstRun` is a custom config property.
         if (Cypress.config("firstRun")) {
-            // @ts-ignore
+            // @ts-expect-error Need to ts-ignore since `firstRun` is a custom config property.
             Cypress.config("firstRun", false);
 
             // Reset the database before any tests are run to get it into a consistent state.

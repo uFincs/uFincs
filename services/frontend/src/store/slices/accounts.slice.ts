@@ -124,7 +124,7 @@ export const accountsSlice = createSliceWithSelectors({
         ) => removeTransactionFromAccounts({...state}, action),
 
         /* Saga Only Actions */
-        undoableDestroyAccount: (state: AccountsSliceState, action: PayloadAction<Id>) => state
+        undoableDestroyAccount: (state: AccountsSliceState, _action: PayloadAction<Id>) => state
     },
     selectors
 });

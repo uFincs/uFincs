@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {ConfirmationDialog} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -41,4 +40,5 @@ const NoAccountLogoutDialog = ({
 );
 
 export const PureComponent = NoAccountLogoutDialog;
-export default connect(NoAccountLogoutDialog);
+export const ConnectedNoAccountLogoutDialog = connect(NoAccountLogoutDialog);
+export default ConnectedNoAccountLogoutDialog;

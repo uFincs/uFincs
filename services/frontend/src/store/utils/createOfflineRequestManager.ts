@@ -356,7 +356,7 @@ export class OfflineRequestManager {
                             // Moved from online to offline.
                             yield put(actions.updateConnectivity(false));
                         }
-                    } catch (e) {
+                    } catch (_e) {
                         // Errors can result from the '_checkConnectivity' call failing.
                         if (wasPreviouslyOnline) {
                             // Moved from online to offline.
@@ -502,9 +502,8 @@ export class QueueableEffect {
 }
 
 /* The data structure that is provided as the '{payload}' for rollback sagas
- * (i.e. sagas registered using an OfflineRequestSlice's "watchRollbackSaga" function).
- */
-export class RollbackPayload<OriginalPayload extends any = any, RollbackData extends any = any> {
+ * (i.e. sagas registered using an OfflineRequestSlice's "watchRollbackSaga" function). */
+export class RollbackPayload<OriginalPayload = any, RollbackData = any> {
     originalPayload: OriginalPayload;
     rollbackData: RollbackData;
     error: ApiError;

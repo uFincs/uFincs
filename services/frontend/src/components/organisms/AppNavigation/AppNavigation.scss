@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .AppNavigation--large {
     display: none;
@@ -101,8 +102,9 @@ $fab-cutout-height: 34px;
     // The first shadow is the obvious inset shadow that mimics the ShadowButton.
     // The second shadow is a much more subtle shadow to highlight the side edges and a bit
     // of the top more.
-    box-shadow: 0 8px 6px -4px transparentize($color: $color-primary, $amount: 0.5),
-        0 4px 8px transparentize($color: $color-primary, $amount: 0.7);
+    box-shadow:
+        0 8px 6px -4px color.adjust($color: $color-primary, $alpha: -0.5),
+        0 4px 8px color.adjust($color: $color-primary, $alpha: -0.7);
 
     display: flex;
     justify-content: space-between;

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Controller} from "react-hook-form";
 import {Thinking} from "assets/graphics";
 import {
@@ -150,7 +149,8 @@ const AccountForm = ({
 };
 
 export const PureComponent = AccountForm;
-export default connect(AccountForm);
+export const ConnectedAccountForm = connect(AccountForm);
+export default ConnectedAccountForm;
 
 /* Other Components */
 

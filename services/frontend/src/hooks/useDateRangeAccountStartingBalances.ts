@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {shiftByOneInterval, DateRangeSize} from "hooks/useDateRange";
 import {Account} from "models/";
 import {DateService} from "services/";
-import {crossSliceSelectors} from "store/";
+import {crossSliceSelectors, State} from "store/";
 import {Id} from "utils/types";
 import {useDateRange} from "./useDateRange";
 
@@ -41,7 +41,7 @@ const useDateRangeAccountStartingBalances = (
 
     // Get the account balance from the beginning of time till right before the current date range.
     // This is used as the 'From' balance for Asset and Liability accounts.
-    const {balance: assetLiabilityBalance} = useSelector((storeState) =>
+    const {balance: assetLiabilityBalance} = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectAccountBetweenDates(
             storeState,
             "",
@@ -52,7 +52,7 @@ const useDateRangeAccountStartingBalances = (
 
     // Get the account balance in the previous date interval.
     // This is used as the 'From' balance for Income and Expense accounts.
-    const {balance: incomeExpenseBalance} = useSelector((storeState) =>
+    const {balance: incomeExpenseBalance} = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectAccountBetweenDates(
             storeState,
             previousIntervalState.startDate,
@@ -78,8 +78,8 @@ const useDateRangeAccountStartingBalances = (
     const startingBalance = isAllTime
         ? account.openingBalance
         : isAssetOrLiability
-        ? assetLiabilityBalance
-        : 0;
+          ? assetLiabilityBalance
+          : 0;
 
     // Determine what the 'From' balance is.
     //
@@ -92,8 +92,8 @@ const useDateRangeAccountStartingBalances = (
     const fromBalance = isAllTime
         ? account.openingBalance
         : isAssetOrLiability
-        ? assetLiabilityBalance
-        : incomeExpenseBalance;
+          ? assetLiabilityBalance
+          : incomeExpenseBalance;
 
     return {startingBalance, fromBalance};
 };

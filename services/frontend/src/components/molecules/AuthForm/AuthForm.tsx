@@ -1,7 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import classNames from "classnames";
-import React from "react";
-import {useForm} from "react-hook-form";
-import {FieldErrors} from "react-hook-form";
+import {useForm, FieldErrors} from "react-hook-form";
 
 import {Card, Link, OverlineHeading} from "components/atoms";
 import {LabelledInput, SubmitButton} from "components/molecules";

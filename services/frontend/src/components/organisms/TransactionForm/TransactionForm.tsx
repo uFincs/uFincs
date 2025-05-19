@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback} from "react";
+import {memo, useCallback} from "react";
 import {Controller, FormProvider} from "react-hook-form";
 import {Thinking} from "assets/graphics";
 import {Divider, FormSectionHeader} from "components/atoms";
@@ -29,7 +29,7 @@ export interface TransactionFormProps extends ConnectedProps {
 }
 
 /** A form for creating or editing a Transaction. */
-const TransactionForm = React.memo(
+const TransactionForm = memo(
     ({
         className,
         accountsByType,
@@ -295,7 +295,8 @@ const WrappedTransactionForm = (
 };
 
 export const PureComponent = WrappedTransactionForm;
-export default connect(WrappedTransactionForm);
+export const ConnectedWrappedTransactionForm = connect(WrappedTransactionForm);
+export default ConnectedWrappedTransactionForm;
 
 /* Other Components */
 

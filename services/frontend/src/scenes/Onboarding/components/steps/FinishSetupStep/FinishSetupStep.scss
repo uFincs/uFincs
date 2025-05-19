@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 .FinishSetupStep {
     @include wizard-process-step-styles();

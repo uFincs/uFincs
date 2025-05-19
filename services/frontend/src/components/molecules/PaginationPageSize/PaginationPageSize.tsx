@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback} from "react";
+import {useCallback} from "react";
+import * as React from "react";
 import {SelectInput} from "components/atoms";
 import {usePagination} from "hooks/";
 import "./PaginationPageSize.scss";

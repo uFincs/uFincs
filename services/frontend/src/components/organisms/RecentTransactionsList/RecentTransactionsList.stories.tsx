@@ -1,18 +1,23 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {storyData, storyUsingRedux, useCreateAccounts, useCreateTransactions} from "utils/stories";
 import {PureComponent as RecentTransactionsList} from "./RecentTransactionsList";
 
-export default {
+const meta: Meta<typeof RecentTransactionsList> = {
     title: "Organisms/Recent Transactions List",
     component: RecentTransactionsList
 };
 
-const {accounts, transactions} = storyData;
+export default meta;
+type Story = StoryObj<typeof RecentTransactionsList>;
 
 /** The default view of `RecentTransactionsList`. */
-export const Default = storyUsingRedux(() => {
-    useCreateAccounts(accounts);
-    useCreateTransactions(transactions);
+export const Default: Story = {
+    render: storyUsingRedux(() => {
+        const {accounts, transactions} = storyData;
 
-    return <RecentTransactionsList transactions={transactions} />;
-});
+        useCreateAccounts(accounts);
+        useCreateTransactions(transactions);
+
+        return <RecentTransactionsList transactions={transactions} />;
+    })
+};

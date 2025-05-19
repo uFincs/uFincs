@@ -71,10 +71,10 @@ describe("convertToTimestamp", () => {
     });
 
     it("throws an error when given an invalid date", () => {
-        // @ts-ignore Want to test null/undefined regardless of types.
+        // @ts-expect-error Want to test null/undefined regardless of types.
         expect(() => convertToTimestamp(null)).toThrow();
 
-        // @ts-ignore Want to test null/undefined regardless of types.
+        // @ts-expect-error Want to test null/undefined regardless of types.
         expect(() => convertToTimestamp(undefined)).toThrow();
 
         expect(() => convertToTimestamp("random string")).toThrow();
@@ -172,10 +172,10 @@ describe("stripTime", () => {
     });
 
     it("throws an error when given an invalid date", () => {
-        // @ts-ignore Want to test null/undefined regardless of types.
+        // @ts-expect-error Want to test null/undefined regardless of types.
         expect(() => stripTime(null)).toThrow();
 
-        // @ts-ignore Want to test null/undefined regardless of types.
+        // @ts-expect-error Want to test null/undefined regardless of types.
         expect(() => stripTime(undefined)).toThrow();
 
         expect(() => stripTime("random string")).toThrow();

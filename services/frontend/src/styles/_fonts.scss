@@ -1,0 +1,67 @@
+/** Font Faces **/
+
+/* nunito-regular - latin */
+@font-face {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Nunito Regular"),
+        local("Nunito-Regular"),
+        url("../assets/fonts/nunito-v12-latin-regular.woff2") format("woff2"),
+        url("../assets/fonts/nunito-v12-latin-regular.woff") format("woff");
+}
+
+/* nunito-600 - latin */
+@font-face {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 600;
+    src:
+        local("Nunito SemiBold"),
+        local("Nunito-SemiBold"),
+        url("../assets/fonts/nunito-v12-latin-600.woff2") format("woff2"),
+        url("../assets/fonts/nunito-v12-latin-600.woff") format("woff");
+}
+
+/* nunito-700 - latin */
+@font-face {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local("Nunito Bold"),
+        local("Nunito-Bold"),
+        url("../assets/fonts/nunito-v12-latin-700.woff2") format("woff2"),
+        url("../assets/fonts/nunito-v12-latin-700.woff") format("woff");
+}
+
+/** Font Families **/
+
+$font-family-default: "Nunito", sans-serif;
+
+/** Font Size Scale **/
+
+$font-size-25: 8px;
+$font-size-50: 10px;
+$font-size-100: 12px;
+$font-size-200: 14px;
+$font-size-300: 16px;
+$font-size-400: 18px;
+$font-size-500: 20px;
+$font-size-600: 24px;
+$font-size-700: 30px;
+$font-size-800: 36px;
+$font-size-900: 48px;
+
+/** Font Weight Scale **/
+
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+/** Line Height Scale **/
+
+$font-line-height-100: 1;
+$font-line-height-200: 1.2;
+$font-line-height-300: 1.5;

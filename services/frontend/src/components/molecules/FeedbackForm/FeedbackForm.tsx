@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {useForm} from "react-hook-form";
 import {Checkbox, TextAreaInput} from "components/atoms";
 import {CollapsibleSection, SubmitButton} from "components/molecules";
@@ -136,4 +135,5 @@ const FeedbackForm = ({
 };
 
 export const PureComponent = FeedbackForm;
-export default connect(FeedbackForm);
+export const ConnectedFeedbackForm = connect(FeedbackForm);
+export default ConnectedFeedbackForm;

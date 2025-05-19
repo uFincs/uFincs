@@ -1,13 +1,14 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as DeleteUserAccountForm} from "./DeleteUserAccountForm";
 
-export default {
+const meta: Meta<typeof DeleteUserAccountForm> = {
     title: "Organisms/Delete User Account Form",
     component: DeleteUserAccountForm
 };
 
-const formActions = actions("onSubmit");
+type Story = StoryObj<typeof DeleteUserAccountForm>;
 
 /** The default view of `DeleteUserAccountForm`. */
-export const Default = () => <DeleteUserAccountForm {...formActions} />;
+export const Default: Story = {};
+
+export default meta;

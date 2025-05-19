@@ -1,24 +1,33 @@
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {DateRangeProvider} from "hooks/";
 import {smallViewport} from "utils/stories";
 import SceneHeaderWithDateRangePicker from "./SceneHeaderWithDateRangePicker";
 
-export default {
+const meta: Meta<typeof SceneHeaderWithDateRangePicker> = {
     title: "Organisms/Scene Header with Date Range Picker",
-    component: SceneHeaderWithDateRangePicker
+    decorators: [
+        (Story) => (
+            <DateRangeProvider>
+                <Story />
+            </DateRangeProvider>
+        )
+    ],
+    component: SceneHeaderWithDateRangePicker,
+    args: {
+        title: "Dashboard"
+    }
 };
 
-const WrappedComponent = () => (
-    <DateRangeProvider>
-        <SceneHeaderWithDateRangePicker title={text("Title", "Dashboard")} />
-    </DateRangeProvider>
-);
+export default meta;
+
+type Story = StoryObj<typeof SceneHeaderWithDateRangePicker>;
 
 /** The large view of the `SceneHeaderWithDateRangePicker`. */
-export const Large = () => <WrappedComponent />;
+export const Large: Story = {};
 
 /** The small view of the `SceneHeaderWithDateRangePicker`. */
-export const Small = () => <WrappedComponent />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};

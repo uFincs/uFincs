@@ -1,52 +1,53 @@
-import {boolean, select} from "@storybook/addon-knobs";
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {Transaction} from "models/";
 import TransactionTypeIcon from "./TransactionTypeIcon";
 
-export default {
+const meta: Meta<typeof TransactionTypeIcon> = {
     title: "Atoms/Transaction Type Icon",
-    component: TransactionTypeIcon
+    component: TransactionTypeIcon,
+    args: {
+        withBackground: true,
+        type: Transaction.INCOME
+    }
 };
 
-const backgroundKnob = () => boolean("With Background", true);
-const typeKnob = () => select("Type", Transaction.TRANSACTION_TYPES, Transaction.INCOME);
+export default meta;
+type Story = StoryObj<typeof TransactionTypeIcon>;
 
 /** The default view of the `TransactionTypeIcon`, with configurable type. */
-export const Default = () => (
-    <TransactionTypeIcon type={typeKnob()} withBackground={backgroundKnob()} />
-);
+export const Default: Story = {};
 
 /** The checkbox view of the `TransactionTypeIcon`. */
-export const Checkbox = () => {
-    const [checked, setChecked] = useState(false);
-
-    return (
-        <TransactionTypeIcon
-            checkable={true}
-            checked={checked}
-            type={typeKnob()}
-            withBackground={backgroundKnob()}
-            onCheck={setChecked}
-        />
-    );
+export const Checkbox: Story = {
+    args: {
+        checkable: true
+    }
 };
 
 /** The income type of the `TransactionTypeIcon`. */
-export const Income = () => (
-    <TransactionTypeIcon type={Transaction.INCOME} withBackground={backgroundKnob()} />
-);
+export const Income: Story = {
+    args: {
+        type: Transaction.INCOME
+    }
+};
 
 /** The expense type of the `TransactionTypeIcon`. */
-export const Expense = () => (
-    <TransactionTypeIcon type={Transaction.EXPENSE} withBackground={backgroundKnob()} />
-);
+export const Expense: Story = {
+    args: {
+        type: Transaction.EXPENSE
+    }
+};
 
 /** The debt type of the `TransactionTypeIcon`. */
-export const Debt = () => (
-    <TransactionTypeIcon type={Transaction.DEBT} withBackground={backgroundKnob()} />
-);
+export const Debt: Story = {
+    args: {
+        type: Transaction.DEBT
+    }
+};
 
 /** The transfer type of the `TransactionTypeIcon`. */
-export const Transfer = () => (
-    <TransactionTypeIcon type={Transaction.TRANSFER} withBackground={backgroundKnob()} />
-);
+export const Transfer: Story = {
+    args: {
+        type: Transaction.TRANSFER
+    }
+};

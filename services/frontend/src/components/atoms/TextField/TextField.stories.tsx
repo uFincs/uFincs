@@ -1,11 +1,23 @@
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import TextField from "./TextField";
 
-export default {
+const meta: Meta<typeof TextField> = {
     title: "Atoms/Text Field",
-    component: TextField
+    component: TextField,
+    args: {
+        children: "Need an account?"
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof TextField>;
+
 /** It's text. Rejoice. */
-export const Default = () => <TextField>{text("Text", "Need an account?")}</TextField>;
+export const Default: Story = {};
+
+/** Custom text. */
+export const CustomText: Story = {
+    args: {
+        children: "This is a custom text."
+    }
+};

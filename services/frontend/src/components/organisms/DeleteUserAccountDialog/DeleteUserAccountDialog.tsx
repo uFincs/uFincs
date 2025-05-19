@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 import {Input, TextField} from "components/atoms";
 import {ConfirmationDialog} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -62,4 +62,5 @@ const DeleteUserAccountDialog = ({
 };
 
 export const PureComponent = DeleteUserAccountDialog;
-export default connect(DeleteUserAccountDialog);
+export const ConnectedDeleteUserAccountDialog = connect(DeleteUserAccountDialog);
+export default ConnectedDeleteUserAccountDialog;

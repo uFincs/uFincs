@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {TransactionsList} from "components/organisms";
 import {useDateRangeTransactions, useTransformTransactionsList} from "hooks/";
 import {TransactionViewProps} from "utils/componentTypes";
@@ -12,18 +12,16 @@ interface RecentTransactionsListProps extends TransactionViewProps {
 
 /** A version of the (mobile) `TransactionsList` that just shows the last 5 transactions
  *  for the current date range. */
-const RecentTransactionsList = React.memo(
-    ({className, ...otherProps}: RecentTransactionsListProps) => (
-        <div
-            className={classNames("RecentTransactionsList", className)}
-            data-testid="recent-transactions-list"
-        >
-            <h2 className="RecentTransactionsList-header">Last 5 Transactions for Period</h2>
+const RecentTransactionsList = memo(({className, ...otherProps}: RecentTransactionsListProps) => (
+    <div
+        className={classNames("RecentTransactionsList", className)}
+        data-testid="recent-transactions-list"
+    >
+        <h2 className="RecentTransactionsList-header">Last 5 Transactions for Period</h2>
 
-            <TransactionsList {...otherProps} />
-        </div>
-    )
-);
+        <TransactionsList {...otherProps} />
+    </div>
+));
 
 const WrappedRecentTransactionsList = (
     props: Omit<RecentTransactionsListProps, "transactions">

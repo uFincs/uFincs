@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {AlternativeAuthForm, AuthForm} from "components/molecules";
 import {AuthFormData, AuthType} from "components/molecules/AuthForm";
 import {useAlternativeFormAnimation} from "./hooks";

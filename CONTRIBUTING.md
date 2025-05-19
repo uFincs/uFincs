@@ -4,7 +4,7 @@ Welcome to uFincs! If you're looking to contribute _anything_ (whether it be a b
 
 ## Table of Contents
 
-- [Goals and Expecations](#goals-and-expectations-of-ufincs-as-an-open-source-project)
+- [Goals and Expectations](#goals-and-expectations-of-ufincs-as-an-open-source-project)
   - [Contributions we'll Consider](#contributions-well-consider)
   - [Contributions we'll Reject](#contributions-well-reject)
 - [Workflow](#workflow)
@@ -51,7 +51,7 @@ Through GitHub PRs:
 - Issues or PRs that do not follow other guidelines/templates
   - e.g. issues that are not descriptive enough, issues that just pose questions, issues that ask "why doesn't uFincs do X?", issues that do not follow the template in [Appendix A](#appendix-a-issue-template), etc
 
-\* Anything relating to any of the items on the list of "What does uFincs _not_ do?" in the main [README](README.md#about-ufincs) or anything relating to support/problems of the Native (Capacitor) apps will be instantly rejected. Additionally, I will — in general — be very aggressive about marking requests/ideas as "wontfix".
+\* Anything relating to any of the items on the list of "What does uFincs _not_ do?" in the main [README](README.md#about-ufincs). Additionally, I will — in general — be very aggressive about marking requests/ideas as "wontfix".
 
 ## Workflow
 
@@ -119,7 +119,7 @@ Note: Your submissions are understood to be under the same [MIT License](LICENSE
 
 ## Appendix B: PR Template
 
-[link to relavant issue and/or summary of changes being made]
+[link to relevant issue and/or summary of changes being made]
 
 Changelog:
 
@@ -144,7 +144,6 @@ The following are things to do/think about before submitting a PR:
 - Code is functional, tests/linter are passing
 - Code has been formatted using Prettier
 - Code has been documented sufficiently (e.g. comments explaining "why" not "what", public APIs documented, etc)
-- `CAPACITOR_CHANGELOG.md` (in the Frontend) has been updated (if relevant)
 
 Note: If you submit a PR that is obviously not adhering to some of these items, your PR will be rejected for wasting everyone's time.
 
@@ -180,6 +179,6 @@ The following are things to think about before submitting a PR that contains UI 
 - Keyboard navigation (including Vimium)
 - Webkit tap color
 - Scrollable in landscape
-- Cross browser compatiblity
+- Cross browser compatibility
 
 Note: If you submit a PR that is obviously not adhering to some of these items, your PR will be rejected for wasting everyone's time.

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {Label, Input} from "components/atoms";
 import {InputProps} from "components/atoms/Input";
 import "./LabelledInput.scss";

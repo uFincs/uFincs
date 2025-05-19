@@ -62,8 +62,8 @@ export default class ChartService {
             let amount = !usesRunningBalances
                 ? 0
                 : DateService.isSameDayDeconstructed(currentDateDC, startDateDC)
-                ? startingBalance
-                : data[index - 1].amount;
+                  ? startingBalance
+                  : data[index - 1].amount;
 
             // Need to turn `currentDateDC` back into a string for keying `transactionsByDate`.
             let currentDate = DateService.reconstructDateToUTCString(currentDateDC);
@@ -174,12 +174,12 @@ export default class ChartService {
         return daysBetween <= 60
             ? ChartDateInterval.days
             : // 180 days = ~1/2 year or 6 months
-            daysBetween <= 180
-            ? ChartDateInterval.weeks
-            : // 1800 days = ~5 years
-            daysBetween <= 1800
-            ? ChartDateInterval.months
-            : ChartDateInterval.years;
+              daysBetween <= 180
+              ? ChartDateInterval.weeks
+              : // 1800 days = ~5 years
+                daysBetween <= 1800
+                ? ChartDateInterval.months
+                : ChartDateInterval.years;
     }
 
     // Note: Need the tuple type otherwise the domain prop of the chart complains about it.

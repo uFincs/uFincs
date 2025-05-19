@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {Account} from "models/";
-import {crossSliceSelectors} from "store/";
+import {crossSliceSelectors, State} from "store/";
 import {Id} from "utils/types";
 import {useDateRange, DateRangeSize} from "./useDateRange";
 
@@ -21,7 +21,7 @@ const useDateRangeAccount = (id: Id) => {
 
     const endDate = isAllTime ? "" : state.endDate;
 
-    const account = useSelector((storeState) =>
+    const account = useSelector((storeState: State) =>
         crossSliceSelectors.accounts.selectAccountBetweenDates(storeState, startDate, endDate, id)
     );
 

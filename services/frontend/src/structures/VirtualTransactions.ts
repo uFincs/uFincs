@@ -208,7 +208,7 @@ export default class VirtualTransactions {
             return [];
         }
 
-        const transactions = [];
+        const transactions: Array<TransactionData> = [];
 
         for (const recurringTransaction of recurringTransactions) {
             const {id} = recurringTransaction;

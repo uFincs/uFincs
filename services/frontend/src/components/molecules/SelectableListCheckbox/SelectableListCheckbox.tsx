@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {Checkbox} from "components/atoms";
 import {useSelectableList} from "hooks/";
 import {Id} from "utils/types";

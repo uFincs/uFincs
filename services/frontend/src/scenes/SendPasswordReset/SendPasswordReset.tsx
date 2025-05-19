@@ -1,7 +1,6 @@
-import React from "react";
 import {LogoLink} from "components/molecules";
 import {SendPasswordResetForm} from "components/organisms";
-import {MarketingUrls} from "values/screenUrls";
+import {MarketingUrls} from "values/marketingUrls";
 import "./SendPasswordReset.scss";
 
 /** Scene for the form that sends a user a password reset link. */

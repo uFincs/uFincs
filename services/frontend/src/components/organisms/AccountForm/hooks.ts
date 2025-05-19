@@ -109,7 +109,7 @@ const useSubmissionHandlers = ({
     onClose
 }: {
     accountForEditing: Account | undefined;
-    nameRef: React.RefObject<HTMLInputElement>;
+    nameRef: React.RefObject<HTMLInputElement | null>;
     handleSubmit: ReactHookFormHandleSubmitFunction<AccountFormData>;
     reset: ReactHookFormResetFunction<AccountFormData>;
     trigger: ReactHookFormTriggerFunction;

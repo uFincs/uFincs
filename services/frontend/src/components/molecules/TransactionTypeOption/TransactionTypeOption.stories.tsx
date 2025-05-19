@@ -1,6 +1,4 @@
-import {action} from "@storybook/addon-actions";
-import {boolean, number, select} from "@storybook/addon-knobs";
-import React from "react";
+import type {Decorator, Meta, StoryObj} from "@storybook/react";
 import {Transaction} from "models/";
 import {smallViewport} from "utils/stories";
 import TransactionTypeOption, {
@@ -10,108 +8,81 @@ import TransactionTypeOption, {
     TransactionTypeOptionTransfer
 } from "./TransactionTypeOption";
 
-export default {
+const meta: Meta<typeof TransactionTypeOption> = {
     title: "Molecules/Transaction Type Option",
-    component: TransactionTypeOption
+    component: TransactionTypeOption,
+    args: {
+        active: false,
+        fromAmount: 14000,
+        currentAmount: 15000,
+        type: Transaction.INCOME
+    }
 };
 
-const clickAction = () => action("click");
+export default meta;
+type Story = StoryObj<typeof TransactionTypeOption>;
 
-const activeKnob = () => boolean("Active", false);
-const fromKnob = () => number("From Amount", 140000);
-const currentKnob = () => number("Current Amount", 150000);
-const typeKnob = () => select("Type", Transaction.TRANSACTION_TYPES, Transaction.INCOME);
+const FilteringDecorator: Decorator = (Story) => (
+    <div className="TransactionTypeOption--story-filtering">
+        <Story />
+    </div>
+);
 
 /** The default view of a `TransactionTypeOption`, with configurable props. */
-export const Default = () => (
-    <TransactionTypeOption active={activeKnob()} type={typeKnob()} onClick={clickAction()} />
-);
+export const Default: Story = {};
 
 /** The filtering view of a `TransactionTypeOption`, that shows from/current amounts. */
-export const ForFiltering = () => (
-    <TransactionTypeOption
-        className="TransactionTypeOption--story-filtering"
-        active={activeKnob()}
-        fromAmount={fromKnob()}
-        currentAmount={currentKnob()}
-        type={typeKnob()}
-        onClick={clickAction()}
-    />
-);
+export const ForFiltering: Story = {
+    decorators: [FilteringDecorator]
+};
 
 /** The small, for filtering, view of a `TransactionTypeOption`. */
-export const SmallForFiltering = () => (
-    <TransactionTypeOption
-        active={activeKnob()}
-        fromAmount={fromKnob()}
-        currentAmount={currentKnob()}
-        type={typeKnob()}
-        onClick={clickAction()}
-    />
-);
-
-SmallForFiltering.parameters = smallViewport;
+export const SmallForFiltering: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** The Income type of a `TransactionTypeOption`. */
-export const Income = () => (
-    <TransactionTypeOptionIncome active={activeKnob()} onClick={clickAction()} />
-);
+export const Income: Story = {
+    render: ({type: _type, ...args}) => <TransactionTypeOptionIncome {...args} />
+};
 
 /** The Income type of a `TransactionTypeOption`, for filtering. */
-export const IncomeFiltering = () => (
-    <TransactionTypeOptionIncome
-        className="TransactionTypeOption--story-filtering"
-        active={activeKnob()}
-        fromAmount={fromKnob()}
-        currentAmount={currentKnob()}
-        onClick={clickAction()}
-    />
-);
+export const IncomeFiltering: Story = {
+    decorators: [FilteringDecorator],
+    render: ({type: _type, ...args}) => <TransactionTypeOptionIncome {...args} />
+};
 
 /** The Expense type of a `TransactionTypeOption`. */
-export const Expense = () => (
-    <TransactionTypeOptionExpense active={activeKnob()} onClick={clickAction()} />
-);
+export const Expense: Story = {
+    render: ({type: _type, ...args}) => <TransactionTypeOptionExpense {...args} />
+};
 
 /** The Expense type of a `TransactionTypeOption`, for filtering. */
-export const ExpenseFiltering = () => (
-    <TransactionTypeOptionExpense
-        className="TransactionTypeOption--story-filtering"
-        active={activeKnob()}
-        fromAmount={fromKnob()}
-        currentAmount={currentKnob()}
-        onClick={clickAction()}
-    />
-);
+export const ExpenseFiltering: Story = {
+    decorators: [FilteringDecorator],
+    render: ({type: _type, ...args}) => <TransactionTypeOptionExpense {...args} />
+};
 
 /** The Debt type of a `TransactionTypeOption`. */
-export const Debt = () => (
-    <TransactionTypeOptionDebt active={activeKnob()} onClick={clickAction()} />
-);
+export const Debt: Story = {
+    render: ({type: _type, ...args}) => <TransactionTypeOptionDebt {...args} />
+};
 
 /** The Debt type of a `TransactionTypeOption`, for filtering. */
-export const DebtFiltering = () => (
-    <TransactionTypeOptionDebt
-        className="TransactionTypeOption--story-filtering"
-        active={activeKnob()}
-        fromAmount={fromKnob()}
-        currentAmount={currentKnob()}
-        onClick={clickAction()}
-    />
-);
+export const DebtFiltering: Story = {
+    decorators: [FilteringDecorator],
+    render: ({type: _type, ...args}) => <TransactionTypeOptionDebt {...args} />
+};
 
 /** The Transfer type of a `TransactionTypeOption`. */
-export const Transfer = () => (
-    <TransactionTypeOptionTransfer active={activeKnob()} onClick={clickAction()} />
-);
+export const Transfer: Story = {
+    render: ({type: _type, ...args}) => <TransactionTypeOptionTransfer {...args} />
+};
 
 /** The Transfer type of a `TransactionTypeOption`, for filtering. */
-export const TransferFiltering = () => (
-    <TransactionTypeOptionTransfer
-        className="TransactionTypeOption--story-filtering"
-        active={activeKnob()}
-        fromAmount={fromKnob()}
-        currentAmount={currentKnob()}
-        onClick={clickAction()}
-    />
-);
+export const TransferFiltering: Story = {
+    decorators: [FilteringDecorator],
+    render: ({type: _type, ...args}) => <TransactionTypeOptionTransfer {...args} />
+};

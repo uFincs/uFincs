@@ -1,13 +1,17 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import UndoToast from "./UndoToast";
 
-export default {
+const meta: Meta<typeof UndoToast> = {
     title: "Molecules/Undo Toast",
     component: UndoToast
 };
 
-const toastActions = actions("onClose", "onUndo");
+export default meta;
+type Story = StoryObj<typeof UndoToast>;
 
 /** The default view of an `UndoToast`. */
-export const Default = () => <UndoToast message="Deleted account 123" {...toastActions} />;
+export const Default: Story = {
+    args: {
+        message: "Deleted account 123"
+    }
+};

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Label} from "components/atoms";
 import {useRadioGroup} from "./hooks";
 import "./RadioGroup.scss";

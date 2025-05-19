@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useEffect, useRef} from "react";
+import {useCallback, useEffect, useRef} from "react";
+import * as React from "react";
 import {DeleteIcon, EditIcon, OverflowIcon} from "assets/icons";
 import {IconButton} from "components/atoms";
 import {
@@ -222,7 +223,7 @@ const SingleLayerListItem = React.forwardRef(
             actionsToShow,
             active = false,
             // Just destructuring so it doesn't get passed into the DOM under `otherProps`.
-            enableOnClickWithNoActions = false,
+            enableOnClickWithNoActions: _enableOnClickWithNoActions = false,
             onClick,
             onDelete,
             onEdit,

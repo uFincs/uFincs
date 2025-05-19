@@ -1,4 +1,4 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {DateRangeProvider} from "hooks/";
 import {
     smallViewport,
@@ -9,34 +9,43 @@ import {
 } from "utils/stories";
 import AccountDetails from "./AccountDetails";
 
-export default {
+const meta: Meta<typeof AccountDetails> = {
     title: "Scenes/Account Details",
-    component: AccountDetails
+    decorators: [
+        (Story) => (
+            <DateRangeProvider>
+                <Story />
+            </DateRangeProvider>
+        )
+    ],
+    component: AccountDetails,
+    args: {
+        id: storyData.accounts[0].id
+    },
+    render: storyUsingRedux((args) => {
+        useCreateAccounts(storyData.accounts);
+        useCreateTransactions(storyData.transactions);
+
+        return <AccountDetails {...args} />;
+    })
 };
 
-const WrappedAccountDetails = (props: any) => (
-    <DateRangeProvider>
-        <AccountDetails {...props} />
-    </DateRangeProvider>
-);
+export default meta;
+type Story = StoryObj<typeof AccountDetails>;
 
 /** The default view of the `AccountDetails` scene. */
-export const Default = storyUsingRedux(() => {
-    useCreateAccounts(storyData.accounts);
-    useCreateTransactions(storyData.transactions);
-
-    return <WrappedAccountDetails id={storyData.accounts[0].id} />;
-});
+export const Default: Story = {};
 
 /** The small view of the `AccountDetails` scene. */
-export const Small = storyUsingRedux(() => {
-    useCreateAccounts(storyData.accounts);
-    useCreateTransactions(storyData.transactions);
-
-    return <WrappedAccountDetails id={storyData.accounts[0].id} />;
-});
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};
 
 /** The `AccountDetails` scene with an invalid account. */
-export const InvalidAccount = storyUsingRedux(() => <WrappedAccountDetails id="" />);
+export const InvalidAccount: Story = {
+    args: {
+        id: ""
+    }
+};

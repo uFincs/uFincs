@@ -4,7 +4,7 @@ import {createSliceWithSelectors} from "store/utils";
 
 /* State */
 
-interface ServiceWorkerState {}
+type ServiceWorkerState = object;
 
 const initialState: ServiceWorkerState = {};
 

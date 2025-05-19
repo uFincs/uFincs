@@ -25,7 +25,7 @@ The following is a high-level breakdown of the file structure. More detailed exp
 ```
 ├── config                          # Feathers configuration files
 ├── Dockerfile                      # Docker configuration for production
-├── Dockerfile.development          # Docker configuration for development
+├── Dockerfile.dev                  # Docker configuration for development
 ├── jest.config.js                  # Misc jest config
 ├── Makefile                        # Makefile for common developer commands; used by Kubails
 ├── package.json                    # You know what this is
@@ -69,7 +69,7 @@ Note: You still need to have the database running (and configured) for the Backe
 To run the Backend service standalone using Docker:
 
 ```
-docker build -t ufincs-backend -f Dockerfile.development .
+docker build -t ufincs-backend -f Dockerfile.dev .
 docker run -it --rm -p 5000:5000 ufincs-backend
 ```
 

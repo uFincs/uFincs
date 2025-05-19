@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import React, {useCallback, useContext, useReducer, useMemo} from "react";
+import {useCallback, useContext, useReducer, useMemo} from "react";
+import * as React from "react";
 import {Id} from "utils/types";
 
 // Hooks + Context state for enabling a 'selectable list' component (i.e. a list where
@@ -78,8 +80,9 @@ export const selectableListSlice = createSlice({
 /* React Context */
 
 const SelectableListStateContext = React.createContext<SelectableListState | undefined>(undefined);
-const SelectableListDispatchContext =
-    React.createContext<SelectableListDispatch | undefined>(undefined);
+const SelectableListDispatchContext = React.createContext<SelectableListDispatch | undefined>(
+    undefined
+);
 
 /* Utility Hooks */
 

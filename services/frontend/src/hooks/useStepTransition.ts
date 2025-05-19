@@ -60,12 +60,10 @@ const useStepTransition = (currentStep: number) => {
     const transition = useTransition(currentStep, {
         key: currentStep,
         unique: true,
-        /* eslint-disable */
         // This trick of using position: static on from/enter and absolute on leave was taken from
         // https://codesandbox.io/s/18y0pky3z7 which was found from:
         // https://spectrum.chat/react-spring/general/directional-slide-transition~2aa59979-07a7-44db-b12e-0422b7574649.
         // Note: The container of the steps must have position: relative for this to work properly.
-        /* eslint-enable */
         from: {x: `${100 * direction}%`, opacity: 0, position: "static"},
         enter: {x: "0%", opacity: 1, position: "static"},
         leave: {

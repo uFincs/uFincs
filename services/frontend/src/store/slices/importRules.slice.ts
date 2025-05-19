@@ -41,7 +41,7 @@ export const importRulesSlice = createSliceWithSelectors({
         ...crudSliceReducerFactory<ImportRulesSliceState, ImportRuleData>(),
 
         /* Saga Only Actions */
-        undoableDestroyImportRule: (state: ImportRulesSliceState, action: PayloadAction<Id>) =>
+        undoableDestroyImportRule: (state: ImportRulesSliceState, _action: PayloadAction<Id>) =>
             state
     },
     selectors

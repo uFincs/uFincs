@@ -1,24 +1,32 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport, storyUsingRedux, useCreateImportRules} from "utils/stories";
 import CombinedImportRulesView from "./CombinedImportRulesView";
 
-export default {
+const meta: Meta<typeof CombinedImportRulesView> = {
     title: "Organisms/Combined Import Rules View",
     component: CombinedImportRulesView
 };
 
-/** The large view of `CombinedImportRulesView`. */
-export const Large = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
+export default meta;
+type Story = StoryObj<typeof CombinedImportRulesView>;
 
-    return <CombinedImportRulesView importRules={rules} />;
-});
+/** The large view of `CombinedImportRulesView`. */
+export const Large: Story = {
+    render: storyUsingRedux((args) => {
+        const rules = useCreateImportRules();
+
+        return <CombinedImportRulesView {...args} importRules={rules} />;
+    })
+};
 
 /** The small view of `CombinedImportRulesView`. */
-export const Small = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    },
+    render: storyUsingRedux((args) => {
+        const rules = useCreateImportRules();
 
-    return <CombinedImportRulesView importRules={rules} />;
-});
-
-Small.parameters = smallViewport;
+        return <CombinedImportRulesView {...args} importRules={rules} />;
+    })
+};

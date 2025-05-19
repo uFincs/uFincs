@@ -1,5 +1,4 @@
-import {act, renderHook} from "@testing-library/react-hooks";
-import React from "react";
+import {act, renderHook} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 import {
     usePaginationDispatch,
@@ -14,24 +13,22 @@ const mockTotalPages = 3;
 
 const InternalStateWrapper =
     (totalItems = mockTotalItems) =>
-    ({children, ...otherProps}: any) =>
-        (
-            <PaginationProvider totalItems={totalItems} {...otherProps}>
-                {children}
-            </PaginationProvider>
-        );
+    ({children, ...otherProps}: any) => (
+        <PaginationProvider totalItems={totalItems} {...otherProps}>
+            {children}
+        </PaginationProvider>
+    );
 
 const UrlWrapper =
     (totalItems = mockTotalItems) =>
-    ({children, ...otherProps}: any) =>
-        (
-            // Use a MemoryRouter so that we don't have to mock anything with ConnectedRouter.
-            <MemoryRouter>
-                <PaginationUrlProvider totalItems={totalItems} {...otherProps}>
-                    {children}
-                </PaginationUrlProvider>
-            </MemoryRouter>
-        );
+    ({children, ...otherProps}: any) => (
+        // Use a MemoryRouter so that we don't have to mock anything with ConnectedRouter.
+        <MemoryRouter>
+            <PaginationUrlProvider totalItems={totalItems} {...otherProps}>
+                {children}
+            </PaginationUrlProvider>
+        </MemoryRouter>
+    );
 
 const renderHooks = (wrapper = InternalStateWrapper) =>
     renderHook(
@@ -74,7 +71,7 @@ describe("usePagination hooks", () => {
             });
 
             act(() => {
-                // @ts-ignore We want to pass a non-number to represent the user changing the URL.
+                // @ts-expect-error We want to pass a non-number to represent the user changing the URL.
                 result.current.dispatch.setCurrentPage("abc");
             });
 

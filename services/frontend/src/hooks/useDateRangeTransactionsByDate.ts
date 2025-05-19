@@ -1,12 +1,12 @@
 import {useMemo} from "react";
 import {useDateRangeTransactions} from "hooks/";
-import {Transaction} from "models/";
+import {Transaction, TransactionData} from "models/";
 import {Id, UTCDateString} from "utils/types";
 
 /** Selects the transactions in the current date range and indexes back by date. */
 const useDateRangeTransactionsByDate = (
     id?: Id | undefined
-): Record<UTCDateString, Array<Transaction>> => {
+): Record<UTCDateString, Array<TransactionData>> => {
     // Get the transactions in the current interval.
     const transactions = useDateRangeTransactions();
 

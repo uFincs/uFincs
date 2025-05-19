@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {useFormContext} from "react-hook-form";
 import {FormCardContainer, SelectInput} from "components/atoms";
 import {LabelledInput} from "components/molecules";

@@ -1,18 +1,24 @@
-import {boolean, number} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import FromAmount from "./FromAmount";
 
-export default {
+const meta: Meta<typeof FromAmount> = {
     title: "Atoms/From Amount",
-    component: FromAmount
+    component: FromAmount,
+    args: {
+        amount: 140000,
+        lightShade: false
+    }
 };
 
-const lightShadeKnob = () => boolean("Light Shade", false);
+export default meta;
+type Story = StoryObj<typeof FromAmount>;
 
 /** The default view of the `FromAmount`. */
-export const Default = () => (
-    <FromAmount amount={number("Amount", 140000)} lightShade={lightShadeKnob()} />
-);
+export const Default: Story = {};
 
 /** The light view of the `FromAmount`, for use on dark backgrounds. */
-export const LightShade = () => <FromAmount amount={number("Amount", 140000)} lightShade={true} />;
+export const LightShade: Story = {
+    args: {
+        lightShade: true
+    }
+};

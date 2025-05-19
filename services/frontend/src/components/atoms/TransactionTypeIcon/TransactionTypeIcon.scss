@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 // These are the sizes of the total TransactionTypeIcon, including icon and padding.
 $transaction-type-icon-size-small: $size-icon-small + ($size-icon-button-padding * 2);

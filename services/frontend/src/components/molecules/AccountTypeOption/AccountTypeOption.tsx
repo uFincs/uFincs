@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {CurrentAmount, OptionCard} from "components/atoms";
 import {OptionCardProps} from "components/atoms/OptionCard";
 import {Account, AccountType} from "models/";
@@ -7,10 +7,12 @@ import {ValueFormatting} from "services/";
 import {Cents} from "utils/types";
 import "./AccountTypeOption.scss";
 
-interface AccountTypeOptionProps extends OptionCardProps {
+interface BaseAccountTypeOptionProps extends OptionCardProps {
     /** The (optional) total (current) balance of the type, for use when filtering accounts. */
     balance?: Cents;
+}
 
+interface AccountTypeOptionProps extends BaseAccountTypeOptionProps {
     /** The Account type for this option. */
     type: AccountType;
 }
@@ -43,25 +45,25 @@ const AccountTypeOption = React.forwardRef(
 );
 
 export const AccountTypeOptionAsset = React.forwardRef(
-    (props: Omit<AccountTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
+    (props: BaseAccountTypeOptionProps, ref: React.Ref<HTMLDivElement>) => (
         <AccountTypeOption type={Account.ASSET} ref={ref} {...props} />
     )
 );
 
 export const AccountTypeOptionLiability = React.forwardRef(
-    (props: Omit<AccountTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
+    (props: BaseAccountTypeOptionProps, ref: React.Ref<HTMLDivElement>) => (
         <AccountTypeOption type={Account.LIABILITY} ref={ref} {...props} />
     )
 );
 
 export const AccountTypeOptionIncome = React.forwardRef(
-    (props: Omit<AccountTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
+    (props: BaseAccountTypeOptionProps, ref: React.Ref<HTMLDivElement>) => (
         <AccountTypeOption type={Account.INCOME} ref={ref} {...props} />
     )
 );
 
 export const AccountTypeOptionExpense = React.forwardRef(
-    (props: Omit<AccountTypeOptionProps, "type">, ref: React.Ref<HTMLDivElement>) => (
+    (props: BaseAccountTypeOptionProps, ref: React.Ref<HTMLDivElement>) => (
         <AccountTypeOption type={Account.EXPENSE} ref={ref} {...props} />
     )
 );

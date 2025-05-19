@@ -1,13 +1,27 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
+import {TransactionsSearchProvider} from "hooks/";
 import TransactionsImportEditForm from "./TransactionsImportEditForm";
 
-export default {
+const meta: Meta<typeof TransactionsImportEditForm> = {
     title: "Organisms/Transactions Import Edit Form",
+    decorators: [
+        (Story) => (
+            <TransactionsSearchProvider>
+                <Story />
+            </TransactionsSearchProvider>
+        )
+    ],
     component: TransactionsImportEditForm
 };
 
-const formActions = actions("onClose");
+export default meta;
+type Story = StoryObj<typeof TransactionsImportEditForm>;
 
 /** The default view of `TransactionsImportEditForm`. */
-export const Default = () => <TransactionsImportEditForm {...formActions} />;
+export const Default: Story = {
+    args: {},
+    parameters: {
+        ...actions("onClose")
+    }
+};

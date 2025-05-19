@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {StepDescription} from "components/molecules";
 import {SelectableAccountsList} from "components/organisms";
 import {ValueFormatting} from "services/";
@@ -15,7 +15,7 @@ interface BaseStepProps extends ConnectedProps {
     children: React.ReactNode;
 }
 
-/**  */
+/** The base layout for a step. */
 const BaseStep = ({
     className,
     children,
@@ -50,4 +50,5 @@ const BaseStep = ({
     </>
 );
 
-export default connect(BaseStep);
+const ConnectedBaseStep = connect(BaseStep);
+export default ConnectedBaseStep;

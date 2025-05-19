@@ -41,5 +41,5 @@ export type {
     RecurringTransactionWeekday
 } from "./RecurringTransaction";
 
-export {default as Transaction} from "./Transaction";
-export type {TransactionData, TransactionType, TransactionSortOption} from "./Transaction";
+export {default as Transaction, TransactionType} from "./Transaction";
+export type {TransactionData, TransactionSortOption} from "./Transaction";

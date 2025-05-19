@@ -1,5 +1,5 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta} from "@storybook/react";
 import {TransactionsSearchProvider} from "hooks/";
 import {
     smallViewport,
@@ -11,10 +11,15 @@ import {
 } from "utils/stories";
 import TransactionForm, {PureComponent as PureTransactionForm} from "./TransactionForm";
 
-export default {
+const meta: Meta<typeof PureTransactionForm> = {
     title: "Organisms/Transaction Form",
-    component: PureTransactionForm
+    component: PureTransactionForm,
+    args: {
+        accountsByType: storyData.accountsByType
+    }
 };
+
+export default meta;
 
 const formActions = actions("onClose", "onSubmit", "onSubmitRecurring", "onNewTransaction");
 

@@ -105,8 +105,8 @@ export const useTransactionsTableRow = ({
     const onRowClick = isVirtualTransaction
         ? nullCallback
         : selectable
-        ? () => onToggleRowSelection(id)
-        : onClick;
+          ? () => onToggleRowSelection(id)
+          : onClick;
 
     const onFocusNav = useFocusNavigation(index);
     const onClickWithKeyDown = useOnActiveKey(onRowClick);

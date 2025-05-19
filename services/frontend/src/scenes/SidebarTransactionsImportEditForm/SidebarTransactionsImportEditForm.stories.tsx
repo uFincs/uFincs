@@ -1,38 +1,47 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
-import {smallViewport, smallLandscapeViewport} from "utils/stories";
-import SidebarTransactionsImportEditForm, {
-    PureComponent as PureSidebarTransactionsImportEditForm
-} from "./SidebarTransactionsImportEditForm";
+import type {Meta, StoryObj} from "@storybook/react";
+import SidebarTransactionsImportEditForm from "./SidebarTransactionsImportEditForm";
 
-export default {
+const meta: Meta<typeof SidebarTransactionsImportEditForm> = {
     title: "Scenes/Sidebar Transactions Import Edit Form",
-    component: PureSidebarTransactionsImportEditForm
+    component: SidebarTransactionsImportEditForm,
+    args: {
+        isVisible: true
+    }
 };
 
-const formActions = actions("onClose");
-
-const visibilityKnob = () => boolean("Visible", true);
+export default meta;
+type Story = StoryObj<typeof SidebarTransactionsImportEditForm>;
 
 /** The large (desktop) view of the `SidebarTransactionsImportEditForm`. */
-export const Large = () => (
-    <SidebarTransactionsImportEditForm isVisible={visibilityKnob()} {...formActions} />
-);
+export const Large: Story = {
+    args: {
+        isVisible: true
+    }
+};
 
 /** The small (mobile) view of the `SidebarTransactionsImportEditForm`. */
-export const Small = () => (
-    <SidebarTransactionsImportEditForm isVisible={visibilityKnob()} {...formActions} />
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    args: {
+        isVisible: false
+    },
+    parameters: {
+        viewport: {default: "small"}
+    }
+};
 
 /** The small (mobile) landscape view of the `SidebarTransactionsImportEditForm`. */
-export const SmallLandscape = () => (
-    <SidebarTransactionsImportEditForm isVisible={visibilityKnob()} {...formActions} />
-);
-
-SmallLandscape.parameters = smallLandscapeViewport;
+export const SmallLandscape: Story = {
+    args: {
+        isVisible: false
+    },
+    parameters: {
+        viewport: {default: "smallLandscape"}
+    }
+};
 
 /** A story for testing that the connected `SidebarTransactionsImportEditForm` is working. */
-export const Connected = () => <SidebarTransactionsImportEditForm isVisible={visibilityKnob()} />;
+export const Connected: Story = {
+    args: {
+        isVisible: true
+    }
+};

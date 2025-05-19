@@ -1,4 +1,3 @@
-import React from "react";
 import {Sidebar} from "components/atoms";
 import {AccountForm} from "components/organisms";
 import connect, {ConnectedProps} from "./connect";
@@ -19,4 +18,5 @@ const SidebarAccountForm = ({isVisible, onClose}: SidebarAccountFormProps) => (
 );
 
 export const PureComponent = SidebarAccountForm;
-export default connect(SidebarAccountForm);
+const ConnectedSidebarAccountForm = connect(SidebarAccountForm);
+export default ConnectedSidebarAccountForm;

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {StepDescription} from "components/molecules";
 import {AccountsList} from "components/organisms";
@@ -44,4 +43,5 @@ const FinishSetupStep = ({className, accountsByType, finishOnboarding}: FinishSe
     </>
 );
 
-export default connect(FinishSetupStep);
+const ConnectedFinishSetupStep = connect(FinishSetupStep);
+export default ConnectedFinishSetupStep;

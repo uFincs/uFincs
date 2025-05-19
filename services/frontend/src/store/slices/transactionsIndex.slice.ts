@@ -94,7 +94,7 @@ export const transactionsIndexSlice = createSliceWithSelectors({
         addTransaction,
         addTransactions,
         setTransactions: (
-            state: TransactionsIndexSliceState,
+            _state: TransactionsIndexSliceState,
             action: PayloadAction<Record<Id, TransactionData>>
         ): TransactionsIndexSliceState => {
             // Expects an object of Transactions indexed by ID

@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useEffect, useMemo, useRef, useCallback} from "react";
+import {useEffect, useMemo, useRef, useCallback} from "react";
+import * as React from "react";
 import {Button, SelectInput} from "components/atoms";
 import {ButtonProps} from "components/atoms/Button";
 import {useDateRange, useKeyboardNavigation} from "hooks/";

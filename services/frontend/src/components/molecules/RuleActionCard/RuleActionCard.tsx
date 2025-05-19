@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {useFormContext} from "react-hook-form";
 import {FormCardContainer, SelectInput} from "components/atoms";
 import {LabelledInput} from "components/molecules";
@@ -54,7 +53,8 @@ const RuleActionCard = ({
 );
 
 export const PureComponent = RuleActionCard;
-export default connect(RuleActionCard);
+export const ConnectedRuleActionCard = connect(RuleActionCard);
+export default ConnectedRuleActionCard;
 
 /** Other Components */
 

@@ -1,18 +1,16 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
-import {PureComponent as PureAccountDeletionDialog} from "./AccountDeletionDialog";
+import type {Meta, StoryObj} from "@storybook/react";
+import {PureComponent as AccountDeletionDialog} from "./AccountDeletionDialog";
 
-export default {
+const meta: Meta<typeof AccountDeletionDialog> = {
     title: "Organisms/Account Deletion Dialog",
-    component: PureAccountDeletionDialog
+    component: AccountDeletionDialog,
+    args: {
+        isVisible: true
+    }
 };
 
-const dialogActions = actions("onClose", "onDelete");
-
-const visibilityKnob = () => boolean("Visible", true);
+export default meta;
+type Story = StoryObj<typeof AccountDeletionDialog>;
 
 /** The default view of the `AccountDeletionDialog`. */
-export const Default = () => (
-    <PureAccountDeletionDialog isVisible={visibilityKnob()} {...dialogActions} />
-);
+export const Default: Story = {};

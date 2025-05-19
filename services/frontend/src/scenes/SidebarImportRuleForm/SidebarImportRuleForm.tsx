@@ -1,4 +1,3 @@
-import React from "react";
 import {Sidebar} from "components/atoms";
 import {ImportRuleForm} from "components/organisms";
 import connect, {ConnectedProps} from "./connect";
@@ -19,4 +18,5 @@ const SidebarImportRuleForm = ({isVisible, onClose}: SidebarImportRuleFormProps)
 );
 
 export const PureComponent = SidebarImportRuleForm;
-export default connect(SidebarImportRuleForm);
+const ConnectedSidebarImportRuleForm = connect(SidebarImportRuleForm);
+export default ConnectedSidebarImportRuleForm;

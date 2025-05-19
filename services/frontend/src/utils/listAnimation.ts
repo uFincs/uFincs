@@ -1,3 +1,5 @@
+import * as React from "react";
+
 // All of these values were determined experimentally so that the animation of the
 // list items would look as natural as possible, while still being fairly fast.
 //
@@ -8,11 +10,16 @@ const DURATION = 225;
 
 export type IndexCalculator = (newItemCount?: number) => number;
 
+export interface AnimationProps {
+    animationDelay: string;
+    animationDuration: string;
+}
+
 type ListGenerator = (
     indexCalculator: IndexCalculator
-) => Array<JSX.Element | Array<JSX.Element | null | undefined>>;
+) => Array<React.JSX.Element | Array<React.JSX.Element | null | undefined>>;
 
-const calculateAnimation = (index: number) => ({
+const calculateAnimation = (index: number): AnimationProps => ({
     animationDelay: `${BASE_DELAY * index}ms`,
     animationDuration: `${DURATION}ms`
 });

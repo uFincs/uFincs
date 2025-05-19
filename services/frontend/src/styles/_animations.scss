@@ -1,0 +1,265 @@
+@use "sass:string";
+@import "@/styles/_device_support";
+@import "@/styles/_non_sticky_interactions";
+
+/** Animation/Transition Scales **/
+
+$transition-micro-length: 150ms;
+$transition-micro-easing: ease-out;
+
+$transition-short-length: 300ms;
+$transition-short-easing: ease-in-out;
+
+// Taken from https://css-tricks.com/making-css-animations-feel-natural/.
+$transition-custom-ease-out-curve: cubic-bezier(0.28, 0.84, 0.42, 1);
+
+/** Semantic Animation/Transition Values **/
+
+$complete-auth-form-small-animation-time: 400ms;
+
+$circular-countdown-interval: 1000ms;
+
+/** Various Mixins for Animating/Transitioning **/
+
+@mixin micro-transition($properties...) {
+    $transitions: "";
+
+    @each $prop in $properties {
+        $transitions: $transitions +
+            "#{$prop} #{$transition-micro-length} #{$transition-micro-easing},";
+    }
+
+    // Remove the trailing comma, otherwise it'll be considered an "invalid property value".
+    $transitions: string.slice($transitions, 1, -2);
+
+    transition: #{$transitions};
+}
+
+@mixin short-transition($properties...) {
+    $transitions: "";
+
+    @each $prop in $properties {
+        $transitions: $transitions +
+            "#{$prop} #{$transition-short-length} #{$transition-short-easing},";
+    }
+
+    // Remove the trailing comma, otherwise it'll be considered an "invalid property value".
+    $transitions: string.slice($transitions, 1, -2);
+
+    transition: #{$transitions};
+}
+
+@mixin micro-interactive-bounce($disable-immobile-focus: false) {
+    @include micro-transition(transform);
+
+    @include non-sticky-interactions {
+        %base {
+            transform: translateY(0);
+        }
+
+        %hover {
+            transform: translateY(-1px);
+        }
+
+        @if not $disable-immobile-focus {
+            %focus-regular {
+                transform: translateY(0);
+            }
+        }
+
+        %active-override {
+            transform: translateY(1px);
+        }
+    }
+}
+
+/** This animation was taken and modified from
+ * https://css-tricks.com/making-css-animations-feel-natural/.
+ *
+ * Instead of bouncing up and down, it instead left-to-left.
+ * The scales add a bit of distortion that makes the bounce a bit more lifelike.
+ *
+ * @param name
+ * Name of the animation that can be used in `animation-name`.
+ *
+ * @param final-translation
+ * How much the element is translated at it's final resting position.
+ *
+ * @param first-bounce-offset
+ * How much the element bounces during the first bounce.
+ *
+ * @param second-bounce-offset
+ * How much the element bounces during the second bounce.
+ *
+ * @param reverse
+ * Whether or not to reverse the direction of the translation.
+ * (it is left-to-right by default, reversing makes it right-to-left)
+ *
+ * @param other-transform
+ * Any other transforms that should consistently be applied.
+ * (useful for elements that use the absolute vertical centering trick)
+ *
+ */
+@mixin generate-bounce-animation(
+    $name,
+    $final-translation,
+    $first-bounce-offset,
+    $second-bounce-offset,
+    $reverse: false,
+    $other-transform: null
+) {
+    $starting-position: 0;
+    $final-position: $final-translation;
+
+    $first-bounce: $first-bounce-offset;
+    $second-bounce: -($second-bounce-offset);
+
+    @if $reverse == true {
+        $starting-position: $final-translation;
+        $final-position: 0;
+
+        $first-bounce: -($first-bounce-offset);
+        $second-bounce: $second-bounce-offset;
+    }
+
+    @keyframes #{$name} {
+        0% {
+            transform: scale(1, 1) translateX($starting-position) $other-transform;
+        }
+
+        10% {
+            transform: scale(1, 0.95) translateX($starting-position) $other-transform;
+        }
+
+        // The first bounce.
+        30% {
+            transform: scale(0.95, 1.05) translateX($final-position + $first-bounce)
+                $other-transform;
+        }
+
+        // The second bounce bounce.
+        50% {
+            transform: scale(1.05, 0.95) translateX($final-position + $second-bounce)
+                $other-transform;
+        }
+
+        // Final resting spot.
+        60% {
+            transform: scale(1, 1) translateX($final-position) $other-transform;
+        }
+
+        100% {
+            transform: scale(1, 1) translateX($final-position) $other-transform;
+        }
+    }
+}
+
+@mixin trigger-animate-in-list-item() {
+    animation-fill-mode: both;
+    animation-name: animate-in-list-item;
+    animation-timing-function: ease-in-out;
+}
+
+// This is for using with the `react-transition-group`s CSSTransition.
+// Just give the component's name to the `classNames` prop on CSSTransition and include
+// this mixin with the base class.
+@mixin react-transition-fade() {
+    &-enter {
+        opacity: 0;
+    }
+
+    &-enter-active {
+        @include short-transition(opacity);
+
+        opacity: 1;
+    }
+
+    &-exit {
+        opacity: 1;
+    }
+
+    &-exit-active {
+        @include short-transition(opacity);
+
+        opacity: 0;
+    }
+}
+
+/** Actual Keyframe Animations **/
+
+@keyframes wrap-around {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translateX(100vw);
+    }
+
+    51% {
+        transform: translateX(-100vw);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes wrap-around-reverse {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: 0;
+        transform: translateX(-100vw);
+    }
+
+    51% {
+        transform: translateX(100vw);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes error-shake {
+    0% {
+        transform: translateX(15px);
+    }
+
+    20% {
+        transform: translateX(-15px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-8px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes animate-in-list-item {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(150px);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

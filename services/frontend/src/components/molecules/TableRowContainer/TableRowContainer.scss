@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 .TableRowContainer {
     @include keyboard-navigation-outline($focus-within: false);

@@ -1,18 +1,18 @@
-import {actions} from "@storybook/addon-actions";
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import {Meta, StoryObj} from "@storybook/react";
 import {DocumentIcon} from "assets/icons";
 import ImportOptionButton from "./ImportOptionButton";
 
-export default {
+const meta: Meta<typeof ImportOptionButton> = {
     title: "Molecules/Import Option Button",
-    component: ImportOptionButton
+    component: ImportOptionButton,
+    args: {
+        label: "CSV File",
+        Icon: DocumentIcon
+    }
 };
 
-const buttonActions = actions("onClick");
-const labelKnob = () => text("Label", "CSV File");
+export default meta;
+type Story = StoryObj<typeof ImportOptionButton>;
 
 /** The default view of `ImportOptionButton`. */
-export const Default = () => (
-    <ImportOptionButton Icon={DocumentIcon} label={labelKnob()} {...buttonActions} />
-);
+export const Default: Story = {};

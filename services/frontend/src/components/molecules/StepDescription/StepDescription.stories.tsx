@@ -1,20 +1,20 @@
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import StepDescription from "./StepDescription";
 
-export default {
+const meta: Meta<typeof StepDescription> = {
     title: "Molecules/Step Description",
-    component: StepDescription
+    component: StepDescription,
+    args: {
+        title: "Where are your transactions going?"
+    }
 };
 
-const titleKnob = () => text("Title", "Where are your transactions going?");
+export default meta;
+type Story = StoryObj<typeof StepDescription>;
 
 /** An example view of `StepDescription`, filled out with some sample content. */
-export const Example = () => (
-    <StepDescription title={titleKnob()}>
-        <p>
-            You first need to choose the <strong>account</strong> that your transactions will be{" "}
-            <strong>imported to</strong>.
-        </p>
-    </StepDescription>
-);
+export const Example: Story = {
+    args: {
+        // title is already defined in meta args
+    }
+};

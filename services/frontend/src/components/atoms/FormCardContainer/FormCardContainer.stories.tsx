@@ -1,32 +1,28 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
-import {Input} from "components/atoms";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport} from "utils/stories";
+import Input from "../Input";
 import FormCardContainer from "./FormCardContainer";
 
-export default {
+const meta: Meta<typeof FormCardContainer> = {
     title: "Atoms/Form Card Container",
-    component: FormCardContainer
+    component: FormCardContainer,
+    args: {
+        topRowChildren: <Input noErrorIcon={true} />,
+        bottomRowChildren: <Input noErrorIcon={true} />,
+        ...actions("onRemove")
+    }
 };
 
-const cardActions = actions("onRemove");
+export default meta;
+type Story = StoryObj<typeof FormCardContainer>;
 
 /** The default view of `FormCardContainer`. */
-export const Default = () => (
-    <FormCardContainer
-        topRowChildren={<Input noErrorIcon={true} />}
-        bottomRowChildren={<Input noErrorIcon={true} />}
-        {...cardActions}
-    />
-);
+export const Default: Story = {};
 
 /** The small view of `FormCardContainer`. */
-export const Small = () => (
-    <FormCardContainer
-        topRowChildren={<Input noErrorIcon={true} />}
-        bottomRowChildren={<Input noErrorIcon={true} />}
-        {...cardActions}
-    />
-);
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    }
+};

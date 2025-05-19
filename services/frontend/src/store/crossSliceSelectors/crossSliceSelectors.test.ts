@@ -304,10 +304,12 @@ describe("Transactions Import selectors", () => {
             const account = crossSliceSelectors.transactionsImport.selectAccount(state);
 
             // Zero out the properties that don't matter for testing purposes.
-            account.balance = 0;
-            account.transactions = [];
+            // Use a clone so that it doesn't affect the store state.
+            const clonedAccount = {...account};
+            clonedAccount.balance = 0;
+            clonedAccount.transactions = [];
 
-            expect(account).toMatchObject(creditAccount);
+            expect(clonedAccount).toMatchObject(creditAccount);
         });
     });
 

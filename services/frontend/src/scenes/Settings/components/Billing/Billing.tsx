@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {SubmitButton} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -34,4 +33,5 @@ const Billing = ({className, error, loading, gotoCustomerPortal}: BillingProps) 
 );
 
 export const PureComponent = Billing;
-export default connect(Billing);
+const ConnectedBilling = connect(Billing);
+export default ConnectedBilling;

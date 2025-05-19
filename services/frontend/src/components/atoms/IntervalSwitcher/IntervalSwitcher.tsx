@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {animated} from "react-spring";
 import {useDrag} from "react-use-gesture";
 import {ChevronLeftIcon, ChevronRightIcon} from "assets/icons";

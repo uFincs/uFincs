@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 import {Card, Divider, LinkButton, OverlineHeading} from "components/atoms";
 import {RadioGroup, SubmitButton, SubscriptionPlan} from "components/molecules";
 import {BillingService} from "services/";
@@ -80,4 +80,5 @@ const SubscriptionPlanForm = ({
 };
 
 export const PureComponent = SubscriptionPlanForm;
-export default connect(SubscriptionPlanForm);
+export const ConnectedSubscriptionPlanForm = connect(SubscriptionPlanForm);
+export default ConnectedSubscriptionPlanForm;

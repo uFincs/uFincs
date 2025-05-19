@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {useCurrencySymbol} from "hooks/";
 import {MathUtils, ValueConversion, ValueFormatting} from "services/";
 import {Cents} from "utils/types";
@@ -72,7 +71,6 @@ const AmountChange = ({
                 {"AmountChange--light-shade": lightShade},
                 className
             )}
-            // eslint-disable-next-line max-len
             title={`Yeah, there isn't really a 'percentage' for ${currencySymbol}0 to ${currencySymbol}0 :(`}
         >
             N/A

@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .IconButton {
     @include keyboard-navigation-outline();
@@ -55,15 +56,15 @@
             }
 
             %hover-dark {
-                background-color: lighten($color-background-dark, 20%);
+                background-color: color.adjust($color-background-dark, $lightness: 20%);
             }
 
             %active-override-dark {
-                background-color: lighten($color-background-dark, 30%);
+                background-color: color.adjust($color-background-dark, $lightness: 30%);
             }
 
             %disabled-dark {
-                @include svg-icon-color(lighten($color-background-dark, 20%));
+                @include svg-icon-color(color.adjust($color-background-dark, $lightness: 20%));
 
                 background-color: transparent;
                 cursor: default;

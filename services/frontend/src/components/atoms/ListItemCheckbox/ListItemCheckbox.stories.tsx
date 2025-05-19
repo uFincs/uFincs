@@ -1,28 +1,24 @@
-import React, {useState} from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import ListItemCheckbox from "./ListItemCheckbox";
 
-export default {
+const meta: Meta<typeof ListItemCheckbox> = {
     title: "Atoms/List Item Checkbox",
-    component: ListItemCheckbox
+    component: ListItemCheckbox,
+    args: {
+        "aria-label": "Select",
+        checked: false
+    }
 };
+
+export default meta;
+type Story = StoryObj<typeof ListItemCheckbox>;
 
 /** The primary (default) variant view of `ListItemCheckbox`. */
-export const PrimaryVariant = () => {
-    const [checked, setChecked] = useState(false);
-
-    return <ListItemCheckbox aria-label="Select" checked={checked} onCheck={setChecked} />;
-};
+export const PrimaryVariant: Story = {};
 
 /** The positive variant view of `ListItemCheckbox`. */
-export const PositiveVariant = () => {
-    const [checked, setChecked] = useState(false);
-
-    return (
-        <ListItemCheckbox
-            aria-label="Select"
-            checked={checked}
-            variant="positive"
-            onCheck={setChecked}
-        />
-    );
+export const PositiveVariant: Story = {
+    args: {
+        variant: "positive"
+    }
 };

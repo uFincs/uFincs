@@ -9,9 +9,7 @@
         "PROJECT_NAME": "",
         "email": "test@test.com",
         "password": "test",
-        "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d",
-        "mailslurpInboxId": "1bbf8bfb-6f4e-420f-b8d2-c641c725e031",
-        "mailslurpEmail": "1bbf8bfb-6f4e-420f-b8d2-c641c725e031@mailslurp.com"
+        "userId": "3e26fac0-7786-40f3-86bb-f175ff3d721d"
     },
     "modifyObstructiveCode": false,
     "numTestsKeptInMemory": 10,

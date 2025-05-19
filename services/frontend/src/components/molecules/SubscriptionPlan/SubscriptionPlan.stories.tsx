@@ -1,60 +1,47 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import SubscriptionPlan from "./SubscriptionPlan";
 
-export default {
+const meta: Meta<typeof SubscriptionPlan> = {
     title: "Molecules/Subscription Plan",
-    component: SubscriptionPlan
+    component: SubscriptionPlan,
+    args: {
+        className: "SubscriptionPlan--story",
+        alternativePeriod: "year",
+        alternativePrice: "120",
+        monthlyPrice: "10.00",
+        name: "Annually",
+        percentOff: "50",
+        selected: false
+    }
 };
 
-const planActions = actions("onSelected");
-
-const alternativePeriod = (value = "year") => text("Alternative Period", value);
-const alternativePrice = (value = "120") => text("Alternative Price", value);
-const monthlyPrice = (value = "10.00") => text("Monthly Price", value);
-const name = (value = "Annually") => text("Name", value);
-const percentOff = (value = "50") => text("Percent Off", value);
-const selected = () => boolean("Selected", false);
+export default meta;
+type Story = StoryObj<typeof SubscriptionPlan>;
 
 /** The monthly plan version of `SubscriptionPlan`. */
-export const Monthly = () => (
-    <SubscriptionPlan
-        className="SubscriptionPlan--story"
-        alternativePeriod={alternativePeriod()}
-        alternativePrice={alternativePrice("")}
-        monthlyPrice={monthlyPrice("20.00")}
-        name={name("Monthly")}
-        percentOff={percentOff("")}
-        selected={selected()}
-        {...planActions}
-    />
-);
+export const Monthly: Story = {
+    args: {
+        alternativePeriod: "year",
+        monthlyPrice: "20.00",
+        name: "Monthly"
+    }
+};
 
 /** The annual plan version of `SubscriptionPlan`. */
-export const Annually = () => (
-    <SubscriptionPlan
-        className="SubscriptionPlan--story"
-        alternativePeriod={alternativePeriod()}
-        alternativePrice={alternativePrice()}
-        monthlyPrice={monthlyPrice()}
-        name={name()}
-        percentOff={percentOff()}
-        selected={selected()}
-        {...planActions}
-    />
-);
+export const Annually: Story = {
+    args: {
+        alternativePeriod: "year",
+        alternativePrice: "120",
+        monthlyPrice: "10.00",
+        name: "Annually",
+        percentOff: "50"
+    }
+};
 
 /** The lifetime plan version of `SubscriptionPlan`. */
-export const Lifetime = () => (
-    <SubscriptionPlan
-        className="SubscriptionPlan--story"
-        alternativePeriod={alternativePeriod("")}
-        alternativePrice={alternativePrice("400")}
-        monthlyPrice={monthlyPrice("")}
-        name={name("Lifetime")}
-        percentOff={percentOff("")}
-        selected={selected()}
-        {...planActions}
-    />
-);
+export const Lifetime: Story = {
+    args: {
+        alternativePrice: "400",
+        name: "Lifetime"
+    }
+};

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {ChartContainer, ChartStats, DateAmountLineChart} from "components/charts/components";
 import {AccountData, AccountType} from "models/";
 // TODO: Uncomment once we bring back Account interest.
@@ -39,7 +39,7 @@ interface AccountBalanceChartProps extends Omit<WrappedAccountBalanceChartProps,
 
 /** The chart to display an account's balance, along with some account stats like
  *  current balance and interest. */
-const AccountBalanceChart = React.memo(
+const AccountBalanceChart = memo(
     ({
         className,
         account,
@@ -114,7 +114,12 @@ interface AccountStatsProps {
 }
 
 /** These are just some stats to show above the chart. Primarily account balances. */
-const AccountStats = ({currentBalance, fromBalance, interest, type}: AccountStatsProps) => (
+const AccountStats = ({
+    currentBalance,
+    fromBalance,
+    interest: _interest,
+    type: _type
+}: AccountStatsProps) => (
     <div className="AccountStats">
         <ChartStats currentAmount={currentBalance} fromAmount={fromBalance} title="Balance" />
 

@@ -171,7 +171,7 @@ describe("Accounts and Type Filtering", () => {
             return acc;
         },
         {asset: [], liability: [], income: [], expense: []} as {
-            [key: string]: Array<typeof seedData.ACCOUNTS[0]>;
+            [key: string]: Array<(typeof seedData.ACCOUNTS)[0]>;
         }
     );
 

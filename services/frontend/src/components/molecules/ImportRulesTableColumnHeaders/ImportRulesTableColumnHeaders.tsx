@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback, useMemo} from "react";
+import {useCallback, useMemo} from "react";
 import {TableColumnHeader} from "components/molecules";
 import {ImportRule, ImportRuleSortOption} from "models/";
 import {TableSortDirection} from "utils/types";

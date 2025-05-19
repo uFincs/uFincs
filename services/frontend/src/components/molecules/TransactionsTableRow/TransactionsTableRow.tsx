@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {TransactionTypeIcon} from "components/atoms";
 import {TableRowActions, TableRowContainer} from "components/molecules";
 import {Transaction} from "models/";
@@ -191,7 +191,8 @@ const TransactionsTableRow = ({
 };
 
 export const PureComponent = TransactionsTableRow;
-export default connect(TransactionsTableRow);
+export const ConnectedTransactionsTableRow = connect(TransactionsTableRow);
+export default ConnectedTransactionsTableRow;
 
 /* Other Components */
 

@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useRef} from "react";
+import {useRef} from "react";
+import * as React from "react";
 import {CSSTransition} from "react-transition-group";
 import {useOutsideCloseable} from "hooks/";
 import {transitionShortLength as animationTime} from "utils/parsedStyles";
@@ -25,8 +26,15 @@ export interface DialogContainerProps {
 /** The container for modal dialogs. Handles the base stylings and transitions. */
 const DialogContainer = React.forwardRef(
     (
-        // Need to destructure isVisible to prevent passing to div under otherProps.
-        {className, isVisible, title, onClose, children, ...otherProps}: DialogContainerProps,
+        {
+            className,
+            // Need to destructure isVisible to prevent passing to div under otherProps.
+            isVisible: _isVisible,
+            title,
+            onClose,
+            children,
+            ...otherProps
+        }: DialogContainerProps,
         ref
     ) => {
         const {

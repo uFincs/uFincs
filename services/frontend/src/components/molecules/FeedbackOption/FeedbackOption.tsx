@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {ErrorIcon, LightBulbIcon, OverflowHorizontalIcon} from "assets/icons";
 import {Feedback, FeedbackType} from "models/";
 import "./FeedbackOption.scss";

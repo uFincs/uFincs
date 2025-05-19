@@ -1,0 +1,21 @@
+FROM node:22.14.0-bullseye-slim@sha256:73a9dfbb6c761aebdf4666cce2627635a30d1d4c20f67ff642d01b8f09e709a3
+
+RUN apt update && apt install -y git
+
+ENV NPM_CONFIG_LOGLEVEL="warn"
+ENV CYPRESS_INSTALL_BINARY=0
+
+ARG app_env
+ENV NODE_ENV="$app_env"
+
+RUN mkdir -p /frontend && chown node /frontend
+USER node
+WORKDIR /frontend
+
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm ci
+
+COPY --chown=node:node . .
+EXPOSE 3000
+
+CMD ["./scripts/run.sh"]

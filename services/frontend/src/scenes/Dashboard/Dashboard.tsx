@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {memo} from "react";
 import {DelayedRender} from "components/atoms";
 import {IncomeExpenseChart, NetWorthChart} from "components/charts";
 import {
@@ -16,7 +16,7 @@ interface DashboardProps {
 }
 
 /** The Dashboard scene. Shows some pretty charts and graphics summarizing the user's finances. */
-const Dashboard = React.memo(
+const Dashboard = memo(
     ({className}: DashboardProps) => {
         // Normally the AppRouter handles scrolling to the top on route changes,
         // but when exiting the onboarding process there is no route change.

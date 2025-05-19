@@ -1,17 +1,22 @@
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport} from "utils/stories";
 import LoadingSpinner from "./LoadingSpinner";
 
-export default {
+const meta: Meta<typeof LoadingSpinner> = {
     title: "Atoms/Loading Spinner",
-    component: LoadingSpinner
+    component: LoadingSpinner,
+    args: {
+        loading: true
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof LoadingSpinner>;
+
 /** A `LoadingSpinner` that loads. */
-export const Normal = () => <LoadingSpinner loading={boolean("Loading", true)} />;
+export const Normal: Story = {};
 
 /** What the `LoadingSpinner` looks like on small devices. */
-export const Small = () => <LoadingSpinner loading={boolean("Loading", true)} />;
-
-Small.parameters = smallViewport;
+export const Small: Story = {
+    parameters: smallViewport
+};

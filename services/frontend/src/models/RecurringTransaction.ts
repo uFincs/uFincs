@@ -375,12 +375,13 @@ export default class RecurringTransaction {
             case RecurringTransaction.FREQUENCIES.monthly:
                 formData.onMonthday = `${on}`;
                 break;
-            case RecurringTransaction.FREQUENCIES.yearly:
+            case RecurringTransaction.FREQUENCIES.yearly: {
                 const {month, day} = DateService.getMonthDayFromDayOfYear(on);
 
                 formData.onMonth = `${month}`;
                 formData.onDay = `${day}`;
                 break;
+            }
         }
 
         return formData;

@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
+import * as React from "react";
 import {TextField} from "components/atoms";
 import {LabelledSelectInput} from "components/molecules";
 import {CurrencyOptions} from "values/currencies";
@@ -74,4 +75,5 @@ const CurrencyPreferenceForm = ({
 };
 
 export const PureComponent = CurrencyPreferenceForm;
-export default connect(CurrencyPreferenceForm);
+export const ConnectedCurrencyPreferenceForm = connect(CurrencyPreferenceForm);
+export default ConnectedCurrencyPreferenceForm;

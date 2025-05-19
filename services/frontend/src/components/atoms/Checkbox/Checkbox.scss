@@ -1,4 +1,4 @@
-@import "styles/_shared.scss";
+@import "@/styles/_shared";
 
 .Checkbox-container {
     @include keyboard-navigation-outline();

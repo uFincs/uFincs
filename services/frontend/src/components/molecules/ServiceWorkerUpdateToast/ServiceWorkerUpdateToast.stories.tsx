@@ -1,15 +1,16 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import ServiceWorkerUpdateToast from "./ServiceWorkerUpdateToast";
 
-export default {
+const meta: Meta<typeof ServiceWorkerUpdateToast> = {
     title: "Molecules/Service Worker Update Toast",
-    component: ServiceWorkerUpdateToast
+    component: ServiceWorkerUpdateToast,
+    args: {
+        message: "A new version is available"
+    }
 };
 
-const toastActions = actions("onClose", "onUpdate");
+export default meta;
+type Story = StoryObj<typeof ServiceWorkerUpdateToast>;
 
 /** The default view of `ServiceWorkerUpdateToast`. */
-export const Default = () => (
-    <ServiceWorkerUpdateToast message="A new version is available" {...toastActions} />
-);
+export const Default: Story = {};

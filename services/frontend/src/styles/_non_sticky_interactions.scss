@@ -1,4 +1,4 @@
-@import "styles/_device_support.scss";
+@import "@/styles/_device_support";
 
 // This is a very cool mixin that I came up with for abstracting how to do 'non-sticky'
 // interactions on mobile. That is, once the user is no longer interacting with an element,

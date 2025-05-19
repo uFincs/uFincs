@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {SuccessIcon} from "assets/icons";
 import {Logo, TextField} from "components/atoms";
 import {AuthForm, LogoLink} from "components/molecules";
@@ -55,7 +55,8 @@ const NoAccountSignUp = ({className, error, loading, onSignUp}: NoAccountSignUpP
 );
 
 export const PureComponent = NoAccountSignUp;
-export default connect(NoAccountSignUp);
+export const ConnectedNoAccountSignUp = connect(NoAccountSignUp);
+export default ConnectedNoAccountSignUp;
 
 /* Other Components */
 

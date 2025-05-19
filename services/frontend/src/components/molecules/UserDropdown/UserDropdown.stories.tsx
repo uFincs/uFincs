@@ -1,11 +1,14 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as UserDropdown} from "./UserDropdown";
 
-export default {
+const meta: Meta<typeof UserDropdown> = {
     title: "Molecules/User Dropdown",
     component: UserDropdown
 };
+
+export default meta;
+type Story = StoryObj<typeof UserDropdown>;
 
 const dropdownActions = actions(
     "onChangelog",
@@ -16,8 +19,8 @@ const dropdownActions = actions(
 );
 
 /** The default view of the `UserDropdown`. */
-export const Default = () => (
-    <div className="UserDropdown--story-container">
-        <UserDropdown {...dropdownActions} />
-    </div>
-);
+export const Default: Story = {
+    args: {
+        ...dropdownActions
+    }
+};

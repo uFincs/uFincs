@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {Wallet} from "assets/graphics";
 import {EmptyArea} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -45,4 +44,5 @@ const EmptyTransactionsArea = ({
 );
 
 export const PureComponent = EmptyTransactionsArea;
-export default connect(EmptyTransactionsArea);
+export const ConnectedEmptyTransactionsArea = connect(EmptyTransactionsArea);
+export default ConnectedEmptyTransactionsArea;

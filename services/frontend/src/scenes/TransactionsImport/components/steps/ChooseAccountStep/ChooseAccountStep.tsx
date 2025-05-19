@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {TextField} from "components/atoms";
 import {AccountTypePicker, LabelledSelectInput, StepDescription} from "components/molecules";
 import {useAccountOptions} from "hooks/";
@@ -85,4 +85,5 @@ const ChooseAccountStep = ({
     );
 };
 
-export default connect(ChooseAccountStep);
+const ConnectedChooseAccountStep = connect(ChooseAccountStep);
+export default ConnectedChooseAccountStep;

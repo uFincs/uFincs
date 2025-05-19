@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useRef} from "react";
+import {useRef} from "react";
 import {animated} from "react-spring";
 import {CloseIcon, ErrorIcon, SuccessIcon, WarningIcon} from "assets/icons";
 import {CircularCountdown, IconButton, TextField} from "components/atoms";
@@ -53,6 +53,7 @@ const LargeToast = ({
     const label = `${title} ${message}`;
 
     return (
+        // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
         <animated.div
             className={classNames("LargeToast", `LargeToast--${variant}`, className)}
             aria-label={label}

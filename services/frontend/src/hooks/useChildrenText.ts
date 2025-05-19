@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 /** A hook that converts a component's string children into a single string.
  *  This is useful for, e.g., buttons to derive a `title` prop from their children/label. */

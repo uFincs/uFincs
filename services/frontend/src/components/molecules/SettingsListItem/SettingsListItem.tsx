@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import {JSX} from "react";
 import {ChevronRightIcon} from "assets/icons";
 import {TextField} from "components/atoms";
 import {ListItem} from "components/molecules";

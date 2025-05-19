@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useCallback, useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
+import * as React from "react";
 import {SearchIcon} from "assets/icons";
 import {Input} from "components/atoms";
 import {InputProps} from "components/atoms/Input";

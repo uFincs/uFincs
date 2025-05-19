@@ -40,7 +40,6 @@ export {default as useKeyboardNavigation} from "./useKeyboardNavigation";
 export {default as useLifetimeSubscription} from "./useLifetimeSubscription";
 export {default as useLongPress} from "./useLongPress";
 export {default as useMapObjectsToIds} from "./useMapObjectsToIds";
-export {default as useNativeBackButton} from "./useNativeBackButton";
 export {default as useNoAccount} from "./useNoAccount";
 export {default as useOnActiveKey} from "./useOnActiveKey";
 export {default as useOnBecomeInvisible} from "./useOnBecomeInvisible";

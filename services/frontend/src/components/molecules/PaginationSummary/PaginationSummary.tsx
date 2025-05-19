@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {TextField} from "components/atoms";
 import {usePagination} from "hooks/";
 import {MathUtils} from "services/";

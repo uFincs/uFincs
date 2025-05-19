@@ -5,7 +5,6 @@ import Transaction, {TransactionType} from "./Transaction";
 
 describe("Constructor", () => {
     it("converts string amounts to integers", () => {
-        // @ts-ignore Allow testing string values for amount.
         const transaction = new Transaction({amount: "123"});
 
         expect(transaction.amount).toBe(123);
@@ -43,13 +42,13 @@ describe("validate", () => {
     });
 
     it("checks for type existence", () => {
-        // @ts-ignore Allow testing invalid types.
+        // @ts-expect-error Allow testing invalid types.
         const invalidTransaction = new Transaction({...validTransaction, type: ""});
         expect(() => invalidTransaction.validate()).toThrow("type");
     });
 
     it("checks for valid type", () => {
-        // @ts-ignore Allow testing invalid types.
+        // @ts-expect-error Allow testing invalid types.
         const invalidTransaction = new Transaction({...validTransaction, type: "test"});
         expect(() => invalidTransaction.validate()).toThrow("type");
     });
@@ -58,7 +57,7 @@ describe("validate", () => {
         it("rejects amounts that are null", () => {
             const invalidTransaction = new Transaction({...validTransaction});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidTransaction.amount = null;
 
             expect(() => invalidTransaction.validate()).toThrow("amount");
@@ -67,7 +66,7 @@ describe("validate", () => {
         it("rejects amounts that are undefined", () => {
             const invalidTransaction = new Transaction({...validTransaction});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidTransaction.amount = undefined;
 
             expect(() => invalidTransaction.validate()).toThrow("amount");
@@ -76,7 +75,7 @@ describe("validate", () => {
         it("rejects amounts that are not numbers", () => {
             const invalidTransaction = new Transaction({...validTransaction});
 
-            // @ts-ignore Allow testing invalid values.
+            // @ts-expect-error Allow testing invalid values.
             invalidTransaction.amount = "test";
 
             expect(() => invalidTransaction.validate()).toThrow("amount");
@@ -232,13 +231,9 @@ describe("amountSortAsc", () => {
     });
 
     it("can sort the transactions even if the amounts are strings", () => {
-        // @ts-ignore Allow testing invalid values.
         const lowestTransaction = new Transaction({amount: "100.00"});
-        // @ts-ignore Allow testing invalid values.
         const lowTransaction = new Transaction({amount: "200.00"});
-        // @ts-ignore Allow testing invalid values.
         const highTransaction = new Transaction({amount: "300.00"});
-        // @ts-ignore Allow testing invalid values.
         const highestTransaction = new Transaction({amount: "400.00"});
 
         const scrambledTransactions = [
@@ -345,7 +340,7 @@ describe("sort", () => {
     });
 
     it("can sort by 'date' ascending", () => {
-        expect(Transaction.sort(transactions, "date", "asc")).toEqual(dateDesc.reverse());
+        expect(Transaction.sort(transactions, "date", "asc")).toEqual([...dateDesc].reverse());
     });
 
     it("can sort by 'description' descending", () => {
@@ -354,7 +349,7 @@ describe("sort", () => {
 
     it("can sort by 'description' ascending", () => {
         expect(Transaction.sort(transactions, "description", "asc")).toEqual(
-            descriptionDesc.reverse()
+            [...descriptionDesc].reverse()
         );
     });
 
@@ -363,7 +358,7 @@ describe("sort", () => {
     });
 
     it("can sort by 'amount' ascending", () => {
-        expect(Transaction.sort(transactions, "amount", "asc")).toEqual(amountDesc.reverse());
+        expect(Transaction.sort(transactions, "amount", "asc")).toEqual([...amountDesc].reverse());
     });
 
     it("can sort by 'from' descending", () => {
@@ -371,7 +366,7 @@ describe("sort", () => {
     });
 
     it("can sort by 'from' ascending", () => {
-        expect(Transaction.sort(transactions, "from", "asc")).toEqual(fromDesc.reverse());
+        expect(Transaction.sort(transactions, "from", "asc")).toEqual([...fromDesc].reverse());
     });
 
     it("can sort by 'to' descending", () => {
@@ -379,7 +374,7 @@ describe("sort", () => {
     });
 
     it("can sort by 'to' ascending", () => {
-        expect(Transaction.sort(transactions, "to", "asc")).toEqual(toDesc.reverse());
+        expect(Transaction.sort(transactions, "to", "asc")).toEqual([...toDesc].reverse());
     });
 });
 
@@ -419,7 +414,7 @@ describe("determineAccountFlow", () => {
     });
 
     it("gives a default for unknown types", () => {
-        // @ts-ignore Allow testing invalid types.
+        // @ts-expect-error Allow testing invalid types.
         expect(partiallyAppliedFunc("whatever")).toEqual({
             leftAccount: creditAccount,
             rightAccount: debitAccount
@@ -457,7 +452,7 @@ describe("determineAccountTypes", () => {
     });
 
     it("maps invalid transaction types to emptiness", () => {
-        // @ts-ignore Allow testing invalid types.
+        // @ts-expect-error Allow testing invalid types.
         expect(Transaction.determineAccountTypes("whatever")).toEqual({
             creditAccountTypes: [],
             debitAccountTypes: []

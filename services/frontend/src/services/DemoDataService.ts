@@ -207,41 +207,47 @@ export default class DemoDataService {
         const recurringTransactions = DemoDataService.generateRecurringTransactions(accounts);
         const transactions = DemoDataService.generateTransactions(accounts);
 
-        const accountsById = (Object.keys(accounts) as Array<AccountType>).reduce((acc, type) => {
-            for (const account of accounts[type]) {
-                acc[account.id] = account;
-            }
+        const accountsById = (Object.keys(accounts) as Array<AccountType>).reduce(
+            (acc, type) => {
+                for (const account of accounts[type]) {
+                    acc[account.id] = account;
+                }
 
-            return acc;
-        }, {} as Record<Id, Account>);
+                return acc;
+            },
+            {} as Record<Id, Account>
+        );
 
         return {accounts: accountsById, recurringTransactions, transactions};
     }
 
     static generateAccounts(): Record<AccountType, Array<Account>> {
-        return (Object.keys(ACCOUNT_NAMES) as Array<AccountType>).reduce((acc, type) => {
-            const names = ACCOUNT_NAMES[type];
-            const namesSubset = pickRandomElements(
-                names,
-                names.length - MathUtils.getRandomInt(1, 4)
-            );
+        return (Object.keys(ACCOUNT_NAMES) as Array<AccountType>).reduce(
+            (acc, type) => {
+                const names = ACCOUNT_NAMES[type];
+                const namesSubset = pickRandomElements(
+                    names,
+                    names.length - MathUtils.getRandomInt(1, 4)
+                );
 
-            acc[type] = namesSubset.map(
-                (name) =>
-                    new Account({
-                        name,
-                        type,
-                        openingBalance:
-                            type === Account.ASSET
-                                ? MathUtils.getRandomInt(100000, 1000000)
-                                : type === Account.LIABILITY
-                                ? MathUtils.getRandomInt(0, 100000)
-                                : 0
-                    })
-            );
+                acc[type] = namesSubset.map(
+                    (name) =>
+                        new Account({
+                            name,
+                            type,
+                            openingBalance:
+                                type === Account.ASSET
+                                    ? MathUtils.getRandomInt(100000, 1000000)
+                                    : type === Account.LIABILITY
+                                      ? MathUtils.getRandomInt(0, 100000)
+                                      : 0
+                        })
+                );
 
-            return acc;
-        }, {} as Record<AccountType, Array<Account>>);
+                return acc;
+            },
+            {} as Record<AccountType, Array<Account>>
+        );
     }
 
     static generateTransactions(

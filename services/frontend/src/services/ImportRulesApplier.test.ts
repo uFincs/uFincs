@@ -129,7 +129,7 @@ describe("applyRules", () => {
             }
         ];
 
-        const testInputs = [];
+        const testInputs: Array<any> = [];
 
         // Create every possible combination of one condition and one action that creates
         // a valid (active) rule.
@@ -139,19 +139,15 @@ describe("applyRules", () => {
                     for (const conditionValuePair of conditionValuePairs) {
                         for (const actionValuePair of actionValuePairs) {
                             if (
-                                // @ts-ignore Allow indexing.
                                 actionValuePair[actionProperty] &&
-                                // @ts-ignore Allow indexing.
                                 conditionValuePair.condition === condition
                             ) {
                                 const testInput = {
                                     condition,
                                     conditionProperty,
-                                    // @ts-ignore Allow indexing.
                                     conditionValue: conditionValuePair.conditionValue,
                                     conditionMatches: conditionValuePair.valid,
                                     actionProperty,
-                                    // @ts-ignore Allow indexing.
                                     actionValue: actionValuePair[actionProperty],
                                     transactionProperty: actionValuePair.transactionProperty,
                                     transactionType: actionValuePair.transactionType,
@@ -199,12 +195,9 @@ describe("applyRules", () => {
                 });
 
                 if (conditionMatches) {
-                    // @ts-ignore Allow indexing.
                     expect(outputTransaction[transactionProperty]).toBe(actionValue);
                 } else {
-                    // @ts-ignore Allow indexing.
                     expect(outputTransaction[transactionProperty]).toBe(
-                        // @ts-ignore Allow indexing.
                         inputTransaction[transactionProperty]
                     );
                 }

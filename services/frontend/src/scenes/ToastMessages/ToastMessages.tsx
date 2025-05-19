@@ -1,4 +1,3 @@
-import React from "react";
 import {animated, useTransition} from "react-spring";
 import {SmallToast, LargeToast, ServiceWorkerUpdateToast, UndoToast} from "components/molecules";
 import {
@@ -62,24 +61,21 @@ const ToastMessages = ({toasts = [], onToastAction}: ToastMessagesProps) => {
     const toastMessages = transition((style, {id, type, message, title, ...toastActions}) => {
         const {Toast, actions, variant} = toastTypeMappings[type];
 
-        type ActionProps = {[K in typeof actions[number]]: () => void};
+        type ActionProps = {[K in (typeof actions)[number]]: () => void};
 
         // Look, I couldn't figure out how to type `reduce` properly, so we're just
         // chucking some anys in here and calling it a day.
         //
         // Here's some references for how/why the ActionProps type works:
         // https://stackoverflow.com/a/52174119, https://stackoverflow.com/a/54071129
-        //
-        // @ts-ignore
         const actionProps: ActionProps = actions.reduce((acc: any, action: string) => {
-            // @ts-ignore See above.
             acc[action] = () => onToastAction(toastActions[action]);
             return acc;
         }, {});
 
         return (
-            // `as any` workaround for https://github.com/pmndrs/react-spring/issues/1102.
-            <animated.div style={style as any}>
+            // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
+            <animated.div style={style}>
                 <Toast
                     key={id}
                     message={message}
@@ -98,4 +94,5 @@ const ToastMessages = ({toasts = [], onToastAction}: ToastMessagesProps) => {
     );
 };
 
-export default connect(ToastMessages);
+const ConnectedToastMessages = connect(ToastMessages);
+export default ConnectedToastMessages;

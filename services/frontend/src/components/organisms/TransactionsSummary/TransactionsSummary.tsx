@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {memo, useMemo} from "react";
 import {Card, TextField} from "components/atoms";
 import {TransactionTypeSummary} from "components/molecules";
 import {useCurrencySymbol} from "hooks/";
@@ -25,7 +25,7 @@ interface TransactionsSummaryProps {
 
 /** A summary view for a list of transactions that breaks down the amounts by each income/expense
  *  account, as well as showing the overall cash flow. */
-const TransactionsSummary = React.memo(
+const TransactionsSummary = memo(
     ({className, expenseAccounts, incomeAccounts, cashFlow}: TransactionsSummaryProps) => {
         const {hiddenAccountsMap, toggleAccountVisibility} = useHiddenAccounts();
 

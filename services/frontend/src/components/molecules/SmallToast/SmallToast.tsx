@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useRef} from "react";
+import {useRef} from "react";
 import {animated} from "react-spring";
 import {CloseIcon} from "assets/icons";
 import {CircularCountdown, IconButton, LinkButton, TextField} from "components/atoms";
@@ -38,6 +38,7 @@ const SmallToast = ({className, actionLabel, message, onAction, onClose}: SmallT
     const onActionKeydown = useOnActiveKey(onActionClick);
 
     return (
+        // @ts-expect-error Missing children prop: https://github.com/pmndrs/react-spring/issues/2358
         <animated.div
             className={classNames("SmallToast", className)}
             aria-label={message}

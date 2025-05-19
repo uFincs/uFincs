@@ -1,21 +1,31 @@
-import {text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import OverlineHeading from "./OverlineHeading";
 
-export default {
+const meta: Meta<typeof OverlineHeading> = {
     title: "Atoms/Overline Heading",
-    component: OverlineHeading
+    component: OverlineHeading,
+    args: {
+        children: "Login",
+        size: "normal"
+    }
 };
 
+export default meta;
+type Story = StoryObj<typeof OverlineHeading>;
+
 /** The normal size of an `OverlineHeading`. */
-export const Normal = () => <OverlineHeading>{text("Heading", "Login")}</OverlineHeading>;
+export const Normal: Story = {};
 
 /** The large size of an `OverlineHeading`. */
-export const Large = () => (
-    <OverlineHeading size="large">{text("Heading", "Login")}</OverlineHeading>
-);
+export const Large: Story = {
+    args: {
+        size: "large"
+    }
+};
 
 /** The small size of an `OverlineHeading`. */
-export const Small = () => (
-    <OverlineHeading size="small">{text("Heading", "Login")}</OverlineHeading>
-);
+export const Small: Story = {
+    args: {
+        size: "small"
+    }
+};

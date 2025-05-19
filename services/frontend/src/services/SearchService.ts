@@ -156,13 +156,16 @@ export default class SearchService {
 
     static _removeDuplicates(transactions: Array<TransactionData | null>): Array<TransactionData> {
         return Object.values(
-            transactions.reduce((acc, transaction) => {
-                if (transaction && !(transaction.id in acc)) {
-                    acc[transaction.id] = transaction;
-                }
+            transactions.reduce(
+                (acc, transaction) => {
+                    if (transaction && !(transaction.id in acc)) {
+                        acc[transaction.id] = transaction;
+                    }
 
-                return acc;
-            }, {} as Record<string, TransactionData>)
+                    return acc;
+                },
+                {} as Record<string, TransactionData>
+            )
         );
     }
 

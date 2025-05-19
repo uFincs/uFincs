@@ -1,24 +1,32 @@
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {smallViewport, storyUsingRedux, useCreateImportRules} from "utils/stories";
 import ImportRulesListItem from "./ImportRulesListItem";
 
-export default {
+const meta: Meta<typeof ImportRulesListItem> = {
     title: "Molecules/Import Rules List Item",
     component: ImportRulesListItem
 };
 
-/** The default view of `ImportRulesListItem`. */
-export const Default = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
+export default meta;
+type Story = StoryObj<typeof ImportRulesListItem>;
 
-    return <ImportRulesListItem id={rules[1].id} />;
-});
+/** The default view of `ImportRulesListItem`. */
+export const Default: Story = {
+    render: storyUsingRedux((args) => {
+        const rules = useCreateImportRules();
+
+        return <ImportRulesListItem {...args} id={rules?.[0]?.id} />;
+    })
+};
 
 /** The small view of `ImportRulesListItem`. */
-export const Small = storyUsingRedux(() => {
-    const rules = useCreateImportRules();
+export const Small: Story = {
+    parameters: {
+        ...smallViewport
+    },
+    render: storyUsingRedux((args) => {
+        const rules = useCreateImportRules();
 
-    return <ImportRulesListItem id={rules[1].id} />;
-});
-
-Small.parameters = smallViewport;
+        return <ImportRulesListItem {...args} id={rules?.[0]?.id} />;
+    })
+};

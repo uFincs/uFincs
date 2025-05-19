@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {CurrentAmount, TextField} from "components/atoms";
 import connect, {ConnectedProps} from "./connect";
 import "./CurrentNetWorthIndicator.scss";
@@ -25,4 +24,5 @@ const CurrentNetWorthIndicator = ({
 );
 
 export const PureComponent = CurrentNetWorthIndicator;
-export default connect(CurrentNetWorthIndicator);
+export const ConnectedCurrentNetWorthIndicator = connect(CurrentNetWorthIndicator);
+export default ConnectedCurrentNetWorthIndicator;

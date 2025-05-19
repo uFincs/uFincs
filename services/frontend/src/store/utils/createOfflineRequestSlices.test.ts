@@ -65,6 +65,7 @@ describe("OfflineRequestSlice", () => {
         const dummyPayload = {some: "data"};
 
         const generateDummySagas = (
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             watchSagaWrapper: Function,
             successAction: PayloadActionCreator<any>
         ) => {

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {ChevronDownIcon, UserIcon} from "assets/icons";
 import "./UserAvatar.scss";
 

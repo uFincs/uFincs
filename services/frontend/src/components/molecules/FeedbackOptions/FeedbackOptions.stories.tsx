@@ -1,8 +1,8 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import FeedbackOptions from "./FeedbackOptions";
 
-export default {
+const meta: Meta<typeof FeedbackOptions> = {
     title: "Molecules/Feedback Options",
     component: FeedbackOptions,
     parameters: {
@@ -12,7 +12,14 @@ export default {
     }
 };
 
+export default meta;
+type Story = StoryObj<typeof FeedbackOptions>;
+
 const optionActions = actions("onTypeSelected");
 
 /** The default view of `FeedbackOptions`. */
-export const Default = () => <FeedbackOptions {...optionActions} />;
+export const Default: Story = {
+    args: {
+        ...optionActions
+    }
+};

@@ -1,13 +1,13 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import {PureComponent as ChangePasswordForm} from "./ChangePasswordForm";
 
-export default {
+const meta: Meta<typeof ChangePasswordForm> = {
     title: "Organisms/Change Password Form",
     component: ChangePasswordForm
 };
 
-const formActions = actions("onSubmit");
+export default meta;
+type Story = StoryObj<typeof ChangePasswordForm>;
 
 /** The default view of `ChangePasswordForm`. */
-export const Default = () => <ChangePasswordForm {...formActions} />;
+export const Default: Story = {};

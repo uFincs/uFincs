@@ -1,7 +1,7 @@
 import "fast-text-encoding";
-import crypto from "isomorphic-webcrypto";
 
 const encoder = new TextEncoder();
+const crypto = self.crypto;
 
 /** Utility function for hashing a password using SHA-512. And now to explain _why_...
  *

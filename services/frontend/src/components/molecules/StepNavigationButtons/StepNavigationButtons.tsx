@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useCallback, useState} from "react";
+import {useCallback, useState} from "react";
 import {Button, LinkButton} from "components/atoms";
 import {SubmitButton} from "components/molecules";
 import "./StepNavigationButtons.scss";

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {LinkButton} from "components/atoms";
 import {FormHeader, SubmitButton} from "components/molecules";
 import {FormHeaderProps} from "components/molecules/FormHeader";

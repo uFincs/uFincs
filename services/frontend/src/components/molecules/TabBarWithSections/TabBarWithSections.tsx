@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {Divider} from "components/atoms";
 import {TabBar} from "components/molecules";
 import {TabForSection, useTabBarWithSections} from "./hooks";

@@ -1,10 +1,11 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .BackgroundBlur {
     @include react-transition-fade();
 
     backdrop-filter: blur(2px);
-    background-color: transparentize($color: $color-neutral-800, $amount: 0.7);
+    background-color: color.adjust($color: $color-neutral-800, $alpha: -0.7);
     bottom: 0;
     height: 100%;
     left: 0;

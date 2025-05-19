@@ -1,9 +1,10 @@
-import crypto from "isomorphic-webcrypto";
+import {webcrypto as crypto} from "node:crypto";
+import {vi} from "vitest";
 import {CryptoPrimitives, E2ECrypto, StringEncoder} from "./crypto";
 
 // Increase timeout since the crypto functions can take a while to run, which is further
 // worsened when running the CI pipeline in parallel.
-jest.setTimeout(60000);
+vi.setConfig({testTimeout: 60000});
 
 describe("E2ECrypto", () => {
     const userId = "user-123";

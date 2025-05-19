@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useRef} from "react";
+import {useRef} from "react";
 import {CSSTransition} from "react-transition-group";
 import {transitionShortLength as animationTime} from "utils/parsedStyles";
 import connect, {ConnectedProps} from "./connect";
@@ -33,4 +33,5 @@ const BackgroundBlur = ({className, isVisible}: BackgroundBlurProps) => {
     );
 };
 
-export default connect(BackgroundBlur);
+export const ConnectedBackgroundBlur = connect(BackgroundBlur);
+export default ConnectedBackgroundBlur;

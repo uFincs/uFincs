@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {LoadingSpinner, ShadowButton, TextField} from "components/atoms";
 import {ButtonProps} from "components/atoms/Button";
 import "./SubmitButton.scss";

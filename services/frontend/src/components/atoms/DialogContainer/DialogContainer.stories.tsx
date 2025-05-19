@@ -1,19 +1,17 @@
-import {actions} from "@storybook/addon-actions";
-import {boolean} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import DialogContainer from "./DialogContainer";
 
-export default {
+const meta: Meta<typeof DialogContainer> = {
     title: "Atoms/Dialog Container",
-    component: DialogContainer
+    component: DialogContainer,
+    args: {
+        isVisible: true,
+        title: "Test Dialog"
+    }
 };
 
-const dialogActions = actions("onClose");
-const visibilityKnob = () => boolean("isVisible", true);
+export default meta;
+type Story = StoryObj<typeof DialogContainer>;
 
 /** The default view of `DialogContainer`. */
-export const Default = () => (
-    <DialogContainer isVisible={visibilityKnob()} title="Test Dialog" {...dialogActions}>
-        <p>This is a dialog</p>
-    </DialogContainer>
-);
+export const Default: Story = {};

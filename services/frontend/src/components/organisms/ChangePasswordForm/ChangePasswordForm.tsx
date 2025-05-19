@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {TextField} from "components/atoms";
 import {LabelledInput, SubmitButton} from "components/molecules";
@@ -86,4 +86,5 @@ const ChangePasswordForm = ({className, error, loading, onSubmit}: ChangePasswor
 };
 
 export const PureComponent = ChangePasswordForm;
-export default connect(ChangePasswordForm);
+export const ConnectedChangePasswordForm = connect(ChangePasswordForm);
+export default ConnectedChangePasswordForm;

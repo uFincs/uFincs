@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import * as React from "react";
 import {ErrorIcon} from "assets/icons";
 import {IconButton, ListItemCheckbox} from "components/atoms";
 import {IconButtonProps} from "components/atoms/IconButton";

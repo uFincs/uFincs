@@ -1,13 +1,17 @@
 import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import ImportRulesTableColumnHeaders from "./ImportRulesTableColumnHeaders";
 
-export default {
+const meta: Meta<typeof ImportRulesTableColumnHeaders> = {
     title: "Molecules/Import Rules Table Column Headers",
     component: ImportRulesTableColumnHeaders
 };
 
-const headerActions = actions("onSortChange");
+export default meta;
+type Story = StoryObj<typeof ImportRulesTableColumnHeaders>;
 
 /** The default view of `ImportRulesTableColumnHeaders`. */
-export const Default = () => <ImportRulesTableColumnHeaders {...headerActions} />;
+export const Default: Story = {
+    args: {},
+    render: () => <ImportRulesTableColumnHeaders {...actions("onSortChange")} />
+};

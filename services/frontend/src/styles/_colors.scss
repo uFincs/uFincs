@@ -1,0 +1,193 @@
+/** Primary - Indigo **/
+
+$color-primary-100: hsl(220, 100%, 97%);
+$color-primary-200: hsl(220, 96%, 90%);
+$color-primary-300: hsl(222, 93%, 82%);
+$color-primary-400: hsl(224, 92%, 75%);
+$color-primary-500: hsl(226, 90%, 66%);
+$color-primary-600: hsl(228, 74%, 60%);
+$color-primary-700: hsl(230, 58%, 53%);
+$color-primary-800: hsl(232, 35%, 40%);
+$color-primary-900: hsl(234, 34%, 34%);
+
+/** Neutral - Grey tinted with Blue **/
+
+$color-neutral-100: hsl(204, 60%, 98%);
+$color-neutral-200: hsl(210, 53%, 95%);
+$color-neutral-300: hsl(214, 47%, 91%);
+$color-neutral-400: hsl(211, 40%, 84%);
+$color-neutral-500: hsl(214, 35%, 69%);
+$color-neutral-600: hsl(216, 25%, 52%);
+$color-neutral-700: hsl(218, 32%, 35%);
+$color-neutral-800: hsl(211, 54%, 23%);
+$color-neutral-900: hsl(220, 41%, 14%);
+
+/** Positive - Green **/
+
+$color-positive-100: hsl(136, 100%, 97%);
+$color-positive-200: hsl(139, 73%, 87%);
+$color-positive-300: hsl(141, 60%, 75%);
+$color-positive-400: hsl(143, 55%, 62%);
+$color-positive-500: hsl(145, 46%, 51%);
+$color-positive-600: hsl(148, 48%, 43%);
+$color-positive-700: hsl(150, 48%, 35%);
+$color-positive-800: hsl(152, 45%, 28%);
+$color-positive-900: hsl(152, 42%, 23%);
+
+/** Negative - Red **/
+
+$color-negative-100: hsl(0, 100%, 98%);
+$color-negative-200: hsl(0, 95%, 92%);
+$color-negative-300: hsl(0, 97%, 85%);
+$color-negative-400: hsl(0, 95%, 75%);
+$color-negative-500: hsl(0, 88%, 68%);
+$color-negative-600: hsl(0, 76%, 57%);
+$color-negative-700: hsl(0, 61%, 48%);
+$color-negative-800: hsl(0, 58%, 39%);
+$color-negative-900: hsl(0, 47%, 31%);
+
+/** Warning - Yellow **/
+
+$color-warning-100: hsl(60, 100%, 94%);
+$color-warning-200: hsl(58, 97%, 87%);
+$color-warning-300: hsl(55, 92%, 76%);
+$color-warning-400: hsl(51, 89%, 67%);
+$color-warning-500: hsl(47, 81%, 61%);
+$color-warning-600: hsl(40, 67%, 51%);
+$color-warning-700: hsl(36, 71%, 42%);
+$color-warning-800: hsl(32, 75%, 34%);
+$color-warning-900: hsl(30, 76%, 26%);
+
+/** Support - Purple **/
+
+$color-support-100: hsl(270, 100%, 98%);
+$color-support-200: hsl(268, 90%, 92%);
+$color-support-300: hsl(265, 86%, 86%);
+$color-support-400: hsl(262, 81%, 77%);
+$color-support-500: hsl(260, 73%, 70%);
+$color-support-600: hsl(259, 59%, 59%);
+$color-support-700: hsl(258, 50%, 52%);
+$color-support-800: hsl(256, 44%, 42%);
+$color-support-900: hsl(254, 41%, 34%);
+
+/** Future - Pink */
+
+$color-future-100: hsl(326, 78%, 95%);
+$color-future-200: hsl(326, 85%, 90%);
+$color-future-300: hsl(327, 87%, 82%);
+$color-future-400: hsl(329, 86%, 70%);
+$color-future-500: hsl(330, 81%, 60%);
+$color-future-600: hsl(333, 71%, 51%);
+$color-future-700: hsl(335, 78%, 42%);
+$color-future-800: hsl(336, 74%, 35%);
+$color-future-900: hsl(336, 69%, 30%);
+
+/** Black & White **/
+
+$color-black: hsl(0, 0%, 0%);
+$color-white: hsl(0, 0%, 100%);
+
+/** Semantic Colors **/
+
+$color-primary: $color-primary-500;
+$color-primary-dark: $color-primary-800;
+$color-primary-light: $color-primary-100;
+$color-primary-hover: $color-primary-700;
+$color-primary-disabled: $color-primary-300;
+$color-primary-outline: $color-primary-300;
+
+$color-light: $color-white;
+
+$color-text-primary: $color-neutral-700;
+$color-text-secondary: $color-neutral-600;
+$color-text-tertiary: $color-neutral-500;
+$color-text-disabled: $color-neutral-500;
+
+$color-background-neutral: $color-neutral-200;
+$color-background-dark: $color-primary-900;
+$color-background-light: $color-light;
+
+$color-positive: $color-positive-500;
+$color-positive-dark: $color-positive-700;
+$color-positive-light: $color-positive-300;
+
+$color-negative: $color-negative-500;
+$color-negative-dark: $color-negative-700;
+$color-negative-light: $color-negative-300;
+
+// Need a slightly darker red for better contrast.
+// Even though it still doesn't reach 4.5... it looks good enough.
+// Using $color-negative-700 _does_ reach 4.5 contrast, but it looks _too_ dark.
+$color-negative-text: $color-negative-600;
+
+$color-warning: $color-warning-500;
+$color-warning-dark: $color-warning-700;
+$color-warning-light: $color-warning-300;
+
+$color-support: $color-support-500;
+$color-support-dark: $color-support-700;
+$color-support-light: $color-support-300;
+
+$color-input-placeholder: $color-text-tertiary;
+
+/** Color Maps **/
+
+$color-positives: (
+    "color-positive-100": $color-positive-100,
+    "color-positive-200": $color-positive-200,
+    "color-positive-300": $color-positive-300,
+    "color-positive-400": $color-positive-400,
+    "color-positive-500": $color-positive-500,
+    "color-positive-600": $color-positive-600,
+    "color-positive-700": $color-positive-700,
+    "color-positive-800": $color-positive-800,
+    "color-positive-900": $color-positive-900,
+    "color-positive": $color-positive,
+    "color-positive-light": $color-positive-light,
+    "color-positive-dark": $color-positive-dark
+);
+
+$color-negatives: (
+    "color-negative-100": $color-negative-100,
+    "color-negative-200": $color-negative-200,
+    "color-negative-300": $color-negative-300,
+    "color-negative-400": $color-negative-400,
+    "color-negative-500": $color-negative-500,
+    "color-negative-600": $color-negative-600,
+    "color-negative-700": $color-negative-700,
+    "color-negative-800": $color-negative-800,
+    "color-negative-900": $color-negative-900,
+    "color-negative": $color-negative,
+    "color-negative-light": $color-negative-light,
+    "color-negative-dark": $color-negative-dark
+);
+
+$color-warnings: (
+    "color-warning-100": $color-warning-100,
+    "color-warning-200": $color-warning-200,
+    "color-warning-300": $color-warning-300,
+    "color-warning-400": $color-warning-400,
+    "color-warning-500": $color-warning-500,
+    "color-warning-600": $color-warning-600,
+    "color-warning-700": $color-warning-700,
+    "color-warning-800": $color-warning-800,
+    "color-warning-900": $color-warning-900,
+    "color-warning": $color-warning,
+    "color-warning-light": $color-warning-light,
+    "color-warning-dark": $color-warning-dark
+);
+
+$color-supports: (
+    "color-support-100": $color-support-100,
+    "color-support-200": $color-support-200,
+    "color-support-300": $color-support-300,
+    "color-support-400": $color-support-400,
+    "color-support-500": $color-support-500,
+    "color-support-600": $color-support-600,
+    "color-support-700": $color-support-700,
+    "color-support-800": $color-support-800,
+    "color-support-900": $color-support-900,
+    "color-support": $color-support,
+    "color-support-light": $color-support-light,
+    "color-support-dark": $color-support-dark
+);

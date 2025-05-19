@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {
     VictoryArea,
     VictoryAxis,
@@ -68,10 +67,6 @@ const DateAmountLineChart = ({
                     left: yAxisPadding
                 }}
                 scale={{x: "time"}}
-                // Yeah, the types for the theme are wrong (makes sense considering they aren't
-                // first party...). It specifies that padding should be a number when clearly
-                // it can also be an object with padding values for each direction.
-                // @ts-ignore
                 theme={ChartTheme}
                 height={height}
                 width={width}
@@ -122,4 +117,5 @@ const DateAmountLineChart = ({
     );
 };
 
-export default connect(DateAmountLineChart);
+export const ConnectedDateAmountLineChart = connect(DateAmountLineChart);
+export default ConnectedDateAmountLineChart;

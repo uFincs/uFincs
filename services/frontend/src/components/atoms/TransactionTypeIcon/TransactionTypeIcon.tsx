@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {ArrowDownIcon, ArrowRightIcon, ArrowUpIcon, CheckIcon, CreditCardIcon} from "assets/icons";
 import {useOnActiveKey, useStopPropagationCallback} from "hooks/";
 import {Transaction, TransactionType} from "models/";

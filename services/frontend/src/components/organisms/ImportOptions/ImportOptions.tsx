@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {DocumentIcon} from "assets/icons";
 import {ImportOptionButton} from "components/molecules";
 import connect, {ConnectedProps} from "./connect";
@@ -27,4 +27,5 @@ const ImportOptions = ({className, onImportCSV}: ImportOptionsProps) => {
 };
 
 export const PureComponent = ImportOptions;
-export default connect(ImportOptions);
+export const ConnectedImportOptions = connect(ImportOptions);
+export default ConnectedImportOptions;

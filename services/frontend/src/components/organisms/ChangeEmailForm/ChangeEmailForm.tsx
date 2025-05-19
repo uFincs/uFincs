@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {TextField} from "components/atoms";
 import {LabelledInput, SubmitButton} from "components/molecules";
@@ -82,4 +82,5 @@ const ChangeEmailForm = ({
 };
 
 export const PureComponent = ChangeEmailForm;
-export default connect(ChangeEmailForm);
+export const ConnectedChangeEmailForm = connect(ChangeEmailForm);
+export default ConnectedChangeEmailForm;

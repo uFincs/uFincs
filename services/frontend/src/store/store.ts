@@ -12,7 +12,7 @@ import createRootReducer from "./rootReducer";
 import registerSagas from "./sagas";
 import {unhandledErrorsSlice} from "./slices";
 import storage from "./storage";
-import {objectifyError} from "./utils/objectifyError";
+import {objectifyError} from "./utils";
 
 const persistConfig = {
     key: "ufincs",

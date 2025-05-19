@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import {ImportRulesList, ImportRulesTable} from "components/organisms";
 import {useWindowWidthBreakpoint} from "hooks/";
 import {ImportRulesViewProps} from "utils/componentTypes";
@@ -9,7 +9,7 @@ interface CombinedImportRulesViewProps extends ImportRulesViewProps {}
 
 /** The combination of the `ImportRulesList` (mobile) and `ImportRulesTable` (desktop) to
  *  create a single responsive view for displaying import rules. */
-const CombinedImportRulesView = React.memo((props: CombinedImportRulesViewProps) => {
+const CombinedImportRulesView = memo((props: CombinedImportRulesViewProps) => {
     const showTable = useWindowWidthBreakpoint(navigationBreakpointMatches);
 
     return (

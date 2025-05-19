@@ -1,20 +1,25 @@
-import {number, text} from "@storybook/addon-knobs";
-import React from "react";
+import type {Meta} from "@storybook/react";
 import {PaginationSwitcher} from "components/molecules";
 import {PaginationProvider} from "hooks/";
 import PaginationSummary from "./PaginationSummary";
 
-export default {
+const meta: Meta<typeof PaginationSummary> = {
     title: "Molecules/Pagination Summary",
-    component: PaginationSummary
+    component: PaginationSummary,
+    decorators: [
+        (Story) => (
+            <PaginationProvider totalItems={500}>
+                <Story />
+            </PaginationProvider>
+        )
+    ]
 };
 
-const totalKnob = (defaultTotal: number = 500) => number("Total Items", defaultTotal);
-const nameKnob = () => text("Item Name", "transactions");
+export default meta;
 
 const BaseStory = ({defaultTotal = 500}) => (
-    <PaginationProvider totalItems={totalKnob(defaultTotal)}>
-        <PaginationSummary itemName={nameKnob()} />
+    <PaginationProvider totalItems={defaultTotal}>
+        <PaginationSummary itemName="transactions" />
 
         {/* This is just for testing purposes. */}
         <PaginationSwitcher />

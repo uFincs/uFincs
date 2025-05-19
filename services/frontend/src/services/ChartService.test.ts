@@ -503,7 +503,7 @@ describe("formatMoneyTooltips", () => {
     it("can handle the date not being presented on the data point (can happen with sparse data)", () => {
         const datum2 = {...datum, data: [{date: undefined, amount: 0}], index: "0"};
 
-        // @ts-ignore Allow the date to be undefined.
+        // @ts-expect-error Allow the date to be undefined.
         expect(ChartService.formatMoneyTooltips(ChartDateInterval.days)(datum2)).toBe("");
     });
 });

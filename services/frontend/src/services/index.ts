@@ -6,7 +6,6 @@ export {default as DateService} from "./DateService";
 export {default as DemoDataService} from "./DemoDataService";
 export {default as ImportRulesApplier} from "./ImportRulesApplier";
 export {default as MathUtils} from "./MathUtils";
-export {default as NativePlatformsService} from "./NativePlatformsService";
 export {default as SearchService} from "./SearchService";
 export {default as ServiceWorkerService} from "./ServiceWorkerService";
 export {default as ValueConversion} from "./ValueConversion";

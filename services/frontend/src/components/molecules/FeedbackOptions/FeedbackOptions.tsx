@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {FeedbackOption} from "components/molecules";
 import {Feedback, FeedbackType} from "models/";
 import "./FeedbackOptions.scss";

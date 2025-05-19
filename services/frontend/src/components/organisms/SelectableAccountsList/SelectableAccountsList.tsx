@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import React from "react";
 import {animated, config, useTransition} from "react-spring";
 import {LinkButton, ListSectionHeader} from "components/atoms";
 import {SelectableAccountsListItem} from "components/molecules";

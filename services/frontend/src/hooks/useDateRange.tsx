@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import React, {useCallback, useContext, useReducer, useMemo} from "react";
+import {useCallback, useContext, useReducer, useMemo} from "react";
+import * as React from "react";
 import {DateService} from "services/";
 import {AnyDate, UTCDateString} from "utils/types";
 
@@ -172,7 +174,7 @@ export const shiftByOneInterval = (state: DateState, direction: "forward" | "bac
             state.startDate = formatDate(DateService[yearOp](startDate));
             state.endDate = formatDate(DateService[yearOp](endDate));
             break;
-        case DateRangeSize.custom:
+        case DateRangeSize.custom: {
             // Add 1 because we don't want the next date range to include the existing dates.
             const daysBetween = DateService.daysBetween(startDate, endDate) + 1;
 
@@ -180,6 +182,7 @@ export const shiftByOneInterval = (state: DateState, direction: "forward" | "bac
             state.endDate = formatDate(DateService[daysOp](endDate, daysBetween));
 
             break;
+        }
         default:
             break;
     }

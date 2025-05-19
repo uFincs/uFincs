@@ -41,7 +41,7 @@ export const createEncryptionMiddleware = (schema: FieldsSchema): Middleware => 
 
     const workerPool = new WorkerPool();
 
-    return (store) => (next) => async (action) => {
+    return (_store) => (next) => async (action) => {
         if (action?.type === actions.login.type) {
             // Keep the action moving down the middleware chain, in case someone else wants
             // to do something with it down the line.

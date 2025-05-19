@@ -10,7 +10,7 @@
  *  As such, we're hacking it! Seems like https://stackoverflow.com/a/19715406 had some good
  *  ideas (seen below) on how to detect touch support, so we're going with that instead. */
 const enhanceTouchSupport = () => {
-    const hasTouch = !!("ontouchstart" in window) || window.navigator.msMaxTouchPoints > 0;
+    const hasTouch = !!("ontouchstart" in window) || window.navigator.maxTouchPoints > 0;
 
     if (hasTouch) {
         document.body.classList.add("touch-support");

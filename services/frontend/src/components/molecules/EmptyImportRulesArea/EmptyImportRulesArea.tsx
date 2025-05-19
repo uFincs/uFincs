@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import {Rules} from "assets/graphics";
 import {EmptyArea} from "components/molecules";
 import "./EmptyImportRulesArea.scss";

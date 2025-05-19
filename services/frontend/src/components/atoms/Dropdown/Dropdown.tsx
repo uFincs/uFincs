@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import useDropdownMenu from "react-accessible-dropdown-menu-hook";
 import {Button} from "components/atoms";
 import {useEscapeKeyCloseable} from "hooks/";
@@ -20,6 +20,7 @@ interface Item {
     link?: string;
 
     /** The function to trigger when the item is clicked. */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     onClick?: Function;
 }
 
@@ -66,6 +67,7 @@ const Dropdown = ({
     // Need a wrapper so that clicking on an item closes the dropdown.
     // For some reason, it doesn't do this by default.
     // (but hitting Enter on an item will close it :thinking-face:)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     const itemOnClickWrapper = (onClick: Function) => () => {
         onClick();
         setIsOpen(false);

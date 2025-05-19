@@ -1,4 +1,5 @@
-@import "styles/_shared.scss";
+@use "sass:color";
+@import "@/styles/_shared";
 
 .SmallToast {
     @include animate-transition-shadow();
@@ -8,7 +9,7 @@
     align-items: center;
     background-color: $color-primary-dark;
     border-radius: $border-radius-normal;
-    box-shadow: 0 3px 6px transparentize($color: $color-primary, $amount: 0.4);
+    box-shadow: 0 3px 6px color.adjust($color: $color-primary, $alpha: -0.4);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -22,7 +23,7 @@
 
     @include transition-shadow {
         // Setup a bigger shadow for hovering.
-        box-shadow: 0 4px 12px transparentize($color: $color-primary, $amount: 0.4);
+        box-shadow: 0 4px 12px color.adjust($color: $color-primary, $alpha: -0.4);
     }
 
     @include media-query-medium {
@@ -70,11 +71,11 @@
                 }
 
                 %hover-action {
-                    background-color: lighten($color-primary-dark, 15%);
+                    background-color: color.adjust($color-primary-dark, $lightness: 15%);
                 }
 
                 %active-override-action {
-                    background-color: lighten($color-primary-dark, 20%);
+                    background-color: color.adjust($color-primary-dark, $lightness: 20%);
                 }
             }
         }
@@ -91,11 +92,11 @@
                 }
 
                 %hover-close-button {
-                    background-color: lighten($color-primary-dark, 15%);
+                    background-color: color.adjust($color-primary-dark, $lightness: 15%);
                 }
 
                 %active-override-close-button {
-                    background-color: lighten($color-primary-dark, 20%);
+                    background-color: color.adjust($color-primary-dark, $lightness: 20%);
                 }
             }
 

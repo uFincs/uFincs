@@ -1,13 +1,15 @@
-import {actions} from "@storybook/addon-actions";
-import React from "react";
+import type {Meta, StoryObj} from "@storybook/react";
 import WelcomeStep from "./WelcomeStep";
 
-export default {
+const meta: Meta<typeof WelcomeStep> = {
     title: "Scenes/Onboarding/Step/Welcome",
     component: WelcomeStep
 };
 
-const stepActions = actions("onSubmit");
+export default meta;
+type Story = StoryObj<typeof WelcomeStep>;
 
 /** The default view of `WelcomeStep`. */
-export const Default = () => <WelcomeStep {...stepActions} />;
+export const Default: Story = {
+    args: {}
+};
