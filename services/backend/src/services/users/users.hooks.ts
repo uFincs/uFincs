@@ -20,7 +20,7 @@ const {hashPassword, protect} = local.hooks;
 
 const validateUser = () => (context: HookContext) => {
     const userId = context.id;
-    const authenticatedUserId = context.params.user.id;
+    const authenticatedUserId = context?.params?.user?.id;
 
     if (userId !== authenticatedUserId) {
         throw new errors.Forbidden("Access denied: you don't own this account");
@@ -86,21 +86,21 @@ const sendConfirmationEmailHook = () => async (context: HookContext) => {
     const notifier = createNotifier(context.app as Application);
 
     if (context.data?.email) {
-        const options = {oldEmail: context.params.user.email, newEmail: context.data.email};
+        const options = {oldEmail: context?.params?.user?.email, newEmail: context.data.email};
 
         // Send an email to their old email.
-        await notifier("identityChange", context.params.user, options);
+        await notifier("identityChange", context.params.user as any, options);
 
         // Send an email to their new email.
         await notifier("identityChange", {email: options.newEmail}, options);
     } else if (context.data?.password) {
-        await notifier("changePassword", context.params.user);
+        await notifier("changePassword", context.params.user as any);
     }
 };
 
 const sendAccountDeletionEmailHook = () => async (context: HookContext) => {
     const notifier = createNotifier(context.app as Application);
-    await notifier("deleteUserAccount", context.params.user);
+    await notifier("deleteUserAccount", context.params.user as any);
 };
 
 const updateDeletedUserProperties = () => async (context: HookContext) => {
@@ -108,9 +108,9 @@ const updateDeletedUserProperties = () => async (context: HookContext) => {
     // (password, edek, kekSalt) as well as overwrite the user's email so that the email is freed up
     // for use by a new user.
     await context.app.service("users").patch(
-        context.params.user.id,
+        context?.params?.user?.id,
         {
-            email: User.generateDeletedEmail(context.params.user),
+            email: User.generateDeletedEmail(context.params.user as any),
             // Use an empty string here because `allowNull: false` is set on password.
             password: "",
             edek: null,

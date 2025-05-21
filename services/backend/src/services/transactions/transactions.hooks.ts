@@ -9,7 +9,9 @@ const validateTransactionData = (transactionData: Partial<Transaction>) => {
     try {
         Transaction.validate(transactionData);
     } catch (e) {
-        throw new errors.BadRequest(e.message);
+        if (e instanceof Error) {
+            throw new errors.BadRequest(e.message);
+        }
     }
 };
 
@@ -100,7 +102,7 @@ const validateTransactionOwnerHook = () => async (context: HookContext) => {
         data = Array.isArray(context.data) ? context.data : [context.data];
     }
 
-    const authenticatedUserId = context.params.user.id;
+    const authenticatedUserId = context?.params?.user?.id;
     const accountsService = context.app.service("accounts");
 
     // Instantiate the validator so that it shares the cache between all transactions to be validated.

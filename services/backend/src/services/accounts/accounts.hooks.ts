@@ -65,7 +65,9 @@ const validateAccountData = () => (context: HookContext) => {
             Account.validate(context.data);
         }
     } catch (e) {
-        throw new errors.BadRequest(e.message);
+        if (e instanceof Error) {
+            throw new errors.BadRequest(e.message);
+        }
     }
 
     return context;
@@ -73,7 +75,7 @@ const validateAccountData = () => (context: HookContext) => {
 
 const validateAccountOwner = () => async (context: HookContext) => {
     const accountId = context.id;
-    const authenticatedUserId = context.params.user.id;
+    const authenticatedUserId = context?.params?.user?.id;
 
     const account = await context.app.service("accounts").get(accountId);
 

@@ -2,7 +2,7 @@ import {HookContext} from "@feathersjs/feathers";
 
 const includeUserId = () => (context: HookContext) => {
     const {data} = context;
-    const userId = context.params.user.id;
+    const userId = context?.params?.user?.id;
 
     if (Array.isArray(data)) {
         const dataWithIds = data.map((singleItem) => {

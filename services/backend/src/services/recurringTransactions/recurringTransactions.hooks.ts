@@ -9,7 +9,9 @@ const validateData = (transactionData: Partial<RecurringTransaction>) => {
     try {
         RecurringTransaction.validate(transactionData);
     } catch (e) {
-        throw new errors.BadRequest(e.message);
+        if (e instanceof Error) {
+            throw new errors.BadRequest(e.message);
+        }
     }
 };
 
@@ -22,7 +24,7 @@ const validateDataHook = () => (context: HookContext) => {
 
 const validateOwnerHook = () => async (context: HookContext) => {
     const id = context.id;
-    const userId = context.params.user.id;
+    const userId = context?.params?.user?.id;
 
     const recurringTransaction = await context.app.service("recurringTransactions").get(id);
 

@@ -22,15 +22,15 @@ const isSentAnonymously = () => (context: HookContext) => !!context.data.isAnony
 const notifyFeedback = () => async (context: HookContext) => {
     const {message, type, userId} = context.result;
 
+    let notifierMessage = userId
+        ? `${userId} sent *${type}* feedback:`
+        : `Anonymous *${type}* feedback:`;
+
+    notifierMessage += "\n\n";
+    notifierMessage += message;
+
     await context.app.service("internalNotifier").create({
-        message: {
-            text: userId ? `${userId} sent *${type}* feedback:` : `Anonymous *${type}* feedback:`,
-            attachments: [
-                {
-                    text: message
-                }
-            ]
-        }
+        message: notifierMessage
     });
 };
 

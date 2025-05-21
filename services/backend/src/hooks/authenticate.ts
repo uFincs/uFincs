@@ -10,7 +10,7 @@ const {authenticate: originalAuthenticate} = authentication.hooks;
 const hasActiveSubscription = () => async (context: HookContext) => {
     const subscriptions = await context.app.service("subscriptions").find({
         query: {
-            userId: context.params.user.id
+            userId: context?.params?.user?.id
         }
     });
 
